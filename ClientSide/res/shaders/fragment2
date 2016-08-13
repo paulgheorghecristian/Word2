@@ -1,0 +1,25 @@
+#version 330 core
+
+uniform vec4 color_vector;
+out vec4 out_Color;
+
+in vec2 text_coords;
+
+uniform sampler2D txtr;
+
+uniform int has_texture;
+
+void main(){
+
+	//general shader
+	vec4 text_color = texture(txtr, text_coords);
+
+	if(has_texture == 1){
+		if(text_color.rgb == vec3(0,0,0)){
+			discard;
+		}
+		out_Color = vec4(text_color.xyz, 1.0);
+	}else{
+		out_Color = vec4(color_vector.xyz, 1.0);
+	}
+}

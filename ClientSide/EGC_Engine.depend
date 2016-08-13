@@ -1,0 +1,411 @@
+# depslib dependency file v1.0
+1446994065 source:/home/paul/Desktop/opengl/EGC_Engine/display.cpp
+	"display.h"
+
+1446742529 /home/paul/Desktop/opengl/EGC_Engine/display.h
+	<SDL2/SDL.h>
+	<iostream>
+	<GL/glew.h>
+	<glm/glm.hpp>
+
+1446991691 source:/home/paul/Desktop/opengl/EGC_Engine/main.cpp
+	<iostream>
+	"display.h"
+	"shader.h"
+	"mesh.h"
+	<vector>
+	<glm/gtc/matrix_transform.hpp>
+	"entity.h"
+	<vector>
+	"input.h"
+	<time.h>
+	<stdlib.h>
+	<stdio.h>
+	"physics.h"
+	<math.h>
+
+1446981988 source:/home/paul/Desktop/opengl/EGC_Engine/mesh.cpp
+	"mesh.h"
+
+1445887888 /home/paul/Desktop/opengl/EGC_Engine/mesh.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<vector>
+
+1446840342 /home/paul/Desktop/opengl/EGC_Engine/shader.h
+	<stdlib.h>
+	<stdio.h>
+	<string>
+	<fstream>
+	<iostream>
+	<GL/glew.h>
+	<string.h>
+	<glm/glm.hpp>
+
+1446982063 source:/home/paul/Desktop/opengl/EGC_Engine/shader.cpp
+	"shader.h"
+	<glm/gtc/type_ptr.hpp>
+
+1446840374 /home/paul/Desktop/opengl/EGC_Engine/entity.h
+	"mesh.h"
+	<glm/glm.hpp>
+	"shader.h"
+	<GL/glew.h>
+	<glm/gtc/matrix_transform.hpp>
+	<string>
+	<vector>
+
+1446982017 source:/home/paul/Desktop/opengl/EGC_Engine/entity.cpp
+	"entity.h"
+
+1446994160 source:/home/paul/Desktop/opengl/EGC_Engine/input.cpp
+	"input.h"
+
+1446008403 /home/paul/Desktop/opengl/EGC_Engine/input.h
+	<SDL2/SDL.h>
+	"display.h"
+	<glm/glm.hpp>
+
+1446248441 /home/paul/Desktop/opengl/EGC_Engine/physics.h
+	"entity.h"
+
+1446981681 source:/home/paul/Desktop/opengl/EGC_Engine/physics.cpp
+	"physics.h"
+
+1447410028 source:/home/paul/Desktop/opengl/Tema2_EGC/entity.cpp
+	"entity.h"
+
+1447409989 /home/paul/Desktop/opengl/Tema2_EGC/entity.h
+	"mesh.h"
+	<glm/glm.hpp>
+	"shader.h"
+	<GL/glew.h>
+	<glm/gtc/matrix_transform.hpp>
+	<string>
+	<vector>
+
+1447340747 /home/paul/Desktop/opengl/Tema2_EGC/mesh.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<vector>
+
+1447787410 /home/paul/Desktop/opengl/Tema2_EGC/shader.h
+	<stdlib.h>
+	<stdio.h>
+	<string>
+	<fstream>
+	<iostream>
+	<GL/glew.h>
+	<string.h>
+	<glm/glm.hpp>
+
+1447492531 source:/home/paul/Desktop/opengl/Tema2_EGC/input.cpp
+	"input.h"
+
+1447492350 /home/paul/Desktop/opengl/Tema2_EGC/input.h
+	<SDL2/SDL.h>
+	"display.h"
+	<glm/glm.hpp>
+
+1446742529 /home/paul/Desktop/opengl/Tema2_EGC/display.h
+	<SDL2/SDL.h>
+	<iostream>
+	<GL/glew.h>
+	<glm/glm.hpp>
+
+1447853000 source:/home/paul/Desktop/opengl/Tema2_EGC/mesh.cpp
+	"mesh.h"
+	<iostream>
+
+1447361830 source:/home/paul/Desktop/opengl/Tema2_EGC/physics.cpp
+	"physics.h"
+
+1447359310 /home/paul/Desktop/opengl/Tema2_EGC/physics.h
+	"entity.h"
+
+1447787427 source:/home/paul/Desktop/opengl/Tema2_EGC/shader.cpp
+	"shader.h"
+	<glm/gtc/type_ptr.hpp>
+
+1447786790 source:/home/paul/Desktop/opengl/Tema2_EGC/display.cpp
+	"display.h"
+
+1448300976 source:/home/paul/Desktop/opengl/Tema2_EGC/main.cpp
+	<iostream>
+	"display.h"
+	"input.h"
+	"shader.h"
+	"mesh.h"
+	"entity.h"
+	<glm/gtc/matrix_transform.hpp>
+	"camera.h"
+	"physics.h"
+	"player.h"
+	"texture.h"
+	"fpscamera.h"
+
+1447504453 source:/home/paul/Desktop/opengl/Tema2_EGC/camera.cpp
+	"camera.h"
+
+1447504460 /home/paul/Desktop/opengl/Tema2_EGC/camera.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<iostream>
+
+1448211661 source:/home/paul/Desktop/opengl/Tema2_EGC/player.cpp
+	"player.h"
+
+1448211656 /home/paul/Desktop/opengl/Tema2_EGC/player.h
+	"entity.h"
+	"display.h"
+
+1448295810 source:/home/paul/Desktop/opengl/Tema2_EGC/texture.cpp
+	"texture.h"
+
+1447787456 /home/paul/Desktop/opengl/Tema2_EGC/texture.h
+	<string>
+	<SDL2/SDL.h>
+	<stdlib.h>
+	<iostream>
+	<GL/glew.h>
+	"shader.h"
+
+1447856919 source:/home/paul/Desktop/opengl/Tema2_EGC/fpscamera.cpp
+	"fpscamera.h"
+
+1447856166 /home/paul/Desktop/opengl/Tema2_EGC/fpscamera.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+
+1449852564 source:/home/paul/Desktop/opengl/Tema3_EGC/display.cpp
+	"display.h"
+
+1446742529 /home/paul/Desktop/opengl/Tema3_EGC/display.h
+	<SDL2/SDL.h>
+	<iostream>
+	<GL/glew.h>
+	<glm/glm.hpp>
+
+1458578711 source:/home/paul/Desktop/opengl/Tema3_EGC/entity.cpp
+	"entity.h"
+
+1447409989 /home/paul/Desktop/opengl/Tema3_EGC/entity.h
+	"mesh.h"
+	<glm/glm.hpp>
+	"shader.h"
+	<GL/glew.h>
+	<glm/gtc/matrix_transform.hpp>
+	<string>
+	<vector>
+
+1448984618 /home/paul/Desktop/opengl/Tema3_EGC/mesh.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<vector>
+	<string>
+	<sstream>
+	<fstream>
+
+1458578081 /home/paul/Desktop/opengl/Tema3_EGC/shader.h
+	<stdlib.h>
+	<stdio.h>
+	<string>
+	<fstream>
+	<iostream>
+	<GL/glew.h>
+	<string.h>
+	<glm/glm.hpp>
+
+1449410676 source:/home/paul/Desktop/opengl/Tema3_EGC/input.cpp
+	"input.h"
+
+1449409865 /home/paul/Desktop/opengl/Tema3_EGC/input.h
+	<SDL2/SDL.h>
+	"display.h"
+	<glm/glm.hpp>
+
+1450178854 source:/home/paul/Desktop/opengl/Tema3_EGC/mesh.cpp
+	"mesh.h"
+	<iostream>
+
+1449997968 source:/home/paul/Desktop/opengl/Tema3_EGC/shader.cpp
+	"shader.h"
+	<glm/gtc/type_ptr.hpp>
+
+1459259083 source:/home/paul/Desktop/opengl/Tema3_EGC/main.cpp
+	<iostream>
+	"display.h"
+	"input.h"
+	"shader.h"
+	"mesh.h"
+	"entity.h"
+	<glm/gtc/matrix_transform.hpp>
+	"camera.h"
+	"texture.h"
+	"framebuffer.h"
+	"cubemaptexture.h"
+	"cubemapshader.h"
+
+1450176451 source:/home/paul/Desktop/opengl/Tema3_EGC/camera.cpp
+	"camera.h"
+
+1449848581 /home/paul/Desktop/opengl/Tema3_EGC/camera.h
+	<glm/glm.hpp>
+	<SDL2/SDL.h>
+	"input.h"
+	<iostream>
+	"display.h"
+	<glm/gtc/matrix_transform.hpp>
+
+1450178948 source:/home/paul/Desktop/opengl/Tema3_EGC/texture.cpp
+	"texture.h"
+
+1449434915 /home/paul/Desktop/opengl/Tema3_EGC/texture.h
+	<string>
+	<SDL2/SDL.h>
+	<stdlib.h>
+	<iostream>
+	<GL/glew.h>
+
+1450177308 source:/home/paul/Desktop/opengl/Tema3_EGC/framebuffer.cpp
+	"framebuffer.h"
+
+1449762779 /home/paul/Desktop/opengl/Tema3_EGC/framebuffer.h
+	<GL/glew.h>
+	<iostream>
+
+1455357104 source:/home/paul/Desktop/opengl/Tema3_EGC/cubemapshader.cpp
+	"cubemapshader.h"
+
+1458578008 /home/paul/Desktop/opengl/Tema3_EGC/cubemapshader.h
+	"shader.h"
+	<string>
+	<glm/gtc/type_ptr.hpp>
+
+1455362732 source:/home/paul/Desktop/opengl/Tema3_EGC/cubemaptexture.cpp
+	"cubemaptexture.h"
+
+1455362260 /home/paul/Desktop/opengl/Tema3_EGC/cubemaptexture.h
+	<string>
+	<SDL2/SDL.h>
+	<stdlib.h>
+	<iostream>
+	<GL/glew.h>
+	<vector>
+
+1450176451 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/camera.cpp
+	"camera.h"
+
+1449848581 /home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/camera.h
+	<glm/glm.hpp>
+	<SDL2/SDL.h>
+	"input.h"
+	<iostream>
+	"display.h"
+	<glm/gtc/matrix_transform.hpp>
+
+1449409865 /home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/input.h
+	<SDL2/SDL.h>
+	"display.h"
+	<glm/glm.hpp>
+
+1446742529 /home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/display.h
+	<SDL2/SDL.h>
+	<iostream>
+	<GL/glew.h>
+	<glm/glm.hpp>
+
+1455357104 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/cubemapshader.cpp
+	"cubemapshader.h"
+
+1458578008 /home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/cubemapshader.h
+	"shader.h"
+	<string>
+	<glm/gtc/type_ptr.hpp>
+
+1458578081 /home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/shader.h
+	<stdlib.h>
+	<stdio.h>
+	<string>
+	<fstream>
+	<iostream>
+	<GL/glew.h>
+	<string.h>
+	<glm/glm.hpp>
+
+1455362732 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/cubemaptexture.cpp
+	"cubemaptexture.h"
+
+1455362260 /home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/cubemaptexture.h
+	<string>
+	<SDL2/SDL.h>
+	<stdlib.h>
+	<iostream>
+	<GL/glew.h>
+	<vector>
+
+1449852564 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/display.cpp
+	"display.h"
+
+1458578711 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/entity.cpp
+	"entity.h"
+
+1447409989 /home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/entity.h
+	"mesh.h"
+	<glm/glm.hpp>
+	"shader.h"
+	<GL/glew.h>
+	<glm/gtc/matrix_transform.hpp>
+	<string>
+	<vector>
+
+1448984618 /home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/mesh.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<vector>
+	<string>
+	<sstream>
+	<fstream>
+
+1450177308 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/framebuffer.cpp
+	"framebuffer.h"
+
+1449762779 /home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/framebuffer.h
+	<GL/glew.h>
+	<iostream>
+
+1449410676 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/input.cpp
+	"input.h"
+
+1459259083 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/main.cpp
+	<iostream>
+	"display.h"
+	"input.h"
+	"shader.h"
+	"mesh.h"
+	"entity.h"
+	<glm/gtc/matrix_transform.hpp>
+	"camera.h"
+	"texture.h"
+	"framebuffer.h"
+	"cubemaptexture.h"
+	"cubemapshader.h"
+
+1449434915 /home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/texture.h
+	<string>
+	<SDL2/SDL.h>
+	<stdlib.h>
+	<iostream>
+	<GL/glew.h>
+
+1450178854 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/mesh.cpp
+	"mesh.h"
+	<iostream>
+
+1449997968 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/shader.cpp
+	"shader.h"
+	<glm/gtc/type_ptr.hpp>
+
+1450178948 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/texture.cpp
+	"texture.h"
+
