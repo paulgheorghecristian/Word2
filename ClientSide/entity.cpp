@@ -4,6 +4,7 @@ Entity::Entity(std::string name, Mesh *mesh, glm::vec4 color, glm::vec3 position
 {
     calc_model_matrix = true;
     compute_model_matrix();
+
 }
 
 void Entity::set_model_matrix(glm::mat4 matrix){

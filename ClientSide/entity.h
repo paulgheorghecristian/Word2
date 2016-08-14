@@ -8,6 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <string>
 #include <vector>
+#include <ode/ode.h>
 
 class Entity
 {
