@@ -41,7 +41,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="/usr/local/include/bullet" />
 		</Compiler>
+		<Linker>
+			<Add option="-lSDL2 -lGLEW -lGLU -lGL" />
+			<Add library="/usr/lib/libBulletSoftBody.a" />
+			<Add library="/usr/lib/libBulletDynamics.a" />
+			<Add library="/usr/lib/libBulletCollision.a" />
+			<Add library="/usr/lib/libLinearMath.a" />
+		</Linker>
 		<Unit filename="camera.cpp" />
 		<Unit filename="camera.h" />
 		<Unit filename="display.cpp" />

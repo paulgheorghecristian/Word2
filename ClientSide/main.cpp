@@ -7,14 +7,90 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "camera.h"
 #include "texture.h"
+#include <vector>
+#include <bullet/btBulletDynamicsCommon.h>
+#include <glm/gtc/type_ptr.hpp>
 
-using namespace std;
+btDynamicsWorld* world;
+btDispatcher* dispatcher;
+btBroadphaseInterface* broadsphase;
+btCollisionConfiguration* collisionConfig;
+btConstraintSolver* solver;
+
+std::vector<btRigidBody*> bodies;
+
+btRigidBody* addSphere(float radius, float x, float y, float z, float mass){
+    btTransform t;
+    btVector3 inertia(0, 0, 0);
+
+
+    t.setIdentity();
+    t.setOrigin(btVector3(x,y,z));
+
+    btSphereShape* sphereShape = new btSphereShape(radius);
+    if(mass != 0.0){
+        sphereShape->calculateLocalInertia(btScalar(mass), inertia);
+    }
+    btMotionState* motion = new btDefaultMotionState(t);
+    btRigidBody::btRigidBodyConstructionInfo info(mass, motion, sphereShape, inertia);
+    info.m_restitution = 1.3f;
+    info.m_friction = 1.5f;
+
+    btRigidBody *body = new btRigidBody(info);
+
+    world->addRigidBody(body);
+    bodies.push_back(body);
+
+    return body;
+}
+
+void initBullet(){
+    collisionConfig = new btDefaultCollisionConfiguration();
+    dispatcher = new btCollisionDispatcher(collisionConfig);
+    broadsphase = new btDbvtBroadphase();
+    solver = new btSequentialImpulseConstraintSolver();
+
+    world = new btDiscreteDynamicsWorld(dispatcher,
+                                        broadsphase,
+                                        solver,
+                                        collisionConfig);
+    world->setGravity(btVector3(0, -10, 0));
+}
+
+void initObjects(){
+    btTransform t;
+
+    t.setIdentity();
+    t.setOrigin(btVector3(0, 0, 0));
+
+    btStaticPlaneShape* plane = new btStaticPlaneShape(btVector3(0, 1, 0), btScalar(0));
+    btMotionState* motion = new btDefaultMotionState(t);
+    btRigidBody::btRigidBodyConstructionInfo info(0.0, motion, plane);
+    btRigidBody *body = new btRigidBody(info);
+    world->addRigidBody(body);
+
+    bodies.push_back(body);
+
+    addSphere(20, 400, 200, 0, 50);
+
+}
+
+void cleanBullet(){
+    delete collisionConfig;
+    delete dispatcher;
+    delete broadsphase;
+    delete solver;
+    delete world;
+}
 
 int main()
 {
     //rezolutia ferestrei
     const float WIDTH = 1080.0f;
     const float HEIGHT = 720.0f;
+
+    initBullet();
+    initObjects();
 
     Display display((int)WIDTH, (int)HEIGHT, "OpenGL");
     Shader general_shader("res/shaders/vertex", "res/shaders/fragment");
@@ -31,7 +107,7 @@ int main()
     Entity *e_sphere = new Entity("sphere",
                                    sphere,
                                    glm::vec4(1, 0, 0, 1),
-                                   glm::vec3(400, 100, 0),
+                                   glm::vec3(400, 200, 0),
                                    glm::vec3(0.0f, 0.0f, 0.0f),
                                    glm::vec3(20.0f, 20.0f, 20.0f));
 
@@ -55,10 +131,12 @@ int main()
     general_shader.loadProjectionMatrix(projection_matrix);
 
     while(!display.isClosed()){
+        world->stepSimulation(0.05);
         input.update();
         display.clear(1, 1, 1, 1);
 
         //miscare lumina sau camera
+
         if(input.GetKey(SDLK_w)){
             camera.move_forward(400.0f * Display::get_delta());
         }else if(input.GetKey(SDLK_s)){
@@ -79,6 +157,13 @@ int main()
         general_shader.bind();
         general_shader.loadViewMatrix(camera.get_view_matrix());
 
+        btTransform t;
+
+        bodies[1]->getMotionState()->getWorldTransform(t);
+        float mat[16];
+        t.getOpenGLMatrix(mat);
+        e_sphere->set_model_matrix(glm::scale(glm::make_mat4(mat), e_sphere->get_scale()));
+
         e_sphere->draw(&general_shader);
         e_cube->draw(&general_shader);
         e_surface->draw(&general_shader);
@@ -86,7 +171,6 @@ int main()
         display.update();
     }
 
-    destroy_ode();
-
+    cleanBullet();
     return 0;
 }
