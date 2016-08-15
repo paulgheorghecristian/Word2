@@ -33,11 +33,34 @@ btRigidBody* addSphere(float radius, float x, float y, float z, float mass){
     }
     btMotionState* motion = new btDefaultMotionState(t);
     btRigidBody::btRigidBodyConstructionInfo info(mass, motion, sphereShape, inertia);
-    info.m_restitution = 1.3f;
-    info.m_friction = 1.5f;
+    info.m_restitution = 1;
+    info.m_friction = 0.2f;
 
     btRigidBody *body = new btRigidBody(info);
+    body->setLinearVelocity(btVector3(-50, 0, 0));
+    world->addRigidBody(body);
+    bodies.push_back(body);
 
+    return body;
+}
+
+btRigidBody* addBox(float width, float height, float depth, float x, float y, float z, float mass){
+    btTransform t;
+    btVector3 inertia(0, 0, 0);
+
+    t.setIdentity();
+    t.setOrigin(btVector3(x,y,z));
+
+    btBoxShape* boxShape = new btBoxShape(btVector3(width/2.0, height/2.0, depth/2.0));
+    if(mass != 0.0){
+        boxShape->calculateLocalInertia(btScalar(mass), inertia);
+    }
+    btMotionState* motion = new btDefaultMotionState(t);
+    btRigidBody::btRigidBodyConstructionInfo info(mass, motion, boxShape, inertia);
+    info.m_restitution = 1;
+    info.m_friction = 0.2f;
+
+    btRigidBody *body = new btRigidBody(info);
     world->addRigidBody(body);
     bodies.push_back(body);
 
@@ -66,13 +89,14 @@ void initObjects(){
     btStaticPlaneShape* plane = new btStaticPlaneShape(btVector3(0, 1, 0), btScalar(0));
     btMotionState* motion = new btDefaultMotionState(t);
     btRigidBody::btRigidBodyConstructionInfo info(0.0, motion, plane);
+    info.m_restitution = 1.0;
     btRigidBody *body = new btRigidBody(info);
     world->addRigidBody(body);
 
     bodies.push_back(body);
 
     addSphere(20, 400, 200, 0, 50);
-
+    addBox(40, 40, 40, 0, 180, 0, 50);
 }
 
 void cleanBullet(){
@@ -114,7 +138,7 @@ int main()
     Entity *e_cube = new Entity("cube",
                                  cube,
                                  glm::vec4(0, 1, 0, 1),
-                                 glm::vec3(0, 100, 0),
+                                 glm::vec3(0, 180, 0),
                                  glm::vec3(0.0f, 0.0f, 0.0f),
                                  glm::vec3(20.0f, 20.0f, 20.0f));
 
@@ -131,7 +155,7 @@ int main()
     general_shader.loadProjectionMatrix(projection_matrix);
 
     while(!display.isClosed()){
-        world->stepSimulation(0.05);
+        world->stepSimulation(btScalar(0.1), 1, btScalar(0.1));
         input.update();
         display.clear(1, 1, 1, 1);
 
@@ -163,6 +187,10 @@ int main()
         float mat[16];
         t.getOpenGLMatrix(mat);
         e_sphere->set_model_matrix(glm::scale(glm::make_mat4(mat), e_sphere->get_scale()));
+
+        bodies[2]->getMotionState()->getWorldTransform(t);
+        t.getOpenGLMatrix(mat);
+        e_cube->set_model_matrix(glm::scale(glm::make_mat4(mat), e_cube->get_scale()));
 
         e_sphere->draw(&general_shader);
         e_cube->draw(&general_shader);

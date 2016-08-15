@@ -23,7 +23,7 @@ class Display
     private:
         SDL_Window *window;
         SDL_GLContext glContext;
-        const int MAX_FPS = 60;
+        const int MAX_FPS = 120;
         long last_frame_time;
         static float delta;
 };
