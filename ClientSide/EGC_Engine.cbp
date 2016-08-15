@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="WaterSim" />
+		<Option title="World2" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -12,13 +12,17 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
+					<Add option="-L/usr/local/lib" />
 					<Add library="GL" />
 					<Add library="GLU" />
 					<Add library="SDL2" />
 					<Add library="GLEW" />
+					<Add library="pthread" />
+					<Add library="ode" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -40,16 +44,10 @@
 		</Compiler>
 		<Unit filename="camera.cpp" />
 		<Unit filename="camera.h" />
-		<Unit filename="cubemapshader.cpp" />
-		<Unit filename="cubemapshader.h" />
-		<Unit filename="cubemaptexture.cpp" />
-		<Unit filename="cubemaptexture.h" />
 		<Unit filename="display.cpp" />
 		<Unit filename="display.h" />
 		<Unit filename="entity.cpp" />
 		<Unit filename="entity.h" />
-		<Unit filename="framebuffer.cpp" />
-		<Unit filename="framebuffer.h" />
 		<Unit filename="input.cpp" />
 		<Unit filename="input.h" />
 		<Unit filename="main.cpp" />
