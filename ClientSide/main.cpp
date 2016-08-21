@@ -116,11 +116,11 @@ int main()
                                         20.0f);
 
     Box *dynamic_box = new Box(world,
-                                  20.0f,
-                                  glm::vec4(0, 1, 0, 1),
-                                  glm::vec3(0, 200, 0),
-                                  glm::vec3(0.0f, 0.0f, 0.0f),
-                                  glm::vec3(20.0f));
+                               100.0f,
+                               glm::vec4(0, 1, 0, 1),
+                               glm::vec3(0, 200, 0),
+                               glm::vec3(0.0f, 0.0f, 0.0f),
+                               glm::vec3(20.0f));
 
     entities.push_back(dynamic_sphere);
     entities.push_back(e_surface);
@@ -133,12 +133,12 @@ int main()
 
     while(!display.isClosed()){
         display.clear(1, 1, 1, 1);
-        world->stepSimulation(btScalar(0.05), 1, btScalar(0.1));
+        world->stepSimulation(btScalar(0.2f), 1, btScalar(0.05f));
         input.update();
 
         if(input.GetKeyDown(SDLK_z)){
             Sphere *new_sphere = new Sphere(world,
-                                            200.0f,
+                                            40.0f,
                                             glm::vec4(1, 0, 0, 1),
                                             camera.get_position(),
                                             glm::vec3(0.0f, 0.0f, 0.0f),
@@ -149,11 +149,11 @@ int main()
 
         if(input.GetKeyDown(SDLK_x)){
             Box *new_sphere = new Box(world,
-                                            200.0f,
-                                            glm::vec4(0, 1, 0, 1),
-                                            camera.get_position(),
-                                            glm::vec3(0.0f, 0.0f, 0.0f),
-                                            glm::vec3(20.0f));
+                                        200.0f,
+                                        glm::vec4(0, 1, 0, 1),
+                                        camera.get_position(),
+                                        glm::vec3(0.0f, 0.0f, 0.0f),
+                                        glm::vec3(20.0f));
             new_sphere->set_linear_velocity(camera.get_forward()*100.0f);
             entities.push_back(new_sphere);
         }
