@@ -2,7 +2,7 @@
 
 Mesh* Sphere::mesh;
 
-Sphere::Sphere(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, float radius) : m_radius(radius), world(world), Entity("sphere", Sphere::mesh, color, position, rotation, scale)
+Sphere::Sphere(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, float radius) : m_radius(radius), Entity(world, "sphere", Sphere::mesh, color, position, rotation, glm::vec3(radius))
 {
     btTransform t;
     btVector3 inertia(0, 0, 0);

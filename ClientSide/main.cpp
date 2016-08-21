@@ -11,6 +11,7 @@
 #include <bullet/btBulletDynamicsCommon.h>
 #include <glm/gtc/type_ptr.hpp>
 #include "sphere.h"
+#include "box.h"
 
 btDynamicsWorld* world;
 btDispatcher* dispatcher;
@@ -19,55 +20,6 @@ btCollisionConfiguration* collisionConfig;
 btConstraintSolver* solver;
 
 std::vector<Entity*> entities;
-
-btRigidBody* addSphere(float radius, float x, float y, float z, float mass){
-    btTransform t;
-    btVector3 inertia(0, 0, 0);
-
-    t.setIdentity();
-    t.setOrigin(btVector3(x,y,z));
-
-    btSphereShape* sphereShape = new btSphereShape(radius);
-    if(mass != 0.0){
-        sphereShape->calculateLocalInertia(btScalar(mass), inertia);
-    }
-    btMotionState* motion = new btDefaultMotionState(t);
-    btRigidBody::btRigidBodyConstructionInfo info(mass, motion, sphereShape, inertia);
-    info.m_restitution = 0.4;
-    info.m_friction = 1.0f;
-
-    btRigidBody *body = new btRigidBody(info);
-
-    body->setDamping(btScalar(0), btScalar(0.7));
-    body->setLinearVelocity(btVector3(-100, 0, 0));
-    world->addRigidBody(body);
-   // bodies.push_back(body);
-
-    return body;
-}
-
-btRigidBody* addBox(float width, float height, float depth, float x, float y, float z, float mass){
-    btTransform t;
-    btVector3 inertia(0, 0, 0);
-
-    t.setIdentity();
-    t.setOrigin(btVector3(x,y,z));
-
-    btBoxShape* boxShape = new btBoxShape(btVector3(width/2.0, height/2.0, depth/2.0));
-    if(mass != 0.0){
-        boxShape->calculateLocalInertia(btScalar(mass), inertia);
-    }
-    btMotionState* motion = new btDefaultMotionState(t);
-    btRigidBody::btRigidBodyConstructionInfo info(mass, motion, boxShape, inertia);
-    info.m_restitution = 1;
-    info.m_friction = 1.0f;
-
-    btRigidBody *body = new btRigidBody(info);
-    world->addRigidBody(body);
-    //bodies.push_back(body);
-
-    return body;
-}
 
 void initBullet(){
     collisionConfig = new btDefaultCollisionConfiguration();
@@ -131,7 +83,9 @@ int main()
 
 
     Mesh *sphere = Mesh::load_object("res/models/sphere.obj");
+    Mesh *box = Mesh::load_object("res/models/cube.obj");
     Sphere::set_mesh(sphere);
+    Box::set_mesh(box);
 
     //meshe
     Mesh *surface = Mesh::get_surface(500, 500);
@@ -145,23 +99,32 @@ int main()
                                  glm::vec3(20.0f, 20.0f, 20.0f));
     */
 
-    Entity *e_surface = new Entity("surface",
-                                    surface,
-                                    glm::vec4(0.5, 0.5, 0.5, 1),
-                                    glm::vec3(0, 0, 0),
-                                    glm::vec3(0.0f, 0.0f, 0.0f),
-                                    glm::vec3(500.0f, 1, 500.0f));
+    Entity *e_surface = new Entity(world,
+                                   "surface",
+                                   surface,
+                                   glm::vec4(0.5, 0.5, 0.5, 1),
+                                   glm::vec3(0, 0, 0),
+                                   glm::vec3(0.0f, 0.0f, 0.0f),
+                                   glm::vec3(500.0f, 1, 500.0f));
 
 
     Sphere *dynamic_sphere = new Sphere(world,
-                                20.0f,
-                                glm::vec4(1, 0, 0, 1),
-                                glm::vec3(400, 200, 0),
-                                glm::vec3(0.0f, 0.0f, 0.0f),
-                                20.0f);
+                                        20.0f,
+                                        glm::vec4(1, 0, 0, 1),
+                                        glm::vec3(400, 200, 0),
+                                        glm::vec3(0.0f, 0.0f, 0.0f),
+                                        20.0f);
+
+    Box *dynamic_box = new Box(world,
+                                  20.0f,
+                                  glm::vec4(0, 1, 0, 1),
+                                  glm::vec3(0, 200, 0),
+                                  glm::vec3(0.0f, 0.0f, 0.0f),
+                                  glm::vec3(20.0f));
 
     entities.push_back(dynamic_sphere);
     entities.push_back(e_surface);
+    entities.push_back(dynamic_box);
 
     glm::mat4 projection_matrix = glm::perspective(75.0f, WIDTH/HEIGHT, 0.1f, 4000.0f);
 
@@ -173,13 +136,24 @@ int main()
         world->stepSimulation(btScalar(0.05), 1, btScalar(0.1));
         input.update();
 
-        if(input.GetKeyDown(SDLK_SPACE)){
+        if(input.GetKeyDown(SDLK_z)){
             Sphere *new_sphere = new Sphere(world,
                                             200.0f,
                                             glm::vec4(1, 0, 0, 1),
                                             camera.get_position(),
                                             glm::vec3(0.0f, 0.0f, 0.0f),
                                             20.0f);
+            new_sphere->set_linear_velocity(camera.get_forward()*100.0f);
+            entities.push_back(new_sphere);
+        }
+
+        if(input.GetKeyDown(SDLK_x)){
+            Box *new_sphere = new Box(world,
+                                            200.0f,
+                                            glm::vec4(0, 1, 0, 1),
+                                            camera.get_position(),
+                                            glm::vec3(0.0f, 0.0f, 0.0f),
+                                            glm::vec3(20.0f));
             new_sphere->set_linear_velocity(camera.get_forward()*100.0f);
             entities.push_back(new_sphere);
         }

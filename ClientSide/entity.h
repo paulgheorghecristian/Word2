@@ -9,12 +9,14 @@
 #include <string>
 #include <vector>
 #include <ode/ode.h>
+#include <bullet/btBulletDynamicsCommon.h>
+#include <glm/gtc/type_ptr.hpp>
 
 class Entity
 {
     public:
-        Entity(std::string, Mesh*, glm::vec4, glm::vec3, glm::vec3, glm::vec3);
-        void draw(Shader*);
+        Entity(btDynamicsWorld*, std::string, Mesh*, glm::vec4, glm::vec3, glm::vec3, glm::vec3);
+        virtual void draw(Shader*);
         void set_rotation(float, float, float);
         void set_scale(float, float, float);
         void set_position(float, float, float);
@@ -30,10 +32,8 @@ class Entity
         glm::vec3 get_position();
         glm::vec3 get_rotation();
         glm::vec3 get_scale();
-        std::vector<glm::vec2> get_normals();
         virtual ~Entity();
     protected:
-    private:
         void compute_model_matrix();
         std::string name;
         Mesh *mesh;
@@ -41,6 +41,9 @@ class Entity
         glm::vec3 scale;
         glm::vec4 color;
         glm::mat4 model_matrix;
+        btDynamicsWorld* world;
+        btRigidBody *m_body;
+    private:
         bool calc_model_matrix;
 };
 

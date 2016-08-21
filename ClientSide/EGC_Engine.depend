@@ -425,19 +425,19 @@
 	"display.h"
 	<glm/glm.hpp>
 
-1471283605 /home/paul/Desktop/Proiecte/World2/ClientSide/display.h
+1471344599 /home/paul/Desktop/Proiecte/World2/ClientSide/display.h
 	<SDL2/SDL.h>
 	<iostream>
 	<GL/glew.h>
 	<glm/glm.hpp>
 
-1471243299 source:/home/paul/Desktop/Proiecte/World2/ClientSide/display.cpp
+1471776087 source:/home/paul/Desktop/Proiecte/World2/ClientSide/display.cpp
 	"display.h"
 
-1471243299 source:/home/paul/Desktop/Proiecte/World2/ClientSide/entity.cpp
+1471798162 source:/home/paul/Desktop/Proiecte/World2/ClientSide/entity.cpp
 	"entity.h"
 
-1471243299 /home/paul/Desktop/Proiecte/World2/ClientSide/entity.h
+1471798194 /home/paul/Desktop/Proiecte/World2/ClientSide/entity.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"shader.h"
@@ -446,8 +446,10 @@
 	<string>
 	<vector>
 	<ode/ode.h>
+	<bullet/btBulletDynamicsCommon.h>
+	<glm/gtc/type_ptr.hpp>
 
-1471243299 /home/paul/Desktop/Proiecte/World2/ClientSide/mesh.h
+1471777069 /home/paul/Desktop/Proiecte/World2/ClientSide/mesh.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<vector>
@@ -486,7 +488,7 @@
 	<iostream>
 	<GL/glew.h>
 
-1471284353 source:/home/paul/Desktop/Proiecte/World2/ClientSide/main.cpp
+1471798223 source:/home/paul/Desktop/Proiecte/World2/ClientSide/main.cpp
 	<iostream>
 	"display.h"
 	"input.h"
@@ -499,4 +501,18 @@
 	<vector>
 	<bullet/btBulletDynamicsCommon.h>
 	<glm/gtc/type_ptr.hpp>
+	"sphere.h"
+	"box.h"
+
+1471798176 source:/home/paul/Desktop/Proiecte/World2/ClientSide/sphere.cpp
+	"sphere.h"
+
+1471798063 /home/paul/Desktop/Proiecte/World2/ClientSide/sphere.h
+	"entity.h"
+
+1471798244 source:/home/paul/Desktop/Proiecte/World2/ClientSide/box.cpp
+	"box.h"
+
+1471797936 /home/paul/Desktop/Proiecte/World2/ClientSide/box.h
+	"entity.h"
 

@@ -1,10 +1,9 @@
 #include "entity.h"
 
-Entity::Entity(std::string name, Mesh *mesh, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : name(name), mesh(mesh), color(color), position(position), rotation(rotation), scale(scale), model_matrix(1.0f)
+Entity::Entity(btDynamicsWorld* world, std::string name, Mesh *mesh, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : world(world), name(name), mesh(mesh), color(color), position(position), rotation(rotation), scale(scale), model_matrix(1.0f)
 {
     calc_model_matrix = true;
     compute_model_matrix();
-
 }
 
 void Entity::set_model_matrix(glm::mat4 matrix){
