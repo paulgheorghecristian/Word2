@@ -15,6 +15,7 @@ Display::Display(int width, int height, std::string title)
     SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetSwapInterval(0);
 
     SDL_ShowCursor(0);
 
@@ -34,6 +35,8 @@ Display::Display(int width, int height, std::string title)
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glViewport(0.0f, 0.0f, (float)width, (float)height);
     last_frame_time = SDL_GetTicks();
+
+    one_frame_duration = 1000.0f / (float)MAX_FPS;
 }
 
 Display::~Display()
@@ -44,6 +47,7 @@ Display::~Display()
 }
 
 void Display::clear(float r, float g, float b, float a){
+    last_frame_time = SDL_GetTicks();
     GLint viewport[4];
     glGetIntegerv(GL_VIEWPORT, viewport);
     glScissor(viewport[0], viewport[1], viewport[2], viewport[3]);
@@ -59,11 +63,14 @@ bool Display::isClosed(){
     return isWindowClosed;
 }
 void Display::update(){
-    last_frame_time = SDL_GetTicks();
 
     SDL_GL_SwapWindow(window);
 
-    long current_frame_time = SDL_GetTicks();
+    float frame_duration = SDL_GetTicks() - last_frame_time;
+
+    if(frame_duration < one_frame_duration){
+        SDL_Delay(one_frame_duration - frame_duration);
+    }
 
     delta = SDL_GetTicks() - last_frame_time;
 
@@ -79,9 +86,8 @@ glm::mat2 Display::get_2D_transform_matrix(float ferx, float fery, float widthfe
 		sy = (heightview-viewy) / (heightfer-fery);
 		tx = viewx - sx*ferx;
         ty = viewy - sy*fery;
-		return glm::mat2(sx, tx,
-                        sy, ty);
-	}
+		return glm::mat2(sx, tx, sy, ty);
+}
 
 float Display::get_delta(){
     return delta/1000.0f;

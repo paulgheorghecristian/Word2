@@ -10,6 +10,7 @@
 #include <vector>
 #include <bullet/btBulletDynamicsCommon.h>
 #include <glm/gtc/type_ptr.hpp>
+#include "sphere.h"
 
 btDynamicsWorld* world;
 btDispatcher* dispatcher;
@@ -17,12 +18,11 @@ btBroadphaseInterface* broadsphase;
 btCollisionConfiguration* collisionConfig;
 btConstraintSolver* solver;
 
-std::vector<btRigidBody*> bodies;
+std::vector<Entity*> entities;
 
 btRigidBody* addSphere(float radius, float x, float y, float z, float mass){
     btTransform t;
     btVector3 inertia(0, 0, 0);
-
 
     t.setIdentity();
     t.setOrigin(btVector3(x,y,z));
@@ -33,13 +33,15 @@ btRigidBody* addSphere(float radius, float x, float y, float z, float mass){
     }
     btMotionState* motion = new btDefaultMotionState(t);
     btRigidBody::btRigidBodyConstructionInfo info(mass, motion, sphereShape, inertia);
-    info.m_restitution = 1;
-    info.m_friction = 0.2f;
+    info.m_restitution = 0.4;
+    info.m_friction = 1.0f;
 
     btRigidBody *body = new btRigidBody(info);
-    body->setLinearVelocity(btVector3(-50, 0, 0));
+
+    body->setDamping(btScalar(0), btScalar(0.7));
+    body->setLinearVelocity(btVector3(-100, 0, 0));
     world->addRigidBody(body);
-    bodies.push_back(body);
+   // bodies.push_back(body);
 
     return body;
 }
@@ -58,11 +60,11 @@ btRigidBody* addBox(float width, float height, float depth, float x, float y, fl
     btMotionState* motion = new btDefaultMotionState(t);
     btRigidBody::btRigidBodyConstructionInfo info(mass, motion, boxShape, inertia);
     info.m_restitution = 1;
-    info.m_friction = 0.2f;
+    info.m_friction = 1.0f;
 
     btRigidBody *body = new btRigidBody(info);
     world->addRigidBody(body);
-    bodies.push_back(body);
+    //bodies.push_back(body);
 
     return body;
 }
@@ -89,14 +91,15 @@ void initObjects(){
     btStaticPlaneShape* plane = new btStaticPlaneShape(btVector3(0, 1, 0), btScalar(0));
     btMotionState* motion = new btDefaultMotionState(t);
     btRigidBody::btRigidBodyConstructionInfo info(0.0, motion, plane);
-    info.m_restitution = 1.0;
+    info.m_restitution = 0.3;
+    info.m_friction = 1.0;
     btRigidBody *body = new btRigidBody(info);
     world->addRigidBody(body);
 
-    bodies.push_back(body);
+    //bodies.push_back(body);
 
-    addSphere(20, 400, 200, 0, 50);
-    addBox(40, 40, 40, 0, 180, 0, 50);
+    /*addSphere(20, 400, 200, 0, 50);
+    addBox(40, 40, 40, 0, 180, 0, 50);*/
 }
 
 void cleanBullet(){
@@ -105,6 +108,10 @@ void cleanBullet(){
     delete broadsphase;
     delete solver;
     delete world;
+
+    for(Entity *e : entities){
+        delete e;
+    }
 }
 
 int main()
@@ -117,30 +124,26 @@ int main()
     initObjects();
 
     Display display((int)WIDTH, (int)HEIGHT, "OpenGL");
-    Shader general_shader("res/shaders/vertex", "res/shaders/fragment");
+    Shader shader("res/shaders/vertex", "res/shaders/fragment");
 
     Input input;
-    Camera camera(glm::vec3(0.0f, 0, 350.0f), 0.0, 0.0, 0.0);
+    Camera camera(glm::vec3(0.0f, 50, 400.0f), 0.0, 0.0, 0.0);
+
+
+    Mesh *sphere = Mesh::load_object("res/models/sphere.obj");
+    Sphere::set_mesh(sphere);
 
     //meshe
     Mesh *surface = Mesh::get_surface(500, 500);
-    Mesh *sphere = Mesh::load_object("res/models/sphere.obj");
-    Mesh *cube = Mesh::load_object("res/models/cube.obj");
 
-    //entitati
-    Entity *e_sphere = new Entity("sphere",
-                                   sphere,
-                                   glm::vec4(1, 0, 0, 1),
-                                   glm::vec3(400, 200, 0),
-                                   glm::vec3(0.0f, 0.0f, 0.0f),
-                                   glm::vec3(20.0f, 20.0f, 20.0f));
 
-    Entity *e_cube = new Entity("cube",
+    /*Entity *e_cube = new Entity("cube",
                                  cube,
                                  glm::vec4(0, 1, 0, 1),
                                  glm::vec3(0, 180, 0),
                                  glm::vec3(0.0f, 0.0f, 0.0f),
                                  glm::vec3(20.0f, 20.0f, 20.0f));
+    */
 
     Entity *e_surface = new Entity("surface",
                                     surface,
@@ -149,17 +152,37 @@ int main()
                                     glm::vec3(0.0f, 0.0f, 0.0f),
                                     glm::vec3(500.0f, 1, 500.0f));
 
+
+    Sphere *dynamic_sphere = new Sphere(world,
+                                20.0f,
+                                glm::vec4(1, 0, 0, 1),
+                                glm::vec3(400, 200, 0),
+                                glm::vec3(0.0f, 0.0f, 0.0f),
+                                20.0f);
+
+    entities.push_back(dynamic_sphere);
+    entities.push_back(e_surface);
+
     glm::mat4 projection_matrix = glm::perspective(75.0f, WIDTH/HEIGHT, 0.1f, 4000.0f);
 
-    general_shader.bind();
-    general_shader.loadProjectionMatrix(projection_matrix);
+    shader.bind();
+    shader.loadProjectionMatrix(projection_matrix);
 
     while(!display.isClosed()){
-        world->stepSimulation(btScalar(0.1), 1, btScalar(0.1));
-        input.update();
         display.clear(1, 1, 1, 1);
+        world->stepSimulation(btScalar(0.05), 1, btScalar(0.1));
+        input.update();
 
-        //miscare lumina sau camera
+        if(input.GetKeyDown(SDLK_SPACE)){
+            Sphere *new_sphere = new Sphere(world,
+                                            200.0f,
+                                            glm::vec4(1, 0, 0, 1),
+                                            camera.get_position(),
+                                            glm::vec3(0.0f, 0.0f, 0.0f),
+                                            20.0f);
+            new_sphere->set_linear_velocity(camera.get_forward()*100.0f);
+            entities.push_back(new_sphere);
+        }
 
         if(input.GetKey(SDLK_w)){
             camera.move_forward(400.0f * Display::get_delta());
@@ -178,23 +201,13 @@ int main()
             camera.rotate_y(input.GetMouseDelta().x * 0.05f);
         }
 
-        general_shader.bind();
-        general_shader.loadViewMatrix(camera.get_view_matrix());
+        shader.bind();
+        shader.loadViewMatrix(camera.get_view_matrix());
 
-        btTransform t;
 
-        bodies[1]->getMotionState()->getWorldTransform(t);
-        float mat[16];
-        t.getOpenGLMatrix(mat);
-        e_sphere->set_model_matrix(glm::scale(glm::make_mat4(mat), e_sphere->get_scale()));
-
-        bodies[2]->getMotionState()->getWorldTransform(t);
-        t.getOpenGLMatrix(mat);
-        e_cube->set_model_matrix(glm::scale(glm::make_mat4(mat), e_cube->get_scale()));
-
-        e_sphere->draw(&general_shader);
-        e_cube->draw(&general_shader);
-        e_surface->draw(&general_shader);
+        for(Entity *e : entities){
+            e->draw(&shader);
+        }
 
         display.update();
     }

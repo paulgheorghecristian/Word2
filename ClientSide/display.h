@@ -24,6 +24,7 @@ class Display
         SDL_Window *window;
         SDL_GLContext glContext;
         const int MAX_FPS = 120;
+        float one_frame_duration;
         long last_frame_time;
         static float delta;
 };
