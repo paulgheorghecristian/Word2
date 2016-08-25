@@ -73,9 +73,6 @@ void Display::update(){
     }
 
     delta = SDL_GetTicks() - last_frame_time;
-
-    SDL_WarpMouseInWindow(window, 1080/2, 720/2);
-
 }
 
 glm::mat2 Display::get_2D_transform_matrix(float ferx, float fery, float widthfer, float heightfer,
@@ -87,6 +84,14 @@ glm::mat2 Display::get_2D_transform_matrix(float ferx, float fery, float widthfe
 		tx = viewx - sx*ferx;
         ty = viewy - sy*fery;
 		return glm::mat2(sx, tx, sy, ty);
+}
+
+int Display::get_width(){
+    return width;
+}
+
+int Display::get_height(){
+    return height;
 }
 
 float Display::get_delta(){

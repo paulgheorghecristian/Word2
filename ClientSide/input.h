@@ -9,7 +9,7 @@ class Input
 {
     public:
         Input();
-        void update();
+        void update(SDL_Window*);
         bool GetKeyDown(int);
         bool GetKeyUp(int);
         bool GetKey(int);

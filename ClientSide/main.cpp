@@ -12,6 +12,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "sphere.h"
 #include "box.h"
+#include <pthread.h>
+#include <time.h>
 
 btDynamicsWorld* world;
 btDispatcher* dispatcher;
@@ -20,6 +22,12 @@ btCollisionConfiguration* collisionConfig;
 btConstraintSolver* solver;
 
 std::vector<Entity*> entities;
+
+struct Args{
+    Camera *cam;
+    Input *input;
+    SDL_Window *window;
+};
 
 void initBullet(){
     collisionConfig = new btDefaultCollisionConfiguration();
@@ -66,11 +74,50 @@ void cleanBullet(){
     }
 }
 
+void *input_thread_func(void *parm){
+    Args *args = (Args*)parm;
+
+    Camera *camera = args->cam;
+    Input *input = args->input;
+    SDL_Window *window = args->window;
+
+    struct timespec ts = {0, 0};
+
+    ts.tv_sec = 0;
+    ts.tv_nsec = 10000000;
+
+    while(1){
+        input->update(window);
+
+        if(glm::abs(glm::length(input->GetMouseDelta())) > 0.3f){
+            camera->rotate_x(input->GetMouseDelta().y * 0.1f);
+            camera->rotate_y(input->GetMouseDelta().x * 0.1f);
+        }
+
+        if(input->GetKey(SDLK_w)){
+            camera->move_forward(400.0f * Display::get_delta());
+        }else if(input->GetKey(SDLK_s)){
+            camera->move_forward(-400.0f * Display::get_delta());
+        }
+
+        if(input->GetKey(SDLK_a)){
+            camera->move_sideways(-400.0f * Display::get_delta());
+        }else if(input->GetKey(SDLK_d)){
+            camera->move_sideways(400.0f * Display::get_delta());
+        }
+
+        nanosleep(&ts, NULL);
+    }
+}
+
 int main()
 {
     //rezolutia ferestrei
     const float WIDTH = 1080.0f;
     const float HEIGHT = 720.0f;
+
+    pthread_t input_thread_id;
+
 
     initBullet();
     initObjects();
@@ -78,9 +125,12 @@ int main()
     Display display((int)WIDTH, (int)HEIGHT, "OpenGL");
     Shader shader("res/shaders/vertex", "res/shaders/fragment");
 
-    Input input;
-    Camera camera(glm::vec3(0.0f, 50, 400.0f), 0.0, 0.0, 0.0);
+    Input *input = new Input();
+    Camera *camera = new Camera(glm::vec3(0.0f, 50, 800.0f), 0.0, 0.0, 0.0);
 
+    Args *args = new Args();
+    args->input = input;
+    args->cam = camera;
 
     Mesh *sphere = Mesh::load_object("res/models/sphere.obj");
     Mesh *box = Mesh::load_object("res/models/cube.obj");
@@ -105,7 +155,7 @@ int main()
                                    glm::vec4(0.5, 0.5, 0.5, 1),
                                    glm::vec3(0, 0, 0),
                                    glm::vec3(0.0f, 0.0f, 0.0f),
-                                   glm::vec3(500.0f, 1, 500.0f));
+                                   glm::vec3(5000.0f, 1, 5000.0f));
 
 
     Sphere *dynamic_sphere = new Sphere(world,
@@ -131,53 +181,55 @@ int main()
     shader.bind();
     shader.loadProjectionMatrix(projection_matrix);
 
+    for(int i = 0; i < 100; i++){
+         Box *new_box = new Box(world,
+                                500.0f,
+                                glm::vec4(0, 1, 0, 1),
+                                glm::vec3(i+50.0f, 900.0f, 0),
+                                glm::vec3(0.0f, 0.0f, 0.0f),
+                                glm::vec3(20.0f));
+       // new_box->set_linear_velocity(camera.get_forward()*100.0f);
+        entities.push_back(new_box);
+        Sphere *new_sphere = new Sphere(world,
+                                        1000.0f,
+                                        glm::vec4(1, 0, 0, 1),
+                                        glm::vec3(i+50.0f, 1000.0f, 0),
+                                        glm::vec3(0.0f, 0.0f, 0.0f),
+                                        20.0f);
+        //new_sphere->set_linear_velocity(camera.get_forward()*100.0f);
+        entities.push_back(new_sphere);
+    }
+
+    int rc = pthread_create(&input_thread_id, NULL, input_thread_func, (void*)args);
+
     while(!display.isClosed()){
         display.clear(1, 1, 1, 1);
-        world->stepSimulation(btScalar(0.2f), 1, btScalar(0.05f));
-        input.update();
+        world->stepSimulation(btScalar(0.05f), 1, btScalar(0.1f));
 
-        if(input.GetKeyDown(SDLK_z)){
+        if(input->GetKeyDown(SDLK_z)){
             Sphere *new_sphere = new Sphere(world,
                                             40.0f,
                                             glm::vec4(1, 0, 0, 1),
-                                            camera.get_position(),
+                                            camera->get_position(),
                                             glm::vec3(0.0f, 0.0f, 0.0f),
                                             20.0f);
-            new_sphere->set_linear_velocity(camera.get_forward()*100.0f);
+            new_sphere->set_linear_velocity(camera->get_forward()*100.0f);
             entities.push_back(new_sphere);
         }
 
-        if(input.GetKeyDown(SDLK_x)){
-            Box *new_sphere = new Box(world,
+        if(input->GetKeyDown(SDLK_x)){
+            Box *new_box = new Box(world,
                                         200.0f,
                                         glm::vec4(0, 1, 0, 1),
-                                        camera.get_position(),
+                                        camera->get_position(),
                                         glm::vec3(0.0f, 0.0f, 0.0f),
                                         glm::vec3(20.0f));
-            new_sphere->set_linear_velocity(camera.get_forward()*100.0f);
-            entities.push_back(new_sphere);
-        }
-
-        if(input.GetKey(SDLK_w)){
-            camera.move_forward(400.0f * Display::get_delta());
-        }else if(input.GetKey(SDLK_s)){
-            camera.move_forward(-400.0f * Display::get_delta());
-        }
-
-        if(input.GetKey(SDLK_a)){
-            camera.move_sideways(-400.0f * Display::get_delta());
-        }else if(input.GetKey(SDLK_d)){
-            camera.move_sideways(400.0f * Display::get_delta());
-        }
-
-        if(glm::abs(glm::length(input.GetMouseDelta())) > 0.1f){
-            camera.rotate_x(input.GetMouseDelta().y * 0.05f);
-            camera.rotate_y(input.GetMouseDelta().x * 0.05f);
+            new_box->set_linear_velocity(camera->get_forward()*100.0f);
+            entities.push_back(new_box);
         }
 
         shader.bind();
-        shader.loadViewMatrix(camera.get_view_matrix());
-
+        shader.loadViewMatrix(camera->get_view_matrix());
 
         for(Entity *e : entities){
             e->draw(&shader);

@@ -17,6 +17,8 @@ class Display
         void clear(float, float, float, float);
         static glm::mat2 get_2D_transform_matrix(float, float, float, float,
 		float, float, float, float);
+		int get_width();
+		int get_height();
         static float get_delta();
         static bool isWindowClosed;
     protected:
@@ -27,6 +29,7 @@ class Display
         float one_frame_duration;
         long last_frame_time;
         static float delta;
+        int width, height;
 };
 
 #endif // DISPLAY_H

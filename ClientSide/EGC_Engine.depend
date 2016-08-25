@@ -420,18 +420,18 @@
 	"display.h"
 	<glm/gtc/matrix_transform.hpp>
 
-1471243299 /home/paul/Desktop/Proiecte/World2/ClientSide/input.h
+1472108773 /home/paul/Desktop/Proiecte/World2/ClientSide/input.h
 	<SDL2/SDL.h>
 	"display.h"
 	<glm/glm.hpp>
 
-1471344599 /home/paul/Desktop/Proiecte/World2/ClientSide/display.h
+1472108334 /home/paul/Desktop/Proiecte/World2/ClientSide/display.h
 	<SDL2/SDL.h>
 	<iostream>
 	<GL/glew.h>
 	<glm/glm.hpp>
 
-1471776087 source:/home/paul/Desktop/Proiecte/World2/ClientSide/display.cpp
+1472110612 source:/home/paul/Desktop/Proiecte/World2/ClientSide/display.cpp
 	"display.h"
 
 1471798162 source:/home/paul/Desktop/Proiecte/World2/ClientSide/entity.cpp
@@ -467,7 +467,7 @@
 	<string.h>
 	<glm/glm.hpp>
 
-1471243299 source:/home/paul/Desktop/Proiecte/World2/ClientSide/input.cpp
+1472110498 source:/home/paul/Desktop/Proiecte/World2/ClientSide/input.cpp
 	"input.h"
 
 1471243299 source:/home/paul/Desktop/Proiecte/World2/ClientSide/mesh.cpp
@@ -488,7 +488,7 @@
 	<iostream>
 	<GL/glew.h>
 
-1471798223 source:/home/paul/Desktop/Proiecte/World2/ClientSide/main.cpp
+1472110570 source:/home/paul/Desktop/Proiecte/World2/ClientSide/main.cpp
 	<iostream>
 	"display.h"
 	"input.h"
@@ -503,6 +503,8 @@
 	<glm/gtc/type_ptr.hpp>
 	"sphere.h"
 	"box.h"
+	<pthread.h>
+	<time.h>
 
 1471798176 source:/home/paul/Desktop/Proiecte/World2/ClientSide/sphere.cpp
 	"sphere.h"

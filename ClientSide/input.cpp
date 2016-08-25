@@ -19,10 +19,8 @@ Input::~Input()
     //dtor
 }
 
-void Input::update(){
+void Input::update(SDL_Window *window){
     SDL_Event event;
-
-    delta = glm::vec2(0.0, 0.0);
 
     for(unsigned int i = 0; i < NUMKEYS; i++){
         downKeys[i] = false;
@@ -73,13 +71,13 @@ void Input::update(){
                 break;
             }
             case SDL_MOUSEMOTION:{
-                lastMousePosition = mousePosition;
                 mousePosition = glm::vec2(event.motion.x, event.motion.y);
-                delta = mousePosition - lastMousePosition;
+                delta = glm::vec2(540, 360) - mousePosition;
                 break;
             }
         }
     }
+    SDL_WarpMouseInWindow(window, 540, 360);
 }
 
 bool Input::GetKeyDown(int key){

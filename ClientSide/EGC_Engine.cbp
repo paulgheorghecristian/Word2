@@ -14,6 +14,8 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
+					<Add directory="include" />
+					<Add directory="../ClientSide" />
 				</Compiler>
 				<Linker>
 					<Add option="-L/usr/local/lib" />
@@ -32,6 +34,8 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
+					<Add directory="../ClientSide" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -50,6 +54,8 @@
 			<Add library="/usr/lib/libBulletCollision.a" />
 			<Add library="/usr/lib/libLinearMath.a" />
 		</Linker>
+		<Unit filename="box.cpp" />
+		<Unit filename="box.h" />
 		<Unit filename="camera.cpp" />
 		<Unit filename="camera.h" />
 		<Unit filename="display.cpp" />
@@ -63,6 +69,8 @@
 		<Unit filename="mesh.h" />
 		<Unit filename="shader.cpp" />
 		<Unit filename="shader.h" />
+		<Unit filename="sphere.cpp" />
+		<Unit filename="sphere.h" />
 		<Unit filename="texture.cpp" />
 		<Unit filename="texture.h" />
 		<Extensions>
