@@ -55,11 +55,6 @@ void initObjects(){
     info.m_friction = 1.0;
     btRigidBody *body = new btRigidBody(info);
     world->addRigidBody(body);
-
-    //bodies.push_back(body);
-
-    /*addSphere(20, 400, 200, 0, 50);
-    addBox(40, 40, 40, 0, 180, 0, 50);*/
 }
 
 void cleanBullet(){
@@ -118,7 +113,6 @@ int main()
 
     pthread_t input_thread_id;
 
-
     initBullet();
     initObjects();
 
@@ -139,15 +133,6 @@ int main()
 
     //meshe
     Mesh *surface = Mesh::get_surface(500, 500);
-
-
-    /*Entity *e_cube = new Entity("cube",
-                                 cube,
-                                 glm::vec4(0, 1, 0, 1),
-                                 glm::vec3(0, 180, 0),
-                                 glm::vec3(0.0f, 0.0f, 0.0f),
-                                 glm::vec3(20.0f, 20.0f, 20.0f));
-    */
 
     Entity *e_surface = new Entity(world,
                                    "surface",
