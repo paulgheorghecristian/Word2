@@ -110,6 +110,10 @@ glm::vec4 Entity::get_color(){
     return color;
 }
 
+btRigidBody* Entity::get_rigid_body(){
+    return m_body;
+}
+
 Entity::~Entity()
 {
     //dtor

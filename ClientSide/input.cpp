@@ -77,7 +77,7 @@ void Input::update(SDL_Window *window){
             }
         }
     }
-    SDL_WarpMouseInWindow(window, 540, 360);
+    //SDL_WarpMouseInWindow(window, 540, 360);
 }
 
 bool Input::GetKeyDown(int key){

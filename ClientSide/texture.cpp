@@ -2,7 +2,7 @@
 
 Texture::Texture(std::string texture_name)
 {
-    SDL_Surface *texture = SDL_LoadBMP(texture_name.c_str());
+    texture = SDL_LoadBMP(texture_name.c_str());
 
     if(!texture){
         std::cerr << "Loading texture error!" << std::endl;

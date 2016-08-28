@@ -1,8 +1,12 @@
 #version 330 core
 
 uniform vec4 color_vector;
+uniform vec3 cube_position;
+
+uniform sampler2D photo_sampler;
+
 out vec4 out_Color;
 
 void main(){
-	out_Color = color_vector;
+	out_Color = texture(photo_sampler, vec2(1, 1)-cube_position.zx);
 }

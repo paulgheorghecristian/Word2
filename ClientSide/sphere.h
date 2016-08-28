@@ -10,7 +10,7 @@ class Sphere : public Entity
         void draw(Shader *);
         static void set_mesh(Mesh *);
         void set_linear_velocity(glm::vec3);
-        virtual ~Sphere();
+        ~Sphere();
     protected:
     private:
         static Mesh* mesh;

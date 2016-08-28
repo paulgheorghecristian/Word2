@@ -21,7 +21,6 @@ Box::Box(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 position
 
     m_body = new btRigidBody(info);
     m_body->setDamping(btScalar(0), btScalar(0.6));
-    m_body->setLinearVelocity(btVector3(0, 0, 0));
 
     world->addRigidBody(m_body);
 }
@@ -34,6 +33,7 @@ void Box::draw(Shader *shader){
     t.getOpenGLMatrix(mat);
 
     this->set_model_matrix(glm::scale(glm::make_mat4(mat), scale));
+    shader->loadCubePosition(glm::vec3(position.x/2000, 0.5f, position.z/2000));
     Entity::draw(shader);
 }
 

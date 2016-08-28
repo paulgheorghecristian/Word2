@@ -77,100 +77,16 @@ void Shader::getAllUniformLocations(){
     modelMat_location = glGetUniformLocation(program, "model_matrix");
     viewMat_location = glGetUniformLocation(program, "view_matrix");
     colorVector_location = glGetUniformLocation(program, "color_vector");
-    lightPosition_location = glGetUniformLocation(program, "light_position");
-    eyePosition_location = glGetUniformLocation(program, "eye_position");
-    time_location = glGetUniformLocation(program, "T");
-    glUniform1i(glGetUniformLocation(program, "height_sampler"), 0);
-    glUniform1i(glGetUniformLocation(program, "height_texture"), 1);
-    glUniform1i(glGetUniformLocation(program, "reflection_texture"), 2);
-    glUniform1i(glGetUniformLocation(program, "refraction_texture"), 3);
-    glUniform1i(glGetUniformLocation(program, "cut_texture"), 4);
-    glUniform1i(glGetUniformLocation(program, "blendmap"), 5);
-    glUniform1i(glGetUniformLocation(program, "dirt"), 6);
-    glUniform1i(glGetUniformLocation(program, "grass"), 7);
-    glUniform1i(glGetUniformLocation(program, "soil"), 8);
-    glUniform1i(glGetUniformLocation(program, "rock"), 9);
-    glUniform1i(glGetUniformLocation(program, "txtr"), 10);
-    has_texture_location = glGetUniformLocation(program, "has_texture");
-    clip_plane_location = glGetUniformLocation(program, "clip_plane");
-    forward_location = glGetUniformLocation(program, "forward");
-}
-
-void Shader::loadHasTexture(int has){
-    glUniform1i(has_texture_location, has);
-}
-
-void Shader::loadWaves(Wave *waves, int NUM_WAVES){
-    for(int i = 0; i < NUM_WAVES; i++){
-        std::string dir = "";
-        dir = "direction[";
-        dir += (char)(i+'0');
-        dir.append(std::string("]"));
-
-        std::string center = "";
-        center = "center[";
-        center += (char)(i+'0');
-        center.append(std::string("]"));
-
-        std::string w = "";
-        w = "w[";
-        w += (char)(i+'0');
-        w.append(std::string("]"));
-
-        std::string f = "";
-        f = "f[";
-        f += (char)(i+'0');
-        f.append(std::string("]"));
-
-        std::string A = "";
-        A = "A[";
-        A += (char)(i+'0');
-        A.append(std::string("]"));
-
-        std::string circular = "";
-        circular = "circular[";
-        circular += (char)(i+'0');
-        circular.append(std::string("]"));
-
-        glUniform2f(glGetUniformLocation(program, dir.c_str()), waves[i].direction.x, waves[i].direction.y);
-        glUniform2f(glGetUniformLocation(program, center.c_str()), waves[i].center.x, waves[i].center.y);
-        glUniform1f(glGetUniformLocation(program, w.c_str()), waves[i].w);
-        glUniform1f(glGetUniformLocation(program, f.c_str()), waves[i].f);
-        glUniform1f(glGetUniformLocation(program, A.c_str()), waves[i].A);
-        glUniform1i(glGetUniformLocation(program, circular.c_str()), (int)waves[i].circular);
-    }
-}
-
-void Shader::loadForward(glm::vec3 f){
-    loadVector3(forward_location, f);
-}
-
-void Shader::loadTime(float t){
-    loadFloat(time_location, t);
-}
-
-void Shader::loadFloat(GLuint location, float f){
-    glUniform1f(location, f);
+    glUniform1i(glGetUniformLocation(program, "photo_sampler"), 0);
+    cubePosition_location = glGetUniformLocation(program, "cube_position");
 }
 
 void Shader::loadViewMatrix(glm::mat4 matrix){
     loadMatrix(viewMat_location, matrix);
 }
 
-void Shader::loadClipPlane(glm::vec4 plane){
-    loadVector4(clip_plane_location, plane);
-}
-
-void Shader::loadEyePosition(glm::vec3 eye){
-    loadVector3(eyePosition_location, eye);
-}
-
 void Shader::loadColor(glm::vec4 color){
     loadVector4(colorVector_location, color);
-}
-
-void Shader::loadLightPosition(glm::vec3 vect){
-    loadVector3(lightPosition_location, vect);
 }
 
 void Shader::loadVector4(GLuint location, glm::vec4 vect){
@@ -179,6 +95,10 @@ void Shader::loadVector4(GLuint location, glm::vec4 vect){
 
 void Shader::loadVector3(GLuint location, glm::vec3 vect){
     glUniform3f(location, vect.x, vect.y, vect.z);
+}
+
+void Shader::loadCubePosition(glm::vec3 pos){
+    loadVector3(cubePosition_location, pos);
 }
 
 void Shader::loadProjectionMatrix(glm::mat4 matrix){

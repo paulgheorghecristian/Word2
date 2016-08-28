@@ -18,6 +18,7 @@ class Texture
     protected:
     private:
         GLuint texture_id;
+        SDL_Surface *texture;
 };
 
 #endif // TEXTURE_H

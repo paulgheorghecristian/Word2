@@ -24,21 +24,14 @@ class Shader
         void bind();
         void unbind();
         void getAllUniformLocations();
-        void loadHasTexture(int);
         void loadColor(glm::vec4);
-        void loadForward(glm::vec3);
-        void loadLightPosition(glm::vec3);
-        void loadEyePosition(glm::vec3);
         void loadVector4(GLuint, glm::vec4);
         void loadVector3(GLuint, glm::vec3);
         void loadMatrix(GLuint, glm::mat4);
         void loadProjectionMatrix(glm::mat4);
         void loadModelMatrix(glm::mat4);
         void loadViewMatrix(glm::mat4);
-        void loadClipPlane(glm::vec4);
-        void loadTime(float);
-        void loadFloat(GLuint, float);
-        void loadWaves(Wave *, int);
+        void loadCubePosition(glm::vec3);
         void reload_shader();
         GLuint get_program();
         virtual ~Shader();
@@ -47,8 +40,8 @@ class Shader
     private:
         std::string v_path, f_path;
         GLuint vertex_handle, fragment_handle;
-        GLuint projMat_location, modelMat_location, colorVector_location, viewMat_location, time_location, lightPosition_location, eyePosition_location, clip_plane_location;
-        GLuint forward_location, has_texture_location;
+        GLuint projMat_location, modelMat_location, colorVector_location, viewMat_location;
+        GLuint cubePosition_location;
 };
 
 #endif // SHADER_H

@@ -22,7 +22,7 @@ Sphere::Sphere(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 po
     m_body = new btRigidBody(info);
 
     m_body->setDamping(btScalar(0), btScalar(0.6));
-    m_body->setLinearVelocity(btVector3(0, 0, 0));
+    m_body->setLinearVelocity(btVector3(0, -1000, 0));
     world->addRigidBody(m_body);
 }
 
@@ -34,6 +34,7 @@ void Sphere::draw(Shader *shader){
     t.getOpenGLMatrix(mat);
 
     this->set_model_matrix(glm::scale(glm::make_mat4(mat), glm::vec3(m_radius)));
+     shader->loadCubePosition(glm::vec3(position.x/4000, 0.5f, position.z/4000));
     Entity::draw(shader);
 }
 

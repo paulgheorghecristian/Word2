@@ -22,6 +22,7 @@ class Camera
         virtual ~Camera();
         glm::vec3 get_position();
         glm::vec3 get_forward();
+        glm::vec3 get_yaw_pitch_roll();
     protected:
     private:
         Input input;

@@ -10,7 +10,7 @@ class Box : public Entity
         static void set_mesh(Mesh *);
         void draw(Shader *);
         void set_linear_velocity(glm::vec3);
-        virtual ~Box();
+        ~Box();
     protected:
     private:
         static Mesh* mesh;

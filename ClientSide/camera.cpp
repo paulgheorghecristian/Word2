@@ -62,3 +62,7 @@ glm::vec3 Camera::get_forward(){
 glm::vec3 Camera::get_position(){
     return position;
 }
+
+glm::vec3 Camera::get_yaw_pitch_roll(){
+    return glm::vec3(yaw, pitch, roll);
+}

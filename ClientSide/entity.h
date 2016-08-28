@@ -32,6 +32,7 @@ class Entity
         glm::vec3 get_position();
         glm::vec3 get_rotation();
         glm::vec3 get_scale();
+        btRigidBody* get_rigid_body();
         virtual ~Entity();
     protected:
         void compute_model_matrix();
