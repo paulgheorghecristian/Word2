@@ -8,5 +8,5 @@ uniform sampler2D photo_sampler;
 out vec4 out_Color;
 
 void main(){
-	out_Color = texture(photo_sampler, vec2(1, 1)-cube_position.zx);
+	out_Color = color_vector;
 }

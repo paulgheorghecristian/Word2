@@ -17,7 +17,7 @@ Display::Display(int width, int height, std::string title)
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetSwapInterval(0);
 
-    //SDL_ShowCursor(0);
+    SDL_ShowCursor(0);
 
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
     glContext = SDL_GL_CreateContext(window);

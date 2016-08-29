@@ -94,8 +94,8 @@ void *input_thread_func(void *parm){
         input->update(window);
 
         if(glm::abs(glm::length(input->GetMouseDelta())) > 0.3f){
-            //camera->rotate_x(input->GetMouseDelta().y * 0.1f);
-            //camera->rotate_y(input->GetMouseDelta().x * 0.1f);
+            camera->rotate_x(input->GetMouseDelta().y * 0.1f);
+            camera->rotate_y(input->GetMouseDelta().x * 0.1f);
         }
 
         if(input->GetKey(SDLK_w)){
@@ -137,14 +137,6 @@ void *input_thread_func(void *parm){
             pthread_exit(NULL);
         }
 
-        if(input->GetKeyDown(SDLK_t)){
-            for(Entity *e : entities){
-                if(e->get_name().compare("surface") != 0){
-                e->get_rigid_body()->setLinearVelocity(btVector3(0, -100, 0));
-                e->get_rigid_body()->setAngularVelocity(btVector3(0, 30, 30));}
-            }
-        }
-
         nanosleep(&ts, NULL);
     }
 }
@@ -165,10 +157,8 @@ int main()
     Display display((int)WIDTH, (int)HEIGHT, "OpenGL");
     Shader shader("res/shaders/vertex", "res/shaders/fragment");
 
-    Texture *paul = new Texture("res/textures/paul.bmp");
-
     Input *input = new Input();
-    Camera *camera = new Camera(glm::vec3(1000.39f, 3000.93f, 1945.16f), -90.4f, -82.6f, 0);
+    Camera *camera = new Camera(glm::vec3(0, 100, 0), 0, 0, 0);
 
     Args *args = new Args();
     args->input = input;
@@ -189,7 +179,7 @@ int main()
                              glm::vec4(0.0, 1.0, 1.0, 1),
                              glm::vec3(0, 0, 0),
                              glm::vec3(0.0f, 0.0f, 0.0f),
-                             glm::vec3(1,1,1));
+                             glm::vec3(10,10,10));
 
     Entity *e_surface = new Entity(world,
                                    "surface",
@@ -214,28 +204,15 @@ int main()
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(20.0f));
 
-    //entities.push_back(dynamic_sphere);
+    entities.push_back(dynamic_sphere);
     entities.push_back(e_surface);
-    //entities.push_back(dynamic_box);
-    //entities.push_back(cap);
+    entities.push_back(dynamic_box);
+    entities.push_back(cap);
 
-    glm::mat4 projection_matrix = glm::perspective(75.0f, WIDTH/HEIGHT, 0.1f, 10000.0f);
+    glm::mat4 projection_matrix = glm::perspective(75.0f, WIDTH/HEIGHT, 0.1f, 1000.0f);
 
     shader.bind();
     shader.loadProjectionMatrix(projection_matrix);
-    paul->use(0);
-
-    for(int i = 0; i < ROW; i++){
-        for(int j = 0; j < COL; j++){
-             Box *new_box = new Box(world,
-                                    500.0f,
-                                    glm::vec4(0, 1, 0, 1),
-                                    glm::vec3(i*CUBE_DIM, 0.0f, j*CUBE_DIM),
-                                    glm::vec3(0.0f, 45.0f, 0.0f),
-                                    glm::vec3(10));
-            entities.push_back(new_box);
-        }
-    }
 
     int rc = pthread_create(&input_thread_id, NULL, input_thread_func, (void*)args);
 
@@ -245,7 +222,6 @@ int main()
 
         shader.bind();
         shader.loadViewMatrix(camera->get_view_matrix());
-        paul->use(0);
 
         for(Entity *e : entities){
             e->draw(&shader);
