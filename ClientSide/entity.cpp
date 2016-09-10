@@ -24,7 +24,7 @@ void Entity::compute_model_matrix(){
     calc_model_matrix = false;
 }
 
-void Entity::draw(Shader *shader){
+void Entity::draw(Shader* shader){
     glBindVertexArray(mesh->get_vao());
     if(calc_model_matrix == true){
         compute_model_matrix();

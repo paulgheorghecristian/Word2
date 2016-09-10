@@ -17,6 +17,7 @@ class Entity
     public:
         Entity(btDynamicsWorld*, std::string, Mesh*, glm::vec4, glm::vec3, glm::vec3, glm::vec3);
         virtual void draw(Shader*);
+        void draw(Shader*, float*);
         void set_rotation(float, float, float);
         void set_scale(float, float, float);
         void set_position(float, float, float);

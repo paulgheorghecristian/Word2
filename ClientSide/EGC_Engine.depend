@@ -409,10 +409,10 @@
 1450178948 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/texture.cpp
 	"texture.h"
 
-1472399588 source:/home/paul/Desktop/Proiecte/World2/ClientSide/camera.cpp
+1472978659 source:/home/paul/Desktop/Proiecte/World2/ClientSide/camera.cpp
 	"camera.h"
 
-1472399588 /home/paul/Desktop/Proiecte/World2/ClientSide/camera.h
+1472906366 /home/paul/Desktop/Proiecte/World2/ClientSide/camera.h
 	<glm/glm.hpp>
 	<SDL2/SDL.h>
 	"input.h"
@@ -434,10 +434,10 @@
 1472399734 source:/home/paul/Desktop/Proiecte/World2/ClientSide/display.cpp
 	"display.h"
 
-1472399588 source:/home/paul/Desktop/Proiecte/World2/ClientSide/entity.cpp
+1472971107 source:/home/paul/Desktop/Proiecte/World2/ClientSide/entity.cpp
 	"entity.h"
 
-1472399588 /home/paul/Desktop/Proiecte/World2/ClientSide/entity.h
+1472970013 /home/paul/Desktop/Proiecte/World2/ClientSide/entity.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"shader.h"
@@ -488,7 +488,7 @@
 	<iostream>
 	<GL/glew.h>
 
-1472399717 source:/home/paul/Desktop/Proiecte/World2/ClientSide/main.cpp
+1472978578 source:/home/paul/Desktop/Proiecte/World2/ClientSide/main.cpp
 	<iostream>
 	"display.h"
 	"input.h"
@@ -505,16 +505,29 @@
 	"box.h"
 	<pthread.h>
 	<time.h>
+	"player.h"
 
-1472399657 source:/home/paul/Desktop/Proiecte/World2/ClientSide/sphere.cpp
+1472974391 source:/home/paul/Desktop/Proiecte/World2/ClientSide/sphere.cpp
 	"sphere.h"
 
 1472399588 /home/paul/Desktop/Proiecte/World2/ClientSide/sphere.h
 	"entity.h"
 
-1472399651 source:/home/paul/Desktop/Proiecte/World2/ClientSide/box.cpp
+1472974375 source:/home/paul/Desktop/Proiecte/World2/ClientSide/box.cpp
 	"box.h"
 
 1472399588 /home/paul/Desktop/Proiecte/World2/ClientSide/box.h
 	"entity.h"
+
+1472471076 /home/paul/Desktop/Proiecte/World2/ClientSide/include/player.h
+	"entity.h"
+
+1472471093 source:/home/paul/Desktop/Proiecte/World2/ClientSide/src/player.cpp
+	"player.h"
+
+1472974656 /home/paul/Desktop/Proiecte/World2/ClientSide/player.h
+	"entity.h"
+
+1472978583 source:/home/paul/Desktop/Proiecte/World2/ClientSide/player.cpp
+	"player.h"
 

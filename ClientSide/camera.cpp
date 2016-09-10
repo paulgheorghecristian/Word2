@@ -56,7 +56,16 @@ void Camera::compute_forward(){
 
 glm::vec3 Camera::get_forward(){
     compute_forward();
-    return forward;
+    return glm::normalize(forward);
+}
+
+glm::vec3 Camera::get_right(){
+    compute_forward();
+    return glm::normalize(glm::cross(forward, glm::vec3(0.0, 1.0, 0.0)));
+}
+
+void Camera::set_position(glm::vec3 pos){
+    position = pos;
 }
 
 glm::vec3 Camera::get_position(){

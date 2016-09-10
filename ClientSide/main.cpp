@@ -14,6 +14,7 @@
 #include "box.h"
 #include <pthread.h>
 #include <time.h>
+#include "player.h"
 
 #define CUBE_DIM 20
 #define COL 100
@@ -90,8 +91,18 @@ void *input_thread_func(void *parm){
     ts.tv_sec = 0;
     ts.tv_nsec = 10000000;
 
+    Player *p = (Player*)entities[0];
+
     while(1){
         input->update(window);
+
+        camera->set_position(p->get_position_for_camera() + glm::vec3(0, 10, 0) + camera->get_forward()*30.0f);
+
+        btVector3 player_speed = p->get_rigid_body()->getLinearVelocity();
+
+        if(input->GetKeyDown(SDLK_SPACE)){
+            p->get_rigid_body()->setLinearVelocity(btVector3(p->get_rigid_body()->getLinearVelocity().x(), 30.0f, p->get_rigid_body()->getLinearVelocity().z()));
+        }
 
         if(glm::abs(glm::length(input->GetMouseDelta())) > 0.3f){
             camera->rotate_x(input->GetMouseDelta().y * 0.1f);
@@ -99,15 +110,23 @@ void *input_thread_func(void *parm){
         }
 
         if(input->GetKey(SDLK_w)){
-            camera->move_forward(400.0f * Display::get_delta());
+            glm::vec3 forward = camera->get_forward();
+            p->get_rigid_body()->setLinearVelocity(btVector3(forward.x*30.0f, p->get_rigid_body()->getLinearVelocity().y(), forward.z*30.0f));
+            //camera->move_forward(400.0f * Display::get_delta());
         }else if(input->GetKey(SDLK_s)){
-            camera->move_forward(-400.0f * Display::get_delta());
+            glm::vec3 forward = camera->get_forward();
+            p->get_rigid_body()->setLinearVelocity(btVector3(forward.x*-30.0f, p->get_rigid_body()->getLinearVelocity().y(), forward.z*-30.0f));
+            //camera->move_forward(-400.0f * Display::get_delta());
         }
 
         if(input->GetKey(SDLK_a)){
-            camera->move_sideways(-400.0f * Display::get_delta());
+            glm::vec3 right = camera->get_right();
+            p->get_rigid_body()->setLinearVelocity(btVector3(right.x*-30.0f, p->get_rigid_body()->getLinearVelocity().y(), right.z*-30.0f));
+            //camera->move_sideways(-400.0f * Display::get_delta());
         }else if(input->GetKey(SDLK_d)){
-            camera->move_sideways(400.0f * Display::get_delta());
+            glm::vec3 right = camera->get_right();
+            p->get_rigid_body()->setLinearVelocity(btVector3(right.x*30.0f, p->get_rigid_body()->getLinearVelocity().y(), right.z*30.0f));
+            //camera->move_sideways(400.0f * Display::get_delta());
         }
 
         if(input->GetKeyDown(SDLK_z)){
@@ -158,28 +177,22 @@ int main()
     Shader shader("res/shaders/vertex", "res/shaders/fragment");
 
     Input *input = new Input();
-    Camera *camera = new Camera(glm::vec3(0, 100, 0), 0, 0, 0);
+    Camera *camera = new Camera(glm::vec3(0, 100, 500), 0, 0, 0);
 
     Args *args = new Args();
     args->input = input;
     args->cam = camera;
 
-    Mesh *capsule = Mesh::load_object("res/models/capsule.obj");
+    Mesh *capsule = Mesh::load_object("res/models/capsule2.obj");
     Mesh *sphere = Mesh::load_object("res/models/sphere.obj");
     Mesh *box = Mesh::load_object("res/models/cube.obj");
+
     Sphere::set_mesh(sphere);
     Box::set_mesh(box);
+    Player::set_mesh(capsule);
 
     //meshe
     Mesh *surface = Mesh::get_surface(500, 500);
-
-    Entity *cap = new Entity(world,
-                             "capsule",
-                             capsule,
-                             glm::vec4(0.0, 1.0, 1.0, 1),
-                             glm::vec3(0, 0, 0),
-                             glm::vec3(0.0f, 0.0f, 0.0f),
-                             glm::vec3(10,10,10));
 
     Entity *e_surface = new Entity(world,
                                    "surface",
@@ -198,16 +211,23 @@ int main()
                                         20.0f);
 
     Box *dynamic_box = new Box(world,
-                               100.0f,
+                               1000.0f,
                                glm::vec4(0, 1, 0, 1),
                                glm::vec3(0, 200, 0),
                                glm::vec3(0.0f, 0.0f, 0.0f),
-                               glm::vec3(20.0f));
+                               glm::vec3(100.0f));
 
+    Player *player = new Player(world,
+                                100.0f,
+                                glm::vec4(0.0, 1.0, 1.0, 1),
+                                glm::vec3(0, 100, 0),
+                                glm::vec3(0.0f, 0.0f, 0.0f),
+                                glm::vec3(10));
+
+    entities.push_back(player);
     entities.push_back(dynamic_sphere);
     entities.push_back(e_surface);
     entities.push_back(dynamic_box);
-    entities.push_back(cap);
 
     glm::mat4 projection_matrix = glm::perspective(75.0f, WIDTH/HEIGHT, 0.1f, 1000.0f);
 
