@@ -19,7 +19,7 @@ class Display
 		float, float, float, float);
 		int get_width();
 		int get_height();
-        static float get_delta();
+        static long get_delta();
         static bool isWindowClosed;
     protected:
     private:
@@ -28,7 +28,7 @@ class Display
         const int MAX_FPS = 120;
         float one_frame_duration;
         long last_frame_time;
-        static float delta;
+        static long delta;
         int width, height;
 };
 

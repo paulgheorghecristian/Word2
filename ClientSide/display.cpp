@@ -1,6 +1,6 @@
 #include "display.h"
 
-float Display::delta = 0;
+long Display::delta = 0;
 bool Display::isWindowClosed;
 Display::Display(int width, int height, std::string title)
 {
@@ -27,11 +27,12 @@ Display::Display(int width, int height, std::string title)
     if(status != GLEW_OK){
         std::cerr << "Glew failed to initialize !" << std::endl;
     }
+
     isWindowClosed = false;
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CLIP_DISTANCE0);
-    //glEnable(GL_CLIP_DISTANCE1);
     glDepthFunc(GL_LEQUAL);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glViewport(0.0f, 0.0f, (float)width, (float)height);
     last_frame_time = SDL_GetTicks();
@@ -94,6 +95,6 @@ int Display::get_height(){
     return height;
 }
 
-float Display::get_delta(){
-    return delta/1000.0f;
+long Display::get_delta(){
+    return delta;
 }

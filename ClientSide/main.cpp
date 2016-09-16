@@ -15,6 +15,9 @@
 #include <pthread.h>
 #include <time.h>
 #include "player.h"
+#include "font.h"
+#include "text.h"
+#include "textshader.h"
 
 #define CUBE_DIM 20
 #define COL 100
@@ -142,11 +145,11 @@ void *input_thread_func(void *parm){
 
         if(input->GetKeyDown(SDLK_x)){
             Box *new_box = new Box(world,
-                                        200.0f,
-                                        glm::vec4(0, 1, 0, 1),
-                                        camera->get_position(),
-                                        glm::vec3(0.0f, 0.0f, 0.0f),
-                                        glm::vec3(20.0f));
+                                    200.0f,
+                                    glm::vec4(0, 1, 0, 1),
+                                    camera->get_position(),
+                                    glm::vec3(0.0f, 0.0f, 0.0f),
+                                    glm::vec3(40.0f));
             new_box->set_linear_velocity(camera->get_forward()*100.0f);
             entities.push_back(new_box);
         }
@@ -175,6 +178,9 @@ int main()
 
     Display display((int)WIDTH, (int)HEIGHT, "OpenGL");
     Shader shader("res/shaders/vertex", "res/shaders/fragment");
+    TextShader *text_shader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
+    Font font("res/fonts/myfont.fnt", "res/fonts/font7.bmp");
+    Text *text = new Text(&font, "Paul", glm::vec3(101, 100, -10), glm::vec3(0, 0, 0), glm::vec3(1, 0.5, 0), 10);
 
     Input *input = new Input();
     Camera *camera = new Camera(glm::vec3(0, 100, 500), 0, 0, 0);
@@ -211,7 +217,7 @@ int main()
                                         20.0f);
 
     Box *dynamic_box = new Box(world,
-                               1000.0f,
+                               10000.0f,
                                glm::vec4(0, 1, 0, 1),
                                glm::vec3(0, 200, 0),
                                glm::vec3(0.0f, 0.0f, 0.0f),
@@ -234,11 +240,23 @@ int main()
     shader.bind();
     shader.loadProjectionMatrix(projection_matrix);
 
+    text_shader->bind();
+    text_shader->load_view_matrix(glm::mat4(1.0));
+    text_shader->load_projection_matrix(glm::ortho(0.0f, WIDTH, 0.0f, HEIGHT, 0.1f, 1000.0f));
+
     int rc = pthread_create(&input_thread_id, NULL, input_thread_func, (void*)args);
+
+    long accumulator = 0;
+    float dt = 100.0/6.0;
 
     while(!close){
         display.clear(1, 1, 1, 1);
-        world->stepSimulation(btScalar(0.05f), 1, btScalar(0.1f));
+        accumulator += Display::get_delta();
+
+        while(accumulator >= dt){
+            world->stepSimulation(btScalar(0.5f), 5);
+            accumulator -= dt;
+        }
 
         shader.bind();
         shader.loadViewMatrix(camera->get_view_matrix());
@@ -246,6 +264,10 @@ int main()
         for(Entity *e : entities){
             e->draw(&shader);
         }
+
+        text_shader->bind();
+        text->display_number(Display::get_delta());
+        text->draw(text_shader);
 
         display.update();
     }

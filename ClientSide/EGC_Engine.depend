@@ -409,7 +409,7 @@
 1450178948 source:/home/paul/Desktop/Facultate/Anul 3/EGC/Tema 3/texture.cpp
 	"texture.h"
 
-1472978659 source:/home/paul/Desktop/Proiecte/World2/ClientSide/camera.cpp
+1472978660 source:/home/paul/Desktop/Proiecte/World2/ClientSide/camera.cpp
 	"camera.h"
 
 1472906366 /home/paul/Desktop/Proiecte/World2/ClientSide/camera.h
@@ -420,24 +420,24 @@
 	"display.h"
 	<glm/gtc/matrix_transform.hpp>
 
-1472108773 /home/paul/Desktop/Proiecte/World2/ClientSide/input.h
+1472108774 /home/paul/Desktop/Proiecte/World2/ClientSide/input.h
 	<SDL2/SDL.h>
 	"display.h"
 	<glm/glm.hpp>
 
-1472108334 /home/paul/Desktop/Proiecte/World2/ClientSide/display.h
+1474063444 /home/paul/Desktop/Proiecte/World2/ClientSide/display.h
 	<SDL2/SDL.h>
 	<iostream>
 	<GL/glew.h>
 	<glm/glm.hpp>
 
-1472399734 source:/home/paul/Desktop/Proiecte/World2/ClientSide/display.cpp
+1474063836 source:/home/paul/Desktop/Proiecte/World2/ClientSide/display.cpp
 	"display.h"
 
-1472971107 source:/home/paul/Desktop/Proiecte/World2/ClientSide/entity.cpp
+1472971108 source:/home/paul/Desktop/Proiecte/World2/ClientSide/entity.cpp
 	"entity.h"
 
-1472970013 /home/paul/Desktop/Proiecte/World2/ClientSide/entity.h
+1473664200 /home/paul/Desktop/Proiecte/World2/ClientSide/entity.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"shader.h"
@@ -445,11 +445,10 @@
 	<glm/gtc/matrix_transform.hpp>
 	<string>
 	<vector>
-	<ode/ode.h>
 	<bullet/btBulletDynamicsCommon.h>
 	<glm/gtc/type_ptr.hpp>
 
-1471777069 /home/paul/Desktop/Proiecte/World2/ClientSide/mesh.h
+1471777070 /home/paul/Desktop/Proiecte/World2/ClientSide/mesh.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<vector>
@@ -467,10 +466,10 @@
 	<string.h>
 	<glm/glm.hpp>
 
-1472399741 source:/home/paul/Desktop/Proiecte/World2/ClientSide/input.cpp
+1473664794 source:/home/paul/Desktop/Proiecte/World2/ClientSide/input.cpp
 	"input.h"
 
-1471243299 source:/home/paul/Desktop/Proiecte/World2/ClientSide/mesh.cpp
+1471243300 source:/home/paul/Desktop/Proiecte/World2/ClientSide/mesh.cpp
 	"mesh.h"
 	<iostream>
 
@@ -488,7 +487,7 @@
 	<iostream>
 	<GL/glew.h>
 
-1472978578 source:/home/paul/Desktop/Proiecte/World2/ClientSide/main.cpp
+1474066949 source:/home/paul/Desktop/Proiecte/World2/ClientSide/main.cpp
 	<iostream>
 	"display.h"
 	"input.h"
@@ -506,14 +505,17 @@
 	<pthread.h>
 	<time.h>
 	"player.h"
+	"font.h"
+	"text.h"
+	"textshader.h"
 
-1472974391 source:/home/paul/Desktop/Proiecte/World2/ClientSide/sphere.cpp
+1472974392 source:/home/paul/Desktop/Proiecte/World2/ClientSide/sphere.cpp
 	"sphere.h"
 
 1472399588 /home/paul/Desktop/Proiecte/World2/ClientSide/sphere.h
 	"entity.h"
 
-1472974375 source:/home/paul/Desktop/Proiecte/World2/ClientSide/box.cpp
+1472974376 source:/home/paul/Desktop/Proiecte/World2/ClientSide/box.cpp
 	"box.h"
 
 1472399588 /home/paul/Desktop/Proiecte/World2/ClientSide/box.h
@@ -528,6 +530,38 @@
 1472974656 /home/paul/Desktop/Proiecte/World2/ClientSide/player.h
 	"entity.h"
 
-1472978583 source:/home/paul/Desktop/Proiecte/World2/ClientSide/player.cpp
+1474065719 source:/home/paul/Desktop/Proiecte/World2/ClientSide/player.cpp
 	"player.h"
+
+1450626584 source:/home/paul/Desktop/Proiecte/World2/ClientSide/font.cpp
+	"font.h"
+
+1450562019 /home/paul/Desktop/Proiecte/World2/ClientSide/font.h
+	<string>
+	<vector>
+	<fstream>
+	<iostream>
+	<string.h>
+	<sstream>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<SDL2/SDL.h>
+
+1474062992 /home/paul/Desktop/Proiecte/World2/ClientSide/text.h
+	"font.h"
+	"mesh.h"
+	<string>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	"textshader.h"
+
+1474051813 /home/paul/Desktop/Proiecte/World2/ClientSide/textshader.h
+	"shader.h"
+	<glm/gtc/type_ptr.hpp>
+
+1474063131 source:/home/paul/Desktop/Proiecte/World2/ClientSide/text.cpp
+	"text.h"
+
+1474051799 source:/home/paul/Desktop/Proiecte/World2/ClientSide/textshader.cpp
+	"textshader.h"
 

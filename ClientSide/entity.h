@@ -8,7 +8,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <string>
 #include <vector>
-#include <ode/ode.h>
 #include <bullet/btBulletDynamicsCommon.h>
 #include <glm/gtc/type_ptr.hpp>
 
