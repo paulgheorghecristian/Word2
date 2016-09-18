@@ -77,8 +77,8 @@ void Shader::getAllUniformLocations(){
     modelMat_location = glGetUniformLocation(program, "model_matrix");
     viewMat_location = glGetUniformLocation(program, "view_matrix");
     colorVector_location = glGetUniformLocation(program, "color_vector");
-    glUniform1i(glGetUniformLocation(program, "photo_sampler"), 0);
-    cubePosition_location = glGetUniformLocation(program, "cube_position");
+    has_texture_location = glGetUniformLocation(program, "has_texture");
+    glUniform1i(glGetUniformLocation(program, "texture_sampler"), 0);
 }
 
 void Shader::loadViewMatrix(glm::mat4 matrix){
@@ -89,16 +89,20 @@ void Shader::loadColor(glm::vec4 color){
     loadVector4(colorVector_location, color);
 }
 
+void Shader::loadInt(GLuint location, int var){
+    glUniform1i(location, var);
+}
+
+void Shader::load_has_texture(int has_texture){
+    loadInt(has_texture_location, has_texture);
+}
+
 void Shader::loadVector4(GLuint location, glm::vec4 vect){
     glUniform4f(location, vect.x, vect.y, vect.z, vect.w);
 }
 
 void Shader::loadVector3(GLuint location, glm::vec3 vect){
     glUniform3f(location, vect.x, vect.y, vect.z);
-}
-
-void Shader::loadCubePosition(glm::vec3 pos){
-    loadVector3(cubePosition_location, pos);
 }
 
 void Shader::loadProjectionMatrix(glm::mat4 matrix){

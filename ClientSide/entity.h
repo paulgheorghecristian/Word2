@@ -10,11 +10,12 @@
 #include <vector>
 #include <bullet/btBulletDynamicsCommon.h>
 #include <glm/gtc/type_ptr.hpp>
+#include "texture.h"
 
 class Entity
 {
     public:
-        Entity(btDynamicsWorld*, std::string, Mesh*, glm::vec4, glm::vec3, glm::vec3, glm::vec3);
+        Entity(btDynamicsWorld*, std::string, Mesh*, glm::vec4, glm::vec3, glm::vec3, glm::vec3, Texture*);
         virtual void draw(Shader*);
         void draw(Shader*, float*);
         void set_rotation(float, float, float);
@@ -44,6 +45,7 @@ class Entity
         glm::mat4 model_matrix;
         btDynamicsWorld* world;
         btRigidBody *m_body;
+        Texture *texture;
     private:
         bool calc_model_matrix;
 };

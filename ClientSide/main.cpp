@@ -138,7 +138,8 @@ void *input_thread_func(void *parm){
                                             glm::vec4(1, 0, 0, 1),
                                             camera->get_position(),
                                             glm::vec3(0.0f, 0.0f, 0.0f),
-                                            20.0f);
+                                            20.0f,
+                                            NULL);
             new_sphere->set_linear_velocity(camera->get_forward()*100.0f);
             entities.push_back(new_sphere);
         }
@@ -149,7 +150,8 @@ void *input_thread_func(void *parm){
                                     glm::vec4(0, 1, 0, 1),
                                     camera->get_position(),
                                     glm::vec3(0.0f, 0.0f, 0.0f),
-                                    glm::vec3(40.0f));
+                                    glm::vec3(40.0f),
+                                    NULL);
             new_box->set_linear_velocity(camera->get_forward()*100.0f);
             entities.push_back(new_box);
         }
@@ -181,6 +183,8 @@ int main()
     TextShader *text_shader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     Font font("res/fonts/myfont.fnt", "res/fonts/font7.bmp");
     Text *text = new Text(&font, "Paul", glm::vec3(101, 100, -10), glm::vec3(0, 0, 0), glm::vec3(1, 0.5, 0), 10);
+    Texture *wood = new Texture("res/textures/Tileable_wood_texture.bmp");
+    Texture *brick = new Texture("res/textures/brick.bmp");
 
     Input *input = new Input();
     Camera *camera = new Camera(glm::vec3(0, 100, 500), 0, 0, 0);
@@ -190,8 +194,8 @@ int main()
     args->cam = camera;
 
     Mesh *capsule = Mesh::load_object("res/models/capsule2.obj");
-    Mesh *sphere = Mesh::load_object("res/models/sphere.obj");
-    Mesh *box = Mesh::load_object("res/models/cube.obj");
+    Mesh *sphere = Mesh::load_object("res/models/sphere4.obj");
+    Mesh *box = Mesh::load_object("res/models/cube4.obj");
 
     Sphere::set_mesh(sphere);
     Box::set_mesh(box);
@@ -206,27 +210,29 @@ int main()
                                    glm::vec4(0.5, 0.5, 0.5, 1),
                                    glm::vec3(0, 0, 0),
                                    glm::vec3(0.0f, 0.0f, 0.0f),
-                                   glm::vec3(50000.0f, 1, 50000.0f));
-
+                                   glm::vec3(50000.0f, 1, 50000.0f),
+                                   NULL);
 
     Sphere *dynamic_sphere = new Sphere(world,
                                         20.0f,
                                         glm::vec4(1, 0, 0, 1),
                                         glm::vec3(400, 200, 0),
                                         glm::vec3(0.0f, 0.0f, 0.0f),
-                                        20.0f);
+                                        20.0f,
+                                        wood);
 
     Box *dynamic_box = new Box(world,
                                10000.0f,
                                glm::vec4(0, 1, 0, 1),
                                glm::vec3(0, 200, 0),
                                glm::vec3(0.0f, 0.0f, 0.0f),
-                               glm::vec3(100.0f));
+                               glm::vec3(100.0f),
+                               brick);
 
     Player *player = new Player(world,
                                 100.0f,
                                 glm::vec4(0.0, 1.0, 1.0, 1),
-                                glm::vec3(0, 100, 0),
+                                glm::vec3(-100, 100, 0),
                                 glm::vec3(0.0f, 0.0f, 0.0f),
                                 glm::vec3(10));
 

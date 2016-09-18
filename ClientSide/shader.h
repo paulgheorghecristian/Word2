@@ -10,12 +10,6 @@
 #include <string.h>
 #include <glm/glm.hpp>
 
-struct Wave{
-    glm::vec2 direction, center;
-    float w, f, A;
-    bool circular;
-};
-
 class Shader
 {
     public:
@@ -32,6 +26,8 @@ class Shader
         void loadModelMatrix(glm::mat4);
         void loadViewMatrix(glm::mat4);
         void loadCubePosition(glm::vec3);
+        void loadInt(GLuint, int);
+        void load_has_texture(int);
         void reload_shader();
         GLuint get_program();
         virtual ~Shader();
@@ -41,7 +37,7 @@ class Shader
         std::string v_path, f_path;
         GLuint vertex_handle, fragment_handle;
         GLuint projMat_location, modelMat_location, colorVector_location, viewMat_location;
-        GLuint cubePosition_location;
+        GLuint has_texture_location;
 };
 
 #endif // SHADER_H

@@ -1,12 +1,17 @@
 #version 330 core
 
 uniform vec4 color_vector;
-uniform vec3 cube_position;
+uniform sampler2D texture_sampler;
+uniform int has_texture;
 
-uniform sampler2D photo_sampler;
-
-out vec4 out_Color;
+in vec2 text_coords;
+out vec4 out_color;
 
 void main(){
-	out_Color = color_vector;
+	if(has_texture == 1){
+		vec4 color = texture(texture_sampler, text_coords);
+		out_color = color;
+	}else{
+		out_color = color_vector;
+	}
 }

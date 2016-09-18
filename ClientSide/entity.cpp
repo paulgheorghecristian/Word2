@@ -1,6 +1,6 @@
 #include "entity.h"
 
-Entity::Entity(btDynamicsWorld* world, std::string name, Mesh *mesh, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : world(world), name(name), mesh(mesh), color(color), position(position), rotation(rotation), scale(scale), model_matrix(1.0f)
+Entity::Entity(btDynamicsWorld* world, std::string name, Mesh *mesh, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, Texture *texture) : world(world), name(name), mesh(mesh), color(color), position(position), rotation(rotation), scale(scale), model_matrix(1.0f), texture(texture)
 {
     calc_model_matrix = true;
     compute_model_matrix();
@@ -28,6 +28,12 @@ void Entity::draw(Shader* shader){
     glBindVertexArray(mesh->get_vao());
     if(calc_model_matrix == true){
         compute_model_matrix();
+    }
+    if(!texture){
+        shader->load_has_texture(0);
+    } else {
+        shader->load_has_texture(1);
+        texture->use(0);
     }
     shader->loadModelMatrix(model_matrix);
     shader->loadColor(color);

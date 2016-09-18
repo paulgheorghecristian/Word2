@@ -2,7 +2,7 @@
 
 Mesh* Player::mesh;
 
-Player::Player(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : Entity(world, "player", Player::mesh, color, position, rotation, scale)
+Player::Player(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : Entity(world, "player", Player::mesh, color, position, rotation, scale, NULL)
 {
     btTransform t;
     btVector3 inertia(0, 0, 0);
@@ -10,7 +10,7 @@ Player::Player(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 po
     t.setIdentity();
     t.setOrigin(btVector3(position.x, position.y, position.z));
 
-    btCapsuleShape* capsuleShape = new btCapsuleShape(scale.x* 3.0f, scale.y*2.5f);
+    btCapsuleShape* capsuleShape = new btCapsuleShape(scale.x*3.2f, scale.y*2.5f);
     if(mass != 0.0){
         capsuleShape->calculateLocalInertia(btScalar(mass), inertia);
     }

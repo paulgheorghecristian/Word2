@@ -8,6 +8,9 @@ uniform mat4 projection_matrix;
 uniform mat4 model_matrix;
 uniform mat4 view_matrix;
 
+out vec2 text_coords;
+
 void main(){
+	text_coords = in_texture;
 	gl_Position = projection_matrix * view_matrix * model_matrix * vec4(in_position, 1.0);
 }

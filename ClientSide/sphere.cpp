@@ -2,7 +2,7 @@
 
 Mesh* Sphere::mesh;
 
-Sphere::Sphere(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, float radius) : m_radius(radius), Entity(world, "sphere", Sphere::mesh, color, position, rotation, glm::vec3(radius))
+Sphere::Sphere(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, float radius, Texture* texture) : m_radius(radius), Entity(world, "sphere", Sphere::mesh, color, position, rotation, glm::vec3(radius), texture)
 {
     btTransform t;
     btVector3 inertia(0, 0, 0);
@@ -10,7 +10,7 @@ Sphere::Sphere(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 po
     t.setIdentity();
     t.setOrigin(btVector3(position.x, position.y, position.z));
 
-    btSphereShape* sphereShape = new btSphereShape(radius);
+    btSphereShape* sphereShape = new btSphereShape(radius/2.0);
     if(mass != 0.0){
         sphereShape->calculateLocalInertia(btScalar(mass), inertia);
     }
