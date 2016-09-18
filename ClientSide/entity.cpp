@@ -122,5 +122,4 @@ btRigidBody* Entity::get_rigid_body(){
 
 Entity::~Entity()
 {
-    //dtor
 }

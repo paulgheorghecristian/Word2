@@ -19,9 +19,6 @@
 #include "text.h"
 #include "textshader.h"
 
-#define CUBE_DIM 20
-#define COL 100
-#define ROW 100
 #define GRAVITY -10
 
 btDynamicsWorld* world;
@@ -115,21 +112,17 @@ void *input_thread_func(void *parm){
         if(input->GetKey(SDLK_w)){
             glm::vec3 forward = camera->get_forward();
             p->get_rigid_body()->setLinearVelocity(btVector3(forward.x*30.0f, p->get_rigid_body()->getLinearVelocity().y(), forward.z*30.0f));
-            //camera->move_forward(400.0f * Display::get_delta());
         }else if(input->GetKey(SDLK_s)){
             glm::vec3 forward = camera->get_forward();
             p->get_rigid_body()->setLinearVelocity(btVector3(forward.x*-30.0f, p->get_rigid_body()->getLinearVelocity().y(), forward.z*-30.0f));
-            //camera->move_forward(-400.0f * Display::get_delta());
         }
 
         if(input->GetKey(SDLK_a)){
             glm::vec3 right = camera->get_right();
             p->get_rigid_body()->setLinearVelocity(btVector3(right.x*-30.0f, p->get_rigid_body()->getLinearVelocity().y(), right.z*-30.0f));
-            //camera->move_sideways(-400.0f * Display::get_delta());
         }else if(input->GetKey(SDLK_d)){
             glm::vec3 right = camera->get_right();
             p->get_rigid_body()->setLinearVelocity(btVector3(right.x*30.0f, p->get_rigid_body()->getLinearVelocity().y(), right.z*30.0f));
-            //camera->move_sideways(400.0f * Display::get_delta());
         }
 
         if(input->GetKeyDown(SDLK_z)){
@@ -232,7 +225,7 @@ int main()
     Player *player = new Player(world,
                                 100.0f,
                                 glm::vec4(0.0, 1.0, 1.0, 1),
-                                glm::vec3(-100, 100, 0),
+                                glm::vec3(400, 0, 0),
                                 glm::vec3(0.0f, 0.0f, 0.0f),
                                 glm::vec3(10));
 
