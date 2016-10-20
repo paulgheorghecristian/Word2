@@ -21,7 +21,7 @@ Player::Player(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 po
 
     m_body = new btRigidBody(info);
 
-    m_body->setDamping(btScalar(0), btScalar(1.0));
+    m_body->setDamping(btScalar(0.3), btScalar(1.0));
     m_body->setSleepingThresholds(0.0, 0.0);
     m_body->setAngularFactor(0.0);
 
@@ -37,8 +37,8 @@ void Player::draw(Shader *shader){
 
     position_for_camera = glm::vec3(mat[12], mat[13], mat[14]);
 
-    this->set_model_matrix(glm::scale(glm::make_mat4(mat), scale));
-    Entity::draw(shader);
+    //this->set_model_matrix(glm::scale(glm::make_mat4(mat), scale));
+    //Entity::draw(shader);
 }
 
 glm::vec3 Player::get_position_for_camera(){

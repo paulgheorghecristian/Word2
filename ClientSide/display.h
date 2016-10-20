@@ -22,11 +22,13 @@ class Display
         static long get_delta();
         static bool isWindowClosed;
         SDL_Window* getWindow();
+        void close();
+        void setLastFrameTime(long);
     protected:
     private:
         SDL_Window *window;
         SDL_GLContext glContext;
-        const int MAX_FPS = 120;
+        const int MAX_FPS = 1000;
         float one_frame_duration;
         long last_frame_time;
         static long delta;

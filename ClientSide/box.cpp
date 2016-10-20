@@ -20,7 +20,7 @@ Box::Box(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 position
     info.m_friction = 1.0f;
 
     m_body = new btRigidBody(info);
-    m_body->setDamping(btScalar(0), btScalar(0.6));
+    m_body->setDamping(btScalar(0.2), btScalar(0.6));
 
     world->addRigidBody(m_body);
 }

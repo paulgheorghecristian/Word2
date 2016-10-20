@@ -50,7 +50,6 @@ Display::~Display()
 }
 
 void Display::clear(float r, float g, float b, float a){
-    last_frame_time = SDL_GetTicks();
     GLint viewport[4];
     glGetIntegerv(GL_VIEWPORT, viewport);
     glScissor(viewport[0], viewport[1], viewport[2], viewport[3]);
@@ -103,4 +102,12 @@ long Display::get_delta(){
 
 SDL_Window* Display::getWindow(){
     return window;
+}
+
+void Display::close(){
+    isWindowClosed = true;
+}
+
+void Display::setLastFrameTime(long last_frame_time){
+    this->last_frame_time = last_frame_time;
 }
