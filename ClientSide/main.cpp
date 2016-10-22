@@ -20,7 +20,10 @@
 #include <windows.h>
 #include <typeinfo>
 
-#define GRAVITY -10
+#define GRAVITY -20
+#define MAX_LENGTH 50
+#define MAX_SPEED 0.8
+#define FORCE 1200
 
 btDynamicsWorld* world;
 btDispatcher* dispatcher;
@@ -37,6 +40,68 @@ struct InputArgs{
     Player* player;
 };
 
+void processInput(InputArgs* args){
+    Input* input = args->input;
+    Display* display = args->display;
+    Camera* camera = args->camera;
+    Player* player = args->player;
+
+    input->update(display->getWindow());
+
+    if(input->GetKeyDown(SDLK_SPACE)){
+        player->get_rigid_body()->applyCentralForce(btVector3(0, 80000, 0));
+    }
+
+    glm::vec3 forward = camera->get_forward();
+    glm::vec3 right = camera->get_right();
+
+    if(input->GetKey(SDLK_w)){
+        btVector3 fwd = btVector3(forward.x, 0, forward.z);
+        fwd = fwd.normalized() * FORCE;
+        player->get_rigid_body()->applyCentralForce(fwd);
+    }else if(input->GetKey(SDLK_s)){
+        btVector3 fwd = btVector3(forward.x, 0, forward.z);
+        fwd = fwd.normalized() * -FORCE;
+        player->get_rigid_body()->applyCentralForce(fwd);
+    }
+
+    if(input->GetKey(SDLK_a)){
+        btVector3 rgh = btVector3(right.x, 0, right.z);
+        rgh = rgh.normalized() * -FORCE;
+        player->get_rigid_body()->applyCentralForce(rgh);
+    }else if(input->GetKey(SDLK_d)){
+        btVector3 rgh = btVector3(right.x, 0, right.z);
+        rgh = rgh.normalized() * FORCE;
+        player->get_rigid_body()->applyCentralForce(rgh);
+    }
+
+    if(glm::abs(glm::length(input->GetMouseDelta())) > 0.5f){
+        camera->rotate_x(input->GetMouseDelta().y * 0.004f);
+        camera->rotate_y(input->GetMouseDelta().x * 0.004f);
+    }
+
+    if(input->GetKeyDown(SDLK_ESCAPE)){
+        display->close();
+    }
+
+    if(input->GetKeyDown(SDLK_x)){
+        Box *b = new Box(world,
+                           100.0f,
+                           glm::vec4(0, 1, 0, 1),
+                           camera->get_position() + forward * 50.0f,
+                           glm::vec3(0.0f, 0.0f, 0.0f),
+                           glm::vec3(40.0f),
+                           NULL);
+        b->set_linear_velocity(forward * 100.0f);
+        entities.push_back(b);
+    }
+}
+
+void myTickCallback(btDynamicsWorld *world, btScalar timeStep) {
+    InputArgs* args = (InputArgs*)world->getWorldUserInfo();
+    processInput(args);
+}
+
 void initBullet(){
     collisionConfig = new btDefaultCollisionConfiguration();
     dispatcher = new btCollisionDispatcher(collisionConfig);
@@ -48,6 +113,7 @@ void initBullet(){
                                         solver,
                                         collisionConfig);
     world->setGravity(btVector3(0, GRAVITY, 0));
+    world->setInternalTickCallback(myTickCallback, NULL, true);
 }
 
 void initObjects(){
@@ -81,57 +147,6 @@ void cleanBullet(){
     std::cout << "Cleaning finished!" << std::endl;
 }
 
-void processInput(InputArgs* args, Texture* brick){
-    Input* input = args->input;
-    Display* display = args->display;
-    Camera* camera = args->camera;
-    Player* player = args->player;
-
-    input->update(display->getWindow());
-
-    if(input->GetKeyDown(SDLK_SPACE)){
-        player->get_rigid_body()->setLinearVelocity(btVector3(player->get_rigid_body()->getLinearVelocity().x(), 30.0f, player->get_rigid_body()->getLinearVelocity().z()));
-    }
-
-    glm::vec3 forward = camera->get_forward();
-    glm::vec3 right = camera->get_right();
-
-    if(input->GetKey(SDLK_w)){
-        //glm::vec3 forward = camera.get_forward();
-        player->get_rigid_body()->setLinearVelocity(btVector3(forward.x*30.0f, player->get_rigid_body()->getLinearVelocity().y(), forward.z*30.0f));
-    }else if(input->GetKey(SDLK_s)){
-        //glm::vec3 forward = camera.get_forward();
-        player->get_rigid_body()->setLinearVelocity(btVector3(forward.x*-30.0f, player->get_rigid_body()->getLinearVelocity().y(), forward.z*-30.0f));
-    }
-
-    if(input->GetKey(SDLK_a)){
-        player->get_rigid_body()->setLinearVelocity(btVector3(right.x*-30.0f, player->get_rigid_body()->getLinearVelocity().y(), right.z*-30.0f));
-    }else if(input->GetKey(SDLK_d)){
-        player->get_rigid_body()->setLinearVelocity(btVector3(right.x*30.0f, player->get_rigid_body()->getLinearVelocity().y(), right.z*30.0f));
-    }
-
-    if(glm::abs(glm::length(input->GetMouseDelta())) > 0.5f){
-        camera->rotate_x(input->GetMouseDelta().y * 0.004f);
-        camera->rotate_y(input->GetMouseDelta().x * 0.004f);
-    }
-
-    if(input->GetKeyDown(SDLK_ESCAPE)){
-        display->close();
-    }
-
-    if(input->GetKeyDown(SDLK_x)){
-        Box *b = new Box(world,
-                           100.0f,
-                           glm::vec4(0, 1, 0, 1),
-                           camera->get_position() + forward * 50.0f,
-                           glm::vec3(0.0f, 0.0f, 0.0f),
-                           glm::vec3(20.0f),
-                           brick);
-        b->set_linear_velocity(forward * 100.0f);
-        entities.push_back(b);
-    }
-}
-
 int main(int argc, char *argv[])
 {
     //rezolutia ferestrei
@@ -143,7 +158,7 @@ int main(int argc, char *argv[])
 
     InputArgs inputArgs;
 
-    Display* display = new Display((int)WIDTH, (int)HEIGHT, "OpenGL");
+    Display* display = new Display("OpenGL");
     Shader shader("res/shaders/vertex", "res/shaders/fragment");
     TextShader *text_shader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     Font font("res/fonts/myfont.fnt", "res/fonts/font7.bmp");
@@ -191,7 +206,7 @@ int main(int argc, char *argv[])
                                brick);
 
     Player *player = new Player(world,
-                                100.0f,
+                                30.0f,
                                 glm::vec4(0.0, 1.0, 1.0, 1),
                                 glm::vec3(400, 0, 0),
                                 glm::vec3(0.0f, 0.0f, 0.0f),
@@ -219,9 +234,10 @@ int main(int argc, char *argv[])
     inputArgs.camera = camera;
     inputArgs.player = player;
 
+    world->setWorldUserInfo((void*)&inputArgs);
+
     while(!display->isClosed()){
         display->setLastFrameTime(SDL_GetTicks());
-        processInput(&inputArgs, brick);
 
         accumulator += Display::get_delta();
         while(accumulator >= dt){
@@ -229,7 +245,7 @@ int main(int argc, char *argv[])
             accumulator -= dt;
         }
 
-        camera->set_position(player->get_position_for_camera() + glm::vec3(0, 10, 0));
+        camera->set_position(player->get_position_for_camera() + glm::vec3(0, 25, 0));
 
         display->clear(1,1,1,1);
         shader.bind();

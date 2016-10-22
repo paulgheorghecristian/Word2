@@ -10,18 +10,18 @@ Player::Player(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 po
     t.setIdentity();
     t.setOrigin(btVector3(position.x, position.y, position.z));
 
-    btCapsuleShape* capsuleShape = new btCapsuleShape(scale.x*3.2f, scale.y*2.5f);
+    btCapsuleShape* capsuleShape = new btCapsuleShape(scale.x*2.0f, scale.y*2.0f);
     if(mass != 0.0){
         capsuleShape->calculateLocalInertia(btScalar(mass), inertia);
     }
     btMotionState* motion = new btDefaultMotionState(t);
     btRigidBody::btRigidBodyConstructionInfo info(mass, motion, capsuleShape, inertia);
-    info.m_restitution = 0.2f;
+    info.m_restitution = 0.3f;
     info.m_friction = 1.0f;
 
     m_body = new btRigidBody(info);
 
-    m_body->setDamping(btScalar(0.3), btScalar(1.0));
+    m_body->setDamping(btScalar(0.5), btScalar(1.0));
     m_body->setSleepingThresholds(0.0, 0.0);
     m_body->setAngularFactor(0.0);
 
