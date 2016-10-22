@@ -2,7 +2,7 @@
 
 long Display::delta = 0;
 bool Display::isWindowClosed;
-Display::Display(int width, int height, std::string title)
+Display::Display(std::string title)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -21,7 +21,17 @@ Display::Display(int width, int height, std::string title)
 
     SDL_ShowCursor(0);
 
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+    SDL_DisplayMode dm;
+
+    if (SDL_GetDesktopDisplayMode(0, &dm) != 0){
+        SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
+    }
+
+    int width, height;
+    width = dm.w;
+    height = dm.h;
+
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
     glContext = SDL_GL_CreateContext(window);
 
     GLenum status = glewInit();
@@ -50,9 +60,6 @@ Display::~Display()
 }
 
 void Display::clear(float r, float g, float b, float a){
-    GLint viewport[4];
-    glGetIntegerv(GL_VIEWPORT, viewport);
-    glScissor(viewport[0], viewport[1], viewport[2], viewport[3]);
     glClearColor(r, g, b, a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

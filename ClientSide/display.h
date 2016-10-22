@@ -9,7 +9,7 @@
 class Display
 {
     public:
-        Display(int, int, std::string);
+        Display(std::string);
         virtual ~Display();
         void update();
         bool isClosed();
@@ -28,7 +28,7 @@ class Display
     private:
         SDL_Window *window;
         SDL_GLContext glContext;
-        const int MAX_FPS = 1000;
+        const int MAX_FPS = 300;
         float one_frame_duration;
         long last_frame_time;
         static long delta;
