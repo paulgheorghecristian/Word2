@@ -24,20 +24,23 @@
 #define MAX_LENGTH 50
 #define MAX_SPEED 0.8
 #define FORCE 1200
+#define EPS 0.03
 
 btDynamicsWorld* world;
 btDispatcher* dispatcher;
 btBroadphaseInterface* broadsphase;
 btCollisionConfiguration* collisionConfig;
 btConstraintSolver* solver;
-
+Entity *e_surface;
 std::vector<Entity*> entities;
+bool onGround = true;
 
 struct InputArgs{
     Input* input;
     Display* display;
     Camera* camera;
     Player* player;
+    Texture* txt;
 };
 
 void processInput(InputArgs* args){
@@ -45,10 +48,11 @@ void processInput(InputArgs* args){
     Display* display = args->display;
     Camera* camera = args->camera;
     Player* player = args->player;
+    Texture* txt = args->txt;
 
     input->update(display->getWindow());
 
-    if(input->GetKeyDown(SDLK_SPACE)){
+    if(input->GetKeyDown(SDLK_SPACE) && onGround){
         player->get_rigid_body()->applyCentralForce(btVector3(0, 80000, 0));
     }
 
@@ -90,8 +94,8 @@ void processInput(InputArgs* args){
                            glm::vec4(0, 1, 0, 1),
                            camera->get_position() + forward * 50.0f,
                            glm::vec3(0.0f, 0.0f, 0.0f),
-                           glm::vec3(40.0f),
-                           NULL);
+                           glm::vec3(30.0f),
+                           txt);
         b->set_linear_velocity(forward * 100.0f);
         entities.push_back(b);
     }
@@ -117,6 +121,17 @@ void initBullet(){
 }
 
 void initObjects(){
+    Mesh *surface = Mesh::get_surface(500, 500);
+    e_surface = new Entity(world,
+                           "surface",
+                           surface,
+                           glm::vec4(0.5, 0.5, 0.5, 1),
+                           glm::vec3(0, 0, 0),
+                           glm::vec3(0.0f, 0.0f, 0.0f),
+                           glm::vec3(50000.0f, 1, 50000.0f),
+                           NULL);
+
+
     btTransform t;
 
     t.setIdentity();
@@ -128,6 +143,7 @@ void initObjects(){
     info.m_restitution = 0.3;
     info.m_friction = 1.0;
     btRigidBody *body = new btRigidBody(info);
+    body->setUserPointer((void*)e_surface);
     world->addRigidBody(body);
 }
 
@@ -150,15 +166,13 @@ void cleanBullet(){
 int main(int argc, char *argv[])
 {
     //rezolutia ferestrei
-    const float WIDTH = 1080.0f;
-    const float HEIGHT = 720.0f;
+    float WIDTH;
+    float HEIGHT;
 
     initBullet();
-    initObjects();
-
     InputArgs inputArgs;
 
-    Display* display = new Display("OpenGL");
+    Display* display = new Display(WIDTH, HEIGHT, "Worlds-ver 0.0001");
     Shader shader("res/shaders/vertex", "res/shaders/fragment");
     TextShader *text_shader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     Font font("res/fonts/myfont.fnt", "res/fonts/font7.bmp");
@@ -177,17 +191,7 @@ int main(int argc, char *argv[])
     Box::set_mesh(box);
     Player::set_mesh(capsule);
 
-    //meshe
-    Mesh *surface = Mesh::get_surface(500, 500);
-
-    Entity *e_surface = new Entity(world,
-                                   "surface",
-                                   surface,
-                                   glm::vec4(0.5, 0.5, 0.5, 1),
-                                   glm::vec3(0, 0, 0),
-                                   glm::vec3(0.0f, 0.0f, 0.0f),
-                                   glm::vec3(50000.0f, 1, 50000.0f),
-                                   NULL);
+    initObjects();
 
     Sphere *dynamic_sphere = new Sphere(world,
                                         20.0f,
@@ -196,14 +200,17 @@ int main(int argc, char *argv[])
                                         glm::vec3(0.0f, 0.0f, 0.0f),
                                         20.0f,
                                         wood);
+    dynamic_sphere->get_rigid_body()->setUserPointer(dynamic_sphere);
 
     Box *dynamic_box = new Box(world,
                                10000.0f,
                                glm::vec4(0, 1, 0, 1),
                                glm::vec3(0, 500, 0),
                                glm::vec3(0.0f, 0.0f, 0.0f),
-                               glm::vec3(100.0f),
+                               glm::vec3(100.0f, 200.0f, 100.0f),
                                brick);
+
+    dynamic_box->get_rigid_body()->setUserPointer(dynamic_box);
 
     Player *player = new Player(world,
                                 30.0f,
@@ -211,6 +218,8 @@ int main(int argc, char *argv[])
                                 glm::vec3(400, 0, 0),
                                 glm::vec3(0.0f, 0.0f, 0.0f),
                                 glm::vec3(10));
+
+    player->get_rigid_body()->setUserPointer(player);
 
     entities.push_back(player);
     entities.push_back(dynamic_sphere);
@@ -233,6 +242,7 @@ int main(int argc, char *argv[])
     inputArgs.display = display;
     inputArgs.camera = camera;
     inputArgs.player = player;
+    inputArgs.txt = brick;
 
     world->setWorldUserInfo((void*)&inputArgs);
 
@@ -246,6 +256,24 @@ int main(int argc, char *argv[])
         }
 
         camera->set_position(player->get_position_for_camera() + glm::vec3(0, 25, 0));
+
+        glm::vec3 playerPosition = player->get_position_for_camera();
+
+        btVector3 down(0, -1000, 0);
+
+        btCollisionWorld::ClosestRayResultCallback rayCallback(btVector3(playerPosition.x, playerPosition.y, playerPosition.z),
+                                                               down);
+
+        world->rayTest(btVector3(playerPosition.x, playerPosition.y, playerPosition.z),
+                       down,
+                       rayCallback);
+        if(rayCallback.hasHit()){
+            if(rayCallback.m_closestHitFraction < EPS){
+                onGround = true;
+            }else{
+                onGround = false;
+            }
+        }
 
         display->clear(1,1,1,1);
         shader.bind();

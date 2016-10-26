@@ -11,13 +11,14 @@ Player::Player(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 po
     t.setOrigin(btVector3(position.x, position.y, position.z));
 
     btCapsuleShape* capsuleShape = new btCapsuleShape(scale.x*2.0f, scale.y*2.0f);
+
     if(mass != 0.0){
         capsuleShape->calculateLocalInertia(btScalar(mass), inertia);
     }
     btMotionState* motion = new btDefaultMotionState(t);
     btRigidBody::btRigidBodyConstructionInfo info(mass, motion, capsuleShape, inertia);
-    info.m_restitution = 0.3f;
-    info.m_friction = 1.0f;
+    info.m_restitution = 0.5f;
+    info.m_friction = 0.3f;
 
     m_body = new btRigidBody(info);
 

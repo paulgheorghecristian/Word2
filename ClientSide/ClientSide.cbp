@@ -15,29 +15,29 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
-					<Add directory="../libraries/glm" />
-					<Add directory="../libraries/SDL2/include" />
-					<Add directory="../libraries/glew-2.0.0/include" />
-					<Add directory="../libraries/bullet3-2.85" />
-					<Add directory="../libraries/bullet3-2.85/bullet" />
+					<Add directory="../../../libraries/glm" />
+					<Add directory="../../../libraries/SDL2/include" />
+					<Add directory="../../../libraries/glew-2.0.0/include" />
+					<Add directory="../../../libraries/bullet3-2.85" />
+					<Add directory="../../../libraries/bullet3-2.85/bullet" />
 				</Compiler>
 				<Linker>
 					<Add option="-lmingw32" />
 					<Add library="OpenGL32" />
-					<Add library="..\libraries\glew-2.0.0\bin\Release\x64\glew32.dll" />
-					<Add library="..\libraries\SDL2\lib\libSDL2main.a" />
-					<Add library="..\libraries\SDL2\bin\SDL2.dll" />
-					<Add library="..\libraries\bullet\lib\libBullet2FileLoader.dll" />
-					<Add library="..\libraries\bullet\lib\libBullet3Collision.dll" />
-					<Add library="..\libraries\bullet\lib\libBullet3Common.dll" />
-					<Add library="..\libraries\bullet\lib\libBullet3Dynamics.dll" />
-					<Add library="..\libraries\bullet\lib\libBullet3Geometry.dll" />
-					<Add library="..\libraries\bullet\lib\libBullet3OpenCL_clew.dll" />
-					<Add library="..\libraries\bullet\lib\libBulletCollision.dll" />
-					<Add library="..\libraries\bullet\lib\libBulletDynamics.dll" />
-					<Add library="..\libraries\bullet\lib\libBulletInverseDynamics.dll" />
-					<Add library="..\libraries\bullet\lib\libBulletSoftBody.dll" />
-					<Add library="..\libraries\bullet\lib\libLinearMath.dll" />
+					<Add library="..\..\..\libraries\glew-2.0.0\bin\Release\x64\glew32.dll" />
+					<Add library="..\..\..\libraries\SDL2\lib\libSDL2main.a" />
+					<Add library="..\..\..\libraries\SDL2\bin\SDL2.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libBullet2FileLoader.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libBullet3Collision.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libBullet3Common.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libBullet3Dynamics.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libBullet3Geometry.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libBullet3OpenCL_clew.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libBulletCollision.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libBulletDynamics.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libBulletInverseDynamics.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libBulletSoftBody.dll" />
+					<Add library="..\..\..\libraries\bullet\lib\libLinearMath.dll" />
 				</Linker>
 			</Target>
 			<Target title="Release">

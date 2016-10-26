@@ -2,7 +2,7 @@
 
 long Display::delta = 0;
 bool Display::isWindowClosed;
-Display::Display(std::string title)
+Display::Display(float &WIDTH, float &HEIGHT, std::string title)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -27,11 +27,10 @@ Display::Display(std::string title)
         SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
     }
 
-    int width, height;
-    width = dm.w;
-    height = dm.h;
+    WIDTH = dm.w;
+    HEIGHT = dm.h;
 
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
     glContext = SDL_GL_CreateContext(window);
 
     GLenum status = glewInit();
@@ -46,7 +45,7 @@ Display::Display(std::string title)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glViewport(0.0f, 0.0f, (float)width, (float)height);
+    glViewport(0.0f, 0.0f, WIDTH, HEIGHT);
     last_frame_time = SDL_GetTicks();
 
     one_frame_duration = 1000.0f / (float)MAX_FPS;
