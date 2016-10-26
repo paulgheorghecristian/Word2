@@ -1,0 +1,17 @@
+#version 330 core
+
+out vec4 out_color;
+
+in vec2 text_coords;
+
+uniform vec3 color;
+uniform sampler2D font_atlas;
+uniform float d1 = 0.5;
+uniform float d2 = 0.1;
+
+void main(){
+	vec4 letter_pixel = texture(font_atlas, text_coords);
+
+	float amt = 1.0 - smoothstep(d1, d1+d2, 1.0-letter_pixel.a);
+	out_color = vec4(color, amt);
+}
