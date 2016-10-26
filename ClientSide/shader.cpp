@@ -77,8 +77,6 @@ void Shader::getAllUniformLocations(){
     modelMatLocation = glGetUniformLocation(program, "modelMatrix");
     viewMatLocation = glGetUniformLocation(program, "viewMatrix");
     colorVectorLocation = glGetUniformLocation(program, "colorVector");
-    hasTextureLocation = glGetUniformLocation(program, "hasTexture");
-    glUniform1i(glGetUniformLocation(program, "textureSampler"), 0);
 }
 
 void Shader::loadViewMatrix(glm::mat4 matrix){
@@ -148,7 +146,7 @@ void Shader::reloadShader(){
     glDeleteProgram(program);
 
     std::string vertexShaderSource = loadShader(vertexShaderPath);
-    std::string fragmentShaderSource = loadShader(f_path);
+    std::string fragmentShaderSource = loadShader(fragmentShaderPath);
 
     GLint compileResult = 0, linkResult = 0;
     char infoLogMessage[1024];

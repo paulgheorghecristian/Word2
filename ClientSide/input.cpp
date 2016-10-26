@@ -2,12 +2,12 @@
 
 Input::Input() : mousePosition(0.0)
 {
-    for(unsigned int i = 0; i < NUMKEYS; i++){
+    for(unsigned int i = 0; i < NUM_KEYS; i++){
         downKeys[i] = false;
         upKeys[i] = false;
         inputs[i] = false;
     }
-    for(unsigned int i = 0; i < NUMMOUSE; i++){
+    for(unsigned int i = 0; i < NUM_MOUSE; i++){
         downMouse[i] = false;
         upMouse[i] = false;
         inputs[i] = false;
@@ -77,7 +77,7 @@ void Input::update(Display* display){
             }
         }
     }
-    SDL_WarpMouseInWindow(window, display->getWidth()/2, display->getHeight()/2);
+    SDL_WarpMouseInWindow(display->getWindow(), display->getWidth()/2, display->getHeight()/2);
 }
 
 bool Input::getKeyDown(int key){

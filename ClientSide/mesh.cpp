@@ -16,7 +16,7 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboHandles[INDEX]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*indices.size(), &indices[0], GL_STATIC_DRAW);
 
-    numOfTriangles = indices.size();
+    numberOfTriangles = indices.size();
 
     //ii descriu shader-ului datele trimise
 
@@ -39,7 +39,7 @@ GLuint Mesh::getVao(){
 }
 
 GLsizei Mesh::getNumberOfTriangles(){
-    return numOfTriangles;
+    return numberOfTriangles;
 }
 
 Mesh* Mesh::getSurface(int width, int height){

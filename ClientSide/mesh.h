@@ -31,7 +31,7 @@ class Mesh
         Mesh(std::vector<Vertex>&, std::vector<unsigned int>&);
         GLuint getVao();
         void draw();
-        GLsizei getNumOfTriangles();
+        GLsizei getNumberOfTriangles();
         static Mesh* loadObject(std::string);
         static Mesh* getSurface(int, int);
         virtual ~Mesh();
@@ -40,9 +40,9 @@ class Mesh
             enum VBOs{
                 VERTEX, INDEX, NUM_VBOS
             };
-            GLuint vao_handle;
-            GLuint vbo_handles[NUM_VBOS];
-            GLsizei numOfTriangles;
+            GLuint vaoHandle;
+            GLuint vboHandles[NUM_VBOS];
+            GLsizei numberOfTriangles;
             static float _stringToFloat(const std::string &source);
             static unsigned int _stringToUint(const std::string &source);
             static int _stringToInt(const std::string &source);
