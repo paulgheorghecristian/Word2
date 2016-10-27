@@ -9,7 +9,7 @@
 class Display
 {
     public:
-        Display(float&, float&, std::string);
+        Display(float&, float&, std::string, bool fullscreen);
         virtual ~Display();
         void update();
         bool isClosed();

@@ -3,7 +3,7 @@
 long Display::delta = 0;
 bool Display::isWindowClosed;
 
-Display::Display(float &WIDTH, float &HEIGHT, std::string title)
+Display::Display(float &WIDTH, float &HEIGHT, std::string title, bool fullscreen)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -19,22 +19,26 @@ Display::Display(float &WIDTH, float &HEIGHT, std::string title)
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
     SDL_GL_SetSwapInterval(0);
-
     SDL_ShowCursor(0);
 
-    SDL_DisplayMode dm;
+    if(fullscreen){
+        SDL_DisplayMode dm;
 
-    if (SDL_GetDesktopDisplayMode(0, &dm) != 0){
-        SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
+        if (SDL_GetDesktopDisplayMode(0, &dm) != 0){
+            SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
+        }
+
+        this->width = dm.w;
+        this->height = dm.h;
+
+        WIDTH = this->width;
+        HEIGHT = this->height;
+    }else{
+        this->width = WIDTH;
+        this->height = HEIGHT;
     }
 
-    this->width = dm.w;
-    this->height = dm.h;
-
-    WIDTH = this->width;
-    HEIGHT = this->height;
-
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL | (fullscreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_RESIZABLE));
     glContext = SDL_GL_CreateContext(window);
 
     GLenum status = glewInit();

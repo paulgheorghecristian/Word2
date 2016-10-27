@@ -777,7 +777,7 @@
 	"display.h"
 	<glm/glm.hpp>
 
-1477496829 c:\users\paul\desktop\projects\world2\clientside\display.h
+1477565665 c:\users\paul\desktop\projects\world2\clientside\display.h
 	<SDL2/SDL.h>
 	<iostream>
 	<GL/glew.h>
@@ -812,7 +812,7 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1477496829 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
+1477571149 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
 	"display.h"
 
 1477498920 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
@@ -886,13 +886,8 @@
 1477498968 source:c:\users\paul\desktop\projects\world2\clientside\input.cpp
 	"input.h"
 
-1477499359 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
-	"display.h"
-	"input.h"
-	"shader.h"
-	"mesh.h"
-	"entity.h"
-	"camera.h"
+1477571119 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
+	"game.h"
 	<iostream>
 
 1477498915 source:c:\users\paul\desktop\projects\world2\clientside\mesh.cpp
@@ -902,4 +897,16 @@
 1477499176 source:c:\users\paul\desktop\projects\world2\clientside\shader.cpp
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
+
+1477571832 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
+	"game.h"
+
+1477571349 c:\users\paul\desktop\projects\world2\clientside\game.h
+	"camera.h"
+	"display.h"
+	"input.h"
+	"shader.h"
+	"entity.h"
+	<string>
+	<vector>
 

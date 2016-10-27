@@ -13,8 +13,17 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="../ClientSide" />
+					<Add directory="res/libraries/glm" />
+					<Add directory="res/libraries/SDL2/include" />
+					<Add directory="res/libraries/glew/include" />
 				</Compiler>
+				<Linker>
+					<Add option="-lmingw32" />
+					<Add library="OpenGL32" />
+					<Add library="res\libraries\glew\bin\Release\x64\glew32.dll" />
+					<Add library="res\libraries\SDL2\lib\libSDL2main.a" />
+					<Add library="res\libraries\SDL2\bin\SDL2.dll" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/ClientSide" prefix_auto="1" extension_auto="1" />
@@ -38,6 +47,8 @@
 		<Unit filename="camera.h" />
 		<Unit filename="display.cpp" />
 		<Unit filename="display.h" />
+		<Unit filename="entity.cpp" />
+		<Unit filename="entity.h" />
 		<Unit filename="input.cpp" />
 		<Unit filename="input.h" />
 		<Unit filename="main.cpp" />
