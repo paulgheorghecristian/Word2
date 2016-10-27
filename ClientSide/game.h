@@ -8,6 +8,11 @@
 #include "entity.h"
 #include <string>
 #include <vector>
+#include "box.h"
+#include "sphere.h"
+#include <bullet/btBulletDynamicsCommon.h>
+
+#define GRAVITY -20
 
 class Game
 {
@@ -20,6 +25,17 @@ class Game
         virtual ~Game();
     protected:
     private:
+        void construct();
+        void render();
+        void initBullet();
+        static void bulletTickCallback(btDynamicsWorld*, btScalar);
+        static void handleInput(Game*);
+        Input* getInput();
+        Camera* getCamera();
+        Display* getDisplay();
+        btDynamicsWorld* getWorld();
+        std::vector<Entity*>& getEntities();
+
         float screenWidth, screenHeight;
         std::string title;
         Camera* camera;
@@ -28,9 +44,14 @@ class Game
         Shader* shader;
         std::vector<Entity*> entities;
         Mesh* boxMesh;
-        void construct();
-        void handleInput();
-        void render();
+        Mesh* sphereMesh;
+        btDynamicsWorld* world;
+        btDispatcher* dispatcher;
+        btBroadphaseInterface* broadsphase;
+        btCollisionConfiguration* collisionConfig;
+        btConstraintSolver* solver;
+        long timeAccumulator;
+        float discreteChunk;
 };
 
 #endif // GAME_H

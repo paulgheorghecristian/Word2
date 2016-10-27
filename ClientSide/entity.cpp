@@ -1,6 +1,6 @@
 #include "entity.h"
 
-Entity::Entity(std::string name, Mesh *mesh, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : name(name), mesh(mesh), color(color), position(position), rotation(rotation), scale(scale), modelMatrix(1.0f)
+Entity::Entity(btDynamicsWorld* world, std::string name, Mesh *mesh, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : world(world), name(name), mesh(mesh), color(color), position(position), rotation(rotation), scale(scale), modelMatrix(1.0f)
 {
     isModelMatrixModified = true;
     computeModelMatrix();
@@ -26,7 +26,7 @@ void Entity::computeModelMatrix(){
 
 void Entity::draw(Shader* shader){
     glBindVertexArray(mesh->getVao());
-    if(isModelMatrixModified == true){
+    if(isModelMatrixModified){
         computeModelMatrix();
     }
     shader->loadModelMatrix(modelMatrix);

@@ -777,7 +777,7 @@
 	"display.h"
 	<glm/glm.hpp>
 
-1477565665 c:\users\paul\desktop\projects\world2\clientside\display.h
+1477577447 c:\users\paul\desktop\projects\world2\clientside\display.h
 	<SDL2/SDL.h>
 	<iostream>
 	<GL/glew.h>
@@ -815,10 +815,10 @@
 1477571149 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
 	"display.h"
 
-1477498920 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
+1477575351 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
 	"entity.h"
 
-1477498631 c:\users\paul\desktop\projects\world2\clientside\entity.h
+1477575742 c:\users\paul\desktop\projects\world2\clientside\entity.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"shader.h"
@@ -827,6 +827,7 @@
 	<string>
 	<vector>
 	<glm/gtc/type_ptr.hpp>
+	<bullet/btBulletDynamicsCommon.h>
 
 1477499044 c:\users\paul\desktop\projects\world2\clientside\mesh.h
 	<GL/glew.h>
@@ -886,7 +887,7 @@
 1477498968 source:c:\users\paul\desktop\projects\world2\clientside\input.cpp
 	"input.h"
 
-1477571119 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
+1477577868 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
 	"game.h"
 	<iostream>
 
@@ -898,10 +899,10 @@
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1477571832 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
+1477578977 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
 	"game.h"
 
-1477571349 c:\users\paul\desktop\projects\world2\clientside\game.h
+1477578088 c:\users\paul\desktop\projects\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -909,4 +910,544 @@
 	"entity.h"
 	<string>
 	<vector>
+	"box.h"
+	"sphere.h"
+	<bullet/btBulletDynamicsCommon.h>
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletdynamicscommon.h
+	"btBulletCollisionCommon.h"
+	"BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
+	"BulletDynamics/Dynamics/btSimpleDynamicsWorld.h"
+	"BulletDynamics/Dynamics/btRigidBody.h"
+	"BulletDynamics/ConstraintSolver/btPoint2PointConstraint.h"
+	"BulletDynamics/ConstraintSolver/btHingeConstraint.h"
+	"BulletDynamics/ConstraintSolver/btConeTwistConstraint.h"
+	"BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h"
+	"BulletDynamics/ConstraintSolver/btSliderConstraint.h"
+	"BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.h"
+	"BulletDynamics/ConstraintSolver/btUniversalConstraint.h"
+	"BulletDynamics/ConstraintSolver/btHinge2Constraint.h"
+	"BulletDynamics/ConstraintSolver/btGearConstraint.h"
+	"BulletDynamics/ConstraintSolver/btFixedConstraint.h"
+	"BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h"
+	"BulletDynamics/Vehicle/btRaycastVehicle.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletcollisioncommon.h
+	"BulletCollision/CollisionDispatch/btCollisionWorld.h"
+	"BulletCollision/CollisionDispatch/btCollisionObject.h"
+	"BulletCollision/CollisionShapes/btBoxShape.h"
+	"BulletCollision/CollisionShapes/btSphereShape.h"
+	"BulletCollision/CollisionShapes/btCapsuleShape.h"
+	"BulletCollision/CollisionShapes/btCylinderShape.h"
+	"BulletCollision/CollisionShapes/btConeShape.h"
+	"BulletCollision/CollisionShapes/btStaticPlaneShape.h"
+	"BulletCollision/CollisionShapes/btConvexHullShape.h"
+	"BulletCollision/CollisionShapes/btTriangleMesh.h"
+	"BulletCollision/CollisionShapes/btConvexTriangleMeshShape.h"
+	"BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h"
+	"BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.h"
+	"BulletCollision/CollisionShapes/btTriangleMeshShape.h"
+	"BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h"
+	"BulletCollision/CollisionShapes/btCompoundShape.h"
+	"BulletCollision/CollisionShapes/btTetrahedronShape.h"
+	"BulletCollision/CollisionShapes/btEmptyShape.h"
+	"BulletCollision/CollisionShapes/btMultiSphereShape.h"
+	"BulletCollision/CollisionShapes/btUniformScalingShape.h"
+	"BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.h"
+	"BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h"
+	"BulletCollision/CollisionDispatch/btCollisionDispatcher.h"
+	"BulletCollision/BroadphaseCollision/btSimpleBroadphase.h"
+	"BulletCollision/BroadphaseCollision/btAxisSweep3.h"
+	"BulletCollision/BroadphaseCollision/btMultiSapBroadphase.h"
+	"BulletCollision/BroadphaseCollision/btDbvtBroadphase.h"
+	"LinearMath/btQuaternion.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btDefaultMotionState.h"
+	"LinearMath/btQuickprof.h"
+	"LinearMath/btIDebugDraw.h"
+	"LinearMath/btSerializer.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionworld.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"btCollisionObject.h"
+	"btCollisionDispatcher.h"
+	"BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btvector3.h
+	"btScalar.h"
+	"btMinMax.h"
+	"btAlignedAllocator.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btscalar.h
+	<math.h>
+	<stdlib.h>
+	<float.h>
+	<ppcintrinsics.h>
+	<emmintrin.h>
+	<stdio.h>
+	<assert.h>
+	<assert.h>
+	<spu_printf.h>
+	<assert.h>
+	<smmintrin.h>
+	<tmmintrin.h>
+	<pmmintrin.h>
+	<emmintrin.h>
+	<arm_neon.h>
+	<assert.h>
+	<stdio.h>
+	<assert.h>
+	<arm_neon.h>
+	<arm_neon.h>
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btminmax.h
+	"btScalar.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btalignedallocator.h
+	"btScalar.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\bttransform.h
+	"btMatrix3x3.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btmatrix3x3.h
+	"btVector3.h"
+	"btQuaternion.h"
+	<stdio.h>
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btquaternion.h
+	"btVector3.h"
+	"btQuadWord.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btquadword.h
+	"btScalar.h"
+	"btMinMax.h"
+	<altivec.h>
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionobject.h
+	"LinearMath/btTransform.h"
+	"LinearMath/btMotionState.h"
+	"LinearMath/btAlignedAllocator.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btmotionstate.h
+	"btTransform.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btalignedobjectarray.h
+	"btScalar.h"
+	"btAlignedAllocator.h"
+	<memory.h>
+	<string.h>
+	<new>
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisiondispatcher.h
+	"BulletCollision/BroadphaseCollision/btDispatcher.h"
+	"BulletCollision/NarrowPhaseCollision/btPersistentManifold.h"
+	"BulletCollision/CollisionDispatch/btManifoldResult.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"btCollisionCreateFunc.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btdispatcher.h
+	"LinearMath/btScalar.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\narrowphasecollision\btpersistentmanifold.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"btManifoldPoint.h"
+	"LinearMath/btAlignedAllocator.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\narrowphasecollision\btmanifoldpoint.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransformUtil.h"
+	"physics_effects/base_level/solver/pfx_constraint_row.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\bttransformutil.h
+	"btTransform.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btmanifoldresult.h
+	"BulletCollision/NarrowPhaseCollision/btPersistentManifold.h"
+	"BulletCollision/NarrowPhaseCollision/btDiscreteCollisionDetectorInterface.h"
+	"LinearMath/btTransform.h"
+	"BulletCollision/CollisionDispatch/btCollisionObjectWrapper.h"
+	"BulletCollision/CollisionDispatch/btCollisionObject.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\narrowphasecollision\btdiscretecollisiondetectorinterface.h
+	"LinearMath/btTransform.h"
+	"LinearMath/btVector3.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionobjectwrapper.h
+	"LinearMath/btScalar.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btbroadphaseproxy.h
+	"LinearMath/btScalar.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btAlignedAllocator.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisioncreatefunc.h
+	"LinearMath/btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btoverlappingpaircache.h
+	"btBroadphaseInterface.h"
+	"btBroadphaseProxy.h"
+	"btOverlappingPairCallback.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btbroadphaseinterface.h
+	"btBroadphaseProxy.h"
+	"LinearMath/btVector3.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btoverlappingpaircallback.h
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btboxshape.h
+	"btPolyhedralConvexShape.h"
+	"btCollisionMargin.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btMinMax.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btpolyhedralconvexshape.h
+	"LinearMath/btMatrix3x3.h"
+	"btConvexInternalShape.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvexinternalshape.h
+	"btConvexShape.h"
+	"LinearMath/btAabbUtil2.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvexshape.h
+	"btCollisionShape.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btMatrix3x3.h"
+	"btCollisionMargin.h"
+	"LinearMath/btAlignedAllocator.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcollisionshape.h
+	"LinearMath/btTransform.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btMatrix3x3.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcollisionmargin.h
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btaabbutil2.h
+	"btTransform.h"
+	"btVector3.h"
+	"btMinMax.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btsphereshape.h
+	"btConvexInternalShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcapsuleshape.h
+	"btConvexInternalShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcylindershape.h
+	"btBoxShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"LinearMath/btVector3.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconeshape.h
+	"btConvexInternalShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btstaticplaneshape.h
+	"btConcaveShape.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconcaveshape.h
+	"btCollisionShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"btTriangleCallback.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttrianglecallback.h
+	"LinearMath/btVector3.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvexhullshape.h
+	"btPolyhedralConvexShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttrianglemesh.h
+	"btTriangleIndexVertexArray.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttriangleindexvertexarray.h
+	"btStridingMeshInterface.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"LinearMath/btScalar.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btstridingmeshinterface.h
+	"LinearMath/btVector3.h"
+	"btTriangleCallback.h"
+	"btConcaveShape.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvextrianglemeshshape.h
+	"btPolyhedralConvexShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btbvhtrianglemeshshape.h
+	"btTriangleMeshShape.h"
+	"btOptimizedBvh.h"
+	"LinearMath/btAlignedAllocator.h"
+	"btTriangleInfoMap.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttrianglemeshshape.h
+	"btConcaveShape.h"
+	"btStridingMeshInterface.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btoptimizedbvh.h
+	"BulletCollision/BroadphaseCollision/btQuantizedBvh.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btquantizedbvh.h
+	<stdio.h>
+	<stdlib.h>
+	"LinearMath/btVector3.h"
+	"LinearMath/btAlignedAllocator.h"
+	"LinearMath/btAlignedAllocator.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttriangleinfomap.h
+	"LinearMath/btHashMap.h"
+	"LinearMath/btSerializer.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\bthashmap.h
+	"btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btserializer.h
+	"btScalar.h"
+	"btHashMap.h"
+	<memory.h>
+	<string.h>
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btscaledbvhtrianglemeshshape.h
+	"BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcompoundshape.h
+	"btCollisionShape.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btMatrix3x3.h"
+	"btCollisionMargin.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttetrahedronshape.h
+	"btPolyhedralConvexShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btemptyshape.h
+	"btConcaveShape.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btMatrix3x3.h"
+	"btCollisionMargin.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btmultisphereshape.h
+	"btConvexInternalShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"LinearMath/btAabbUtil2.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btuniformscalingshape.h
+	"btConvexShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btspherespherecollisionalgorithm.h
+	"btActivatingCollisionAlgorithm.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"BulletCollision/CollisionDispatch/btCollisionCreateFunc.h"
+	"btCollisionDispatcher.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btactivatingcollisionalgorithm.h
+	"BulletCollision/BroadphaseCollision/btCollisionAlgorithm.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btcollisionalgorithm.h
+	"LinearMath/btScalar.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btdefaultcollisionconfiguration.h
+	"btCollisionConfiguration.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionconfiguration.h
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btsimplebroadphase.h
+	"btOverlappingPairCache.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btaxissweep3.h
+	"LinearMath/btVector3.h"
+	"btOverlappingPairCache.h"
+	"btBroadphaseInterface.h"
+	"btBroadphaseProxy.h"
+	"btOverlappingPairCallback.h"
+	"btDbvtBroadphase.h"
+	<stdio.h>
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btdbvtbroadphase.h
+	"BulletCollision/BroadphaseCollision/btDbvt.h"
+	"BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
+	"LinearMath/btQuickprof.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btdbvt.h
+	"LinearMath/btAlignedObjectArray.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btAabbUtil2.h"
+	<emmintrin.h>
+	<memory.h>
+	<string.h>
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btquickprof.h
+	"btScalar.h"
+	<stdio.h>
+	"btAlignedAllocator.h"
+	<new>
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btmultisapbroadphase.h
+	"btBroadphaseInterface.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"btOverlappingPairCache.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btdefaultmotionstate.h
+	"btMotionState.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btidebugdraw.h
+	"btVector3.h"
+	"btTransform.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btdiscretedynamicsworld.h
+	"btDynamicsWorld.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btdynamicsworld.h
+	"BulletCollision/CollisionDispatch/btCollisionWorld.h"
+	"BulletDynamics/ConstraintSolver/btContactSolverInfo.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btcontactsolverinfo.h
+	"LinearMath/btScalar.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btsimpledynamicsworld.h
+	"btDynamicsWorld.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btrigidbody.h
+	"LinearMath/btAlignedObjectArray.h"
+	"LinearMath/btTransform.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"BulletCollision/CollisionDispatch/btCollisionObject.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btpoint2pointconstraint.h
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btjacobianentry.h
+	"LinearMath/btMatrix3x3.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\bttypedconstraint.h
+	"LinearMath/btScalar.h"
+	"btSolverConstraint.h"
+	"BulletDynamics/Dynamics/btRigidBody.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsolverconstraint.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btMatrix3x3.h"
+	"btJacobianEntry.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"btSolverBody.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsolverbody.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btMatrix3x3.h"
+	"LinearMath/btAlignedAllocator.h"
+	"LinearMath/btTransformUtil.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\bthingeconstraint.h
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btconetwistconstraint.h
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgeneric6dofconstraint.h
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsliderconstraint.h
+	"LinearMath/btScalar.h"
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgeneric6dofspringconstraint.h
+	"LinearMath/btVector3.h"
+	"btTypedConstraint.h"
+	"btGeneric6DofConstraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btuniversalconstraint.h
+	"LinearMath/btVector3.h"
+	"btTypedConstraint.h"
+	"btGeneric6DofConstraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\bthinge2constraint.h
+	"LinearMath/btVector3.h"
+	"btTypedConstraint.h"
+	"btGeneric6DofSpring2Constraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgeneric6dofspring2constraint.h
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgearconstraint.h
+	"BulletDynamics/ConstraintSolver/btTypedConstraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btfixedconstraint.h
+	"btGeneric6DofSpring2Constraint.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsequentialimpulseconstraintsolver.h
+	"BulletDynamics/ConstraintSolver/btTypedConstraint.h"
+	"BulletDynamics/ConstraintSolver/btContactSolverInfo.h"
+	"BulletDynamics/ConstraintSolver/btSolverBody.h"
+	"BulletDynamics/ConstraintSolver/btSolverConstraint.h"
+	"BulletCollision/NarrowPhaseCollision/btManifoldPoint.h"
+	"BulletDynamics/ConstraintSolver/btConstraintSolver.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btconstraintsolver.h
+	"LinearMath/btScalar.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\vehicle\btraycastvehicle.h
+	"BulletDynamics/Dynamics/btRigidBody.h"
+	"BulletDynamics/ConstraintSolver/btTypedConstraint.h"
+	"btVehicleRaycaster.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"btWheelInfo.h"
+	"BulletDynamics/Dynamics/btActionInterface.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\vehicle\btvehicleraycaster.h
+	"LinearMath/btVector3.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\vehicle\btwheelinfo.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+
+1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btactioninterface.h
+	"LinearMath/btScalar.h"
+	"btRigidBody.h"
+
+1477577660 source:c:\users\paul\desktop\projects\world2\clientside\box.cpp
+	"box.h"
+
+1477575910 c:\users\paul\desktop\projects\world2\clientside\box.h
+	"entity.h"
+
+1477576443 c:\users\paul\desktop\projects\world2\clientside\sphere.h
+	"entity.h"
+
+1477576688 source:c:\users\paul\desktop\projects\world2\clientside\sphere.cpp
+	"sphere.h"
 
