@@ -772,7 +772,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1477498950 c:\users\paul\desktop\projects\world2\clientside\input.h
+1477659352 c:\users\paul\desktop\projects\world2\clientside\input.h
 	<SDL2/SDL.h>
 	"display.h"
 	<glm/glm.hpp>
@@ -887,7 +887,7 @@
 1477498968 source:c:\users\paul\desktop\projects\world2\clientside\input.cpp
 	"input.h"
 
-1477577868 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
+1477579198 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
 	"game.h"
 	<iostream>
 
@@ -899,10 +899,10 @@
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1477578977 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
+1477659220 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
 	"game.h"
 
-1477578088 c:\users\paul\desktop\projects\world2\clientside\game.h
+1477659200 c:\users\paul\desktop\projects\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -912,6 +912,7 @@
 	<vector>
 	"box.h"
 	"sphere.h"
+	"player.h"
 	<bullet/btBulletDynamicsCommon.h>
 
 1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletdynamicscommon.h
@@ -1450,4 +1451,10 @@
 
 1477576688 source:c:\users\paul\desktop\projects\world2\clientside\sphere.cpp
 	"sphere.h"
+
+1477659128 c:\users\paul\desktop\projects\world2\clientside\player.h
+	"entity.h"
+
+1477659143 source:c:\users\paul\desktop\projects\world2\clientside\player.cpp
+	"player.h"
 

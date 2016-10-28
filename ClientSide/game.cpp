@@ -29,6 +29,7 @@ void Game::construct(){
     discreteChunk = 18.0f/6.0f;
     input = new Input();
     shader = new Shader("res/shaders/vertex", "res/shaders/fragment");
+    player = new Player(world, 30.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(10));
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
     Box::setMesh(boxMesh);
@@ -69,8 +70,32 @@ void Game::handleInput(Game* game){
     Input* input = game->getInput();
     Display* display = game->getDisplay();
     Camera* camera = game->getCamera();
+    Player* player = game->getPlayer();
 
     input->update(display);
+
+    glm::vec3 forward = camera->getForward();
+    glm::vec3 right = camera->getRight();
+
+    if(input->getKey(SDLK_w)){
+        btVector3 fwd = btVector3(forward.x, 0, forward.z);
+        fwd = fwd.normalized() * FORCE;
+        player->getRigidBody()->applyCentralForce(fwd);
+    }else if(input->getKey(SDLK_s)){
+        btVector3 fwd = btVector3(forward.x, 0, forward.z);
+        fwd = fwd.normalized() * -FORCE;
+        player->getRigidBody()->applyCentralForce(fwd);
+    }
+
+    if(input->getKey(SDLK_a)){
+        btVector3 rgh = btVector3(right.x, 0, right.z);
+        rgh = rgh.normalized() * -FORCE;
+        player->getRigidBody()->applyCentralForce(rgh);
+    }else if(input->getKey(SDLK_d)){
+        btVector3 rgh = btVector3(right.x, 0, right.z);
+        rgh = rgh.normalized() * FORCE;
+        player->getRigidBody()->applyCentralForce(rgh);
+    }
 
     if(input->getKeyDown(SDLK_ESCAPE)){
         display->close();
@@ -84,7 +109,7 @@ void Game::handleInput(Game* game){
         Sphere* sphere = new Sphere(game->getWorld(),
                                     100.0f,
                                     glm::vec4(1,0,0,1),
-                                    camera->getPosition(),
+                                    camera->getPosition() + camera->getForward() * 100.0f,
                                     glm::vec3(0, 0, 0),
                                     30.0f);
         sphere->setLinearVelocity(camera->getForward() * 100.0f);
@@ -96,6 +121,7 @@ void Game::render(){
     display->clear(1,1,1,1);
 
     shader->bind();
+    camera->setPosition(player->getPosition() + glm::vec3(0, 25, 0));
     shader->loadViewMatrix(camera->getViewMatrix());
 
     for(Entity* e : entities){
@@ -185,6 +211,10 @@ Display* Game::getDisplay(){
 
 btDynamicsWorld* Game::getWorld(){
     return world;
+}
+
+Player* Game::getPlayer(){
+    return player;
 }
 
 std::vector<Entity*>& Game::getEntities(){

@@ -10,9 +10,11 @@
 #include <vector>
 #include "box.h"
 #include "sphere.h"
+#include "player.h"
 #include <bullet/btBulletDynamicsCommon.h>
 
 #define GRAVITY -20
+#define FORCE 1200
 
 class Game
 {
@@ -34,6 +36,7 @@ class Game
         Camera* getCamera();
         Display* getDisplay();
         btDynamicsWorld* getWorld();
+        Player* getPlayer();
         std::vector<Entity*>& getEntities();
 
         float screenWidth, screenHeight;
@@ -42,6 +45,7 @@ class Game
         Display* display;
         Input* input;
         Shader* shader;
+        Player* player;
         std::vector<Entity*> entities;
         Mesh* boxMesh;
         Mesh* sphereMesh;

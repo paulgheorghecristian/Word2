@@ -21,7 +21,7 @@ class Input
         virtual ~Input();
     protected:
     private:
-        static const int NUM_KEYS = 100;
+        static const int NUM_KEYS = 150;
         static const int NUM_MOUSE = 10;
         bool inputs[NUM_KEYS];
         bool downKeys[NUM_KEYS];
