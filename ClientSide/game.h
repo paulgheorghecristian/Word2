@@ -11,6 +11,8 @@
 #include "box.h"
 #include "sphere.h"
 #include "player.h"
+#include "textShader.h"
+#include "text.h"
 #include <bullet/btBulletDynamicsCommon.h>
 
 #define GRAVITY -20
@@ -46,6 +48,8 @@ class Game
         Input* input;
         Shader* shader;
         Player* player;
+        TextShader* textShader;
+        Text* fpsText;
         std::vector<Entity*> entities;
         Mesh* boxMesh;
         Mesh* sphereMesh;

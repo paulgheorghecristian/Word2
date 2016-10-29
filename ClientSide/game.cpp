@@ -32,6 +32,12 @@ void Game::construct(){
     player = new Player(world, 30.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(10));
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
+    textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
+    fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
+                            "Paul",
+                            glm::vec3(101, 100, -3),
+                            glm::vec3(0, 0, 0),
+                            glm::vec3(1, 0.5, 0), 10);
     Box::setMesh(boxMesh);
     Sphere::setMesh(sphereMesh);
 
@@ -64,6 +70,9 @@ void Game::construct(){
 
     shader->bind();
     shader->loadProjectionMatrix(projectionMatrix);
+
+    textShader->bind();
+    textShader->loadProjectionMatrix(glm::ortho(0.0f, screenWidth, 0.0f, screenHeight, 1.0f, 10.0f));
 }
 
 void Game::handleInput(Game* game){
@@ -121,12 +130,16 @@ void Game::render(){
     display->clear(1,1,1,1);
 
     shader->bind();
-    camera->setPosition(player->getPosition() + glm::vec3(0, 25, 0));
+    camera->setPosition(player->getPosition() + glm::vec3(0, 20, 0));
     shader->loadViewMatrix(camera->getViewMatrix());
 
     for(Entity* e : entities){
         e->draw(shader);
     }
+
+    textShader->bind();
+    fpsText->displayNumber(Display::getDelta());
+    fpsText->draw(textShader);
 
     display->update();
 }
@@ -220,4 +233,3 @@ Player* Game::getPlayer(){
 std::vector<Entity*>& Game::getEntities(){
     return entities;
 }
-

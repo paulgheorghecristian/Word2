@@ -837,7 +837,7 @@
 	<sstream>
 	<fstream>
 
-1477496829 c:\users\paul\desktop\projects\world2\clientside\shader.h
+1477665565 c:\users\paul\desktop\projects\world2\clientside\shader.h
 	<stdlib.h>
 	<stdio.h>
 	<string>
@@ -887,7 +887,7 @@
 1477498968 source:c:\users\paul\desktop\projects\world2\clientside\input.cpp
 	"input.h"
 
-1477579198 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
+1477735732 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
 	"game.h"
 	<iostream>
 
@@ -895,14 +895,14 @@
 	"mesh.h"
 	<iostream>
 
-1477499176 source:c:\users\paul\desktop\projects\world2\clientside\shader.cpp
+1477665509 source:c:\users\paul\desktop\projects\world2\clientside\shader.cpp
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1477659220 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
+1477666838 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
 	"game.h"
 
-1477659200 c:\users\paul\desktop\projects\world2\clientside\game.h
+1477665379 c:\users\paul\desktop\projects\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -913,6 +913,8 @@
 	"box.h"
 	"sphere.h"
 	"player.h"
+	"textShader.h"
+	"text.h"
 	<bullet/btBulletDynamicsCommon.h>
 
 1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletdynamicscommon.h
@@ -1457,4 +1459,36 @@
 
 1477659143 source:c:\users\paul\desktop\projects\world2\clientside\player.cpp
 	"player.h"
+
+1477665355 source:c:\users\paul\desktop\projects\world2\clientside\font.cpp
+	"font.h"
+
+1477665335 c:\users\paul\desktop\projects\world2\clientside\font.h
+	<string>
+	<vector>
+	<fstream>
+	<iostream>
+	<string.h>
+	<sstream>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<SDL2/SDL.h>
+
+1477662122 c:\users\paul\desktop\projects\world2\clientside\textshader.h
+	"shader.h"
+	<glm/gtc/type_ptr.hpp>
+
+1477661590 c:\users\paul\desktop\projects\world2\clientside\text.h
+	"font.h"
+	"mesh.h"
+	<string>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	"textshader.h"
+
+1477665465 source:c:\users\paul\desktop\projects\world2\clientside\text.cpp
+	"text.h"
+
+1477662112 source:c:\users\paul\desktop\projects\world2\clientside\textshader.cpp
+	"textshader.h"
 

@@ -87,6 +87,10 @@ void Shader::loadColor(glm::vec4 color){
     loadVector4(colorVectorLocation, color);
 }
 
+void Shader::loadColor(glm::vec3 color){
+    loadVector3(colorVectorLocation, color);
+}
+
 void Shader::loadInt(GLuint location, int var){
     glUniform1i(location, var);
 }

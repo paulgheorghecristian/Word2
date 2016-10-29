@@ -17,8 +17,9 @@ class Shader
         std::string loadShader(const std::string&);
         void bind();
         void unbind();
-        void getAllUniformLocations();
+        virtual void getAllUniformLocations();
         void loadColor(glm::vec4);
+        void loadColor(glm::vec3);
         void loadVector4(GLuint, glm::vec4);
         void loadVector3(GLuint, glm::vec3);
         void loadMatrix(GLuint, glm::mat4);
@@ -33,11 +34,11 @@ class Shader
         virtual ~Shader();
     protected:
         GLuint program;
+        GLuint projMatLocation, modelMatLocation, colorVectorLocation, viewMatLocation;
+        GLuint hasTextureLocation;
     private:
         std::string vertexShaderPath, fragmentShaderPath;
         GLuint vertexHandle, fragmentHandle;
-        GLuint projMatLocation, modelMatLocation, colorVectorLocation, viewMatLocation;
-        GLuint hasTextureLocation;
 };
 
 #endif // SHADER_H
