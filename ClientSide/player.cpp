@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(btDynamicsWorld* world, float mass, glm::vec3 position, glm::vec3 scale)
+Player::Player(btDynamicsWorld* world, float mass, glm::vec3 position, glm::vec3 scale) : world(world), down(0, -1 * DOWN_LENGTH, 0), isTouchingGround(false)
 {
     btTransform t;
     btVector3 inertia(0, 0, 0);
@@ -27,6 +27,31 @@ Player::Player(btDynamicsWorld* world, float mass, glm::vec3 position, glm::vec3
     world->addRigidBody(m_body);
 }
 
+void Player::performRayTest(){
+    btVector3 playerVel = m_body->getLinearVelocity();
+
+    glm::vec3 playerPosition = getPosition();
+    //std::cout << playerPosition.y << std::endl;
+    btCollisionWorld::ClosestRayResultCallback rayCallback(btVector3(playerPosition.x, playerPosition.y, playerPosition.z),
+                                                               down);
+
+    world->rayTest(btVector3(playerPosition.x, playerPosition.y, playerPosition.z), down, rayCallback);
+    if(rayCallback.hasHit()){
+        //std::cout << rayCallback.m_closestHitFraction << std::endl;
+        if(rayCallback.m_closestHitFraction < EPS && playerVel.y() <= 0){
+            isJumping = false;
+            isTouchingGround = true;
+        }else{
+            isTouchingGround = false;
+        }
+    }
+}
+
+void Player::jump(){
+    isJumping = true;
+    m_body->applyCentralForce(btVector3(0, JUMP_SPEED, 0));
+}
+
 glm::vec3 Player::getPosition(){
     btTransform t;
 
@@ -39,6 +64,14 @@ glm::vec3 Player::getPosition(){
 
 btRigidBody* Player::getRigidBody(){
     return m_body;
+}
+
+bool Player::getIsTouchingGround(){
+    return isTouchingGround;
+}
+
+bool Player::getIsJumping(){
+    return isJumping;
 }
 
 Player::~Player()

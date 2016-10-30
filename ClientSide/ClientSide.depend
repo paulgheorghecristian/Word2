@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1477496829 source:c:\users\paul\desktop\projects\world2\clientside\camera.cpp
+1477818356 source:c:\users\paul\desktop\projects\world2\clientside\camera.cpp
 	"camera.h"
 
-1477496829 c:\users\paul\desktop\projects\world2\clientside\camera.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\camera.h
 	<glm/glm.hpp>
 	<SDL2/SDL.h>
 	"input.h"
@@ -10,7 +10,7 @@
 	"display.h"
 	<glm/gtc/matrix_transform.hpp>
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\glm.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\glm.hpp
 	"detail/_fixes.hpp"
 	<cmath>
 	<climits>
@@ -39,26 +39,26 @@
 	"vector_relational.hpp"
 	"integer.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\_fixes.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\_fixes.hpp
 	<cmath>
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\fwd.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\fwd.hpp
 	"detail/type_int.hpp"
 	"detail/type_float.hpp"
 	"detail/type_vec.hpp"
 	"detail/type_mat.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_int.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_int.hpp
 	"setup.hpp"
 	<type_traits>
 	<cstdint>
 
-1474792998 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\setup.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\setup.hpp
 	<cassert>
 	<cstddef>
 	"../simd/platform.h"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\platform.h
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\platform.h
 	<cuda.h>
 	<intrin.h>
 	<immintrin.h>
@@ -69,66 +69,66 @@
 	<pmmintrin.h>
 	<emmintrin.h>
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_float.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_float.hpp
 	"setup.hpp"
 
-1474219786 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec.hpp
 	"precision.hpp"
 	"type_int.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\precision.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\precision.hpp
 	"setup.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat.hpp
 	"precision.hpp"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\vec2.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\vec2.hpp
 	"detail/type_vec2.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec2.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec2.hpp
 	"type_vec.hpp"
 	"_swizzle.hpp"
 	"_swizzle_func.hpp"
 	<cstddef>
 	"type_vec2.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\_swizzle.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\_swizzle.hpp
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\_swizzle_func.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\_swizzle_func.hpp
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec2.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec2.inl
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\vec3.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\vec3.hpp
 	"detail/type_vec3.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec3.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec3.hpp
 	"type_vec.hpp"
 	"_swizzle.hpp"
 	"_swizzle_func.hpp"
 	<cstddef>
 	"type_vec3.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec3.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec3.inl
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\vec4.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\vec4.hpp
 	"detail/type_vec4.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec4.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec4.hpp
 	"type_vec.hpp"
 	"_swizzle.hpp"
 	"_swizzle_func.hpp"
 	<cstddef>
 	"type_vec4.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec4.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec4.inl
 	"type_vec4_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec4_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec4_simd.inl
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat2x2.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat2x2.hpp
 	"detail/type_mat2x2.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x2.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x2.hpp
 	"../fwd.hpp"
 	"type_vec2.hpp"
 	"type_mat.hpp"
@@ -136,10 +136,10 @@
 	<cstddef>
 	"type_mat2x2.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x2.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x2.inl
 	"func_matrix.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_matrix.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_matrix.hpp
 	"../detail/precision.hpp"
 	"../detail/setup.hpp"
 	"../detail/type_mat.hpp"
@@ -157,10 +157,10 @@
 	"../mat4x4.hpp"
 	"func_matrix.inl"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat2x3.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat2x3.hpp
 	"detail/type_mat2x3.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x3.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x3.hpp
 	"../fwd.hpp"
 	"type_vec2.hpp"
 	"type_vec3.hpp"
@@ -169,12 +169,12 @@
 	<cstddef>
 	"type_mat2x3.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x3.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x3.inl
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat2x4.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat2x4.hpp
 	"detail/type_mat2x4.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x4.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x4.hpp
 	"../fwd.hpp"
 	"type_vec2.hpp"
 	"type_vec4.hpp"
@@ -183,12 +183,12 @@
 	<cstddef>
 	"type_mat2x4.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x4.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat2x4.inl
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat3x2.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat3x2.hpp
 	"detail/type_mat3x2.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x2.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x2.hpp
 	"../fwd.hpp"
 	"type_vec2.hpp"
 	"type_vec3.hpp"
@@ -197,12 +197,12 @@
 	<cstddef>
 	"type_mat3x2.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x2.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x2.inl
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat3x3.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat3x3.hpp
 	"detail/type_mat3x3.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x3.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x3.hpp
 	"../fwd.hpp"
 	"type_vec3.hpp"
 	"type_mat.hpp"
@@ -210,13 +210,13 @@
 	<cstddef>
 	"type_mat3x3.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x3.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x3.inl
 	"func_matrix.hpp"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat3x4.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat3x4.hpp
 	"detail/type_mat3x4.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x4.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x4.hpp
 	"../fwd.hpp"
 	"type_vec3.hpp"
 	"type_vec4.hpp"
@@ -225,12 +225,12 @@
 	<cstddef>
 	"type_mat3x4.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x4.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat3x4.inl
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat4x2.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat4x2.hpp
 	"detail/type_mat4x2.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x2.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x2.hpp
 	"../fwd.hpp"
 	"type_vec2.hpp"
 	"type_vec4.hpp"
@@ -239,12 +239,12 @@
 	<cstddef>
 	"type_mat4x2.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x2.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x2.inl
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat4x3.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat4x3.hpp
 	"detail/type_mat4x3.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x3.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x3.hpp
 	"../fwd.hpp"
 	"type_vec3.hpp"
 	"type_vec4.hpp"
@@ -253,12 +253,12 @@
 	<cstddef>
 	"type_mat4x3.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x3.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x3.inl
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat4x4.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\mat4x4.hpp
 	"detail/type_mat4x4.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x4.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x4.hpp
 	"../fwd.hpp"
 	"type_vec4.hpp"
 	"type_mat.hpp"
@@ -266,25 +266,25 @@
 	<cstddef>
 	"type_mat4x4.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x4.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x4.inl
 	"func_matrix.hpp"
 	"type_mat4x4_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x4_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_mat4x4_simd.inl
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_matrix.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_matrix.inl
 	"../geometric.hpp"
 	<limits>
 	"func_matrix_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\geometric.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\geometric.hpp
 	"detail/func_geometric.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_geometric.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_geometric.hpp
 	"type_vec3.hpp"
 	"func_geometric.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_geometric.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_geometric.inl
 	"func_exponential.hpp"
 	"func_common.hpp"
 	"type_vec2.hpp"
@@ -292,7 +292,7 @@
 	"type_float.hpp"
 	"func_geometric_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_exponential.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_exponential.hpp
 	"type_vec1.hpp"
 	"type_vec2.hpp"
 	"type_vec3.hpp"
@@ -300,7 +300,7 @@
 	<cmath>
 	"func_exponential.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec1.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec1.hpp
 	"../fwd.hpp"
 	"type_vec.hpp"
 	"_swizzle.hpp"
@@ -308,9 +308,9 @@
 	<cstddef>
 	"type_vec1.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec1.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_vec1.inl
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_exponential.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_exponential.inl
 	"func_vector_relational.hpp"
 	"_vectorize.hpp"
 	<limits>
@@ -318,37 +318,37 @@
 	<cassert>
 	"func_exponential_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_vector_relational.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_vector_relational.hpp
 	"precision.hpp"
 	"setup.hpp"
 	"func_vector_relational.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_vector_relational.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_vector_relational.inl
 	<limits>
 	"func_vector_relational_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_vector_relational_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_vector_relational_simd.inl
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\_vectorize.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\_vectorize.hpp
 	"type_vec1.hpp"
 	"type_vec2.hpp"
 	"type_vec3.hpp"
 	"type_vec4.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_exponential_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_exponential_simd.inl
 	"../simd/exponential.h"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\exponential.h
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\exponential.h
 	"platform.h"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_common.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_common.hpp
 	"setup.hpp"
 	"precision.hpp"
 	"type_int.hpp"
 	"_fixes.hpp"
 	"func_common.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_common.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_common.inl
 	"func_vector_relational.hpp"
 	"type_vec2.hpp"
 	"type_vec3.hpp"
@@ -357,88 +357,88 @@
 	<limits>
 	"func_common_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_common_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_common_simd.inl
 	"../simd/common.h"
 	<immintrin.h>
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\common.h
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\common.h
 	"platform.h"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_geometric_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_geometric_simd.inl
 	"../simd/geometric.h"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\geometric.h
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\geometric.h
 	"common.h"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_matrix_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_matrix_simd.inl
 	"type_mat4x4.hpp"
 	"func_geometric.hpp"
 	"../simd/matrix.h"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\matrix.h
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\matrix.h
 	"geometric.h"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\trigonometric.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\trigonometric.hpp
 	"detail/func_trigonometric.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_trigonometric.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_trigonometric.hpp
 	"setup.hpp"
 	"precision.hpp"
 	"func_trigonometric.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_trigonometric.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_trigonometric.inl
 	"_vectorize.hpp"
 	<cmath>
 	<limits>
 	"func_trigonometric_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_trigonometric_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_trigonometric_simd.inl
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\exponential.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\exponential.hpp
 	"detail/func_exponential.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\common.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\common.hpp
 	"detail/func_common.hpp"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\packing.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\packing.hpp
 	"detail/func_packing.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_packing.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_packing.hpp
 	"type_vec2.hpp"
 	"type_vec4.hpp"
 	"func_packing.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_packing.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_packing.inl
 	"func_common.hpp"
 	"type_half.hpp"
 	"../fwd.hpp"
 	"func_packing_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_half.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_half.hpp
 	"setup.hpp"
 	"type_half.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_half.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\type_half.inl
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_packing_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_packing_simd.inl
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\matrix.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\matrix.hpp
 	"detail/func_matrix.hpp"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\vector_relational.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\vector_relational.hpp
 	"detail/func_vector_relational.hpp"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\integer.hpp
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\integer.hpp
 	"detail/func_integer.hpp"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_integer.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_integer.hpp
 	"setup.hpp"
 	"precision.hpp"
 	"func_common.hpp"
 	"func_vector_relational.hpp"
 	"func_integer.inl"
 
-1474792689 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_integer.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_integer.inl
 	"type_vec2.hpp"
 	"type_vec3.hpp"
 	"type_vec4.hpp"
@@ -448,12 +448,12 @@
 	<limits>
 	"func_integer_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_integer_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\detail\func_integer_simd.inl
 	"../simd/integer.h"
 
-1473885902 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\integer.h
+1477818362 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\simd\integer.h
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl.h
 	"SDL_main.h"
 	"SDL_stdinc.h"
 	"SDL_assert.h"
@@ -484,12 +484,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_main.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_main.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_stdinc.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_stdinc.h
 	"SDL_config.h"
 	<sys/types.h>
 	<stdio.h>
@@ -518,34 +518,34 @@
 	<stdlib.h>
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_config.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_config.h
 	"SDL_platform.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_platform.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_platform.h
 	"AvailabilityMacros.h"
 	"TargetConditionals.h"
 	<winapifamily.h>
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\begin_code.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\begin_code.h
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\close_code.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\close_code.h
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_assert.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_assert.h
 	"SDL_config.h"
 	"begin_code.h"
 	<signal.h>
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_atomic.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_atomic.h
 	"SDL_stdinc.h"
 	"SDL_platform.h"
 	"begin_code.h"
 	<mbarrier.h>
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_audio.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_audio.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_endian.h"
@@ -555,24 +555,24 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_error.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_error.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_endian.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_endian.h
 	"SDL_stdinc.h"
 	<endian.h>
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_mutex.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_mutex.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_thread.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_thread.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_atomic.h"
@@ -581,18 +581,18 @@
 	<process.h>
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_rwops.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_rwops.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_clipboard.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_clipboard.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_cpuinfo.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_cpuinfo.h
 	"SDL_stdinc.h"
 	<intrin.h>
 	<intrin.h>
@@ -604,7 +604,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_events.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_events.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -618,7 +618,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_video.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_video.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -626,12 +626,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_pixels.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_pixels.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_rect.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_rect.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_pixels.h"
@@ -639,7 +639,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_surface.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_surface.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -648,11 +648,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_blendmode.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_blendmode.h
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_keyboard.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_keyboard.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_keycode.h"
@@ -660,27 +660,27 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_keycode.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_keycode.h
 	"SDL_stdinc.h"
 	"SDL_scancode.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_scancode.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_scancode.h
 	"SDL_stdinc.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_mouse.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_mouse.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_joystick.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_joystick.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_gamecontroller.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_gamecontroller.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_rwops.h"
@@ -688,11 +688,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_quit.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_quit.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_gesture.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_gesture.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -700,60 +700,60 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_touch.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_touch.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_filesystem.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_filesystem.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_haptic.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_haptic.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_joystick.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_hints.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_hints.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_loadso.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_loadso.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_log.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_log.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_messagebox.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_messagebox.h
 	"SDL_stdinc.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_power.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_power.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_render.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_render.h
 	"SDL_stdinc.h"
 	"SDL_rect.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_system.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_system.h
 	"SDL_stdinc.h"
 	"SDL_keyboard.h"
 	"SDL_render.h"
@@ -761,29 +761,29 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_timer.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_timer.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451768384 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_version.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\res\libraries\sdl2\include\sdl2\sdl_version.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1477659352 c:\users\paul\desktop\projects\world2\clientside\input.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\input.h
 	<SDL2/SDL.h>
 	"display.h"
 	<glm/glm.hpp>
 
-1477577447 c:\users\paul\desktop\projects\world2\clientside\display.h
+1477820861 c:\users\paul\desktop\projects\world2\clientside\display.h
 	<SDL2/SDL.h>
 	<iostream>
 	<GL/glew.h>
 	<glm/glm.hpp>
 
-1469347178 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glew\include\gl\glew.h
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glew\include\gl\glew.h
 	<stddef.h>
 	<inttypes.h>
 	<stdint.h>
@@ -792,7 +792,7 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\matrix_transform.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\matrix_transform.hpp
 	"../mat4x4.hpp"
 	"../vec2.hpp"
 	"../vec3.hpp"
@@ -800,25 +800,25 @@
 	"../gtc/constants.hpp"
 	"matrix_transform.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\constants.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\constants.hpp
 	"../detail/setup.hpp"
 	"constants.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\constants.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\constants.inl
 	<limits>
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\matrix_transform.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\matrix_transform.inl
 	"../geometric.hpp"
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1477571149 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
+1477818356 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
 	"display.h"
 
-1477575351 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
+1477818356 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
 	"entity.h"
 
-1477575742 c:\users\paul\desktop\projects\world2\clientside\entity.h
+1477818449 c:\users\paul\desktop\projects\world2\clientside\entity.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"shader.h"
@@ -829,7 +829,7 @@
 	<glm/gtc/type_ptr.hpp>
 	<bullet/btBulletDynamicsCommon.h>
 
-1477499044 c:\users\paul\desktop\projects\world2\clientside\mesh.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\mesh.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<vector>
@@ -837,7 +837,7 @@
 	<sstream>
 	<fstream>
 
-1477665565 c:\users\paul\desktop\projects\world2\clientside\shader.h
+1477818362 c:\users\paul\desktop\projects\world2\clientside\shader.h
 	<stdlib.h>
 	<stdio.h>
 	<string>
@@ -847,7 +847,7 @@
 	<string.h>
 	<glm/glm.hpp>
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\type_ptr.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\type_ptr.hpp
 	"../gtc/quaternion.hpp"
 	"../vec2.hpp"
 	"../vec3.hpp"
@@ -864,7 +864,7 @@
 	<cstring>
 	"type_ptr.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\quaternion.hpp
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\quaternion.hpp
 	"../mat3x3.hpp"
 	"../mat4x4.hpp"
 	"../vec3.hpp"
@@ -872,37 +872,37 @@
 	"../gtc/constants.hpp"
 	"quaternion.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\quaternion.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\quaternion.inl
 	"../trigonometric.hpp"
 	"../geometric.hpp"
 	"../exponential.hpp"
 	<limits>
 	"quaternion_simd.inl"
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\quaternion_simd.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\quaternion_simd.inl
 
-1473885901 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\type_ptr.inl
+1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\type_ptr.inl
 	<cstring>
 
-1477498968 source:c:\users\paul\desktop\projects\world2\clientside\input.cpp
+1477818356 source:c:\users\paul\desktop\projects\world2\clientside\input.cpp
 	"input.h"
 
-1477735732 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
+1477818356 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
 	"game.h"
 	<iostream>
 
-1477498915 source:c:\users\paul\desktop\projects\world2\clientside\mesh.cpp
+1477818356 source:c:\users\paul\desktop\projects\world2\clientside\mesh.cpp
 	"mesh.h"
 	<iostream>
 
-1477665509 source:c:\users\paul\desktop\projects\world2\clientside\shader.cpp
+1477818362 source:c:\users\paul\desktop\projects\world2\clientside\shader.cpp
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1477666838 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
+1477842080 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
 	"game.h"
 
-1477665379 c:\users\paul\desktop\projects\world2\clientside\game.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -917,7 +917,7 @@
 	"text.h"
 	<bullet/btBulletDynamicsCommon.h>
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletdynamicscommon.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletdynamicscommon.h
 	"btBulletCollisionCommon.h"
 	"BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
 	"BulletDynamics/Dynamics/btSimpleDynamicsWorld.h"
@@ -935,7 +935,7 @@
 	"BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h"
 	"BulletDynamics/Vehicle/btRaycastVehicle.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletcollisioncommon.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletcollisioncommon.h
 	"BulletCollision/CollisionDispatch/btCollisionWorld.h"
 	"BulletCollision/CollisionDispatch/btCollisionObject.h"
 	"BulletCollision/CollisionShapes/btBoxShape.h"
@@ -970,7 +970,7 @@
 	"LinearMath/btIDebugDraw.h"
 	"LinearMath/btSerializer.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionworld.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionworld.h
 	"LinearMath/btVector3.h"
 	"LinearMath/btTransform.h"
 	"btCollisionObject.h"
@@ -978,12 +978,12 @@
 	"BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
 	"LinearMath/btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btvector3.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btvector3.h
 	"btScalar.h"
 	"btMinMax.h"
 	"btAlignedAllocator.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btscalar.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btscalar.h
 	<math.h>
 	<stdlib.h>
 	<float.h>
@@ -1005,46 +1005,46 @@
 	<arm_neon.h>
 	<arm_neon.h>
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btminmax.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btminmax.h
 	"btScalar.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btalignedallocator.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btalignedallocator.h
 	"btScalar.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\bttransform.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\bttransform.h
 	"btMatrix3x3.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btmatrix3x3.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btmatrix3x3.h
 	"btVector3.h"
 	"btQuaternion.h"
 	<stdio.h>
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btquaternion.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btquaternion.h
 	"btVector3.h"
 	"btQuadWord.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btquadword.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btquadword.h
 	"btScalar.h"
 	"btMinMax.h"
 	<altivec.h>
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionobject.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionobject.h
 	"LinearMath/btTransform.h"
 	"LinearMath/btMotionState.h"
 	"LinearMath/btAlignedAllocator.h"
 	"LinearMath/btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btmotionstate.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btmotionstate.h
 	"btTransform.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btalignedobjectarray.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btalignedobjectarray.h
 	"btScalar.h"
 	"btAlignedAllocator.h"
 	<memory.h>
 	<string.h>
 	<new>
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisiondispatcher.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisiondispatcher.h
 	"BulletCollision/BroadphaseCollision/btDispatcher.h"
 	"BulletCollision/NarrowPhaseCollision/btPersistentManifold.h"
 	"BulletCollision/CollisionDispatch/btManifoldResult.h"
@@ -1052,73 +1052,73 @@
 	"LinearMath/btAlignedObjectArray.h"
 	"btCollisionCreateFunc.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btdispatcher.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btdispatcher.h
 	"LinearMath/btScalar.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\narrowphasecollision\btpersistentmanifold.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\narrowphasecollision\btpersistentmanifold.h
 	"LinearMath/btVector3.h"
 	"LinearMath/btTransform.h"
 	"btManifoldPoint.h"
 	"LinearMath/btAlignedAllocator.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\narrowphasecollision\btmanifoldpoint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\narrowphasecollision\btmanifoldpoint.h
 	"LinearMath/btVector3.h"
 	"LinearMath/btTransformUtil.h"
 	"physics_effects/base_level/solver/pfx_constraint_row.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\bttransformutil.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\bttransformutil.h
 	"btTransform.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btmanifoldresult.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btmanifoldresult.h
 	"BulletCollision/NarrowPhaseCollision/btPersistentManifold.h"
 	"BulletCollision/NarrowPhaseCollision/btDiscreteCollisionDetectorInterface.h"
 	"LinearMath/btTransform.h"
 	"BulletCollision/CollisionDispatch/btCollisionObjectWrapper.h"
 	"BulletCollision/CollisionDispatch/btCollisionObject.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\narrowphasecollision\btdiscretecollisiondetectorinterface.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\narrowphasecollision\btdiscretecollisiondetectorinterface.h
 	"LinearMath/btTransform.h"
 	"LinearMath/btVector3.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionobjectwrapper.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionobjectwrapper.h
 	"LinearMath/btScalar.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btbroadphaseproxy.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btbroadphaseproxy.h
 	"LinearMath/btScalar.h"
 	"LinearMath/btVector3.h"
 	"LinearMath/btAlignedAllocator.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisioncreatefunc.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisioncreatefunc.h
 	"LinearMath/btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btoverlappingpaircache.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btoverlappingpaircache.h
 	"btBroadphaseInterface.h"
 	"btBroadphaseProxy.h"
 	"btOverlappingPairCallback.h"
 	"LinearMath/btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btbroadphaseinterface.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btbroadphaseinterface.h
 	"btBroadphaseProxy.h"
 	"LinearMath/btVector3.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btoverlappingpaircallback.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btoverlappingpaircallback.h
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btboxshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btboxshape.h
 	"btPolyhedralConvexShape.h"
 	"btCollisionMargin.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 	"LinearMath/btVector3.h"
 	"LinearMath/btMinMax.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btpolyhedralconvexshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btpolyhedralconvexshape.h
 	"LinearMath/btMatrix3x3.h"
 	"btConvexInternalShape.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvexinternalshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvexinternalshape.h
 	"btConvexShape.h"
 	"LinearMath/btAabbUtil2.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvexshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvexshape.h
 	"btCollisionShape.h"
 	"LinearMath/btVector3.h"
 	"LinearMath/btTransform.h"
@@ -1126,85 +1126,85 @@
 	"btCollisionMargin.h"
 	"LinearMath/btAlignedAllocator.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcollisionshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcollisionshape.h
 	"LinearMath/btTransform.h"
 	"LinearMath/btVector3.h"
 	"LinearMath/btMatrix3x3.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcollisionmargin.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcollisionmargin.h
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btaabbutil2.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btaabbutil2.h
 	"btTransform.h"
 	"btVector3.h"
 	"btMinMax.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btsphereshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btsphereshape.h
 	"btConvexInternalShape.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcapsuleshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcapsuleshape.h
 	"btConvexInternalShape.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcylindershape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcylindershape.h
 	"btBoxShape.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 	"LinearMath/btVector3.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconeshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconeshape.h
 	"btConvexInternalShape.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btstaticplaneshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btstaticplaneshape.h
 	"btConcaveShape.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconcaveshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconcaveshape.h
 	"btCollisionShape.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 	"btTriangleCallback.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttrianglecallback.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttrianglecallback.h
 	"LinearMath/btVector3.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvexhullshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvexhullshape.h
 	"btPolyhedralConvexShape.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 	"LinearMath/btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttrianglemesh.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttrianglemesh.h
 	"btTriangleIndexVertexArray.h"
 	"LinearMath/btVector3.h"
 	"LinearMath/btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttriangleindexvertexarray.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttriangleindexvertexarray.h
 	"btStridingMeshInterface.h"
 	"LinearMath/btAlignedObjectArray.h"
 	"LinearMath/btScalar.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btstridingmeshinterface.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btstridingmeshinterface.h
 	"LinearMath/btVector3.h"
 	"btTriangleCallback.h"
 	"btConcaveShape.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvextrianglemeshshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btconvextrianglemeshshape.h
 	"btPolyhedralConvexShape.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btbvhtrianglemeshshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btbvhtrianglemeshshape.h
 	"btTriangleMeshShape.h"
 	"btOptimizedBvh.h"
 	"LinearMath/btAlignedAllocator.h"
 	"btTriangleInfoMap.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttrianglemeshshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttrianglemeshshape.h
 	"btConcaveShape.h"
 	"btStridingMeshInterface.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btoptimizedbvh.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btoptimizedbvh.h
 	"BulletCollision/BroadphaseCollision/btQuantizedBvh.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btquantizedbvh.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btquantizedbvh.h
 	<stdio.h>
 	<stdlib.h>
 	"LinearMath/btVector3.h"
@@ -1212,23 +1212,23 @@
 	"LinearMath/btAlignedAllocator.h"
 	"LinearMath/btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttriangleinfomap.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttriangleinfomap.h
 	"LinearMath/btHashMap.h"
 	"LinearMath/btSerializer.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\bthashmap.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\bthashmap.h
 	"btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btserializer.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btserializer.h
 	"btScalar.h"
 	"btHashMap.h"
 	<memory.h>
 	<string.h>
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btscaledbvhtrianglemeshshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btscaledbvhtrianglemeshshape.h
 	"BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcompoundshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btcompoundshape.h
 	"btCollisionShape.h"
 	"LinearMath/btVector3.h"
 	"LinearMath/btTransform.h"
@@ -1236,49 +1236,49 @@
 	"btCollisionMargin.h"
 	"LinearMath/btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttetrahedronshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\bttetrahedronshape.h
 	"btPolyhedralConvexShape.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btemptyshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btemptyshape.h
 	"btConcaveShape.h"
 	"LinearMath/btVector3.h"
 	"LinearMath/btTransform.h"
 	"LinearMath/btMatrix3x3.h"
 	"btCollisionMargin.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btmultisphereshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btmultisphereshape.h
 	"btConvexInternalShape.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 	"LinearMath/btAlignedObjectArray.h"
 	"LinearMath/btAabbUtil2.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btuniformscalingshape.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisionshapes\btuniformscalingshape.h
 	"btConvexShape.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btspherespherecollisionalgorithm.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btspherespherecollisionalgorithm.h
 	"btActivatingCollisionAlgorithm.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 	"BulletCollision/CollisionDispatch/btCollisionCreateFunc.h"
 	"btCollisionDispatcher.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btactivatingcollisionalgorithm.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btactivatingcollisionalgorithm.h
 	"BulletCollision/BroadphaseCollision/btCollisionAlgorithm.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btcollisionalgorithm.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btcollisionalgorithm.h
 	"LinearMath/btScalar.h"
 	"LinearMath/btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btdefaultcollisionconfiguration.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btdefaultcollisionconfiguration.h
 	"btCollisionConfiguration.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionconfiguration.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\collisiondispatch\btcollisionconfiguration.h
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btsimplebroadphase.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btsimplebroadphase.h
 	"btOverlappingPairCache.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btaxissweep3.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btaxissweep3.h
 	"LinearMath/btVector3.h"
 	"btOverlappingPairCache.h"
 	"btBroadphaseInterface.h"
@@ -1287,12 +1287,12 @@
 	"btDbvtBroadphase.h"
 	<stdio.h>
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btdbvtbroadphase.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btdbvtbroadphase.h
 	"BulletCollision/BroadphaseCollision/btDbvt.h"
 	"BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
 	"LinearMath/btQuickprof.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btdbvt.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btdbvt.h
 	"LinearMath/btAlignedObjectArray.h"
 	"LinearMath/btVector3.h"
 	"LinearMath/btTransform.h"
@@ -1301,118 +1301,118 @@
 	<memory.h>
 	<string.h>
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btquickprof.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btquickprof.h
 	"btScalar.h"
 	<stdio.h>
 	"btAlignedAllocator.h"
 	<new>
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btmultisapbroadphase.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletcollision\broadphasecollision\btmultisapbroadphase.h
 	"btBroadphaseInterface.h"
 	"LinearMath/btAlignedObjectArray.h"
 	"btOverlappingPairCache.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btdefaultmotionstate.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btdefaultmotionstate.h
 	"btMotionState.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btidebugdraw.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\linearmath\btidebugdraw.h
 	"btVector3.h"
 	"btTransform.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btdiscretedynamicsworld.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btdiscretedynamicsworld.h
 	"btDynamicsWorld.h"
 	"LinearMath/btAlignedObjectArray.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btdynamicsworld.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btdynamicsworld.h
 	"BulletCollision/CollisionDispatch/btCollisionWorld.h"
 	"BulletDynamics/ConstraintSolver/btContactSolverInfo.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btcontactsolverinfo.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btcontactsolverinfo.h
 	"LinearMath/btScalar.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btsimpledynamicsworld.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btsimpledynamicsworld.h
 	"btDynamicsWorld.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btrigidbody.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btrigidbody.h
 	"LinearMath/btAlignedObjectArray.h"
 	"LinearMath/btTransform.h"
 	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
 	"BulletCollision/CollisionDispatch/btCollisionObject.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btpoint2pointconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btpoint2pointconstraint.h
 	"LinearMath/btVector3.h"
 	"btJacobianEntry.h"
 	"btTypedConstraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btjacobianentry.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btjacobianentry.h
 	"LinearMath/btMatrix3x3.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\bttypedconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\bttypedconstraint.h
 	"LinearMath/btScalar.h"
 	"btSolverConstraint.h"
 	"BulletDynamics/Dynamics/btRigidBody.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsolverconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsolverconstraint.h
 	"LinearMath/btVector3.h"
 	"LinearMath/btMatrix3x3.h"
 	"btJacobianEntry.h"
 	"LinearMath/btAlignedObjectArray.h"
 	"btSolverBody.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsolverbody.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsolverbody.h
 	"LinearMath/btVector3.h"
 	"LinearMath/btMatrix3x3.h"
 	"LinearMath/btAlignedAllocator.h"
 	"LinearMath/btTransformUtil.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\bthingeconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\bthingeconstraint.h
 	"LinearMath/btVector3.h"
 	"btJacobianEntry.h"
 	"btTypedConstraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btconetwistconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btconetwistconstraint.h
 	"LinearMath/btVector3.h"
 	"btJacobianEntry.h"
 	"btTypedConstraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgeneric6dofconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgeneric6dofconstraint.h
 	"LinearMath/btVector3.h"
 	"btJacobianEntry.h"
 	"btTypedConstraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsliderconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsliderconstraint.h
 	"LinearMath/btScalar.h"
 	"LinearMath/btVector3.h"
 	"btJacobianEntry.h"
 	"btTypedConstraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgeneric6dofspringconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgeneric6dofspringconstraint.h
 	"LinearMath/btVector3.h"
 	"btTypedConstraint.h"
 	"btGeneric6DofConstraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btuniversalconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btuniversalconstraint.h
 	"LinearMath/btVector3.h"
 	"btTypedConstraint.h"
 	"btGeneric6DofConstraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\bthinge2constraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\bthinge2constraint.h
 	"LinearMath/btVector3.h"
 	"btTypedConstraint.h"
 	"btGeneric6DofSpring2Constraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgeneric6dofspring2constraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgeneric6dofspring2constraint.h
 	"LinearMath/btVector3.h"
 	"btJacobianEntry.h"
 	"btTypedConstraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgearconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btgearconstraint.h
 	"BulletDynamics/ConstraintSolver/btTypedConstraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btfixedconstraint.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btfixedconstraint.h
 	"btGeneric6DofSpring2Constraint.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsequentialimpulseconstraintsolver.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btsequentialimpulseconstraintsolver.h
 	"BulletDynamics/ConstraintSolver/btTypedConstraint.h"
 	"BulletDynamics/ConstraintSolver/btContactSolverInfo.h"
 	"BulletDynamics/ConstraintSolver/btSolverBody.h"
@@ -1420,10 +1420,10 @@
 	"BulletCollision/NarrowPhaseCollision/btManifoldPoint.h"
 	"BulletDynamics/ConstraintSolver/btConstraintSolver.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btconstraintsolver.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\constraintsolver\btconstraintsolver.h
 	"LinearMath/btScalar.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\vehicle\btraycastvehicle.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\vehicle\btraycastvehicle.h
 	"BulletDynamics/Dynamics/btRigidBody.h"
 	"BulletDynamics/ConstraintSolver/btTypedConstraint.h"
 	"btVehicleRaycaster.h"
@@ -1431,39 +1431,41 @@
 	"btWheelInfo.h"
 	"BulletDynamics/Dynamics/btActionInterface.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\vehicle\btvehicleraycaster.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\vehicle\btvehicleraycaster.h
 	"LinearMath/btVector3.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\vehicle\btwheelinfo.h
+1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\vehicle\btwheelinfo.h
 	"LinearMath/btVector3.h"
 	"LinearMath/btTransform.h"
 
-1476306022 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btactioninterface.h
+1477818359 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\bulletdynamics\dynamics\btactioninterface.h
 	"LinearMath/btScalar.h"
 	"btRigidBody.h"
 
-1477577660 source:c:\users\paul\desktop\projects\world2\clientside\box.cpp
+1477818356 source:c:\users\paul\desktop\projects\world2\clientside\box.cpp
 	"box.h"
 
-1477575910 c:\users\paul\desktop\projects\world2\clientside\box.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\box.h
 	"entity.h"
 
-1477576443 c:\users\paul\desktop\projects\world2\clientside\sphere.h
+1477818362 c:\users\paul\desktop\projects\world2\clientside\sphere.h
 	"entity.h"
 
-1477576688 source:c:\users\paul\desktop\projects\world2\clientside\sphere.cpp
+1477818362 source:c:\users\paul\desktop\projects\world2\clientside\sphere.cpp
 	"sphere.h"
 
-1477659128 c:\users\paul\desktop\projects\world2\clientside\player.h
-	"entity.h"
+1477820212 c:\users\paul\desktop\projects\world2\clientside\player.h
+	<bullet/btBulletDynamicsCommon.h>
+	<glm/glm.hpp>
+	<iostream>
 
-1477659143 source:c:\users\paul\desktop\projects\world2\clientside\player.cpp
+1477842202 source:c:\users\paul\desktop\projects\world2\clientside\player.cpp
 	"player.h"
 
-1477665355 source:c:\users\paul\desktop\projects\world2\clientside\font.cpp
+1477818356 source:c:\users\paul\desktop\projects\world2\clientside\font.cpp
 	"font.h"
 
-1477665335 c:\users\paul\desktop\projects\world2\clientside\font.h
+1477818356 c:\users\paul\desktop\projects\world2\clientside\font.h
 	<string>
 	<vector>
 	<fstream>
@@ -1474,11 +1476,11 @@
 	<GL/glew.h>
 	<SDL2/SDL.h>
 
-1477662122 c:\users\paul\desktop\projects\world2\clientside\textshader.h
+1477818362 c:\users\paul\desktop\projects\world2\clientside\textshader.h
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1477661590 c:\users\paul\desktop\projects\world2\clientside\text.h
+1477818362 c:\users\paul\desktop\projects\world2\clientside\text.h
 	"font.h"
 	"mesh.h"
 	<string>
@@ -1486,9 +1488,9 @@
 	<glm/gtc/matrix_transform.hpp>
 	"textshader.h"
 
-1477665465 source:c:\users\paul\desktop\projects\world2\clientside\text.cpp
+1477818362 source:c:\users\paul\desktop\projects\world2\clientside\text.cpp
 	"text.h"
 
-1477662112 source:c:\users\paul\desktop\projects\world2\clientside\textshader.cpp
+1477818362 source:c:\users\paul\desktop\projects\world2\clientside\textshader.cpp
 	"textshader.h"
 

@@ -29,10 +29,10 @@ void Game::construct(){
     discreteChunk = 18.0f/6.0f;
     input = new Input();
     shader = new Shader("res/shaders/vertex", "res/shaders/fragment");
-    player = new Player(world, 30.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(10));
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
+    player = new Player(world, 30.0f, glm::vec3(0.0f, 30.0f, 0.0f), glm::vec3(10));
     fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
                             "Paul",
                             glm::vec3(101, 100, -3),
@@ -42,11 +42,11 @@ void Game::construct(){
     Sphere::setMesh(sphereMesh);
 
     entities.push_back(new Box(world,
-                                100.0f,
-                                glm::vec4(1,0,0,1),
-                                glm::vec3(0, 200, 0),
+                                1000.0f,
+                                glm::vec4(1,0,1,1),
+                                glm::vec3(0, 200, 200),
                                 glm::vec3(0, 0, 0),
-                                glm::vec3(30))
+                                glm::vec3(300))
                        );
 
     entities.push_back(new Sphere(world,
@@ -86,6 +86,12 @@ void Game::handleInput(Game* game){
     glm::vec3 forward = camera->getForward();
     glm::vec3 right = camera->getRight();
 
+    if(input->getKey(SDLK_SPACE)){
+        if(!player->getIsJumping()){
+            player->jump();
+        }
+    }
+
     if(input->getKey(SDLK_w)){
         btVector3 fwd = btVector3(forward.x, 0, forward.z);
         fwd = fwd.normalized() * FORCE;
@@ -115,14 +121,14 @@ void Game::handleInput(Game* game){
     }
 
     if(input->getMouseDown(1)){
-        Sphere* sphere = new Sphere(game->getWorld(),
+        Box* box = new Box(game->getWorld(),
                                     100.0f,
                                     glm::vec4(1,0,0,1),
                                     camera->getPosition() + camera->getForward() * 100.0f,
                                     glm::vec3(0, 0, 0),
-                                    30.0f);
-        sphere->setLinearVelocity(camera->getForward() * 100.0f);
-        game->getEntities().push_back(sphere);
+                                    glm::vec3(30.0f));
+        box->setLinearVelocity(camera->getForward() * 100.0f);
+        game->getEntities().push_back(box);
     }
 }
 
@@ -153,6 +159,7 @@ void Game::run(){
             world->stepSimulation(btScalar(0.5f));
             timeAccumulator -= discreteChunk;
         }
+        player->performRayTest();
         render();
     }
 }
