@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1477818356 source:c:\users\paul\desktop\projects\world2\clientside\camera.cpp
+1478438377 source:c:\users\paul\desktop\projects\world2\clientside\camera.cpp
 	"camera.h"
 
 1477818356 c:\users\paul\desktop\projects\world2\clientside\camera.h
@@ -777,7 +777,7 @@
 	"display.h"
 	<glm/glm.hpp>
 
-1477820861 c:\users\paul\desktop\projects\world2\clientside\display.h
+1479644049 c:\users\paul\desktop\projects\world2\clientside\display.h
 	<SDL2/SDL.h>
 	<iostream>
 	<GL/glew.h>
@@ -812,7 +812,7 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1477818356 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
+1478438381 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
 	"display.h"
 
 1477818356 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
