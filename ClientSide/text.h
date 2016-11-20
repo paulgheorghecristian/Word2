@@ -6,7 +6,7 @@
 #include <string>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "textshader.h"
+#include "text_shader.h"
 
 class Text
 {

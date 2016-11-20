@@ -99,7 +99,7 @@ void Text::draw(TextShader* shader){
 
     glBindVertexArray(mesh->getVao());
     shader->loadModelMatrix(modelMatrix);
-    shader->loadColor(color);
+    shader->loadColor(glm::vec4(color, 1.0));
     glDrawElements(GL_TRIANGLES, mesh->getNumberOfTriangles(), GL_UNSIGNED_INT, (void*)0);
     glBindVertexArray(0);
 }

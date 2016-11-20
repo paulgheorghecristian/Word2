@@ -4,16 +4,17 @@
 #include "camera.h"
 #include "display.h"
 #include "input.h"
-#include "shader.h"
+#include "simple_shader.h"
 #include "entity.h"
 #include <string>
 #include <vector>
 #include "box.h"
 #include "sphere.h"
 #include "player.h"
-#include "textShader.h"
+#include "text_shader.h"
 #include "text.h"
 #include <bullet/btBulletDynamicsCommon.h>
+#include "texture.h"
 
 #define GRAVITY -20
 #define FORCE 1200
@@ -46,10 +47,9 @@ class Game
         Camera* camera;
         Display* display;
         Input* input;
-        Shader* shader;
+        SimpleShader* simpleShader;
         Player* player;
         TextShader* textShader;
-        Text* fpsText;
         std::vector<Entity*> entities;
         Mesh* boxMesh;
         Mesh* sphereMesh;
@@ -60,6 +60,8 @@ class Game
         btConstraintSolver* solver;
         long timeAccumulator;
         float discreteChunk;
+        Texture *tex1, *tex2;
+        Text* fpsText;
 };
 
 #endif // GAME_H

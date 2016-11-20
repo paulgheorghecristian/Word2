@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1477818356 source:c:\users\paul\desktop\projects\world2\clientside\camera.cpp
+1478438377 source:c:\users\paul\desktop\projects\world2\clientside\camera.cpp
 	"camera.h"
 
 1477818356 c:\users\paul\desktop\projects\world2\clientside\camera.h
@@ -777,7 +777,7 @@
 	"display.h"
 	<glm/glm.hpp>
 
-1477820861 c:\users\paul\desktop\projects\world2\clientside\display.h
+1478240519 c:\users\paul\desktop\projects\world2\clientside\display.h
 	<SDL2/SDL.h>
 	<iostream>
 	<GL/glew.h>
@@ -812,13 +812,13 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1477818356 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
+1478438381 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
 	"display.h"
 
-1477818356 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
+1479642172 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
 	"entity.h"
 
-1477818449 c:\users\paul\desktop\projects\world2\clientside\entity.h
+1479639378 c:\users\paul\desktop\projects\world2\clientside\entity.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"shader.h"
@@ -828,6 +828,9 @@
 	<vector>
 	<glm/gtc/type_ptr.hpp>
 	<bullet/btBulletDynamicsCommon.h>
+	<typeinfo>
+	"simple_shader.h"
+	"texture.h"
 
 1477818356 c:\users\paul\desktop\projects\world2\clientside\mesh.h
 	<GL/glew.h>
@@ -887,7 +890,7 @@
 1477818356 source:c:\users\paul\desktop\projects\world2\clientside\input.cpp
 	"input.h"
 
-1477818356 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
+1478417794 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
 	"game.h"
 	<iostream>
 
@@ -899,23 +902,24 @@
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1477842080 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
+1479641003 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
 	"game.h"
 
-1477818356 c:\users\paul\desktop\projects\world2\clientside\game.h
+1479642400 c:\users\paul\desktop\projects\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
-	"shader.h"
+	"simple_shader.h"
 	"entity.h"
 	<string>
 	<vector>
 	"box.h"
 	"sphere.h"
 	"player.h"
-	"textShader.h"
+	"text_shader.h"
 	"text.h"
 	<bullet/btBulletDynamicsCommon.h>
+	"texture.h"
 
 1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletdynamicscommon.h
 	"btBulletCollisionCommon.h"
@@ -1442,16 +1446,16 @@
 	"LinearMath/btScalar.h"
 	"btRigidBody.h"
 
-1477818356 source:c:\users\paul\desktop\projects\world2\clientside\box.cpp
+1479640697 source:c:\users\paul\desktop\projects\world2\clientside\box.cpp
 	"box.h"
 
-1477818356 c:\users\paul\desktop\projects\world2\clientside\box.h
+1479640213 c:\users\paul\desktop\projects\world2\clientside\box.h
 	"entity.h"
 
-1477818362 c:\users\paul\desktop\projects\world2\clientside\sphere.h
+1479640720 c:\users\paul\desktop\projects\world2\clientside\sphere.h
 	"entity.h"
 
-1477818362 source:c:\users\paul\desktop\projects\world2\clientside\sphere.cpp
+1479640759 source:c:\users\paul\desktop\projects\world2\clientside\sphere.cpp
 	"sphere.h"
 
 1477820212 c:\users\paul\desktop\projects\world2\clientside\player.h
@@ -1480,17 +1484,53 @@
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1477818362 c:\users\paul\desktop\projects\world2\clientside\text.h
+1478240001 c:\users\paul\desktop\projects\world2\clientside\text.h
 	"font.h"
 	"mesh.h"
 	<string>
 	<glm/glm.hpp>
 	<glm/gtc/matrix_transform.hpp>
-	"textshader.h"
+	"text_shader.h"
 
-1477818362 source:c:\users\paul\desktop\projects\world2\clientside\text.cpp
+1478266950 source:c:\users\paul\desktop\projects\world2\clientside\text.cpp
 	"text.h"
 
 1477818362 source:c:\users\paul\desktop\projects\world2\clientside\textshader.cpp
 	"textshader.h"
+
+1478267416 source:c:\users\paul\desktop\projects\world2\clientside\text_shader.cpp
+	"text_shader.h"
+
+1478266039 c:\users\paul\desktop\projects\world2\clientside\text_shader.h
+	"general_shader.h"
+	<glm/gtc/type_ptr.hpp>
+
+1479639848 c:\users\paul\desktop\projects\world2\clientside\general_shader.h
+	<stdlib.h>
+	<stdio.h>
+	<string>
+	<fstream>
+	<iostream>
+	<GL/glew.h>
+	<string.h>
+	<glm/glm.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1479639831 source:c:\users\paul\desktop\projects\world2\clientside\general_shader.cpp
+	"general_shader.h"
+
+1479639951 c:\users\paul\desktop\projects\world2\clientside\simple_shader.h
+	"general_shader.h"
+
+1479641185 source:c:\users\paul\desktop\projects\world2\clientside\simple_shader.cpp
+	"simple_shader.h"
+
+1479642416 c:\users\paul\desktop\projects\world2\clientside\texture.h
+	<string>
+	<SDL2/SDL.h>
+	<GL/glew.h>
+	<iostream>
+
+1479642411 source:c:\users\paul\desktop\projects\world2\clientside\texture.cpp
+	"texture.h"
 

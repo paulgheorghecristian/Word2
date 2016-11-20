@@ -2,7 +2,20 @@
 
 Mesh* Box::mesh;
 
-Box::Box(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :  Entity(world, "box", Box::mesh, color, position, rotation, scale)
+Box::Box(btDynamicsWorld* world,
+         float mass,
+         glm::vec4 color,
+         glm::vec3 position,
+         glm::vec3 rotation,
+         glm::vec3 scale,
+         Texture* texture) :  Entity(world,
+                                    "box",
+                                    Box::mesh,
+                                    color,
+                                    position,
+                                    rotation,
+                                    scale,
+                                    texture)
 {
     btTransform t;
     btVector3 inertia(0, 0, 0);
@@ -25,7 +38,7 @@ Box::Box(btDynamicsWorld* world, float mass, glm::vec4 color, glm::vec3 position
     world->addRigidBody(m_body);
 }
 
-void Box::draw(Shader *shader){
+void Box::draw(GeneralShader *shader){
     btTransform t;
 
     m_body->getMotionState()->getWorldTransform(t);

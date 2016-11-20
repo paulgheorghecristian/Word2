@@ -1,6 +1,21 @@
 #include "entity.h"
 
-Entity::Entity(btDynamicsWorld* world, std::string name, Mesh *mesh, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : world(world), name(name), mesh(mesh), color(color), position(position), rotation(rotation), scale(scale), modelMatrix(1.0f)
+Entity::Entity(btDynamicsWorld* world,
+               std::string name,
+               Mesh *mesh,
+               glm::vec4 color,
+               glm::vec3 position,
+               glm::vec3 rotation,
+               glm::vec3 scale,
+               Texture* texture) : world(world),
+                                    name(name),
+                                    mesh(mesh),
+                                    color(color),
+                                    position(position),
+                                    rotation(rotation),
+                                    scale(scale),
+                                    modelMatrix(1.0f),
+                                    texture(texture)
 {
     isModelMatrixModified = true;
     computeModelMatrix();
@@ -24,10 +39,21 @@ void Entity::computeModelMatrix(){
     isModelMatrixModified = false;
 }
 
-void Entity::draw(Shader* shader){
+void Entity::draw(GeneralShader* shader){
     glBindVertexArray(mesh->getVao());
     if(isModelMatrixModified){
         computeModelMatrix();
+    }
+    if(typeid(SimpleShader) == typeid(*shader)){
+        SimpleShader *ss = (SimpleShader*)shader;
+        if(texture){
+            ss->loadHasTexture(1);
+            ss->loadTextureSampler(texture->getTextureUnit());
+            texture->use();
+        }else{
+            ss->loadHasTexture(0);
+        }
+
     }
     shader->loadModelMatrix(modelMatrix);
     shader->loadColor(color);

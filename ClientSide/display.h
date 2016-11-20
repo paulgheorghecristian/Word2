@@ -26,7 +26,7 @@ class Display
     private:
         SDL_Window *window;
         SDL_GLContext glContext;
-        const int MAX_FPS = 300;
+        const int MAX_FPS = 100;
         float oneFrameDuration;
         long lastFrameTime;
         static long delta;

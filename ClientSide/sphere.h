@@ -6,9 +6,9 @@
 class Sphere : public Entity
 {
     public:
-        Sphere(btDynamicsWorld*, float, glm::vec4, glm::vec3, glm::vec3, float);
-        void draw(Shader *);
-        static void setMesh(Mesh *);
+        Sphere(btDynamicsWorld*, float, glm::vec4, glm::vec3, glm::vec3, float, Texture* texture);
+        void draw(GeneralShader*);
+        static void setMesh(Mesh*);
         void setLinearVelocity(glm::vec3);
         ~Sphere();
     protected:

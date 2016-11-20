@@ -28,16 +28,18 @@ void Game::construct(){
     timeAccumulator = 0;
     discreteChunk = 18.0f/6.0f;
     input = new Input();
-    shader = new Shader("res/shaders/vertex", "res/shaders/fragment");
+    simpleShader = new SimpleShader("res/shaders/vertex", "res/shaders/fragment");
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     player = new Player(world, 30.0f, glm::vec3(0.0f, 30.0f, 0.0f), glm::vec3(10));
     fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
                             "Paul",
-                            glm::vec3(101, 100, -3),
+                            glm::vec3(101, 100, 0),
                             glm::vec3(0, 0, 0),
                             glm::vec3(1, 0.5, 0), 10);
+    tex1 = new Texture("res/textures/154.bmp", 0);
+    tex2 = new Texture("res/textures/196.bmp", 1);
     Box::setMesh(boxMesh);
     Sphere::setMesh(sphereMesh);
 
@@ -46,16 +48,17 @@ void Game::construct(){
                                 glm::vec4(1,0,1,1),
                                 glm::vec3(0, 200, 200),
                                 glm::vec3(0, 0, 0),
-                                glm::vec3(300))
+                                glm::vec3(300),
+                                tex1)
                        );
 
-    entities.push_back(new Sphere(world,
+    /*entities.push_back(new Sphere(world,
                                     100.0f,
                                     glm::vec4(1,1,0,1),
                                     glm::vec3(100, 100, 0),
                                     glm::vec3(0, 0, 0),
                                     30.0f)
-                       );
+                       );*/
 
     entities.push_back(new Entity(world,
                                "surface",
@@ -63,16 +66,17 @@ void Game::construct(){
                                glm::vec4(0.5, 0.5, 0.5, 1),
                                glm::vec3(0, 0, 0),
                                glm::vec3(0.0f, 0.0f, 0.0f),
-                               glm::vec3(50000.0f, 1, 50000.0f))
+                               glm::vec3(50000.0f, 1, 50000.0f),
+                               NULL)
                         );
 
-    glm::mat4 projectionMatrix = glm::perspective(glm::radians(75.0f), this->screenWidth/this->screenHeight, 1.0f, 10000.0f);
+    glm::mat4 projectionMatrix = glm::perspective(glm::radians(75.0f), this->screenWidth/this->screenHeight, 1.0f, 1000.0f);
 
-    shader->bind();
-    shader->loadProjectionMatrix(projectionMatrix);
+    simpleShader->bind();
+    simpleShader->loadProjectionMatrix(projectionMatrix);
 
     textShader->bind();
-    textShader->loadProjectionMatrix(glm::ortho(0.0f, screenWidth, 0.0f, screenHeight, 1.0f, 10.0f));
+    textShader->loadProjectionMatrix(glm::ortho(0.0f, screenWidth, 0.0f, screenHeight));
 }
 
 void Game::handleInput(Game* game){
@@ -126,21 +130,29 @@ void Game::handleInput(Game* game){
                                     glm::vec4(1,0,0,1),
                                     camera->getPosition() + camera->getForward() * 100.0f,
                                     glm::vec3(0, 0, 0),
-                                    glm::vec3(30.0f));
+                                    glm::vec3(30.0f),
+                                    game->tex2);
         box->setLinearVelocity(camera->getForward() * 100.0f);
         game->getEntities().push_back(box);
+    }
+
+    if(input->getKeyDown(SDLK_1)){
+        //how to move a rigid body without breaking the engine
+        btTransform transform = player->getRigidBody()->getCenterOfMassTransform();
+        transform.setOrigin(btVector3(0, 300, 200));
+        player->getRigidBody()->setCenterOfMassTransform(transform);
     }
 }
 
 void Game::render(){
     display->clear(1,1,1,1);
 
-    shader->bind();
+    simpleShader->bind();
     camera->setPosition(player->getPosition() + glm::vec3(0, 20, 0));
-    shader->loadViewMatrix(camera->getViewMatrix());
+    simpleShader->loadViewMatrix(camera->getViewMatrix());
 
     for(Entity* e : entities){
-        e->draw(shader);
+        e->draw(simpleShader);
     }
 
     textShader->bind();
@@ -200,7 +212,7 @@ Game::~Game()
 {
     std::cout << "Destroying game..." << std::endl;
     delete display;
-    delete shader;
+    delete simpleShader;
     delete input;
     delete camera;
 

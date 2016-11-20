@@ -10,12 +10,15 @@
 #include <vector>
 #include <glm/gtc/type_ptr.hpp>
 #include <bullet/btBulletDynamicsCommon.h>
+#include <typeinfo>
+#include "simple_shader.h"
+#include "texture.h"
 
 class Entity
 {
     public:
-        Entity(btDynamicsWorld*, std::string, Mesh*, glm::vec4, glm::vec3, glm::vec3, glm::vec3);
-        virtual void draw(Shader*);
+        Entity(btDynamicsWorld*, std::string, Mesh*, glm::vec4, glm::vec3, glm::vec3, glm::vec3, Texture*);
+        virtual void draw(GeneralShader*);
         void draw(Shader*, float*);
         void setRotation(float, float, float);
         void setScale(float, float, float);
@@ -42,7 +45,8 @@ class Entity
         glm::vec4 color;
         glm::mat4 modelMatrix;
         btDynamicsWorld* world;
-        btRigidBody *m_body;
+        btRigidBody* m_body;
+        Texture* texture;
     private:
         bool isModelMatrixModified;
 };

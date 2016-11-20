@@ -16,6 +16,8 @@
 					<Add directory="res/libraries/glm" />
 					<Add directory="res/libraries/SDL2/include" />
 					<Add directory="res/libraries/glew/include" />
+					<Add directory="res/libraries/bullet" />
+					<Add directory="res/libraries/bullet/bullet" />
 				</Compiler>
 				<Linker>
 					<Add option="-lmingw32" />
@@ -23,6 +25,17 @@
 					<Add library="res\libraries\glew\bin\Release\x64\glew32.dll" />
 					<Add library="res\libraries\SDL2\lib\libSDL2main.a" />
 					<Add library="res\libraries\SDL2\bin\SDL2.dll" />
+					<Add library="res\libraries\bullet\lib\libBullet2FileLoader.dll" />
+					<Add library="res\libraries\bullet\lib\libBullet3Collision.dll" />
+					<Add library="res\libraries\bullet\lib\libBullet3Common.dll" />
+					<Add library="res\libraries\bullet\lib\libBullet3Dynamics.dll" />
+					<Add library="res\libraries\bullet\lib\libBullet3Geometry.dll" />
+					<Add library="res\libraries\bullet\lib\libBullet3OpenCL_clew.dll" />
+					<Add library="res\libraries\bullet\lib\libBulletCollision.dll" />
+					<Add library="res\libraries\bullet\lib\libBulletDynamics.dll" />
+					<Add library="res\libraries\bullet\lib\libBulletInverseDynamics.dll" />
+					<Add library="res\libraries\bullet\lib\libBulletSoftBody.dll" />
+					<Add library="res\libraries\bullet\lib\libLinearMath.dll" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -43,19 +56,40 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="ClientSide.cbp" />
+		<Unit filename="box.cpp" />
+		<Unit filename="box.h" />
 		<Unit filename="camera.cpp" />
 		<Unit filename="camera.h" />
 		<Unit filename="display.cpp" />
 		<Unit filename="display.h" />
 		<Unit filename="entity.cpp" />
 		<Unit filename="entity.h" />
+		<Unit filename="font.cpp" />
+		<Unit filename="font.h" />
+		<Unit filename="game.cpp" />
+		<Unit filename="game.h" />
+		<Unit filename="general_shader.cpp" />
+		<Unit filename="general_shader.h" />
 		<Unit filename="input.cpp" />
 		<Unit filename="input.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="mesh.cpp" />
 		<Unit filename="mesh.h" />
+		<Unit filename="player.cpp" />
+		<Unit filename="player.h" />
 		<Unit filename="shader.cpp" />
 		<Unit filename="shader.h" />
+		<Unit filename="simple_shader.cpp" />
+		<Unit filename="simple_shader.h" />
+		<Unit filename="sphere.cpp" />
+		<Unit filename="sphere.h" />
+		<Unit filename="text.cpp" />
+		<Unit filename="text.h" />
+		<Unit filename="text_shader.cpp" />
+		<Unit filename="text_shader.h" />
+		<Unit filename="texture.cpp" />
+		<Unit filename="texture.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
