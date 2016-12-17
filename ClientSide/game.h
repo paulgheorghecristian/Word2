@@ -15,6 +15,9 @@
 #include "text.h"
 #include <bullet/btBulletDynamicsCommon.h>
 #include "texture.h"
+#include "g_buffer.h"
+#include "deferred_light_shader.h"
+#include "light.h"
 
 #define GRAVITY -20
 #define FORCE 1200
@@ -41,6 +44,8 @@ class Game
         btDynamicsWorld* getWorld();
         Player* getPlayer();
         std::vector<Entity*>& getEntities();
+        void stencil(Light*);
+        void normal(Light*);
 
         float screenWidth, screenHeight;
         std::string title;
@@ -48,9 +53,14 @@ class Game
         Display* display;
         Input* input;
         SimpleShader* simpleShader;
+        SimpleShader* simpleShaderForLights;
+        SimpleShader* emptyShader;
+        DeferredLightShader* deferredLightShader;
         Player* player;
+        Entity* screenRectangle;
         TextShader* textShader;
         std::vector<Entity*> entities;
+        std::vector<Light*> lights;
         Mesh* boxMesh;
         Mesh* sphereMesh;
         btDynamicsWorld* world;
@@ -62,6 +72,8 @@ class Game
         float discreteChunk;
         Texture *tex1, *tex2;
         Text* fpsText;
+        GBuffer* gBuffer;
+        int outputType;
 };
 
 #endif // GAME_H

@@ -32,6 +32,7 @@ class Mesh
         GLuint getVao();
         void draw();
         GLsizei getNumberOfTriangles();
+        static Mesh* getRectangle();
         static Mesh* loadObject(std::string);
         static Mesh* getSurface(int, int);
         virtual ~Mesh();

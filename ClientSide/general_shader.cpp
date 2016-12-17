@@ -196,6 +196,10 @@ void GeneralShader::loadInt(GLuint location, int x){
     glUniform1i(location, x);
 }
 
+GLuint GeneralShader::getProgram(){
+    return program;
+}
+
 GeneralShader::~GeneralShader()
 {
     glUseProgram(0);

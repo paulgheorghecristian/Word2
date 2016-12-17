@@ -53,7 +53,15 @@ void Entity::draw(GeneralShader* shader){
         }else{
             ss->loadHasTexture(0);
         }
-
+    }else if(typeid(DeferredLightShader) == typeid(*shader)){
+        DeferredLightShader *dls = (DeferredLightShader*)shader;
+        if(texture){
+            dls->loadHasTexture(1);
+            dls->loadTextureSampler(texture->getTextureUnit());
+            texture->use();
+        }else{
+            dls->loadHasTexture(0);
+        }
     }
     shader->loadModelMatrix(modelMatrix);
     shader->loadColor(color);

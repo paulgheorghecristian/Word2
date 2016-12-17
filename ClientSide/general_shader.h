@@ -26,6 +26,7 @@ class GeneralShader
         void loadMatrix(GLuint location, glm::mat4 matrix);
         void loadVector4(GLuint location, glm::vec4 vect);
         void loadInt(GLuint, int);
+        GLuint getProgram();
         virtual ~GeneralShader();
     protected:
         std::string vertexShaderPath, fragmentShaderPath;

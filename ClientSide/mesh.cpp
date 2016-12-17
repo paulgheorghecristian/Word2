@@ -42,6 +42,25 @@ GLsizei Mesh::getNumberOfTriangles(){
     return numberOfTriangles;
 }
 
+Mesh* Mesh::getRectangle(){
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    vertices.push_back(Vertex(glm::vec3(-1, 1, 0), glm::vec2(0, 1)));
+    vertices.push_back(Vertex(glm::vec3(-1, -1, 0), glm::vec2(0, 0)));
+    vertices.push_back(Vertex(glm::vec3(1, -1, 0), glm::vec2(1, 0)));
+    vertices.push_back(Vertex(glm::vec3(1, 1, 0), glm::vec2(1, 1)));
+
+    indices.push_back(0);
+    indices.push_back(1);
+    indices.push_back(3);
+    indices.push_back(1);
+    indices.push_back(2);
+    indices.push_back(3);
+
+    return new Mesh(vertices, indices);
+}
+
 Mesh* Mesh::getSurface(int width, int height){
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -52,18 +71,18 @@ Mesh* Mesh::getSurface(int width, int height){
     for(int i = 0; i < height; i++){
         for(int j = 0; j < width; j++){
             int first_index = 4*(j + i*width);
-            vertices.push_back(Vertex(glm::vec3(-1.0f + j * dw, 0.0f, 1.0f - i * dh)));
-            vertices.push_back(Vertex(glm::vec3(-1.0f + j * dw, 0.0f, 1.0f - (i+1) * dh)));
-            vertices.push_back(Vertex(glm::vec3(-1.0f + (j+1) * dw, 0.0f, 1.0f - (i+1) * dh)));
-            vertices.push_back(Vertex(glm::vec3(-1.0f + (j+1) * dw, 0.0f, 1.0f - i * dh)));
+            vertices.push_back(Vertex(glm::vec3(-1.0f + j * dw, 0.0f, 1.0f - i * dh), glm::vec3(0, 1, 0)));
+            vertices.push_back(Vertex(glm::vec3(-1.0f + j * dw, 0.0f, 1.0f - (i+1) * dh), glm::vec3(0, 1, 0)));
+            vertices.push_back(Vertex(glm::vec3(-1.0f + (j+1) * dw, 0.0f, 1.0f - (i+1) * dh), glm::vec3(0, 1, 0)));
+            vertices.push_back(Vertex(glm::vec3(-1.0f + (j+1) * dw, 0.0f, 1.0f - i * dh), glm::vec3(0, 1, 0)));
 
-            indices.push_back(first_index);
+            indices.push_back(first_index+2);
             indices.push_back(first_index+1);
-            indices.push_back(first_index+2);
+            indices.push_back(first_index+0);
 
             indices.push_back(first_index);
-            indices.push_back(first_index+2);
             indices.push_back(first_index+3);
+            indices.push_back(first_index+2);
 
         }
     }

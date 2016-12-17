@@ -1,0 +1,24 @@
+#version 330 core
+
+layout(location = 0) out vec3 outWorldPosition;
+layout(location = 1) out vec3 outWorldNormal;
+layout(location = 2) out vec3 outColor;
+
+uniform sampler2D textureSampler;
+uniform vec4 colorVector;
+uniform int hasTexture;
+
+in vec3 worldPosition;
+in vec3 worldNormal;
+in vec2 textureCoords;
+
+void main(){
+    if(hasTexture == 1){
+        outColor = texture(textureSampler, textureCoords).rgb;
+    }else{
+        outColor = colorVector.rgb;
+	}
+
+	outWorldPosition = worldPosition;
+	outWorldNormal = (normalize(worldNormal) + vec3(1)) * 0.5;
+}

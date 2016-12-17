@@ -13,6 +13,7 @@
 #include <typeinfo>
 #include "simple_shader.h"
 #include "texture.h"
+#include "deferred_light_shader.h"
 
 class Entity
 {

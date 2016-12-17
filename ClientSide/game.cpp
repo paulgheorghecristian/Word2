@@ -1,5 +1,8 @@
 #include "game.h"
 
+#define RENDER_LIGHTS 1
+#define RENDER_GEOMETRY 1
+
 Game::Game(float width, float height, std::string title, Camera* camera) : screenWidth(width), screenHeight(height), title(title)
 {
     this->display = new Display(screenWidth, screenHeight, title, false);
@@ -29,6 +32,9 @@ void Game::construct(){
     discreteChunk = 18.0f/6.0f;
     input = new Input();
     simpleShader = new SimpleShader("res/shaders/vertex", "res/shaders/fragment");
+    simpleShaderForLights = new SimpleShader("res/shaders/vertex_light", "res/shaders/fragment_light");
+    deferredLightShader = new DeferredLightShader("res/shaders/vertex_def", "res/shaders/fragment_def");
+    emptyShader = new SimpleShader("res/shaders/vertex_empty", "res/shaders/fragment_empty");
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
@@ -38,10 +44,21 @@ void Game::construct(){
                             glm::vec3(101, 100, 0),
                             glm::vec3(0, 0, 0),
                             glm::vec3(1, 0.5, 0), 10);
-    tex1 = new Texture("res/textures/154.bmp", 0);
-    tex2 = new Texture("res/textures/196.bmp", 1);
+    tex1 = new Texture("res/textures/154.bmp", 4);
+    tex2 = new Texture("res/textures/196.bmp", 5);
+    gBuffer = new GBuffer(this->screenWidth, this->screenHeight);
     Box::setMesh(boxMesh);
     Sphere::setMesh(sphereMesh);
+    outputType = 6;
+
+    screenRectangle = new Entity(world,
+                                 "screenRectangle",
+                                 Mesh::getRectangle(),
+                                 glm::vec4(1),
+                                 glm::vec3(0),
+                                 glm::vec3(0),
+                                 glm::vec3(1),
+                                 NULL);
 
     entities.push_back(new Box(world,
                                 1000.0f,
@@ -52,13 +69,14 @@ void Game::construct(){
                                 tex1)
                        );
 
-    /*entities.push_back(new Sphere(world,
+    entities.push_back(new Sphere(world,
                                     100.0f,
                                     glm::vec4(1,1,0,1),
                                     glm::vec3(100, 100, 0),
                                     glm::vec3(0, 0, 0),
-                                    30.0f)
-                       );*/
+                                    30.0f,
+                                    tex1)
+                       );
 
     entities.push_back(new Entity(world,
                                "surface",
@@ -70,13 +88,45 @@ void Game::construct(){
                                NULL)
                         );
 
-    glm::mat4 projectionMatrix = glm::perspective(glm::radians(75.0f), this->screenWidth/this->screenHeight, 1.0f, 1000.0f);
+    float lightsize = 1000.0f;
+    /*for(int i = 0; i < 10; i++){
+        for(int j = 0; j < 10; j++){
+            lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
+        }
+    }*/
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(0.4, 0.3, 0), glm::vec3(0, 100, 400), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 1, 1), glm::vec3(200, 100, 340), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 0), glm::vec3(30, 100, -100), lightsize));
 
-    simpleShader->bind();
-    simpleShader->loadProjectionMatrix(projectionMatrix);
+    /*lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(500, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 1, 1), glm::vec3(500, 100, 40), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 1, 0), glm::vec3(500, 100, -100), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(30, 100, 10), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0.6, 0), glm::vec3(300, 100, -100), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(10, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(-30, 100, 10), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0.6, 0), glm::vec3(-300, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(-30, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(0.1, 1, 0.4), glm::vec3(-20, 30, -100), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0.6, 0), glm::vec3(-30, 100, -100), lightsize));
+    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
+
+    glm::mat4 projectionMatrix = glm::perspective(glm::radians(75.0f), this->screenWidth/this->screenHeight, 1.0f, 5000.0f);
+
+    deferredLightShader->bind();
+    deferredLightShader->loadProjectionMatrix(projectionMatrix);
+
+    simpleShaderForLights->bind();
+    simpleShaderForLights->loadProjectionMatrix(projectionMatrix);
 
     textShader->bind();
     textShader->loadProjectionMatrix(glm::ortho(0.0f, screenWidth, 0.0f, screenHeight));
+
+    emptyShader->bind();
+    emptyShader->loadProjectionMatrix(projectionMatrix);
 }
 
 void Game::handleInput(Game* game){
@@ -137,27 +187,146 @@ void Game::handleInput(Game* game){
     }
 
     if(input->getKeyDown(SDLK_1)){
+        game->outputType = 1;
+    }else if(input->getKeyDown(SDLK_2)){
+        game->outputType = 2;
+    }else if(input->getKeyDown(SDLK_3)){
+        game->outputType = 3;
+    }else if(input->getKeyDown(SDLK_4)){
+        game->outputType = 4;
+    }else if(input->getKeyDown(SDLK_5)){
+        game->outputType = 5;
+    }else if(input->getKeyDown(SDLK_6)){
+        game->outputType = 6;
+    }
+
+    if(input->getKeyDown(SDLK_q)){
+        glm::vec3 pos = player->getPosition();
+        game->lights.push_back(new Light(game->gBuffer, game->sphereMesh, glm::vec3(1, 0, 0), glm::vec3(pos.x, 100, pos.z), 1000.0f));
+    }
+
+    /*if(input->getKeyDown(SDLK_1)){
         //how to move a rigid body without breaking the engine
         btTransform transform = player->getRigidBody()->getCenterOfMassTransform();
         transform.setOrigin(btVector3(0, 300, 200));
         player->getRigidBody()->setCenterOfMassTransform(transform);
-    }
+    }*/
+}
+
+void Game::stencil(Light* l){
+    gBuffer->unbind();
+    gBuffer->bindForStencil();
+
+    glEnable(GL_STENCIL_TEST);
+    glClear(GL_STENCIL_BUFFER_BIT);
+    glStencilFunc(GL_ALWAYS, 0, 0);
+    glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP);
+    glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_FALSE);
+
+    glDisable(GL_CULL_FACE);
+
+    emptyShader->bind();
+    l->draw(emptyShader);
+}
+
+void Game::normal(Light* l){
+    gBuffer->unbind();
+    gBuffer->bindForLights();
+
+    glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+
+    glDisable(GL_DEPTH_TEST);
+
+    glEnable(GL_BLEND);
+    glBlendEquation(GL_FUNC_ADD);
+    glBlendFunc(GL_ONE, GL_ONE);
+
+    simpleShaderForLights->bind();
+    l->draw(simpleShaderForLights);
 }
 
 void Game::render(){
-    display->clear(1,1,1,1);
+    #if RENDER_GEOMETRY == 1
+    gBuffer->bindForScene();
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LEQUAL);
+        glDepthMask(GL_TRUE);
+        glDisable(GL_STENCIL_TEST);
+        display->clear(0,0,0,0);
 
-    simpleShader->bind();
-    camera->setPosition(player->getPosition() + glm::vec3(0, 20, 0));
-    simpleShader->loadViewMatrix(camera->getViewMatrix());
+        deferredLightShader->bind();
+        camera->setPosition(player->getPosition() + glm::vec3(0, 20, 0));
+        deferredLightShader->loadViewMatrix(camera->getViewMatrix());
 
-    for(Entity* e : entities){
-        e->draw(simpleShader);
+        for(Entity* e : entities){
+            e->draw(deferredLightShader);
+        }
     }
+    #endif
+    #if RENDER_LIGHTS == 1
+    {
+        simpleShaderForLights->bind();
+        simpleShaderForLights->loadViewMatrix(camera->getViewMatrix());
+        emptyShader->bind();
+        emptyShader->loadViewMatrix(camera->getViewMatrix());
 
-    textShader->bind();
-    fpsText->displayNumber(Display::getDelta());
-    fpsText->draw(textShader);
+        gBuffer->unbind();
+        gBuffer->bindForLights();
+        glClearColor(0,0,0,0);
+        glClear(GL_COLOR_BUFFER_BIT);
+        gBuffer->unbind();
+
+        for(Light* l : lights){
+            stencil(l);
+            normal(l);
+        }
+    }
+    #endif
+
+    gBuffer->unbind();
+
+    {
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_STENCIL_TEST);
+		glDisable(GL_BLEND);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        simpleShader->bind();
+        glActiveTexture(GL_TEXTURE0+11);
+        glBindTexture(GL_TEXTURE_2D, gBuffer->getColorTexture());
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "colorSampler"), 11);
+        /*glActiveTexture(GL_TEXTURE0+12);
+        glBindTexture(GL_TEXTURE_2D, gBuffer->getDepthTexture());
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "depthSampler"), 12);
+        glActiveTexture(GL_TEXTURE0+13);
+        glBindTexture(GL_TEXTURE_2D, gBuffer->getPositionTexture());
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "positionSampler"), 13);
+        glActiveTexture(GL_TEXTURE0+14);
+        glBindTexture(GL_TEXTURE_2D, gBuffer->getNormalTexture());
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "normalSampler"), 14);*/
+        glActiveTexture(GL_TEXTURE0+15);
+        glBindTexture(GL_TEXTURE_2D, gBuffer->getLightAccumulationTexture());
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "lightSampler"), 15);
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "outputType"), outputType);
+        screenRectangle->draw(simpleShader);
+
+        glDisable(GL_DEPTH_TEST);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        textShader->bind();
+        fpsText->displayNumber(Display::getDelta());
+        fpsText->draw(textShader);
+    }
 
     display->update();
 }
@@ -220,6 +389,9 @@ Game::~Game()
 
     for(Entity* e : entities){
         delete e;
+    }
+    for(Light* l : lights){
+        delete l;
     }
 
     delete world;
