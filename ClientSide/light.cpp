@@ -1,6 +1,8 @@
 #include "light.h"
 
-Light::Light(GBuffer* gBuffer, Mesh* mesh, glm::vec3 color, glm::vec3 position, float radius) : gBuffer(gBuffer), mesh(mesh), color(color), position(position), radius(radius)
+Mesh* Light::mesh;
+
+Light::Light(GBuffer* gBuffer, glm::vec3 color, glm::vec3 position, float radius) : gBuffer(gBuffer), color(color), position(position), radius(radius)
 {
 
 }
@@ -18,17 +20,20 @@ void Light::draw(GeneralShader* shader){
         glUniform3f(glGetUniformLocation(ss->getProgram(), "lightPosition"), position.x, position.y, position.z);
         glUniform1i(glGetUniformLocation(ss->getProgram(), "screenWidth"), gBuffer->getWidth());
         glUniform1i(glGetUniformLocation(ss->getProgram(), "screenHeight"), gBuffer->getHeight());
-        glActiveTexture(GL_TEXTURE0+13);
         glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, gBuffer->getPositionTexture());
-        glUniform1i( glGetUniformLocation(ss->getProgram(), "worldPositionSampler"), 13);
         glActiveTexture(GL_TEXTURE0+14);
-        glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getNormalTexture());
-        glUniform1i(glGetUniformLocation(ss->getProgram(), "worldNormalSampler"), 14);
+        glUniform1i(glGetUniformLocation(ss->getProgram(), "eyeSpaceNormalSampler"), 14);
+        glActiveTexture(GL_TEXTURE0+15);
+        glBindTexture(GL_TEXTURE_2D, gBuffer->getDepthTexture());
+        glUniform1i(glGetUniformLocation(ss->getProgram(), "depthSampler"), 15);
     }
     glDrawElements(GL_TRIANGLES, mesh->getNumberOfTriangles(), GL_UNSIGNED_INT, (void*)0);
     glBindVertexArray(0);
+}
+
+void Light::setMesh(Mesh* _mesh){
+    mesh = _mesh;
 }
 
 Light::~Light()

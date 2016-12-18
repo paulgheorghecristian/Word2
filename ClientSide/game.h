@@ -63,6 +63,7 @@ class Game
         std::vector<Light*> lights;
         Mesh* boxMesh;
         Mesh* sphereMesh;
+        Mesh* lightMesh;
         btDynamicsWorld* world;
         btDispatcher* dispatcher;
         btBroadphaseInterface* broadsphase;
@@ -74,6 +75,8 @@ class Game
         Text* fpsText;
         GBuffer* gBuffer;
         int outputType;
+        glm::mat4 projectionMatrix;
+        glm::mat4 projectionMatrixInv;
 };
 
 #endif // GAME_H

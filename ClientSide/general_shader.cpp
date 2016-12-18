@@ -168,7 +168,7 @@ void GeneralShader::getAllUniformLocations(){
     colorVectorLocation = glGetUniformLocation(program, "colorVector");
 }
 
-void GeneralShader::loadViewMatrix(glm::mat4 matrix){
+void GeneralShader::loadViewMatrix(const glm::mat4& matrix){
     loadMatrix(viewMatLocation, matrix);
 }
 
@@ -176,15 +176,15 @@ void GeneralShader::loadColor(glm::vec4 color){
     loadVector4(colorVectorLocation, color);
 }
 
-void GeneralShader::loadProjectionMatrix(glm::mat4 matrix){
+void GeneralShader::loadProjectionMatrix(const glm::mat4& matrix){
     loadMatrix(projMatLocation, matrix);
 }
 
-void GeneralShader::loadModelMatrix(glm::mat4 matrix){
+void GeneralShader::loadModelMatrix(const glm::mat4& matrix){
     loadMatrix(modelMatLocation, matrix);
 }
 
-void GeneralShader::loadMatrix(GLuint location, glm::mat4 matrix){
+void GeneralShader::loadMatrix(GLuint location, const glm::mat4& matrix){
     glUniformMatrix4fv(location, 1, false, glm::value_ptr(matrix));
 }
 
@@ -192,8 +192,16 @@ void GeneralShader::loadVector4(GLuint location, glm::vec4 vect){
     glUniform4f(location, vect.x, vect.y, vect.z, vect.w);
 }
 
+void GeneralShader::loadVector2(GLuint location, glm::vec2 vect){
+    glUniform2f(location, vect.x, vect.y);
+}
+
 void GeneralShader::loadInt(GLuint location, int x){
     glUniform1i(location, x);
+}
+
+void GeneralShader::loadFloat(GLuint location, float x){
+    glUniform1f(location, x);
 }
 
 GLuint GeneralShader::getProgram(){

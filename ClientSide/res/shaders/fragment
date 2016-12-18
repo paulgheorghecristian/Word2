@@ -3,7 +3,6 @@
 in vec2 textureCoords;
 out vec4 outColor;
 
-uniform sampler2D positionSampler;
 uniform sampler2D normalSampler;
 uniform sampler2D depthSampler;
 uniform sampler2D lightSampler;
@@ -12,16 +11,14 @@ uniform int outputType;
 uniform int hasTexture;
 
 vec3 depth(){
-    float t2 = pow(texture(depthSampler, textureCoords).x , 256);	return vec3(t2,t2,t2);
+    float t2 = pow(texture(depthSampler, textureCoords).x , 256);
+    return vec3(t2,t2,t2);
 }
 vec3 color(){
     return texture(colorSampler, textureCoords).xyz;
 }
 vec3 world_normal(){
     return texture(normalSampler, textureCoords).xyz;
-}
-vec3 world_position(){
-    return texture(positionSampler, textureCoords).xyz;
 }
 vec3 light_accumulation(){
     return texture(lightSampler, textureCoords).xyz + vec3(0.2,0.2,0.2);	//diffuse + ambiental (fara specular)
@@ -30,7 +27,6 @@ vec3 light_accumulation(){
 void main(){
     if(outputType == 1) outColor = vec4(color(), 1);
 	if(outputType == 2) outColor = vec4(depth(), 1);
-	if(outputType == 3) outColor = vec4(world_position(), 1);
 	if(outputType == 4) outColor = vec4(world_normal(), 1);
 	if(outputType == 5) outColor = vec4(light_accumulation(), 1);
 	if(outputType == 6) outColor = vec4(color() * light_accumulation(), 1);

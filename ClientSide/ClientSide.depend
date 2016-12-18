@@ -812,7 +812,7 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1481968955 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
+1482057135 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
 	"display.h"
 
 1479659373 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
@@ -903,10 +903,10 @@
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1481969191 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
+1482082133 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
 	"game.h"
 
-1480089779 c:\users\paul\desktop\projects\world2\clientside\game.h
+1481978157 c:\users\paul\desktop\projects\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -1509,7 +1509,7 @@
 	"general_shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1479714187 c:\users\paul\desktop\projects\world2\clientside\general_shader.h
+1482075300 c:\users\paul\desktop\projects\world2\clientside\general_shader.h
 	<stdlib.h>
 	<stdio.h>
 	<string>
@@ -1520,7 +1520,7 @@
 	<glm/glm.hpp>
 	<glm/gtc/type_ptr.hpp>
 
-1479714175 source:c:\users\paul\desktop\projects\world2\clientside\general_shader.cpp
+1482075288 source:c:\users\paul\desktop\projects\world2\clientside\general_shader.cpp
 	"general_shader.h"
 
 1479644202 c:\users\paul\desktop\projects\world2\clientside\simple_shader.h
@@ -1538,7 +1538,7 @@
 1479644202 source:c:\users\paul\desktop\projects\world2\clientside\texture.cpp
 	"texture.h"
 
-1480085868 c:\users\paul\desktop\projects\world2\clientside\g_buffer.h
+1481979893 c:\users\paul\desktop\projects\world2\clientside\g_buffer.h
 	<GL/glew.h>
 	<vector>
 	<iostream>
@@ -1550,7 +1550,7 @@
 	<GL/glew.h>
 	<iostream>
 
-1481827929 source:c:\users\paul\desktop\projects\world2\clientside\g_buffer.cpp
+1481981236 source:c:\users\paul\desktop\projects\world2\clientside\g_buffer.cpp
 	"g_buffer.h"
 
 1479661296 c:\users\paul\desktop\projects\world2\clientside\deferred_light_shader.h
@@ -1559,7 +1559,7 @@
 1479661229 source:c:\users\paul\desktop\projects\world2\clientside\deferred_light_shader.cpp
 	"deferred_light_shader.h"
 
-1479717793 c:\users\paul\desktop\projects\world2\clientside\light.h
+1481976615 c:\users\paul\desktop\projects\world2\clientside\light.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"general_shader.h"
@@ -1568,6 +1568,6 @@
 	<glm/gtc/matrix_transform.hpp>
 	"g_buffer.h"
 
-1479718343 source:c:\users\paul\desktop\projects\world2\clientside\light.cpp
+1482075583 source:c:\users\paul\desktop\projects\world2\clientside\light.cpp
 	"light.h"
 

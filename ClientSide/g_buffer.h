@@ -27,7 +27,6 @@ class GBuffer
     private:
         unsigned int width, height;
         GLuint framebuffer_object;
-		GLuint texture_position;
 		GLuint texture_normal;
 		GLuint texture_color;
 		GLuint texture_light_accumulation;

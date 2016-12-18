@@ -37,6 +37,7 @@ void Game::construct(){
     emptyShader = new SimpleShader("res/shaders/vertex_empty", "res/shaders/fragment_empty");
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
+    lightMesh = Mesh::loadObject("res/models/lightsphere.obj");
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     player = new Player(world, 30.0f, glm::vec3(0.0f, 30.0f, 0.0f), glm::vec3(10));
     fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
@@ -49,6 +50,7 @@ void Game::construct(){
     gBuffer = new GBuffer(this->screenWidth, this->screenHeight);
     Box::setMesh(boxMesh);
     Sphere::setMesh(sphereMesh);
+    Light::setMesh(lightMesh);
     outputType = 6;
 
     screenRectangle = new Entity(world,
@@ -88,33 +90,37 @@ void Game::construct(){
                                NULL)
                         );
 
-    float lightsize = 1000.0f;
-    /*for(int i = 0; i < 10; i++){
+    float lightsize = 400.0f;
+    /*for(int i = 0; i < 100; i++){
         for(int j = 0; j < 10; j++){
-            lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
+            lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
         }
     }*/
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(0.4, 0.3, 0), glm::vec3(0, 100, 400), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 1, 1), glm::vec3(200, 100, 340), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 0), glm::vec3(30, 100, -100), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(0, 100, 400), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(200, 100, 340), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 0), glm::vec3(30, 100, -100), lightsize));
 
-    /*lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(500, 100, -10), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 1, 1), glm::vec3(500, 100, 40), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 1, 0), glm::vec3(500, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(30, 100, 10), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0.6, 0), glm::vec3(300, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(10, 100, -10), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(-30, 100, 10), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0.6, 0), glm::vec3(-300, 100, -10), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(-30, 100, -10), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(0.1, 1, 0.4), glm::vec3(-20, 30, -100), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0.6, 0), glm::vec3(-30, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, sphereMesh, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
+    /*lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(500, 100, 40), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 0), glm::vec3(500, 100, -100), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(30, 100, 10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(300, 100, -100), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, 10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-300, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(-20, 30, -100), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-30, 100, -100), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
 
-    glm::mat4 projectionMatrix = glm::perspective(glm::radians(75.0f), this->screenWidth/this->screenHeight, 1.0f, 5000.0f);
+    float near = 1.0f;
+    float far = 5000.0f;
+
+    projectionMatrix = glm::perspective(glm::radians(75.0f), this->screenWidth/this->screenHeight, near, far);
+    glm::mat4 orthographicProjectionMatrix = glm::ortho(0.0f, screenWidth, 0.0f, screenHeight);
 
     deferredLightShader->bind();
     deferredLightShader->loadProjectionMatrix(projectionMatrix);
@@ -123,7 +129,7 @@ void Game::construct(){
     simpleShaderForLights->loadProjectionMatrix(projectionMatrix);
 
     textShader->bind();
-    textShader->loadProjectionMatrix(glm::ortho(0.0f, screenWidth, 0.0f, screenHeight));
+    textShader->loadProjectionMatrix(orthographicProjectionMatrix);
 
     emptyShader->bind();
     emptyShader->loadProjectionMatrix(projectionMatrix);
@@ -202,7 +208,7 @@ void Game::handleInput(Game* game){
 
     if(input->getKeyDown(SDLK_q)){
         glm::vec3 pos = player->getPosition();
-        game->lights.push_back(new Light(game->gBuffer, game->sphereMesh, glm::vec3(1, 0, 0), glm::vec3(pos.x, 100, pos.z), 1000.0f));
+        game->lights.push_back(new Light(game->gBuffer, glm::vec3(1, 0, 0), glm::vec3(pos.x, 100, pos.z), 400.0f));
     }
 
     /*if(input->getKeyDown(SDLK_1)){
@@ -307,9 +313,6 @@ void Game::render(){
         /*glActiveTexture(GL_TEXTURE0+12);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getDepthTexture());
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "depthSampler"), 12);
-        glActiveTexture(GL_TEXTURE0+13);
-        glBindTexture(GL_TEXTURE_2D, gBuffer->getPositionTexture());
-        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "positionSampler"), 13);
         glActiveTexture(GL_TEXTURE0+14);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getNormalTexture());
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "normalSampler"), 14);*/
