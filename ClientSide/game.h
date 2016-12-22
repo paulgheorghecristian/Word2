@@ -18,6 +18,10 @@
 #include "g_buffer.h"
 #include "deferred_light_shader.h"
 #include "light.h"
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+#include "math_utils.h"
 
 #define GRAVITY -20
 #define FORCE 1200
@@ -46,6 +50,34 @@ class Game
         std::vector<Entity*>& getEntities();
         void stencil(Light*);
         void normal(Light*);
+        void cullLights(){
+            while(!isClosed){
+                std::unique_lock<std::mutex> lk(m);
+                cv.wait(lk, [=]{return ready;});
+
+                Frustum *frustum;
+                frustum = MathUtils::calculateFrustum(camera, near, far, fov, aspect);
+
+                for(Light *l : lights){
+                    if(MathUtils::isSphereInsideFrustum(frustum, l->getPosition(), l->getRadius())){
+                        l->setRenderIt(true);
+                        numOfLightsVisible++;
+                    }else{
+                        l->setRenderIt(false);
+                    }
+                }
+
+                processed = true;
+                lk.unlock();
+                cv.notify_one();
+
+                ready = false;
+                delete frustum;
+            }
+        }
+        std::thread getCullLightsThread(){
+            return std::thread([=] {cullLights();});
+        }
 
         float screenWidth, screenHeight;
         std::string title;
@@ -73,10 +105,21 @@ class Game
         float discreteChunk;
         Texture *tex1, *tex2;
         Text* fpsText;
+        Text* lightsText;
         GBuffer* gBuffer;
         int outputType;
         glm::mat4 projectionMatrix;
         glm::mat4 projectionMatrixInv;
+
+        std::mutex m;
+        std::condition_variable cv;
+        std::thread cullLightsThread;
+        volatile bool ready = false;
+        volatile bool processed = false;
+        volatile bool isClosed;
+        volatile long numOfLightsVisible;
+
+        float near, far, aspect, fov;
 };
 
 #endif // GAME_H

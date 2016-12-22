@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1478438377 source:c:\users\paul\desktop\projects\world2\clientside\camera.cpp
+1482344490 source:c:\users\paul\desktop\projects\world2\clientside\camera.cpp
 	"camera.h"
 
-1477818356 c:\users\paul\desktop\projects\world2\clientside\camera.h
+1482092643 c:\users\paul\desktop\projects\world2\clientside\camera.h
 	<glm/glm.hpp>
 	<SDL2/SDL.h>
 	"input.h"
@@ -812,7 +812,7 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1482057135 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
+1482341451 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
 	"display.h"
 
 1479659373 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
@@ -888,10 +888,10 @@
 1477818361 c:\users\paul\desktop\projects\world2\clientside\res\libraries\glm\glm\gtc\type_ptr.inl
 	<cstring>
 
-1481968958 source:c:\users\paul\desktop\projects\world2\clientside\input.cpp
+1482341453 source:c:\users\paul\desktop\projects\world2\clientside\input.cpp
 	"input.h"
 
-1481968510 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
+1482343349 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
 	"game.h"
 	<iostream>
 
@@ -903,10 +903,10 @@
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1482082133 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
+1482385816 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
 	"game.h"
 
-1481978157 c:\users\paul\desktop\projects\world2\clientside\game.h
+1482385299 c:\users\paul\desktop\projects\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -924,6 +924,10 @@
 	"g_buffer.h"
 	"deferred_light_shader.h"
 	"light.h"
+	<thread>
+	<mutex>
+	<condition_variable>
+	"math_utils.h"
 
 1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletdynamicscommon.h
 	"btBulletCollisionCommon.h"
@@ -1496,7 +1500,7 @@
 	<glm/gtc/matrix_transform.hpp>
 	"text_shader.h"
 
-1479644202 source:c:\users\paul\desktop\projects\world2\clientside\text.cpp
+1482385273 source:c:\users\paul\desktop\projects\world2\clientside\text.cpp
 	"text.h"
 
 1477818362 source:c:\users\paul\desktop\projects\world2\clientside\textshader.cpp
@@ -1559,7 +1563,7 @@
 1479661229 source:c:\users\paul\desktop\projects\world2\clientside\deferred_light_shader.cpp
 	"deferred_light_shader.h"
 
-1481976615 c:\users\paul\desktop\projects\world2\clientside\light.h
+1482340339 c:\users\paul\desktop\projects\world2\clientside\light.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"general_shader.h"
@@ -1568,6 +1572,13 @@
 	<glm/gtc/matrix_transform.hpp>
 	"g_buffer.h"
 
-1482075583 source:c:\users\paul\desktop\projects\world2\clientside\light.cpp
+1482340330 source:c:\users\paul\desktop\projects\world2\clientside\light.cpp
 	"light.h"
+
+1482385512 source:c:\users\paul\desktop\projects\world2\clientside\math_utils.cpp
+	"math_utils.h"
+
+1482342340 c:\users\paul\desktop\projects\world2\clientside\math_utils.h
+	"camera.h"
+	<glm/glm.hpp>
 

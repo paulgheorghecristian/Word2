@@ -83,6 +83,8 @@
 		<Unit filename="light.cpp" />
 		<Unit filename="light.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="math_utils.cpp" />
+		<Unit filename="math_utils.h" />
 		<Unit filename="mesh.cpp" />
 		<Unit filename="mesh.h" />
 		<Unit filename="player.cpp" />

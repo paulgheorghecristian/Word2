@@ -24,11 +24,12 @@ class Camera
         glm::vec3 getPosition();
         glm::vec3 getRight();
         glm::vec3 getForward();
-        glm::vec3 getYawPitchRoll();
+        glm::vec3 getRotation();
+        glm::vec3 getUp();
     protected:
     private:
         glm::vec3 position, forward, right;
-        float yaw, pitch, roll;
+        float xRotation, yRotation, zRotation;
         void computeForward();
 };
 

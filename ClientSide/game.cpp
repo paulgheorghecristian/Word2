@@ -41,8 +41,13 @@ void Game::construct(){
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     player = new Player(world, 30.0f, glm::vec3(0.0f, 30.0f, 0.0f), glm::vec3(10));
     fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
-                            "Paul",
+                            "",
                             glm::vec3(101, 100, 0),
+                            glm::vec3(0, 0, 0),
+                            glm::vec3(1, 0.5, 0), 10);
+    lightsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
+                            "",
+                            glm::vec3(400, 100, 0),
                             glm::vec3(0, 0, 0),
                             glm::vec3(1, 0.5, 0), 10);
     tex1 = new Texture("res/textures/154.bmp", 4);
@@ -91,16 +96,16 @@ void Game::construct(){
                         );
 
     float lightsize = 400.0f;
-    /*for(int i = 0; i < 100; i++){
+    for(int i = 0; i < 100; i++){
         for(int j = 0; j < 10; j++){
             lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
         }
-    }*/
+    }
     lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(0, 100, 400), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(200, 100, 340), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 0), glm::vec3(30, 100, -100), lightsize));
 
-    /*lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(500, 100, 40), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 0), glm::vec3(500, 100, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(30, 100, 10), lightsize));
@@ -114,12 +119,14 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(-20, 30, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-30, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
 
-    float near = 1.0f;
-    float far = 5000.0f;
+    near = 1.0f;
+    far = 5000.0f;
+    fov = 75.0f;
+    aspect = this->screenWidth / this->screenHeight;
 
-    projectionMatrix = glm::perspective(glm::radians(75.0f), this->screenWidth/this->screenHeight, near, far);
+    projectionMatrix = glm::perspective(glm::radians(fov), aspect, near, far);
     glm::mat4 orthographicProjectionMatrix = glm::ortho(0.0f, screenWidth, 0.0f, screenHeight);
 
     deferredLightShader->bind();
@@ -133,6 +140,9 @@ void Game::construct(){
 
     emptyShader->bind();
     emptyShader->loadProjectionMatrix(projectionMatrix);
+
+    isClosed = false;
+    cullLightsThread = getCullLightsThread();
 }
 
 void Game::handleInput(Game* game){
@@ -174,6 +184,7 @@ void Game::handleInput(Game* game){
 
     if(input->getKeyDown(SDLK_ESCAPE)){
         display->close();
+        game->isClosed = true;
     }
     if(glm::abs(glm::length(input->getMouseDelta())) > 0.5f){
         camera->rotateX(input->getMouseDelta().y * 0.004f);
@@ -258,6 +269,12 @@ void Game::normal(Light* l){
 }
 
 void Game::render(){
+    numOfLightsVisible = 0;
+    {
+        std::lock_guard<std::mutex> lk(m);
+        ready = true;
+    }
+    cv.notify_one();
     #if RENDER_GEOMETRY == 1
     gBuffer->bindForScene();
     {
@@ -291,9 +308,16 @@ void Game::render(){
         glClear(GL_COLOR_BUFFER_BIT);
         gBuffer->unbind();
 
+        {
+            std::unique_lock<std::mutex> lk(m);
+            cv.wait(lk, [=]{return processed;});
+        }
+
         for(Light* l : lights){
-            stencil(l);
-            normal(l);
+            if(l->getRenderIt() == true){
+                stencil(l);
+                normal(l);
+            }
         }
     }
     #endif
@@ -329,6 +353,8 @@ void Game::render(){
         textShader->bind();
         fpsText->displayNumber(Display::getDelta());
         fpsText->draw(textShader);
+        lightsText->displayNumber(numOfLightsVisible);
+        lightsText->draw(textShader);
     }
 
     display->update();
@@ -382,6 +408,8 @@ void Game::initBullet(){
 
 Game::~Game()
 {
+    cullLightsThread.detach();
+    isClosed = true;
     std::cout << "Destroying game..." << std::endl;
     delete display;
     delete simpleShader;

@@ -2,7 +2,11 @@
 
 Mesh* Light::mesh;
 
-Light::Light(GBuffer* gBuffer, glm::vec3 color, glm::vec3 position, float radius) : gBuffer(gBuffer), color(color), position(position), radius(radius)
+Light::Light(GBuffer* gBuffer, glm::vec3 color, glm::vec3 position, float radius) : gBuffer(gBuffer),
+                                                                                    color(color),
+                                                                                    position(position),
+                                                                                    radius(radius),
+                                                                                    renderIt(true)
 {
 
 }
@@ -30,6 +34,22 @@ void Light::draw(GeneralShader* shader){
     }
     glDrawElements(GL_TRIANGLES, mesh->getNumberOfTriangles(), GL_UNSIGNED_INT, (void*)0);
     glBindVertexArray(0);
+}
+
+void Light::setRenderIt(bool r){
+    renderIt = r;
+}
+
+bool Light::getRenderIt(){
+    return renderIt;
+}
+
+glm::vec3 Light::getPosition(){
+    return position;
+}
+
+float Light::getRadius(){
+    return radius;
 }
 
 void Light::setMesh(Mesh* _mesh){

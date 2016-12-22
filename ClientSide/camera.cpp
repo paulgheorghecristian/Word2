@@ -1,6 +1,14 @@
 #include "camera.h"
 
-Camera::Camera(glm::vec3 position, float yaw, float pitch, float roll) : position(position), yaw(yaw), pitch(pitch), roll(roll), forward(0.0, 0.0, -1.0)
+Camera::Camera(glm::vec3 position,
+               float xRotation,
+               float yRotation,
+               float zRotation) : position(position),
+                                xRotation(xRotation),
+                                yRotation(yRotation),
+                                zRotation(zRotation),
+                                forward(0.0, 0.0, -1.0),
+                                right(1.0, 0.0, 0.0)
 {
 
 }
@@ -13,8 +21,8 @@ Camera::~Camera()
 glm::mat4 Camera::getViewMatrix(){
     glm::mat4 matrix(1.0f);
 
-    matrix = glm::rotate(matrix, -pitch, glm::vec3(1.0f, 0.0f, 0.0f));
-    matrix = glm::rotate(matrix, -yaw, glm::vec3(0.0f, 1.0f, 0.0f));
+    matrix = glm::rotate(matrix, -xRotation, glm::vec3(1.0f, 0.0f, 0.0f));
+    matrix = glm::rotate(matrix, -yRotation, glm::vec3(0.0f, 1.0f, 0.0f));
 
     glm::vec3 negPos(-position.x, -position.y, -position.z);
 
@@ -39,21 +47,24 @@ void Camera::moveForward(float distance){
 }
 
 void Camera::rotateY(float dx){
-    yaw += dx;
+    yRotation += dx;
 }
 void Camera::rotateX(float dx){
-    pitch += dx;
+    xRotation += dx;
 }
 void Camera::invertForward(){
-    pitch *= -1;
+    xRotation *= -1;
 }
 
 void Camera::computeForward(){
-    forward.x = -glm::sin(yaw);
-    forward.y = 0;
-    forward.z = -glm::cos(yaw);
+    float sinX = glm::sin(xRotation);
+    float cosX = glm::cos(xRotation);
+    float sinY = glm::sin(yRotation);
+    float cosY = glm::cos(yRotation);
 
-    forward = glm::normalize(forward);
+    forward.x = -cosX * sinY;
+    forward.y = sinX;
+    forward.z = -cosX * cosY;
 }
 
 glm::vec3 Camera::getForward(){
@@ -62,8 +73,18 @@ glm::vec3 Camera::getForward(){
 }
 
 glm::vec3 Camera::getRight(){
+    float yRot = yRotation - glm::radians(90.0f);
+    right.x = -glm::sin(yRot);
+    right.y = 0;
+    right.z = -glm::cos(yRot);
+
+    right = glm::normalize(right);
+    return right;
+}
+
+glm::vec3 Camera::getUp(){
     computeForward();
-    return glm::normalize(glm::cross(forward, glm::vec3(0.0, 1.0, 0.0)));
+    return glm::normalize(glm::cross(forward, getRight()));
 }
 
 void Camera::setPosition(glm::vec3 pos){
@@ -74,20 +95,20 @@ glm::vec3 Camera::getPosition(){
     return position;
 }
 
-glm::vec3 Camera::getYawPitchRoll(){
-    return glm::vec3(yaw, pitch, roll);
+glm::vec3 Camera::getRotation(){
+    return glm::vec3(xRotation, yRotation, zRotation);
 }
 
 /* contains the y rotation also
 void Camera::compute_forward(){
-    float sinPitch = glm::sin(pitch);
-    float cosPitch = glm::cos(pitch);
-    float sinYaw = glm::sin(yaw);
-    float cosYaw = glm::cos(yaw);
+    float sinX = glm::sin(xRotation);
+    float cosX = glm::cos(xRotation);
+    float sinY = glm::sin(yRotation);
+    float cosY = glm::cos(yRotation);
 
-    forward.x = -cosPitch * sinYaw;
-    forward.y = sinPitch;
-    forward.z = -cosPitch * cosYaw;
+    forward.x = -cosX * sinY;
+    forward.y = sinX;
+    forward.z = -cosX * cosY;
 
     forward = glm::normalize(forward);
 }*/
