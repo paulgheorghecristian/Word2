@@ -96,16 +96,16 @@ void Game::construct(){
                         );
 
     float lightsize = 400.0f;
-    for(int i = 0; i < 100; i++){
+    /*for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
             lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
         }
-    }
+    }*/
     lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(0, 100, 400), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(200, 100, 340), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 0), glm::vec3(30, 100, -100), lightsize));
+    //lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(200, 100, 340), lightsize));
+    //lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 0), glm::vec3(30, 100, -100), lightsize));
 
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, -10), lightsize));
+    /*lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(500, 100, 40), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 0), glm::vec3(500, 100, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(30, 100, 10), lightsize));
@@ -119,7 +119,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(-20, 30, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-30, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
 
     near = 1.0f;
     far = 5000.0f;
@@ -219,7 +219,7 @@ void Game::handleInput(Game* game){
 
     if(input->getKeyDown(SDLK_q)){
         glm::vec3 pos = player->getPosition();
-        game->lights.push_back(new Light(game->gBuffer, glm::vec3(1, 0, 0), glm::vec3(pos.x, 100, pos.z), 400.0f));
+        game->lights.push_back(new Light(game->gBuffer, glm::vec3(1, 0.3, 0.6), glm::vec3(pos.x, 100, pos.z), 400.0f));
     }
 
     /*if(input->getKeyDown(SDLK_1)){
@@ -408,11 +408,14 @@ void Game::initBullet(){
 
 Game::~Game()
 {
-    cullLightsThread.detach();
     isClosed = true;
+    cullLightsThread.detach();
     std::cout << "Destroying game..." << std::endl;
     delete display;
     delete simpleShader;
+    delete simpleShaderForLights;
+    delete emptyShader;
+    delete deferredLightShader;
     delete input;
     delete camera;
 

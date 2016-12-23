@@ -7,7 +7,7 @@ Display::Display(float &WIDTH, float &HEIGHT, std::string title, bool fullscreen
 {
     SDL_Init(SDL_INIT_EVERYTHING);
 
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
     SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
