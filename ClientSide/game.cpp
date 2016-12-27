@@ -477,6 +477,14 @@ Game::~Game()
         delete l;
     }
 
+    delete boxMesh;
+    delete sphereMesh;
+    delete lightMesh;
+    delete turretMesh;
+    delete baseMesh;
+    delete fanMesh;
+    delete fanBaseMesh;
+
     delete world;
     delete dispatcher;
     delete broadsphase;
