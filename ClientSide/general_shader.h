@@ -14,6 +14,7 @@
 class GeneralShader
 {
     public:
+        GeneralShader(const std::string&, const std::string&, const std::string&);
         GeneralShader(const std::string&, const std::string&);
         std::string loadShader(const std::string&);
         void reloadShader();
@@ -31,7 +32,8 @@ class GeneralShader
         GLuint getProgram();
         virtual ~GeneralShader();
     protected:
-        std::string vertexShaderPath, fragmentShaderPath;
+        std::string vertexShaderPath, fragmentShaderPath, geometryShaderPath;
+        GLuint vertexHandle, fragmentHandle, geometryHandle;
         GLuint program;
         GLuint projMatLocation, modelMatLocation, colorVectorLocation, viewMatLocation;
     private:

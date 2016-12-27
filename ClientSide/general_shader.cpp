@@ -1,18 +1,20 @@
 #include "general_shader.h"
 
-GeneralShader::GeneralShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) : vertexShaderPath(vertexShaderPath), fragmentShaderPath(fragmentShaderPath)
+GeneralShader::GeneralShader(const std::string& vertexShaderPath, const std::string& geometryShaderPath, const std::string& fragmentShaderPath) : vertexShaderPath(vertexShaderPath), fragmentShaderPath(fragmentShaderPath), geometryShaderPath(geometryShaderPath)
 {
     GLint compileResult = 0, linkResult = 0;
     char infoLogMessage[1024];
 
     std::string vertexShaderSource;
     std::string fragmentShaderSource;
+    std::string geometryShaderSource;
 
     vertexShaderSource = loadShader(vertexShaderPath);
     fragmentShaderSource = loadShader(fragmentShaderPath);
 
     const GLchar* vertexShaderSourceP[1];
     const GLchar* fragmentShaderSourceP[1];
+
     GLint vertexLength[1];
     GLint fragmentLength[1];
 
@@ -22,26 +24,45 @@ GeneralShader::GeneralShader(const std::string& vertexShaderPath, const std::str
     vertexLength[0] = strlen(vertexShaderSourceP[0]);
     fragmentLength[0] = strlen(fragmentShaderSourceP[0]);
 
-    GLuint vertexHandle = glCreateShader(GL_VERTEX_SHADER);
+    vertexHandle = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexHandle, 1, vertexShaderSourceP, vertexLength);
     glCompileShader(vertexHandle);
 
     glGetShaderiv(vertexHandle, GL_COMPILE_STATUS, &compileResult);
 	if(compileResult == GL_FALSE) {
         glGetShaderInfoLog(vertexHandle, 1024, NULL, infoLogMessage);
-        std::cout << "EROARE COMPILARE vertex shader" << std::endl << "LOG=" << infoLogMessage << std::endl;
+        std::cout << "EROARE COMPILARE vertex shader[" << vertexShaderPath << "]"  << std::endl << "LOG=" << infoLogMessage << std::endl;
         exit(-1);
 	}
 
-	GLuint fragmentHandle = glCreateShader(GL_FRAGMENT_SHADER);
+	fragmentHandle = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentHandle, 1, fragmentShaderSourceP, fragmentLength);
     glCompileShader(fragmentHandle);
 
     glGetShaderiv(fragmentHandle, GL_COMPILE_STATUS, &compileResult);
 	if(compileResult == GL_FALSE) {
         glGetShaderInfoLog(fragmentHandle, 1024, NULL, infoLogMessage);
-        std::cout << "EROARE COMPILARE fragment shader" << std::endl << "LOG=" << infoLogMessage << std::endl;
+        std::cout << "EROARE COMPILARE fragment shader[" << fragmentShaderPath << "]" << std::endl << "LOG=" << infoLogMessage << std::endl;
         exit(-1);
+	}
+
+    if(geometryShaderPath.size() > 0){
+        geometryShaderSource = loadShader(geometryShaderPath);
+        const GLchar* geometryShaderSourceP[1];
+        GLint geometryLength[1];
+        geometryShaderSourceP[0] = geometryShaderSource.c_str();
+        geometryLength[0] = strlen(geometryShaderSourceP[0]);
+
+        geometryHandle = glCreateShader(GL_GEOMETRY_SHADER);
+        glShaderSource(geometryHandle, 1, geometryShaderSourceP, geometryLength);
+        glCompileShader(geometryHandle);
+
+        glGetShaderiv(geometryHandle, GL_COMPILE_STATUS, &compileResult);
+        if(compileResult == GL_FALSE) {
+            glGetShaderInfoLog(geometryHandle, 1024, NULL, infoLogMessage);
+            std::cout << "EROARE COMPILARE geometry shader[" << geometryShaderPath << "]" << std::endl << "LOG=" << infoLogMessage << std::endl;
+            exit(-1);
+        }
 	}
 
     program = glCreateProgram();
@@ -49,21 +70,37 @@ GeneralShader::GeneralShader(const std::string& vertexShaderPath, const std::str
     glAttachShader(program, vertexHandle);
     glAttachShader(program, fragmentHandle);
 
+    if(geometryShaderPath.size() > 0){
+        glAttachShader(program, geometryHandle);
+    }
     glLinkProgram(program);
 
     glGetProgramiv(program, GL_LINK_STATUS, &linkResult);
     if(linkResult == GL_FALSE) {
 		glGetProgramInfoLog(program, 1024, NULL, infoLogMessage);
-        std::cout << "EROARE LINK program shader" << std::endl << "LOG=" << infoLogMessage << std::endl;
+        std::cout << "EROARE LINK program shader[" << vertexShaderPath << "]" << std::endl << "LOG=" << infoLogMessage << std::endl;
         exit(-1);
 	}
 
+    glUseProgram(program);
+
+    getAllUniformLocations();
+
     glDetachShader(program, vertexHandle);
     glDetachShader(program, fragmentHandle);
+    if(geometryShaderPath.size() > 0){
+        glDetachShader(program, geometryHandle);
+    }
 
     glDeleteShader(vertexHandle);
 	glDeleteShader(fragmentHandle);
+	if(geometryShaderPath.size() > 0){
+        glDeleteShader(geometryHandle);
+	}
 }
+
+GeneralShader::GeneralShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) : GeneralShader(vertexShaderPath, "", fragmentShaderPath){}
+
 
 std::string GeneralShader::loadShader(const std::string& filename){
     std::ifstream file;
