@@ -22,6 +22,7 @@
 #include <mutex>
 #include <condition_variable>
 #include "math_utils.h"
+#include "particle_renderer.h"
 
 #define GRAVITY -20
 #define FORCE 1200
@@ -96,6 +97,10 @@ class Game
         Mesh* boxMesh;
         Mesh* sphereMesh;
         Mesh* lightMesh;
+        Mesh* turretMesh;
+        Mesh* baseMesh;
+        Mesh* fanMesh;
+        Mesh* fanBaseMesh;
         btDynamicsWorld* world;
         btDispatcher* dispatcher;
         btBroadphaseInterface* broadsphase;
@@ -109,8 +114,7 @@ class Game
         GBuffer* gBuffer;
         int outputType;
         glm::mat4 projectionMatrix;
-        glm::mat4 projectionMatrixInv;
-
+        ParticleRenderer *particleRenderer;
         std::mutex m;
         std::condition_variable cv;
         std::thread cullLightsThread;

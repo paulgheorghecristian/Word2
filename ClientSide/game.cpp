@@ -38,6 +38,10 @@ void Game::construct(){
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
     lightMesh = Mesh::loadObject("res/models/lightsphere.obj");
+    turretMesh = Mesh::loadObject("res/models/turret.obj");
+    baseMesh = Mesh::loadObject("res/models/base.obj");
+    fanMesh = Mesh::loadObject("res/models/fan.obj");
+    fanBaseMesh = Mesh::loadObject("res/models/fanBase.obj");
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     player = new Player(world, 30.0f, glm::vec3(0.0f, 30.0f, 0.0f), glm::vec3(10));
     fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
@@ -95,6 +99,47 @@ void Game::construct(){
                                NULL)
                         );
 
+    entities.push_back(new Entity(world,
+                               "turret",
+                               turretMesh,
+                               glm::vec4(0.5, 0.5, 0.5, 1),
+                               glm::vec3(0, 40, 0),
+                               glm::vec3(0.0f, 0.0f, 0.0f),
+                               glm::vec3(100.0f),
+                               NULL)
+                        );
+
+    entities.push_back(new Entity(world,
+                               "base",
+                               baseMesh,
+                               glm::vec4(0.8, 0.8, 0.5, 1),
+                               glm::vec3(0, 0.0, 0),
+                               glm::vec3(0.0f, 0.0f, 0.0f),
+                               glm::vec3(100.0f),
+                               NULL)
+                        );
+
+    entities.push_back(new Entity(world,
+                               "fan",
+                               fanMesh,
+                               glm::vec4(1.0, 0.5, 0.5, 1),
+                               glm::vec3(200, 1.5, 0),
+                               glm::vec3(0.0f, 0.0f, 0.0f),
+                               glm::vec3(50.0f),
+                               NULL)
+                        );
+
+    entities.push_back(new Entity(world,
+                               "fanBase",
+                               fanBaseMesh,
+                               glm::vec4(0.8, 0.8, 0.5, 1),
+                               glm::vec3(200, 0.0, 0),
+                               glm::vec3(0.0f, 0.0f, 0.0f),
+                               glm::vec3(50.0f),
+                               NULL)
+                        );
+
+
     float lightsize = 400.0f;
     /*for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
@@ -143,6 +188,8 @@ void Game::construct(){
 
     isClosed = false;
     cullLightsThread = getCullLightsThread();
+
+    particleRenderer = new ParticleRenderer(projectionMatrix, glm::vec3(500, 100, 500), 500);
 }
 
 void Game::handleInput(Game* game){
@@ -219,7 +266,7 @@ void Game::handleInput(Game* game){
 
     if(input->getKeyDown(SDLK_q)){
         glm::vec3 pos = player->getPosition();
-        game->lights.push_back(new Light(game->gBuffer, glm::vec3(1, 0.3, 0.6), glm::vec3(pos.x, 100, pos.z), 400.0f));
+        game->lights.push_back(new Light(game->gBuffer, glm::vec3(1, 0.7, 0.6), glm::vec3(pos.x, 100, pos.z), 400.0f));
     }
 
     /*if(input->getKeyDown(SDLK_1)){
@@ -293,6 +340,7 @@ void Game::render(){
         for(Entity* e : entities){
             e->draw(deferredLightShader);
         }
+        particleRenderer->draw();
     }
     #endif
     #if RENDER_LIGHTS == 1
@@ -334,12 +382,12 @@ void Game::render(){
         glActiveTexture(GL_TEXTURE0+11);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getColorTexture());
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "colorSampler"), 11);
-        /*glActiveTexture(GL_TEXTURE0+12);
+        glActiveTexture(GL_TEXTURE0+12);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getDepthTexture());
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "depthSampler"), 12);
         glActiveTexture(GL_TEXTURE0+14);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getNormalTexture());
-        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "normalSampler"), 14);*/
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "normalSampler"), 14);
         glActiveTexture(GL_TEXTURE0+15);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getLightAccumulationTexture());
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "lightSampler"), 15);
@@ -356,7 +404,6 @@ void Game::render(){
         lightsText->displayNumber(numOfLightsVisible);
         lightsText->draw(textShader);
     }
-
     display->update();
 }
 
@@ -370,6 +417,7 @@ void Game::run(){
             timeAccumulator -= discreteChunk;
         }
         player->performRayTest();
+        particleRenderer->update(Display::getDelta(), camera);
         render();
     }
 }
@@ -418,6 +466,7 @@ Game::~Game()
     delete deferredLightShader;
     delete input;
     delete camera;
+    delete particleRenderer;
 
     std::cout << "Freeing " << entities.size() << " entities..." << std::endl;
 
