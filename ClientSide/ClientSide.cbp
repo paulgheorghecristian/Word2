@@ -19,6 +19,7 @@
 					<Add directory="res/libraries/bullet" />
 					<Add directory="res/libraries/bullet/bullet" />
 					<Add directory="../ClientSide" />
+					<Add directory="particles" />
 				</Compiler>
 				<Linker>
 					<Add option="-lmingw32" />
@@ -47,6 +48,7 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add directory="../ClientSide" />
+					<Add directory="particles" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -87,6 +89,15 @@
 		<Unit filename="math_utils.h" />
 		<Unit filename="mesh.cpp" />
 		<Unit filename="mesh.h" />
+		<Unit filename="particles/particle.cpp" />
+		<Unit filename="particles/particle.h" />
+		<Unit filename="particles/particle_renderer.cpp" />
+		<Unit filename="particles/particle_renderer.h" />
+		<Unit filename="particles/particle_shader.cpp" />
+		<Unit filename="particles/particle_shader.fs" />
+		<Unit filename="particles/particle_shader.gs" />
+		<Unit filename="particles/particle_shader.h" />
+		<Unit filename="particles/particle_shader.vs" />
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />
 		<Unit filename="res/shaders/fragment" />
