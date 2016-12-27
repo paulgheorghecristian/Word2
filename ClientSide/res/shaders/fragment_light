@@ -30,7 +30,7 @@ void main(){
     float strength = max(0.0, dot(eyeSpaceNormal, normalize(dir)));
 
     float l = length(dir);
-    float a = 0.6, b = 0.001, c = 0.0003;
+    float a = 0.6, b = 0.001, c = 0.0001;
     float att = 1.0 / (a + b*l + c * l * l);
 
     out_light = att * strength  * colorVector.rgb;
