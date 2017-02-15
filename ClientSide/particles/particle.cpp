@@ -6,6 +6,8 @@ Particle::Particle(glm::vec3 position,
                    float scale,
                    unsigned int liveForInS) : position(position),
                                               velocity(velocity),
+                                              initialPosition(position),
+                                              initialVelocity(velocity),
                                               acceleration(acceleration),
                                               scale(scale),
                                               liveForInS(liveForInS),
@@ -20,6 +22,26 @@ Particle::Particle(glm::vec3 position,
                    unsigned int liveForInS) : Particle(position, velocity, glm::vec3(0, -GRAVITYP, 0), scale, liveForInS)
 {
 
+}
+
+void Particle::reset(glm::vec3 pos, glm::vec3 rot){
+    float d1 = (float)(rand()) / (RAND_MAX-1);
+    float d2 = (float)(rand()) / (RAND_MAX-1);
+    float d3 = (float)(rand()) / (RAND_MAX-1);
+    position = glm::vec3(pos.x + d1*10.0f, pos.y, pos.z + d3*10.0f);
+    glm::vec3 vel;
+    float sinX = glm::sin(rot.x);
+    float cosX = glm::cos(rot.x);
+    float sinY = glm::sin(rot.y);
+    float cosY = glm::cos(rot.y);
+
+    vel.x = -cosX * sinY;
+    vel.y = sinX;
+    vel.z = -cosX * cosY;
+
+    float d = (float)(rand()) / (RAND_MAX-1);
+    velocity = glm::normalize(vel) * d * 600.0f;
+    aliveForInMs = 0;
 }
 
 void Particle::generateViewModelMatrix(Camera *camera){
@@ -57,7 +79,15 @@ void Particle::draw(ParticleShader *shader){
 }
 
 bool Particle::isAlive(){
-    return aliveForInMs < liveForInS*1000;
+    return aliveForInMs < liveForInS*1000 && position.y > 0;
+}
+
+glm::vec3 Particle::addVelocity(glm::vec3 vel){
+    velocity += vel;
+}
+
+glm::vec3 Particle::getPosition(){
+    return position;
 }
 
 Particle::~Particle()

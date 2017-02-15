@@ -100,6 +100,8 @@
 		<Unit filename="particles/particle_shader.vs" />
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />
+		<Unit filename="puzzle_object.cpp" />
+		<Unit filename="puzzle_object.h" />
 		<Unit filename="res/shaders/fragment" />
 		<Unit filename="res/shaders/fragment_def" />
 		<Unit filename="res/shaders/fragment_empty" />

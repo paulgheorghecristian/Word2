@@ -28,7 +28,7 @@ class Entity
         void addRotation(float, float, float);
         void addScale(float, float, float);
         void addPosition(float, float, float);
-        glm::mat4 getModelMatrix();
+        glm::mat4& getModelMatrix();
         void setModelMatrix(glm::mat4);
         void setColor(glm::vec4);
         std::string getName();

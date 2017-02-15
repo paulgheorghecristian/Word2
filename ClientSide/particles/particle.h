@@ -15,10 +15,13 @@ class Particle
         bool isAlive();
         void update(long, Camera *);
         void draw(ParticleShader *);
+        void reset(glm::vec3, glm::vec3);
+        glm::vec3 getPosition();
+        glm::vec3 addVelocity(glm::vec3);
         virtual ~Particle();
     protected:
     private:
-        glm::vec3 position, velocity, acceleration;
+        glm::vec3 position, velocity, acceleration, initialPosition, initialVelocity;
         float scale;
         glm::mat4 viewModelMatrix;
         unsigned int liveForInS;

@@ -16,6 +16,7 @@ class MathUtils
         static Frustum* calculateFrustum(Camera *, float, float, float, float);
         static bool isSphereInsideThePlane(const glm::vec3&, const glm::vec4&, float);
         static bool isSphereInsideFrustum(const Frustum*, const glm::vec3&, float);
+        static bool isPointInsideRectangle(glm::vec3 A, glm::vec3 B, glm::vec3 D, glm::vec3 M);
         static void test();
     protected:
     private:

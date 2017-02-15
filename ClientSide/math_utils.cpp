@@ -71,6 +71,20 @@ Frustum* MathUtils::calculateFrustum(Camera *camera, float near, float far, floa
     return f;
 }
 
+bool MathUtils::isPointInsideRectangle(glm::vec3 A, glm::vec3 B, glm::vec3 D, glm::vec3 M){
+    //r1->r2 r1->r3
+    glm::vec3 AB = B-A;
+    glm::vec3 AD = D-A;
+    glm::vec3 AM = M-A;
+
+    float dotAMAB = glm::dot(AM, AB);
+    float dotABAB = glm::dot(AB, AB);
+    float dotAMAD = glm::dot(AM, AD);
+    float dotADAD = glm::dot(AD, AD);
+
+    return (0 < dotAMAB && dotAMAB < dotABAB && 0 < dotAMAD && dotAMAD < dotADAD);
+}
+
 void MathUtils::test(){
     Camera *camera = new Camera(glm::vec3(0, 0, 0), 0, 0, 0);
 

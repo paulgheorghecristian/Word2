@@ -23,6 +23,7 @@
 #include <condition_variable>
 #include "math_utils.h"
 #include "particle_renderer.h"
+#include "puzzle_object.h"
 
 #define GRAVITY -20
 #define FORCE 1200
@@ -40,6 +41,7 @@ class Game
     private:
         void construct();
         void render();
+        void update();
         void initBullet();
         static void bulletTickCallback(btDynamicsWorld*, btScalar);
         static void handleInput(Game*);
@@ -57,7 +59,7 @@ class Game
                 cv.wait(lk, [=]{return ready;});
 
                 Frustum *frustum;
-                frustum = MathUtils::calculateFrustum(camera, near, far, fov, aspect);
+                frustum = MathUtils::calculateFrustum(camera, near, far-1500.0f, fov, aspect);
 
                 for(Light *l : lights){
                     if(MathUtils::isSphereInsideFrustum(frustum, l->getPosition(), l->getRadius())){
@@ -122,6 +124,8 @@ class Game
         volatile bool processed = false;
         volatile bool isClosed;
         volatile long numOfLightsVisible;
+
+        PuzzleObject* fanPuzzleObject, *turretPuzzleObject;
 
         float near, far, aspect, fov;
 };

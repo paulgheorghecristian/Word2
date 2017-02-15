@@ -815,10 +815,10 @@
 1482576371 source:c:\users\paul\desktop\projects\world2\clientside\display.cpp
 	"display.h"
 
-1482477355 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
+1485026717 source:c:\users\paul\desktop\projects\world2\clientside\entity.cpp
 	"entity.h"
 
-1482477355 c:\users\paul\desktop\projects\world2\clientside\entity.h
+1484246957 c:\users\paul\desktop\projects\world2\clientside\entity.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"shader.h"
@@ -891,7 +891,7 @@
 1482576370 source:c:\users\paul\desktop\projects\world2\clientside\input.cpp
 	"input.h"
 
-1482590406 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
+1482831010 source:c:\users\paul\desktop\projects\world2\clientside\main.cpp
 	"game.h"
 	<iostream>
 
@@ -903,10 +903,10 @@
 	"shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1482829312 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
+1487182761 source:c:\users\paul\desktop\projects\world2\clientside\game.cpp
 	"game.h"
 
-1482787282 c:\users\paul\desktop\projects\world2\clientside\game.h
+1485631910 c:\users\paul\desktop\projects\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -929,6 +929,7 @@
 	<condition_variable>
 	"math_utils.h"
 	"particle_renderer.h"
+	"puzzle_object.h"
 
 1477818360 c:\users\paul\desktop\projects\world2\clientside\res\libraries\bullet\bullet\btbulletdynamicscommon.h
 	"btBulletCollisionCommon.h"
@@ -1455,7 +1456,7 @@
 	"LinearMath/btScalar.h"
 	"btRigidBody.h"
 
-1482475704 source:c:\users\paul\desktop\projects\world2\clientside\box.cpp
+1485071764 source:c:\users\paul\desktop\projects\world2\clientside\box.cpp
 	"box.h"
 
 1482475704 c:\users\paul\desktop\projects\world2\clientside\box.h
@@ -1464,7 +1465,7 @@
 1482475705 c:\users\paul\desktop\projects\world2\clientside\sphere.h
 	"entity.h"
 
-1482475705 source:c:\users\paul\desktop\projects\world2\clientside\sphere.cpp
+1485071771 source:c:\users\paul\desktop\projects\world2\clientside\sphere.cpp
 	"sphere.h"
 
 1477820212 c:\users\paul\desktop\projects\world2\clientside\player.h
@@ -1576,25 +1577,25 @@
 1482477355 source:c:\users\paul\desktop\projects\world2\clientside\light.cpp
 	"light.h"
 
-1482477355 source:c:\users\paul\desktop\projects\world2\clientside\math_utils.cpp
+1484250821 source:c:\users\paul\desktop\projects\world2\clientside\math_utils.cpp
 	"math_utils.h"
 
-1482477355 c:\users\paul\desktop\projects\world2\clientside\math_utils.h
+1484222315 c:\users\paul\desktop\projects\world2\clientside\math_utils.h
 	"camera.h"
 	<glm/glm.hpp>
 
-1482590214 source:c:\users\paul\desktop\projects\world2\clientside\particles\particle.cpp
+1484228142 source:c:\users\paul\desktop\projects\world2\clientside\particles\particle.cpp
 	"particle.h"
 
-1482598167 c:\users\paul\desktop\projects\world2\clientside\particles\particle.h
+1484228154 c:\users\paul\desktop\projects\world2\clientside\particles\particle.h
 	<glm/glm.hpp>
 	"../camera.h"
 	"particle_shader.h"
 
-1482598392 source:c:\users\paul\desktop\projects\world2\clientside\particles\particle_renderer.cpp
+1485078470 source:c:\users\paul\desktop\projects\world2\clientside\particles\particle_renderer.cpp
 	"particle_renderer.h"
 
-1482592983 c:\users\paul\desktop\projects\world2\clientside\particles\particle_renderer.h
+1484227918 c:\users\paul\desktop\projects\world2\clientside\particles\particle_renderer.h
 	"particle_shader.h"
 	<vector>
 	"../camera.h"
@@ -1602,7 +1603,10 @@
 	<algorithm>
 	<stdlib.h>
 	<time.h>
+	"../entity.h"
+	"../puzzle_object.h"
 	"../texture.h"
+	"../math_utils.h"
 
 1482592875 source:c:\users\paul\desktop\projects\world2\clientside\particles\particle_shader.cpp
 	"particle_shader.h"
@@ -1610,4 +1614,15 @@
 1482592885 c:\users\paul\desktop\projects\world2\clientside\particles\particle_shader.h
 	"general_shader.h"
 	<string>
+
+1484232046 c:\users\paul\desktop\projects\world2\clientside\puzzle_object.h
+	"entity.h"
+	"general_shader.h"
+	<bullet/btBulletDynamicsCommon.h>
+	<string>
+	<vector>
+	<functional>
+
+1484250384 source:c:\users\paul\desktop\projects\world2\clientside\puzzle_object.cpp
+	"puzzle_object.h"
 

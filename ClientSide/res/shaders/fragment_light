@@ -17,20 +17,21 @@ flat in vec3 lightPositionEyeSpace;
 
 void main(){
     vec2 texCoord = gl_FragCoord.xy / vec2(screenWidth, screenHeight);
-
+    vec3 view = vec3(viewRay.xy/-viewRay.z, -1.0);
     float depth = 2.0 * texture(depthSampler, texCoord).x - 1.0;
     float eyeZ = projectionMatrix[3][2]/(depth + projectionMatrix[2][2]);
-
-    vec3 view = vec3(viewRay.xy/-viewRay.z, -1.0);
-
     vec3 worldPosition = view * eyeZ;
+    vec3 dir = lightPositionEyeSpace - worldPosition;
+    float l = length(dir);
+    if(l-550.0f > 0.001){
+        discard;
+    }
     vec3 eyeSpaceNormal = texture(eyeSpaceNormalSampler, texCoord).rgb * 2.0 - vec3(1);
 
-    vec3 dir = lightPositionEyeSpace - worldPosition;
+
     float strength = max(0.0, dot(eyeSpaceNormal, normalize(dir)));
 
-    float l = length(dir);
-    float a = 0.6, b = 0.001, c = 0.0001;
+    float a = 0.5, b = 0.001, c = 0.0001;
     float att = 1.0 / (a + b*l + c * l * l);
 
     out_light = att * strength  * colorVector.rgb;

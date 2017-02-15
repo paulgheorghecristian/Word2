@@ -59,5 +59,5 @@ void Box::setMesh(Mesh *mesh){
 
 Box::~Box()
 {
-    delete m_body;
+    //delete m_body;
 }

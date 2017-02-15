@@ -53,5 +53,5 @@ void Sphere::setLinearVelocity(glm::vec3 vel){
 
 Sphere::~Sphere()
 {
-    delete m_body;
+    //delete m_body;
 }

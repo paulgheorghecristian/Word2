@@ -23,17 +23,21 @@ Entity::Entity(btDynamicsWorld* world,
 
 void Entity::setModelMatrix(glm::mat4 matrix){
     modelMatrix = matrix;
+    position = glm::vec3(matrix[3][0], matrix[3][1], matrix[3][2]);
 }
 
-glm::mat4 Entity::getModelMatrix(){
+glm::mat4& Entity::getModelMatrix(){
+    if(isModelMatrixModified){
+        computeModelMatrix();
+    }
     return modelMatrix;
 }
 
 void Entity::computeModelMatrix(){
     glm::mat4 matrix(1.0f);
     modelMatrix = glm::translate(matrix, position);
-    modelMatrix = glm::rotate(modelMatrix, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
     modelMatrix = glm::rotate(modelMatrix, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+    modelMatrix = glm::rotate(modelMatrix, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
     modelMatrix = glm::rotate(modelMatrix, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
     modelMatrix = glm::scale(modelMatrix, scale);
     isModelMatrixModified = false;
@@ -92,6 +96,7 @@ void Entity::setPosition(float tx, float ty, float tz){
 
 void Entity::setPosition(glm::vec3 pos){
     position = pos;
+    isModelMatrixModified = true;
 }
 
 void Entity::addRotation(float rx, float ry, float rz){
@@ -103,6 +108,12 @@ void Entity::addRotation(float rx, float ry, float rz){
         rotation.z = 0.0f;
     }else if(rotation.z < 0.0f){
         rotation.z = 360.0f;
+    }
+
+    if(rotation.y > 360.0f){
+        rotation.y = 0.0f;
+    }else if(rotation.y < 0.0f){
+        rotation.y = 360.0f;
     }
 
     isModelMatrixModified = true;

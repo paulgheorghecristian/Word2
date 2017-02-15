@@ -8,7 +8,10 @@
 #include <algorithm>
 #include <stdlib.h>
 #include <time.h>
+#include "../entity.h"
+#include "../puzzle_object.h"
 #include "../texture.h"
+#include "../math_utils.h"
 
 class ParticleRenderer
 {
@@ -16,8 +19,9 @@ class ParticleRenderer
         ParticleRenderer(const glm::mat4& projectionMatrix,
                          const glm::vec3&,
                            unsigned int numOfParticles);
-        void update(long, Camera *);
+        void update(long, Camera *, Entity *, PuzzleObject *);
         void draw();
+        std::vector<Particle*>& getParticles();
         virtual ~ParticleRenderer();
     protected:
     private:
