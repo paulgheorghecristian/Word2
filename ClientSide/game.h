@@ -25,7 +25,7 @@
 #include "particle_renderer.h"
 #include "puzzle_object.h"
 
-#define GRAVITY -20
+#define GRAVITY -30
 #define FORCE 1200
 
 class Game
@@ -51,8 +51,8 @@ class Game
         btDynamicsWorld* getWorld();
         Player* getPlayer();
         std::vector<Entity*>& getEntities();
-        void stencil(Light*);
-        void normal(Light*);
+        void stencil();
+        void normal();
         void cullLights(){
             while(!isClosed){
                 std::unique_lock<std::mutex> lk(m);
@@ -124,6 +124,7 @@ class Game
         volatile bool processed = false;
         volatile bool isClosed;
         volatile long numOfLightsVisible;
+        bool wasSpaceReleased;
 
         PuzzleObject* fanPuzzleObject, *turretPuzzleObject;
 

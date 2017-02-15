@@ -27,6 +27,7 @@ class Player
         bool isTouchingGround;
         bool isJumping;
         const btVector3 down;
+        float radius;
 };
 
 #endif // PLAYER_H

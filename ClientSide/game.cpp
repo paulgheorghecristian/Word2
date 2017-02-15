@@ -30,6 +30,7 @@ void Game::construct(){
 
     timeAccumulator = 0;
     discreteChunk = 18.0f/6.0f;
+    wasSpaceReleased = true;
     input = new Input();
     simpleShader = new SimpleShader("res/shaders/vertex", "res/shaders/fragment");
     simpleShaderForLights = new SimpleShader("res/shaders/vertex_light", "res/shaders/fragment_light");
@@ -116,7 +117,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.3), glm::vec3(400, 100, -400), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.4, 0.9), glm::vec3(0, 100, -400), lightsize));
 
-    /*lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(500, 100, 40), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 0), glm::vec3(500, 100, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(30, 100, 10), lightsize));
@@ -130,7 +131,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(-20, 30, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-30, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
 
     near = 1.0f;
     far = 5000.0f;
@@ -244,10 +245,15 @@ void Game::handleInput(Game* game){
     glm::vec3 forward = camera->getForward();
     glm::vec3 right = camera->getRight();
 
-    if(input->getKey(SDLK_SPACE)){
+    if(input->getKeyDown(SDLK_SPACE) && game->wasSpaceReleased){
+        game->wasSpaceReleased = false;
         if(!player->getIsJumping()){
             player->jump();
         }
+    }
+
+    if(input->getKeyUp(SDLK_SPACE)){
+        game->wasSpaceReleased = true;
     }
 
     if(input->getKey(SDLK_w)){
@@ -274,9 +280,9 @@ void Game::handleInput(Game* game){
         display->close();
         game->isClosed = true;
     }
-    if(glm::abs(glm::length(input->getMouseDelta())) > 0.5f){
-        camera->rotateX(input->getMouseDelta().y * 0.004f);
-        camera->rotateY(input->getMouseDelta().x * 0.004f);
+    if(glm::abs(glm::length(input->getMouseDelta())) > 0.3f){
+        camera->rotateX(input->getMouseDelta().y * 0.002f);
+        camera->rotateY(input->getMouseDelta().x * 0.002f);
     }
 
     if(input->getMouseDown(1)){
@@ -335,7 +341,7 @@ void Game::handleInput(Game* game){
     }*/
 }
 
-void Game::stencil(Light* x){
+void Game::stencil(){
     gBuffer->unbind();
     gBuffer->bindForStencil();
 
@@ -358,7 +364,7 @@ void Game::stencil(Light* x){
     }
 }
 
-void Game::normal(Light* x){
+void Game::normal(){
     gBuffer->unbind();
     gBuffer->bindForLights();
 
@@ -427,14 +433,8 @@ void Game::render(){
             std::unique_lock<std::mutex> lk(m);
             cv.wait(lk, [=]{return processed;});
         }
-        stencil(NULL);
-        normal(NULL);
-        /*for(Light* l : lights){
-            if(l->getRenderIt() == true){
-                stencil(l);
-                normal(l);
-            }
-        }*/
+        stencil();
+        normal();
     }
     #endif
 

@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(btDynamicsWorld* world, float mass, glm::vec3 position, glm::vec3 scale) : world(world), down(0, -1 * DOWN_LENGTH, 0), isTouchingGround(false)
+Player::Player(btDynamicsWorld* world, float mass, glm::vec3 position, glm::vec3 scale) : world(world), down(0, -1 * DOWN_LENGTH, 0), isTouchingGround(false), radius(scale.x*2.0f)
 {
     btTransform t;
     btVector3 inertia(0, 0, 0);
@@ -29,16 +29,30 @@ Player::Player(btDynamicsWorld* world, float mass, glm::vec3 position, glm::vec3
 
 void Player::performRayTest(){
     btVector3 playerVel = m_body->getLinearVelocity();
-
     glm::vec3 playerPosition = getPosition();
-    //std::cout << playerPosition.y << std::endl;
-    btCollisionWorld::ClosestRayResultCallback rayCallback(btVector3(playerPosition.x, playerPosition.y, playerPosition.z),
-                                                               down);
+    float closestHitFraction = 1000.0f;
+    int values[5][2]={{0, 1},
+                      {0, -1},
+                      {1, 0},
+                      {-1, 0},
+                      {0,0}
+                     };
 
-    world->rayTest(btVector3(playerPosition.x, playerPosition.y, playerPosition.z), down, rayCallback);
-    if(rayCallback.hasHit()){
-        //std::cout << rayCallback.m_closestHitFraction << std::endl;
-        if(rayCallback.m_closestHitFraction < EPS && playerVel.y() <= 0){
+    for(int i = 0; i < 5; i++){
+        float xPlayerPosition = playerPosition.x+radius*values[i][0];
+        float zPlayerPosition = playerPosition.z+radius*values[i][1];
+        btCollisionWorld::ClosestRayResultCallback rayCallback(btVector3(xPlayerPosition, playerPosition.y, zPlayerPosition),
+                                                               down);
+        world->rayTest(btVector3(xPlayerPosition, playerPosition.y, zPlayerPosition), down, rayCallback);
+        if(rayCallback.hasHit()){
+            if(rayCallback.m_closestHitFraction < closestHitFraction){
+                closestHitFraction = rayCallback.m_closestHitFraction;
+            }
+        }
+    }
+
+    if(closestHitFraction != -1){
+        if(closestHitFraction < EPS && playerVel.y() <= 0){
             isJumping = false;
             isTouchingGround = true;
         }else{
