@@ -7,10 +7,11 @@ uniform mat4 viewModelMatrix, projectionMatrix, viewMatrix;
 out vec2 textCoords;
 
 in vec3 eyeSpaceNormal[1];
+in mat4 viewModelMatrixOut[1];
 out vec3 normal;
 
 void main(){
-    mat4 PVM = projectionMatrix * viewModelMatrix;
+    mat4 PVM = projectionMatrix * viewModelMatrixOut[0];
     vec4 ul = PVM * vec4(vec3(-0.5, 0.5, 0), 1.0);
     vec4 ur = PVM * vec4(vec3(0.5, 0.5, 0), 1.0);
     vec4 ll = PVM * vec4(vec3(-0.5, -0.5, 0), 1.0);

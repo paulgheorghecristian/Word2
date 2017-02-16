@@ -1474,7 +1474,7 @@
 	<vector>
 	<iostream>
 
-1486910777 source:c:\users\paul\desktop\world2\clientside\game.cpp
+1487229928 source:c:\users\paul\desktop\world2\clientside\game.cpp
 	"game.h"
 
 1486910754 c:\users\paul\desktop\world2\clientside\game.h
@@ -1535,7 +1535,7 @@
 	"camera.h"
 	<glm/glm.hpp>
 
-1487188947 c:\users\paul\desktop\world2\clientside\particles\particle_renderer.h
+1487227274 c:\users\paul\desktop\world2\clientside\particles\particle_renderer.h
 	"particle_shader.h"
 	<vector>
 	"../camera.h"
@@ -1552,7 +1552,7 @@
 	"general_shader.h"
 	<string>
 
-1487188947 c:\users\paul\desktop\world2\clientside\particles\particle.h
+1487223090 c:\users\paul\desktop\world2\clientside\particles\particle.h
 	<glm/glm.hpp>
 	"../camera.h"
 	"particle_shader.h"
@@ -1585,10 +1585,10 @@
 	"mesh.h"
 	<iostream>
 
-1487188947 source:c:\users\paul\desktop\world2\clientside\particles\particle.cpp
+1487223111 source:c:\users\paul\desktop\world2\clientside\particles\particle.cpp
 	"particle.h"
 
-1487188947 source:c:\users\paul\desktop\world2\clientside\particles\particle_renderer.cpp
+1487230381 source:c:\users\paul\desktop\world2\clientside\particles\particle_renderer.cpp
 	"particle_renderer.h"
 
 1487188947 source:c:\users\paul\desktop\world2\clientside\particles\particle_shader.cpp

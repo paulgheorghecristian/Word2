@@ -1,13 +1,14 @@
 #version 430
 
-layout(location = 0) in vec3 inPosition;
-layout(location = 0) in vec3 inNormal;
+layout(location = 0) in mat4 viewModelMatrix;
 
 uniform mat4 viewMatrix;
 
 out vec3 eyeSpaceNormal;
+out mat4 viewModelMatrixOut;
 
 void main(){
     eyeSpaceNormal = mat3(viewMatrix) * vec3(0, 0, -1);
-    gl_Position = vec4(inPosition, 1.0);
+    viewModelMatrixOut = viewModelMatrix;
+    gl_Position = vec4(vec3(0), 1.0);
 }

@@ -26,12 +26,17 @@ class ParticleRenderer
     protected:
     private:
         void createVao();
+        void createEmptyVbo();
+        void updateVbo();
+        void insertMatrixInBuffer(glm::mat4&, int&);
 
         glm::mat4 projectionMatrix;
         ParticleShader *shader;
         unsigned int numOfParticles;
         std::vector<Particle*> particles;
         glm::vec3 centerPosition;
+        const int NUM_OF_BYTES_PER_INSTANCE = 16*4;
+        float *matricesBuffer;
 
         GLuint vaoHandle, vboHandle;
         Texture particleTexture;

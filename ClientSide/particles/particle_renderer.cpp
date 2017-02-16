@@ -18,21 +18,69 @@ ParticleRenderer::ParticleRenderer(const glm::mat4& projectionMatrix,
         particles.push_back(new Particle(pos, glm::vec3(0, 0, -600*d3), rand()%5+4.0f, rand()%5+2));
     }
 
+    matricesBuffer = new float[numOfParticles*16];
+
     createVao();
 }
 
 void ParticleRenderer::createVao(){
-    glm::vec3 position(0);
     glGenVertexArrays(1, &vaoHandle);
     glBindVertexArray(vaoHandle);
 
-    glGenBuffers(1, &vboHandle);
-
+    createEmptyVbo();
     glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3), &position, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, NUM_OF_BYTES_PER_INSTANCE, (void*)0);
+    glVertexAttribDivisor(0, 1);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, NUM_OF_BYTES_PER_INSTANCE, (void*)(4*4));
+    glVertexAttribDivisor(1, 1);
+
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, NUM_OF_BYTES_PER_INSTANCE, (void*)(8*4));
+    glVertexAttribDivisor(2, 1);
+
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, NUM_OF_BYTES_PER_INSTANCE, (void*)(12*4));
+    glVertexAttribDivisor(3, 1);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+}
+
+void ParticleRenderer::createEmptyVbo(){
+    glGenBuffers(1, &vboHandle);
+    glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
+    glBufferData(GL_ARRAY_BUFFER, NUM_OF_BYTES_PER_INSTANCE * numOfParticles, 0, GL_STREAM_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void ParticleRenderer::insertMatrixInBuffer(glm::mat4& matrix, int& offset){
+    matricesBuffer[offset++] = matrix[0][0];
+    matricesBuffer[offset++] = matrix[0][1];
+    matricesBuffer[offset++] = matrix[0][2];
+    matricesBuffer[offset++] = matrix[0][3];
+    matricesBuffer[offset++] = matrix[1][0];
+    matricesBuffer[offset++] = matrix[1][1];
+    matricesBuffer[offset++] = matrix[1][2];
+    matricesBuffer[offset++] = matrix[1][3];
+    matricesBuffer[offset++] = matrix[2][0];
+    matricesBuffer[offset++] = matrix[2][1];
+    matricesBuffer[offset++] = matrix[2][2];
+    matricesBuffer[offset++] = matrix[2][3];
+    matricesBuffer[offset++] = matrix[3][0];
+    matricesBuffer[offset++] = matrix[3][1];
+    matricesBuffer[offset++] = matrix[3][2];
+    matricesBuffer[offset++] = matrix[3][3];
+}
+
+void ParticleRenderer::updateVbo(){
+    glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
+    glBufferData(GL_ARRAY_BUFFER, NUM_OF_BYTES_PER_INSTANCE*numOfParticles, (void*)matricesBuffer, GL_STREAM_DRAW);
+    //glBufferSubData(GL_ARRAY_BUFFER, 0, NUM_OF_BYTES_PER_INSTANCE*numOfParticles, (void*)matricesBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenerator, PuzzleObject *particleInteractor){
@@ -56,6 +104,8 @@ void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenera
     velocity.x = -cosX * sinY;
     velocity.y = sinX;
     velocity.z = -cosX * cosY;
+
+    int offset = 0;
     for(Particle *p : particles){
         if(!p->isAlive()){
             p->reset(particleGenerator->getPosition(), particleGenerator->getRotation());
@@ -68,7 +118,9 @@ void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenera
             }
         }
         p->update(delta, camera);
+        insertMatrixInBuffer(p->getViewModelMatrix(), offset);
     }
+    updateVbo();
     shader->bind();
     shader->loadViewMatrix(camera->getViewMatrix());
 }
@@ -77,9 +129,7 @@ void ParticleRenderer::draw(){
     glBindVertexArray(vaoHandle);
     shader->bind();
     particleTexture.use();
-    for(Particle *p : particles){
-        p->draw(shader);
-    }
+    glDrawArraysInstanced(GL_POINTS, 0, 1, numOfParticles);
     glBindVertexArray(0);
 }
 
@@ -97,4 +147,6 @@ ParticleRenderer::~ParticleRenderer()
     for(Particle *p : particles){
         delete p;
     }
+
+    delete[] matricesBuffer;
 }

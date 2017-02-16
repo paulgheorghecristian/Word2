@@ -18,6 +18,7 @@ class Particle
         void reset(glm::vec3, glm::vec3);
         glm::vec3 getPosition();
         glm::vec3 addVelocity(glm::vec3);
+        glm::mat4& getViewModelMatrix();
         virtual ~Particle();
     protected:
     private:

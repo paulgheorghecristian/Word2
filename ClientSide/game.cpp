@@ -63,6 +63,7 @@ void Game::construct(){
     Light::setMesh(lightMesh);
     outputType = 6;
 
+
     screenRectangle = new Entity(world,
                                  "screenRectangle",
                                  Mesh::getRectangle(),
@@ -101,11 +102,11 @@ void Game::construct(){
                         );
 
     float lightsize = 600.0f;
-    /*for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
             lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
         }
-    }*/
+    }
     lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(0, 100, 400), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(0, 100, 0), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(100, 100, 200), lightsize));
@@ -231,7 +232,7 @@ void Game::construct(){
                                                 }
                                            }
                                         );
-    particleRenderer = new ParticleRenderer(projectionMatrix, turretPuzzleObject->getEntities()[1]->getPosition(), 500);
+    particleRenderer = new ParticleRenderer(projectionMatrix, turretPuzzleObject->getEntities()[1]->getPosition(), 1000);
 }
 
 void Game::handleInput(Game* game){

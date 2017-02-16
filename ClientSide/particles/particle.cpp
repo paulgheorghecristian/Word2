@@ -90,6 +90,10 @@ glm::vec3 Particle::getPosition(){
     return position;
 }
 
+glm::mat4& Particle::getViewModelMatrix(){
+    return viewModelMatrix;
+}
+
 Particle::~Particle()
 {
 }
