@@ -77,8 +77,8 @@ void Game::construct(){
     sky = new Entity(world,
                      "screenRectangle",
                      Mesh::getRectangle(),
-                     glm::vec4(0.5, 0.8, 0.98, 1),
-                     glm::vec3(0),
+                     glm::vec4(0.7, 0.9, 0.98, 1),
+                     glm::vec3(0,0,1),
                      glm::vec3(0),
                      glm::vec3(1),
                      NULL);
@@ -130,10 +130,10 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.3), glm::vec3(400, 100, -400), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.4, 0.9), glm::vec3(0, 100, -400), lightsize));
 
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, -10), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(500, 100, 40), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 0), glm::vec3(500, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(30, 100, 10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, -100), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(500, 100, 400), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 0), glm::vec3(500, 100, -1000), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(30, 100, 500), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(300, 100, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 100, -10), lightsize));
@@ -147,7 +147,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
 
     DirectionalLight::setMesh(Mesh::getRectangle());
-    sunLight = new DirectionalLight(gBuffer, glm::vec3(1), glm::vec3(1,1,1));
+    sunLight = new DirectionalLight(gBuffer, glm::vec3(0.9, 0.8, 0.3), glm::vec3(1,0,0));
 
     near = 1.0f;
     far = 5000.0f;

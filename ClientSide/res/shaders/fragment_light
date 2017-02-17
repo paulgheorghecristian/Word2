@@ -28,7 +28,6 @@ void main(){
     }
     vec3 eyeSpaceNormal = texture(eyeSpaceNormalSampler, texCoord).rgb * 2.0 - vec3(1);
 
-
     float strength = max(0.0, dot(eyeSpaceNormal, normalize(dir)));
 
     float a = 0.5, b = 0.001, c = 0.0001;

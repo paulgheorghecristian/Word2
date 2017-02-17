@@ -29,5 +29,10 @@ void main(){
 	if(outputType == 2) outColor = vec4(depth(), 1);
 	if(outputType == 4) outColor = vec4(world_normal(), 1);
 	if(outputType == 5) outColor = vec4(light_accumulation(), 1);
-	if(outputType == 6) outColor = vec4(color() * light_accumulation(), 1);
+	if(outputType == 6)
+        if(depth().x != 1){
+            outColor = vec4(color() * light_accumulation(), 1);
+        }else{
+            outColor = vec4(color(), 1);
+        }
 }
