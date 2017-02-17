@@ -1,0 +1,22 @@
+#version 430
+
+layout(location = 0) out vec3 out_light;
+
+uniform sampler2D eyeSpaceNormalSampler;
+
+uniform vec4 colorVector;
+uniform int screenWidth, screenHeight;
+uniform vec3 lightDirection;
+
+uniform mat4 viewMatrix;
+
+in vec3 viewRay;
+flat in vec3 lightPositionEyeSpace;
+
+void main(){
+    vec2 texCoord = gl_FragCoord.xy / vec2(screenWidth, screenHeight);
+    vec3 eyeSpaceNormal = texture(eyeSpaceNormalSampler, texCoord).rgb * 2.0 - vec3(1);
+    float strength = max(0.2, dot(eyeSpaceNormal, mat3(viewMatrix)*normalize(lightDirection)));
+
+    out_light = strength  * colorVector.rgb;
+}

@@ -1474,10 +1474,10 @@
 	<vector>
 	<iostream>
 
-1487229928 source:c:\users\paul\desktop\world2\clientside\game.cpp
+1487317520 source:c:\users\paul\desktop\world2\clientside\game.cpp
 	"game.h"
 
-1486910754 c:\users\paul\desktop\world2\clientside\game.h
+1487315324 c:\users\paul\desktop\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -1501,6 +1501,7 @@
 	"math_utils.h"
 	"particle_renderer.h"
 	"puzzle_object.h"
+	"directional_light.h"
 
 1487188947 c:\users\paul\desktop\world2\clientside\sphere.h
 	"entity.h"
@@ -1618,4 +1619,16 @@
 
 1487188947 source:c:\users\paul\desktop\world2\clientside\texture.cpp
 	"texture.h"
+
+1487314902 c:\users\paul\desktop\world2\clientside\directional_light.h
+	"mesh.h"
+	<glm/glm.hpp>
+	"general_shader.h"
+	"simple_shader.h"
+	<typeinfo>
+	<glm/gtc/matrix_transform.hpp>
+	"g_buffer.h"
+
+1487317234 source:c:\users\paul\desktop\world2\clientside\directional_light.cpp
+	"directional_light.h"
 

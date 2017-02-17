@@ -34,7 +34,9 @@ void Game::construct(){
     input = new Input();
     simpleShader = new SimpleShader("res/shaders/vertex", "res/shaders/fragment");
     simpleShaderForLights = new SimpleShader("res/shaders/vertex_light", "res/shaders/fragment_light");
+    directionalLightShader = new SimpleShader("res/shaders/vertex_directional_light.txt", "res/shaders/fragment_directional_light.txt");
     deferredLightShader = new DeferredLightShader("res/shaders/vertex_def", "res/shaders/fragment_def");
+    skyShader = new DeferredLightShader("res/shaders/vertex_sky.txt", "res/shaders/fragment_sky.txt");
     emptyShader = new SimpleShader("res/shaders/vertex_empty", "res/shaders/fragment_empty");
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
@@ -63,7 +65,6 @@ void Game::construct(){
     Light::setMesh(lightMesh);
     outputType = 6;
 
-
     screenRectangle = new Entity(world,
                                  "screenRectangle",
                                  Mesh::getRectangle(),
@@ -72,6 +73,15 @@ void Game::construct(){
                                  glm::vec3(0),
                                  glm::vec3(1),
                                  NULL);
+
+    sky = new Entity(world,
+                     "screenRectangle",
+                     Mesh::getRectangle(),
+                     glm::vec4(0.5, 0.8, 0.98, 1),
+                     glm::vec3(0),
+                     glm::vec3(0),
+                     glm::vec3(1),
+                     NULL);
 
     entities.push_back(new Box(world,
                                 1000.0f,
@@ -101,15 +111,17 @@ void Game::construct(){
                                NULL)
                         );
 
+
+
     float lightsize = 600.0f;
-    for(int i = 0; i < 10; i++){
+    /*for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
             lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
         }
-    }
-    lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(0, 100, 400), lightsize));
+    }*/
+    /*lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(0, 100, 400), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(0, 100, 0), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(100, 100, 200), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(100, 100, 200), lightsize));*/
 
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.9), glm::vec3(-400, 100, -200), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.9, 0.9), glm::vec3(400, 100, -200), lightsize));
@@ -125,14 +137,17 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(300, 100, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 100, -10), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, 10), lightsize));
+    /*lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, 10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-300, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(-20, 30, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-30, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
+
+    DirectionalLight::setMesh(Mesh::getRectangle());
+    sunLight = new DirectionalLight(gBuffer, glm::vec3(1), glm::vec3(1,1,1));
 
     near = 1.0f;
     far = 5000.0f;
@@ -369,6 +384,9 @@ void Game::normal(){
     gBuffer->unbind();
     gBuffer->bindForLights();
 
+    directionalLightShader->bind();
+    sunLight->draw(directionalLightShader);
+
     glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
 
     glEnable(GL_CULL_FACE);
@@ -406,6 +424,11 @@ void Game::render(){
         glDisable(GL_STENCIL_TEST);
         display->clear(0,0,0,0);
 
+        glDepthMask(GL_FALSE);
+        skyShader->bind();
+        sky->draw(skyShader);
+        glDepthMask(GL_TRUE);
+
         deferredLightShader->bind();
         deferredLightShader->loadViewMatrix(camera->getViewMatrix());
 
@@ -421,6 +444,9 @@ void Game::render(){
     {
         simpleShaderForLights->bind();
         simpleShaderForLights->loadViewMatrix(camera->getViewMatrix());
+        directionalLightShader->bind();
+        directionalLightShader->loadViewMatrix(camera->getViewMatrix());
+
         emptyShader->bind();
         emptyShader->loadViewMatrix(camera->getViewMatrix());
 

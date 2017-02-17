@@ -24,6 +24,7 @@
 #include "math_utils.h"
 #include "particle_renderer.h"
 #include "puzzle_object.h"
+#include "directional_light.h"
 
 #define GRAVITY -30
 #define FORCE 1200
@@ -89,10 +90,14 @@ class Game
         Input* input;
         SimpleShader* simpleShader;
         SimpleShader* simpleShaderForLights;
+        SimpleShader* directionalLightShader;
         SimpleShader* emptyShader;
         DeferredLightShader* deferredLightShader;
+        DeferredLightShader* skyShader;
         Player* player;
         Entity* screenRectangle;
+        Entity* sky;
+        DirectionalLight *sunLight;
         TextShader* textShader;
         std::vector<Entity*> entities;
         std::vector<Light*> lights;
