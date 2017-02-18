@@ -14,8 +14,11 @@ ParticleRenderer::ParticleRenderer(const glm::mat4& projectionMatrix,
         float d1 = (float)(rand()) / (RAND_MAX-1);
         float d2 = (float)(rand()) / (RAND_MAX-1);
         float d3 = (float)(rand()) / (RAND_MAX-1);
-        glm::vec3 pos = glm::vec3(center.x + d2*10.0f, center.y, center.z + d2*10.0f);
-        particles.push_back(new Particle(pos, glm::vec3(0, 0, -600*d3), rand()%5+4.0f, rand()%5+2));
+        glm::vec3 pos = glm::vec3(center.x-3, center.y-3, center.z-3);
+        pos.x += d1 * 6.0f;
+        pos.y += d2 * 6.0f;
+        pos.z += d3 * 6.0f;
+        particles.push_back(new Particle(pos, glm::vec3(0, 0, -600*d3), rand()%10+2.0f, rand()%5+3));
     }
 
     matricesBuffer = new float[numOfParticles*16];

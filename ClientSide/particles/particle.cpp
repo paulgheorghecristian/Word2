@@ -28,7 +28,10 @@ void Particle::reset(glm::vec3 pos, glm::vec3 rot){
     float d1 = (float)(rand()) / (RAND_MAX-1);
     float d2 = (float)(rand()) / (RAND_MAX-1);
     float d3 = (float)(rand()) / (RAND_MAX-1);
-    position = glm::vec3(pos.x + d1*10.0f, pos.y, pos.z + d3*10.0f);
+    position = glm::vec3(pos.x-3, pos.y-3, pos.z-3);
+    position.x += d1 * 6.0f;
+    position.y += d2 * 6.0f;
+    position.z += d3 * 6.0f;
     glm::vec3 vel;
     float sinX = glm::sin(rot.x);
     float cosX = glm::cos(rot.x);

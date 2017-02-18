@@ -19,7 +19,7 @@ vec3 particles(){
     return texture(particlesSampler, textureCoords).xyz;
 }
 vec3 color(){
-    return texture(colorSampler, textureCoords).xyz + particles();
+    return texture(colorSampler, textureCoords).xyz + particles()*2.0;
 }
 vec3 world_normal(){
     return texture(normalSampler, textureCoords).xyz;

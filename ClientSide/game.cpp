@@ -121,7 +121,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(0, 100, 0), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(100, 100, 200), lightsize));*/
 
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.9), glm::vec3(-400, 100, -200), lightsize));
+    /*lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.9), glm::vec3(-400, 100, -200), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.9, 0.9), glm::vec3(400, 100, -200), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 0.9, 0.4), glm::vec3(0, 100, -200), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.9, 0.2), glm::vec3(-400, 100, -400), lightsize));
@@ -145,7 +145,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
 
     DirectionalLight::setMesh(Mesh::getRectangle());
-    sunLight = new DirectionalLight(gBuffer, glm::vec3(0.9, 0.8, 0.3), glm::vec3(1,0,0));
+    sunLight = new DirectionalLight(gBuffer, glm::vec3(0.9, 0.8, 0.9), glm::vec3(1,2,1));
 
     near = 1.0f;
     far = 5000.0f;
@@ -226,7 +226,7 @@ void Game::construct(){
                                NULL)
                         );
 
-    turretPuzzleObject = new PuzzleObject(world, "fan", turretEntities,
+    turretPuzzleObject = new PuzzleObject(world, "turret", turretEntities,
                                           [](PuzzleObject* obj){
                                                 glm::vec3 pos = obj->getEntities()[0]->getPosition();
                                                 obj->getEntities()[1]->setPosition(pos.x, pos.y+18.0f, pos.z);
@@ -465,15 +465,15 @@ void Game::render(){
 
     gBuffer->unbind();
     {
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
         glBindFramebuffer(GL_READ_FRAMEBUFFER, gBuffer->getFrameBufferObject());
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, particlePostProcess->getFrameBufferObject());
         glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth, this->screenHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
         particlePostProcess->bind();
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
         particleRenderer->draw();
         particlePostProcess->process();
     }
