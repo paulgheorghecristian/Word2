@@ -126,6 +126,10 @@ unsigned int GBuffer::getHeight(){
     return height;
 }
 
+GLuint GBuffer::getFrameBufferObject(){
+    return framebuffer_object;
+}
+
 GBuffer::~GBuffer()
 {
     destroy();

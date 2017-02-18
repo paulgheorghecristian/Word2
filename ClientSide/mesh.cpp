@@ -61,6 +61,12 @@ Mesh* Mesh::getRectangle(){
     return new Mesh(vertices, indices);
 }
 
+void Mesh::draw(){
+    glBindVertexArray(getVao());
+    glDrawElements(GL_TRIANGLES, numberOfTriangles, GL_UNSIGNED_INT, (void*)0);
+    glBindVertexArray(0);
+}
+
 Mesh* Mesh::getSurface(int width, int height){
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;

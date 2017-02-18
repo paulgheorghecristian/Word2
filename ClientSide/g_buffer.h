@@ -16,6 +16,7 @@ class GBuffer
         GLuint getNormalTexture();
         GLuint getLightAccumulationTexture();
         GLuint getDepthTexture();
+        GLuint getFrameBufferObject();
         void bindForScene();
         void bindForLights();
         void bindForStencil();

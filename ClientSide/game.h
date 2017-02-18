@@ -25,6 +25,7 @@
 #include "particle_renderer.h"
 #include "puzzle_object.h"
 #include "directional_light.h"
+#include "post_process.h"
 
 #define GRAVITY -30
 #define FORCE 1200
@@ -85,18 +86,19 @@ class Game
 
         float screenWidth, screenHeight;
         std::string title;
-        Camera* camera;
-        Display* display;
-        Input* input;
-        SimpleShader* simpleShader;
-        SimpleShader* simpleShaderForLights;
-        SimpleShader* directionalLightShader;
-        SimpleShader* emptyShader;
-        DeferredLightShader* deferredLightShader;
-        DeferredLightShader* skyShader;
-        Player* player;
-        Entity* screenRectangle;
-        Entity* sky;
+        Camera *camera;
+        Display *display;
+        Input *input;
+        SimpleShader *simpleShader;
+        SimpleShader *simpleShaderForLights;
+        SimpleShader *directionalLightShader;
+        SimpleShader *emptyShader;
+        PostProcess *particlePostProcess;
+        DeferredLightShader *deferredLightShader;
+        DeferredLightShader *skyShader;
+        Player *player;
+        Entity *screenRectangle;
+        Entity *sky;
         DirectionalLight *sunLight;
         TextShader* textShader;
         std::vector<Entity*> entities;
@@ -116,9 +118,9 @@ class Game
         long timeAccumulator;
         float discreteChunk;
         Texture *tex1, *tex2;
-        Text* fpsText;
-        Text* lightsText;
-        GBuffer* gBuffer;
+        Text *fpsText;
+        Text *lightsText;
+        GBuffer *gBuffer;
         int outputType;
         glm::mat4 projectionMatrix;
         ParticleRenderer *particleRenderer;

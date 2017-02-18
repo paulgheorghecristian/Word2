@@ -111,8 +111,6 @@ void Game::construct(){
                                NULL)
                         );
 
-
-
     float lightsize = 600.0f;
     /*for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
@@ -248,6 +246,7 @@ void Game::construct(){
                                            }
                                         );
     particleRenderer = new ParticleRenderer(projectionMatrix, turretPuzzleObject->getEntities()[1]->getPosition(), 1000);
+    particlePostProcess = new PostProcess(this->screenWidth, this->screenHeight, "particles/post_process.vs", "particles/post_process.fs");
 }
 
 void Game::handleInput(Game* game){
@@ -437,7 +436,6 @@ void Game::render(){
         }
         fanPuzzleObject->draw(deferredLightShader);
         turretPuzzleObject->draw(deferredLightShader);
-        particleRenderer->draw();
     }
     #endif
     #if RENDER_LIGHTS == 1
@@ -466,6 +464,19 @@ void Game::render(){
     #endif
 
     gBuffer->unbind();
+    {
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, gBuffer->getFrameBufferObject());
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, particlePostProcess->getFrameBufferObject());
+        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth, this->screenHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+        particlePostProcess->bind();
+        particleRenderer->draw();
+        particlePostProcess->process();
+    }
 
     {
         glDisable(GL_CULL_FACE);
@@ -486,6 +497,9 @@ void Game::render(){
         glActiveTexture(GL_TEXTURE0+15);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getLightAccumulationTexture());
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "lightSampler"), 15);
+        glActiveTexture(GL_TEXTURE0+10);
+        glBindTexture(GL_TEXTURE_2D, particlePostProcess->getResultingTextureId());
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesSampler"), 10);
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "outputType"), outputType);
         screenRectangle->draw(simpleShader);
 

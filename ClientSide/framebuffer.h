@@ -1,24 +1,27 @@
 #ifndef FRAMEBUFFER_H
 #define FRAMEBUFFER_H
 
+#include <vector>
 #include <GL/glew.h>
 #include <iostream>
 
 class Framebuffer
 {
     public:
-        Framebuffer(int, int);
-        void bind();
+        Framebuffer(float, float, unsigned int);
+        void bindAllRenderTargets();
+        void bindSingleRenderTarget(unsigned int);
         void unbind();
-        GLuint getTextureId();
+        std::vector<GLuint>& getRenderTargets();
+        GLuint getFrameBufferObject();
         virtual ~Framebuffer();
     protected:
     private:
-        int width, height;
-        GLuint frameBufferId;
-        GLuint depthBufferId;
-        GLuint textureId;
-        const int TEXTURE_WIDTH, TEXTURE_HEIGHT;
+        float width, height;
+        GLuint frameBufferId, depthBufferId, colorBufferId;
+        GLint previousViewport[4];
+        std::vector<GLuint> renderTargets;
+        unsigned int numOfRenderTargets;
 };
 
 #endif // FRAMEBUFFER_H

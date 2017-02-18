@@ -7,6 +7,7 @@ uniform sampler2D normalSampler;
 uniform sampler2D depthSampler;
 uniform sampler2D lightSampler;
 uniform sampler2D colorSampler;
+uniform sampler2D particlesSampler;
 uniform int outputType;
 uniform int hasTexture;
 
@@ -14,8 +15,11 @@ vec3 depth(){
     float t2 = pow(texture(depthSampler, textureCoords).x , 256);
     return vec3(t2,t2,t2);
 }
+vec3 particles(){
+    return texture(particlesSampler, textureCoords).xyz;
+}
 vec3 color(){
-    return texture(colorSampler, textureCoords).xyz;
+    return texture(colorSampler, textureCoords).xyz + particles();
 }
 vec3 world_normal(){
     return texture(normalSampler, textureCoords).xyz;
@@ -27,6 +31,7 @@ vec3 light_accumulation(){
 void main(){
     if(outputType == 1) outColor = vec4(color(), 1);
 	if(outputType == 2) outColor = vec4(depth(), 1);
+	if(outputType == 3) outColor = vec4(particles(), 1);
 	if(outputType == 4) outColor = vec4(world_normal(), 1);
 	if(outputType == 5) outColor = vec4(light_accumulation(), 1);
 	if(outputType == 6)
