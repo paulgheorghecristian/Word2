@@ -77,7 +77,7 @@ void Game::construct(){
     sky = new Entity(world,
                      "screenRectangle",
                      Mesh::getRectangle(),
-                     glm::vec4(0.7, 0.9, 0.98, 1),
+                     glm::vec4(0.52, 0.8, 0.98, 1),
                      glm::vec3(0,0,1),
                      glm::vec3(0),
                      glm::vec3(1),
@@ -247,6 +247,8 @@ void Game::construct(){
                                         );
     particleRenderer = new ParticleRenderer(projectionMatrix, turretPuzzleObject->getEntities()[1]->getPosition(), 1000);
     particlePostProcess = new PostProcess(this->screenWidth, this->screenHeight, "particles/post_process.vs", "particles/post_process.fs");
+    hBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, particlePostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
+    wBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
 }
 
 void Game::handleInput(Game* game){
@@ -476,6 +478,12 @@ void Game::render(){
         glCullFace(GL_BACK);
         particleRenderer->draw();
         particlePostProcess->process();
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
+        hBlur->bind();
+        hBlur->process();
+        wBlur->bind();
+        wBlur->process();
     }
 
     {
@@ -498,8 +506,11 @@ void Game::render(){
         glBindTexture(GL_TEXTURE_2D, gBuffer->getLightAccumulationTexture());
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "lightSampler"), 15);
         glActiveTexture(GL_TEXTURE0+10);
+        glBindTexture(GL_TEXTURE_2D, wBlur->getResultingTextureId());
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesPostProcessSampler"), 10);
+        glActiveTexture(GL_TEXTURE0+9);
         glBindTexture(GL_TEXTURE_2D, particlePostProcess->getResultingTextureId());
-        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesSampler"), 10);
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesSampler"), 9);
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "outputType"), outputType);
         screenRectangle->draw(simpleShader);
 
@@ -584,6 +595,9 @@ Game::~Game()
     delete input;
     delete camera;
     delete particleRenderer;
+    delete particlePostProcess;
+    delete hBlur;
+    delete wBlur;
 
     std::cout << "Freeing " << entities.size() << " entities..." << std::endl;
 

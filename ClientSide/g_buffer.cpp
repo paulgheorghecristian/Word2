@@ -53,14 +53,6 @@ void GBuffer::generate(unsigned int width, unsigned int height){
     glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+2, texture_light_accumulation,0);
     glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, texture_depth,0);
 
-    //comanda care spune care sunt atasamentele
-    std::vector<GLenum> drawbuffers;
-    drawbuffers.push_back(GL_COLOR_ATTACHMENT0+0);
-    drawbuffers.push_back(GL_COLOR_ATTACHMENT0+1);
-    drawbuffers.push_back(GL_COLOR_ATTACHMENT0+2);
-    drawbuffers.push_back(GL_COLOR_ATTACHMENT0+3);
-    glDrawBuffers(drawbuffers.size(),&drawbuffers[0]);
-
     //verifica stare
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE){
         std::cout<<"EROARE!!! Framebuffer-ul nu este complet. Apasati orice tasta pentru a inchide programul."<<std::endl;
@@ -70,6 +62,7 @@ void GBuffer::generate(unsigned int width, unsigned int height){
 
     //nu sunt legat la pipeline
     glBindFramebuffer(GL_FRAMEBUFFER,0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void GBuffer::destroy(){
@@ -115,6 +108,7 @@ void GBuffer::bindForStencil(){
 }
 
 void GBuffer::unbind(){
+    glBindTexture(GL_TEXTURE_2D, 0);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 

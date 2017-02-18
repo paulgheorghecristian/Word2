@@ -28,12 +28,6 @@ Framebuffer::Framebuffer(float width, float height, unsigned int numOfRenderTarg
         glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, renderTargets[i], 0);
     }
     glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthBufferId, 0);
-    std::vector<GLenum> drawbuffers;
-    for(unsigned int i = 0; i < numOfRenderTargets; i++){
-        drawbuffers.push_back(GL_COLOR_ATTACHMENT0+i);
-    }
-    glDrawBuffers(drawbuffers.size(), &drawbuffers[0]);
-
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
         std::cerr << "Framebuffer isn't complete!" << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
         exit(1);

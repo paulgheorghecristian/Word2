@@ -10,7 +10,8 @@
 class PostProcess
 {
     public:
-        PostProcess(float width, float height, const std::string&, const std::string&);
+        PostProcess(float, float, const std::string&, const std::string&);
+        PostProcess(float, float, GLuint, const std::string&, const std::string&);
         void bind();
         void process();
         GLuint getResultingTextureId();
@@ -20,7 +21,7 @@ class PostProcess
     protected:
     private:
         Framebuffer fb;
-        float height, width;
+        float width, height;
         SimpleShader processShader;
         Mesh* renderingQuad;
         Texture* inputTexture;

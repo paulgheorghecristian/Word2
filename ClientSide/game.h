@@ -94,6 +94,7 @@ class Game
         SimpleShader *directionalLightShader;
         SimpleShader *emptyShader;
         PostProcess *particlePostProcess;
+        PostProcess *hBlur, *wBlur, *hBlur2, *wBlur2;
         DeferredLightShader *deferredLightShader;
         DeferredLightShader *skyShader;
         Player *player;
