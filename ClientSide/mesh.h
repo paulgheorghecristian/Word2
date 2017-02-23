@@ -35,6 +35,8 @@ class Mesh
         static Mesh* getRectangle();
         static Mesh* loadObject(std::string);
         static Mesh* getSurface(int, int);
+        static Mesh* getDome(int, int);
+        static Mesh* getCircle(float, float, float, int);
         virtual ~Mesh();
     protected:
     private:

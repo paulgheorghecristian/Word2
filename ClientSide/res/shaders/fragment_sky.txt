@@ -4,6 +4,8 @@ layout(location = 1) out vec3 outColor;
 
 uniform vec4 colorVector;
 
+in vec2 texCoords;
+
 void main(){
-    outColor = colorVector.rgb;
+    outColor = mix(vec3(0.52, 0.8, 0.98), vec3(1.0, 0.50, 0.2), texCoords.y-0.2);
 }

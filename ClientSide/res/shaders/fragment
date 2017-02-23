@@ -9,6 +9,7 @@ uniform sampler2D lightSampler;
 uniform sampler2D colorSampler;
 uniform sampler2D particlesSampler;
 uniform sampler2D particlesPostProcessSampler;
+uniform sampler2D sunPostProcessSampler;
 uniform int outputType;
 uniform int hasTexture;
 
@@ -22,8 +23,11 @@ vec3 particles(){
 vec3 particlesPostProcess(){
     return texture(particlesPostProcessSampler, textureCoords).xyz;
 }
+vec3 sunPostProcess(){
+    return texture(sunPostProcessSampler, textureCoords).xyz;
+}
 vec3 color(){
-    return texture(colorSampler, textureCoords).xyz + particles() + particlesPostProcess() * 2;
+    return texture(colorSampler, textureCoords).xyz + particles() + particlesPostProcess() * 2 + sunPostProcess();
 }
 vec3 world_normal(){
     return texture(normalSampler, textureCoords).xyz;
@@ -34,8 +38,8 @@ vec3 light_accumulation(){
 
 void main(){
     if(outputType == 1) outColor = vec4(color(), 1);
-	if(outputType == 2) outColor = vec4(particlesPostProcess() * 2.0, 1);
-	if(outputType == 3) outColor = vec4(particles()*2, 1);
+	if(outputType == 2) outColor = vec4(particlesPostProcess() * 2, 1);
+	if(outputType == 3) outColor = vec4(sunPostProcess(), 1);
 	if(outputType == 4) outColor = vec4(world_normal(), 1);
 	if(outputType == 5) outColor = vec4(light_accumulation(), 1);
 	if(outputType == 6)

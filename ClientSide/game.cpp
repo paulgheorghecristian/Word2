@@ -33,10 +33,12 @@ void Game::construct(){
     wasSpaceReleased = true;
     input = new Input();
     simpleShader = new SimpleShader("res/shaders/vertex", "res/shaders/fragment");
+    sunSimpleShader = new SimpleShader("res/shaders/sun_simple.vs", "res/shaders/sun_simple.fs");
     simpleShaderForLights = new SimpleShader("res/shaders/vertex_light", "res/shaders/fragment_light");
     directionalLightShader = new SimpleShader("res/shaders/vertex_directional_light.txt", "res/shaders/fragment_directional_light.txt");
     deferredLightShader = new DeferredLightShader("res/shaders/vertex_def", "res/shaders/fragment_def");
     skyShader = new DeferredLightShader("res/shaders/vertex_sky.txt", "res/shaders/fragment_sky.txt");
+    sunShader = new DeferredLightShader("res/shaders/vertex_sun.txt", "res/shaders/fragment_sun.txt");
     emptyShader = new SimpleShader("res/shaders/vertex_empty", "res/shaders/fragment_empty");
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
@@ -76,9 +78,18 @@ void Game::construct(){
 
     sky = new Entity(world,
                      "screenRectangle",
-                     Mesh::getRectangle(),
+                     Mesh::getDome(10,10),
                      glm::vec4(0.52, 0.8, 0.98, 1),
-                     glm::vec3(0,0,1),
+                     glm::vec3(0,-50,0),
+                     glm::vec3(0),
+                     glm::vec3(600),
+                     NULL);
+
+    sun = new Entity(world,
+                     "screenRectangle",
+                     Mesh::getCircle(0, 0, 300.0, 50),
+                     glm::vec4(0.9, 0.7, 0.5, 1),
+                     glm::vec3(this->screenWidth/2.0f+50,this->screenHeight/2.0f+100,-4000),
                      glm::vec3(0),
                      glm::vec3(1),
                      NULL);
@@ -145,7 +156,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
 
     DirectionalLight::setMesh(Mesh::getRectangle());
-    sunLight = new DirectionalLight(gBuffer, glm::vec3(0.9, 0.8, 0.9), glm::vec3(1,2,1));
+    sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,1.5,-4.5));
 
     near = 1.0f;
     far = 5000.0f;
@@ -166,6 +177,15 @@ void Game::construct(){
 
     emptyShader->bind();
     emptyShader->loadProjectionMatrix(projectionMatrix);
+
+    skyShader->bind();
+    skyShader->loadProjectionMatrix(projectionMatrix);
+
+    sunShader->bind();
+    sunShader->loadProjectionMatrix(projectionMatrix);
+
+    sunSimpleShader->bind();
+    sunSimpleShader->loadProjectionMatrix(projectionMatrix);
 
     isClosed = false;
     cullLightsThread = getCullLightsThread();
@@ -249,6 +269,9 @@ void Game::construct(){
     particlePostProcess = new PostProcess(this->screenWidth, this->screenHeight, "particles/post_process.vs", "particles/post_process.fs");
     hBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, particlePostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
+    sunPostProcess = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs");
+    hBlur2 = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, sunPostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
+    wBlur2 = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur2->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
 }
 
 void Game::handleInput(Game* game){
@@ -426,8 +449,13 @@ void Game::render(){
         display->clear(0,0,0,0);
 
         glDepthMask(GL_FALSE);
+        glDisable(GL_CULL_FACE);
         skyShader->bind();
+        skyShader->loadViewMatrix(camera->getViewMatrix());
         sky->draw(skyShader);
+        sunShader->bind();
+        sunShader->loadViewMatrix(camera->getViewMatrix());
+        sun->draw(sunShader);
         glDepthMask(GL_TRUE);
 
         deferredLightShader->bind();
@@ -468,6 +496,8 @@ void Game::render(){
     gBuffer->unbind();
     {
         glBindFramebuffer(GL_READ_FRAMEBUFFER, gBuffer->getFrameBufferObject());
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, sunPostProcess->getFrameBufferObject());
+        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/4.0f, this->screenHeight/4.0f, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, particlePostProcess->getFrameBufferObject());
         glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth, this->screenHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
@@ -484,6 +514,24 @@ void Game::render(){
         hBlur->process();
         wBlur->bind();
         wBlur->process();
+        sunPostProcess->bind();
+        sunPostProcess->getShader().bind();
+        glm::vec2 sunPosition = calculateSunPosition(projectionMatrix,
+                                                     camera->getViewMatrix(),
+                                                     sun->getModelMatrix(),
+                                                     this->screenWidth,
+                                                     this->screenHeight);
+        glUniform2f(glGetUniformLocation(sunPostProcess->getShader().getProgram(), "sunPosition"), sunPosition.x, sunPosition.y);
+        glEnable(GL_DEPTH_TEST);
+        sunSimpleShader->bind();
+        sunSimpleShader->loadViewMatrix(camera->getViewMatrix());
+        sun->draw(sunSimpleShader);
+        sunPostProcess->process();
+        glDisable(GL_DEPTH_TEST);
+        hBlur2->bind();
+        hBlur2->process();
+        wBlur2->bind();
+        wBlur2->process();
     }
 
     {
@@ -511,6 +559,9 @@ void Game::render(){
         glActiveTexture(GL_TEXTURE0+9);
         glBindTexture(GL_TEXTURE_2D, particlePostProcess->getResultingTextureId());
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesSampler"), 9);
+        glActiveTexture(GL_TEXTURE0+8);
+        glBindTexture(GL_TEXTURE_2D, wBlur2->getResultingTextureId());
+        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "sunPostProcessSampler"), 8);
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "outputType"), outputType);
         screenRectangle->draw(simpleShader);
 
@@ -581,6 +632,31 @@ void Game::initBullet(){
     btRigidBody *body = new btRigidBody(info);
     world->addRigidBody(body);
 }
+
+glm::vec2 Game::calculateSunPosition(const glm::mat4& projectionMatrix,
+                               const glm::mat4& viewMatrix,
+                               const glm::mat4& modelMatrix,
+                               float WIDTH,
+                               float HEIGHT){
+    glm::mat4 newModelMatrix = modelMatrix;
+    newModelMatrix[0][0] = viewMatrix[0][0];
+    newModelMatrix[0][1] = viewMatrix[1][0];
+    newModelMatrix[0][2] = viewMatrix[2][0];
+    newModelMatrix[1][0] = viewMatrix[0][1];
+    newModelMatrix[1][1] = viewMatrix[1][1];
+    newModelMatrix[1][2] = viewMatrix[2][1];
+    newModelMatrix[2][0] = viewMatrix[0][2];
+    newModelMatrix[2][1] = viewMatrix[1][2];
+    newModelMatrix[2][2] = viewMatrix[2][2];
+    glm::vec4 pos = (projectionMatrix *
+                     (glm::mat4(glm::mat3(viewMatrix)) *
+                      newModelMatrix) *
+                     glm::vec4(glm::vec3(0), 1.0));
+    pos = glm::vec4(pos.x/pos.w, pos.y/pos.w, 0, 0);
+    glm::vec2 posXY = glm::vec2((pos.x + 1)/2.0, (pos.y+1)/2.0);
+    return posXY;
+}
+
 
 Game::~Game()
 {

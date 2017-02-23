@@ -55,6 +55,11 @@ class Game
         std::vector<Entity*>& getEntities();
         void stencil();
         void normal();
+        glm::vec2 calculateSunPosition(const glm::mat4&,
+                                       const glm::mat4&,
+                                       const glm::mat4&,
+                                       float,
+                                       float);
         void cullLights(){
             while(!isClosed){
                 std::unique_lock<std::mutex> lk(m);
@@ -92,14 +97,15 @@ class Game
         SimpleShader *simpleShader;
         SimpleShader *simpleShaderForLights;
         SimpleShader *directionalLightShader;
-        SimpleShader *emptyShader;
-        PostProcess *particlePostProcess;
+        SimpleShader *emptyShader, *sunSimpleShader;
+        PostProcess *particlePostProcess, *sunPostProcess;
         PostProcess *hBlur, *wBlur, *hBlur2, *wBlur2;
         DeferredLightShader *deferredLightShader;
-        DeferredLightShader *skyShader;
+        DeferredLightShader *skyShader, *sunShader;
         Player *player;
         Entity *screenRectangle;
         Entity *sky;
+        Entity *sun;
         DirectionalLight *sunLight;
         TextShader* textShader;
         std::vector<Entity*> entities;
