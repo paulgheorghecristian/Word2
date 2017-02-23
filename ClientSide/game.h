@@ -97,9 +97,15 @@ class Game
         SimpleShader *simpleShader;
         SimpleShader *simpleShaderForLights;
         SimpleShader *directionalLightShader;
+<<<<<<< Updated upstream
         SimpleShader *emptyShader, *sunSimpleShader;
         PostProcess *particlePostProcess, *sunPostProcess;
         PostProcess *hBlur, *wBlur, *hBlur2, *wBlur2;
+=======
+        SimpleShader *emptyShader;
+        PostProcess *particlePostProcess;
+        PostProcess *hBlur, *wBlur;
+>>>>>>> Stashed changes
         DeferredLightShader *deferredLightShader;
         DeferredLightShader *skyShader, *sunShader;
         Player *player;
@@ -109,14 +115,18 @@ class Game
         DirectionalLight *sunLight;
         TextShader* textShader;
         std::vector<Entity*> entities;
+        std::vector<Entity*> branches;
         std::vector<Light*> lights;
-        Mesh* boxMesh;
-        Mesh* sphereMesh;
-        Mesh* lightMesh;
-        Mesh* turretMesh;
-        Mesh* baseMesh;
-        Mesh* fanMesh;
-        Mesh* fanBaseMesh;
+        Mesh *boxMesh;
+        Mesh *sphereMesh;
+        Mesh *lightMesh;
+        Mesh *turretMesh;
+        Mesh *baseMesh;
+        Mesh *fanMesh;
+        Mesh *fanBaseMesh;
+        Mesh *treeTrunk;
+        Mesh *treeBranch, *treeBranch2, *treeBranch3, *treeBranch4, *treeBranch5, *treeBranch6
+        ,*treeBranch7,*treeBranch8,*treeBranch9,*treeBranch10,*treeBranch11;
         btDynamicsWorld* world;
         btDispatcher* dispatcher;
         btBroadphaseInterface* broadsphase;
@@ -125,6 +135,7 @@ class Game
         long timeAccumulator;
         float discreteChunk;
         Texture *tex1, *tex2;
+        Texture *bark, *leaf;
         Text *fpsText;
         Text *lightsText;
         GBuffer *gBuffer;

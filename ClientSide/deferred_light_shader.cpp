@@ -10,6 +10,7 @@ void DeferredLightShader::getAllUniformLocations(){
     GeneralShader::getAllUniformLocations();
     textureSamplerLocation = glGetUniformLocation(program, "textureSampler");
     hasTextureLocation = glGetUniformLocation(program, "hasTexture");
+    hasAlphaLocation = glGetUniformLocation(program, "hasAlpha");
 }
 
 void DeferredLightShader::loadTextureSampler(int x){
@@ -18,6 +19,10 @@ void DeferredLightShader::loadTextureSampler(int x){
 
 void DeferredLightShader::loadHasTexture(bool hasTexture){
     GeneralShader::loadInt(hasTextureLocation, (int)hasTexture);
+}
+
+void DeferredLightShader::loadHasAlpha(bool hasAlpha){
+    GeneralShader::loadInt(hasAlphaLocation, (int)hasAlpha);
 }
 
 DeferredLightShader::~DeferredLightShader()

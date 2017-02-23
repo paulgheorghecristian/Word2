@@ -61,6 +61,7 @@ void Entity::draw(GeneralShader* shader){
         DeferredLightShader *dls = (DeferredLightShader*)shader;
         if(texture){
             dls->loadHasTexture(1);
+            dls->loadHasAlpha(texture->getHasAlpha());
             dls->loadTextureSampler(texture->getTextureUnit());
             texture->use();
         }else{

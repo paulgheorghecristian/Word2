@@ -10,10 +10,11 @@ class DeferredLightShader : public GeneralShader
         void getAllUniformLocations();
         void loadTextureSampler(int);
         void loadHasTexture(bool);
+        void loadHasAlpha(bool);
         virtual ~DeferredLightShader();
     protected:
     private:
-        GLuint textureSamplerLocation, hasTextureLocation;
+        GLuint textureSamplerLocation, hasTextureLocation, hasAlphaLocation;
 };
 
 #endif // DEFERREDLIGHTSHADER_H
