@@ -92,7 +92,6 @@ void Game::construct(){
 
     sky = new Entity(world,
                      "screenRectangle",
-<<<<<<< Updated upstream
                      Mesh::getDome(10,10),
                      glm::vec4(0.52, 0.8, 0.98, 1),
                      glm::vec3(0,-50,0),
@@ -105,14 +104,9 @@ void Game::construct(){
                      Mesh::getCircle(0, 0, 300.0, 50),
                      glm::vec4(0.9, 0.7, 0.5, 1),
                      glm::vec3(this->screenWidth/2.0f+50,this->screenHeight/2.0f+100,-4000),
-=======
-                     Mesh::getRectangle(),
-                     glm::vec4(1, 0.55, 0.4, 1),
-                     glm::vec3(0,0,1),
->>>>>>> Stashed changes
                      glm::vec3(0),
                      glm::vec3(1),
-                     NULL);
+                    NULL);
 
     entities.push_back(new Box(world,
                                 1000.0f,
@@ -252,6 +246,8 @@ void Game::construct(){
                                   leaf)
                        );
 
+
+
     float lightsize = 600.0f;
     /*for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
@@ -286,11 +282,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
 
     DirectionalLight::setMesh(Mesh::getRectangle());
-<<<<<<< Updated upstream
     sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,1.5,-4.5));
-=======
-    sunLight = new DirectionalLight(gBuffer, glm::vec3(1, 0.65, 0.4), glm::vec3(1,2,1));
->>>>>>> Stashed changes
 
     near = 1.0f;
     far = 5000.0f;
@@ -507,12 +499,12 @@ void Game::handleInput(Game* game){
         }
     }
 
-    if(input->getKeyDown(SDLK_t)){
+    /*if(input->getKeyDown(SDLK_1)){
         //how to move a rigid body without breaking the engine
         btTransform transform = player->getRigidBody()->getCenterOfMassTransform();
         transform.setOrigin(btVector3(0, 300, 200));
         player->getRigidBody()->setCenterOfMassTransform(transform);
-    }
+    }*/
 }
 
 void Game::stencil(){
@@ -598,11 +590,11 @@ void Game::render(){
         for(Entity* e : entities){
             e->draw(deferredLightShader);
         }
-
         glDisable(GL_CULL_FACE);
         for(Entity *b : branches){
             b->draw(deferredLightShader);
         }
+
         fanPuzzleObject->draw(deferredLightShader);
         turretPuzzleObject->draw(deferredLightShader);
     }
@@ -643,7 +635,6 @@ void Game::render(){
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
         particlePostProcess->bind();
         glEnable(GL_DEPTH_TEST);
-        glDepthMask(GL_FALSE);
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
         particleRenderer->draw();

@@ -97,15 +97,9 @@ class Game
         SimpleShader *simpleShader;
         SimpleShader *simpleShaderForLights;
         SimpleShader *directionalLightShader;
-<<<<<<< Updated upstream
         SimpleShader *emptyShader, *sunSimpleShader;
         PostProcess *particlePostProcess, *sunPostProcess;
         PostProcess *hBlur, *wBlur, *hBlur2, *wBlur2;
-=======
-        SimpleShader *emptyShader;
-        PostProcess *particlePostProcess;
-        PostProcess *hBlur, *wBlur;
->>>>>>> Stashed changes
         DeferredLightShader *deferredLightShader;
         DeferredLightShader *skyShader, *sunShader;
         Player *player;
