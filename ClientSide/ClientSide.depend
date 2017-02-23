@@ -5,7 +5,7 @@
 1487188946 c:\users\paul\desktop\world2\clientside\box.h
 	"entity.h"
 
-1487188947 c:\users\paul\desktop\world2\clientside\entity.h
+1487880886 c:\users\paul\desktop\world2\clientside\entity.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"shader.h"
@@ -20,7 +20,7 @@
 	"texture.h"
 	"deferred_light_shader.h"
 
-1487188947 c:\users\paul\desktop\world2\clientside\mesh.h
+1487879803 c:\users\paul\desktop\world2\clientside\mesh.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<vector>
@@ -1086,7 +1086,7 @@
 	<glm/glm.hpp>
 	<glm/gtc/type_ptr.hpp>
 
-1487188947 c:\users\paul\desktop\world2\clientside\texture.h
+1487879798 c:\users\paul\desktop\world2\clientside\texture.h
 	<string>
 	<SDL2/SDL.h>
 	<GL/glew.h>
@@ -1411,13 +1411,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1487188947 c:\users\paul\desktop\world2\clientside\deferred_light_shader.h
+1487879797 c:\users\paul\desktop\world2\clientside\deferred_light_shader.h
 	"general_shader.h"
 
 1487188946 source:c:\users\paul\desktop\world2\clientside\camera.cpp
 	"camera.h"
 
-1487188946 c:\users\paul\desktop\world2\clientside\camera.h
+1487880886 c:\users\paul\desktop\world2\clientside\camera.h
 	<glm/glm.hpp>
 	<SDL2/SDL.h>
 	"input.h"
@@ -1430,19 +1430,19 @@
 	"display.h"
 	<glm/glm.hpp>
 
-1487188804 c:\users\paul\desktop\world2\clientside\display.h
+1487414655 c:\users\paul\desktop\world2\clientside\display.h
 	<SDL2/SDL.h>
 	<iostream>
 	<GL/glew.h>
 	<glm/glm.hpp>
 
-1487188947 source:c:\users\paul\desktop\world2\clientside\deferred_light_shader.cpp
+1487879797 source:c:\users\paul\desktop\world2\clientside\deferred_light_shader.cpp
 	"deferred_light_shader.h"
 
 1487188947 source:c:\users\paul\desktop\world2\clientside\display.cpp
 	"display.h"
 
-1487188947 source:c:\users\paul\desktop\world2\clientside\entity.cpp
+1487879797 source:c:\users\paul\desktop\world2\clientside\entity.cpp
 	"entity.h"
 
 1487188804 source:c:\users\paul\desktop\world2\clientside\font.cpp
@@ -1459,32 +1459,55 @@
 	<GL/glew.h>
 	<SDL2/SDL.h>
 
-1487188947 source:c:\users\paul\desktop\world2\clientside\framebuffer.cpp
+1487419687 source:c:\users\paul\desktop\world2\clientside\framebuffer.cpp
 	"framebuffer.h"
 
-1487188947 c:\users\paul\desktop\world2\clientside\framebuffer.h
+1487880886 c:\users\paul\desktop\world2\clientside\framebuffer.h
+	<vector>
 	<GL/glew.h>
 	<iostream>
 
-1487188947 source:c:\users\paul\desktop\world2\clientside\g_buffer.cpp
+1487419725 source:c:\users\paul\desktop\world2\clientside\g_buffer.cpp
 	"g_buffer.h"
 
-1487188947 c:\users\paul\desktop\world2\clientside\g_buffer.h
+1487365151 c:\users\paul\desktop\world2\clientside\g_buffer.h
 	<GL/glew.h>
 	<vector>
 	<iostream>
 
-<<<<<<< HEAD
-1487318553 source:c:\users\paul\desktop\world2\clientside\game.cpp
+1487188947 D
+
+1487879803 source:c:\users\paul\desktop\world2\clientside\game.cpp
 	"game.h"
 
-1487318553 c:\users\paul\desktop\world2\clientside\game.h
-=======
-1487354263 source:c:\users\paul\desktop\world2\clientside\game.cpp
-	"game.h"
+1487879803 c:\users\paul\desktop\world2\clientside\game.h
+	"camera.h"
+	"display.h"
+	"input.h"
+	"simple_shader.h"
+	"entity.h"
+	<string>
+	<vector>
+	"box.h"
+	"sphere.h"
+	"player.h"
+	"text_shader.h"
+	"text.h"
+	<bullet/btBulletDynamicsCommon.h>
+	"texture.h"
+	"g_buffer.h"
+	"deferred_light_shader.h"
+	"light.h"
+	<thread>
+	<mutex>
+	<condition_variable>
+	"math_utils.h"
+	"particle_renderer.h"
+	"puzzle_object.h"
+	"directional_light.h"
+	"post_process.h"
 
-1487354039 c:\users\paul\desktop\world2\clientside\game.h
->>>>>>> DirLightAndSky
+1487354039 LightAndSky
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -1510,10 +1533,10 @@
 	"puzzle_object.h"
 	"directional_light.h"
 
-1487188947 c:\users\paul\desktop\world2\clientside\sphere.h
+1487880894 c:\users\paul\desktop\world2\clientside\sphere.h
 	"entity.h"
 
-1486894294 c:\users\paul\desktop\world2\clientside\player.h
+1487880891 c:\users\paul\desktop\world2\clientside\player.h
 	<bullet/btBulletDynamicsCommon.h>
 	<glm/glm.hpp>
 	<iostream>
@@ -1522,7 +1545,7 @@
 	"general_shader.h"
 	<glm/gtc/type_ptr.hpp>
 
-1487188947 c:\users\paul\desktop\world2\clientside\text.h
+1487880896 c:\users\paul\desktop\world2\clientside\text.h
 	"font.h"
 	"mesh.h"
 	<string>
@@ -1589,14 +1612,14 @@
 1487188947 source:c:\users\paul\desktop\world2\clientside\math_utils.cpp
 	"math_utils.h"
 
-1487188947 source:c:\users\paul\desktop\world2\clientside\mesh.cpp
+1487879803 source:c:\users\paul\desktop\world2\clientside\mesh.cpp
 	"mesh.h"
 	<iostream>
 
-1487223111 source:c:\users\paul\desktop\world2\clientside\particles\particle.cpp
+1487414718 source:c:\users\paul\desktop\world2\clientside\particles\particle.cpp
 	"particle.h"
 
-1487230381 source:c:\users\paul\desktop\world2\clientside\particles\particle_renderer.cpp
+1487422701 source:c:\users\paul\desktop\world2\clientside\particles\particle_renderer.cpp
 	"particle_renderer.h"
 
 1487188947 source:c:\users\paul\desktop\world2\clientside\particles\particle_shader.cpp
@@ -1624,10 +1647,10 @@
 1487188947 source:c:\users\paul\desktop\world2\clientside\text_shader.cpp
 	"text_shader.h"
 
-1487188947 source:c:\users\paul\desktop\world2\clientside\texture.cpp
+1487879798 source:c:\users\paul\desktop\world2\clientside\texture.cpp
 	"texture.h"
 
-1487354039 c:\users\paul\desktop\world2\clientside\directional_light.h
+1487880886 c:\users\paul\desktop\world2\clientside\directional_light.h
 	"mesh.h"
 	<glm/glm.hpp>
 	"general_shader.h"
@@ -1636,7 +1659,7 @@
 	<glm/gtc/matrix_transform.hpp>
 	"g_buffer.h"
 
-1487354039 source:c:\users\paul\desktop\world2\clientside\directional_light.cpp
+1487354503 source:c:\users\paul\desktop\world2\clientside\directional_light.cpp
 	"directional_light.h"
 
 1485071764 source:c:\users\paul\desktop\projects\world2\clientside\box.cpp
@@ -3271,4 +3294,14 @@
 
 1487331878 source:c:\users\paul\desktop\projects\world2\clientside\directional_light.cpp
 	"directional_light.h"
+
+1487880891 c:\users\paul\desktop\world2\clientside\post_process.h
+	"framebuffer.h"
+	"simple_shader.h"
+	"mesh.h"
+	<string>
+	"texture.h"
+
+1487410884 source:c:\users\paul\desktop\world2\clientside\post_process.cpp
+	"post_process.h"
 
