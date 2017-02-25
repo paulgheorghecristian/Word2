@@ -41,9 +41,11 @@ void Player::performRayTest(){
     for(int i = 0; i < 5; i++){
         float xPlayerPosition = playerPosition.x+radius*values[i][0];
         float zPlayerPosition = playerPosition.z+radius*values[i][1];
-        btCollisionWorld::ClosestRayResultCallback rayCallback(btVector3(xPlayerPosition, playerPosition.y, zPlayerPosition),
-                                                               down);
-        world->rayTest(btVector3(xPlayerPosition, playerPosition.y, zPlayerPosition), down, rayCallback);
+        btVector3 from = btVector3(xPlayerPosition, playerPosition.y, zPlayerPosition);
+        btVector3 to = btVector3(xPlayerPosition, -10000, zPlayerPosition);
+
+        btCollisionWorld::ClosestRayResultCallback rayCallback(from, to);
+        world->rayTest(from, to, rayCallback);
         if(rayCallback.hasHit()){
             if(rayCallback.m_closestHitFraction < closestHitFraction){
                 closestHitFraction = rayCallback.m_closestHitFraction;

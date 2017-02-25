@@ -7,7 +7,7 @@
 
 #define DOWN_LENGTH 1000
 #define JUMP_SPEED 100000
-#define EPS 0.03
+#define EPS 0.003
 
 class Player
 {
