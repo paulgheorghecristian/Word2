@@ -1,6 +1,6 @@
 #include "mesh.h"
 #include <iostream>
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices)
+Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) : vertices(vertices), indices(indices)
 {
     //vao care retine starea meshei
     glGenVertexArrays(1, &vaoHandle);

@@ -28,7 +28,7 @@
 #include "post_process.h"
 
 #define GRAVITY -30
-#define FORCE 1200
+#define FORCE 1000
 
 class Game
 {
@@ -98,6 +98,7 @@ class Game
         SimpleShader *simpleShaderForLights;
         SimpleShader *directionalLightShader;
         SimpleShader *emptyShader, *sunSimpleShader;
+        SimpleShader *terrainShader;
         PostProcess *particlePostProcess, *sunPostProcess;
         PostProcess *hBlur, *wBlur, *hBlur2, *wBlur2;
         DeferredLightShader *deferredLightShader;
@@ -105,7 +106,7 @@ class Game
         Player *player;
         Entity *screenRectangle;
         Entity *sky;
-        Entity *sun;
+        Entity *sun, *terrain;
         DirectionalLight *sunLight;
         TextShader* textShader;
         std::vector<Entity*> entities;
@@ -121,6 +122,7 @@ class Game
         Mesh *treeTrunk;
         Mesh *treeBranch, *treeBranch2, *treeBranch3, *treeBranch4, *treeBranch5, *treeBranch6
         ,*treeBranch7,*treeBranch8,*treeBranch9,*treeBranch10,*treeBranch11;
+        Mesh *terrainMesh;
         btDynamicsWorld* world;
         btDispatcher* dispatcher;
         btBroadphaseInterface* broadsphase;
@@ -130,6 +132,7 @@ class Game
         float discreteChunk;
         Texture *tex1, *tex2;
         Texture *bark, *leaf;
+        Texture *blendmap, *dirt, *grass, *soil, *rock;
         Text *fpsText;
         Text *lightsText;
         GBuffer *gBuffer;

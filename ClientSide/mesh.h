@@ -37,6 +37,8 @@ class Mesh
         static Mesh* getSurface(int, int);
         static Mesh* getDome(int, int);
         static Mesh* getCircle(float, float, float, int);
+        std::vector<Vertex>& getVertices(){return vertices;}
+        std::vector<unsigned int>& getIndices(){return indices;}
         virtual ~Mesh();
     protected:
     private:
@@ -46,6 +48,8 @@ class Mesh
             GLuint vaoHandle;
             GLuint vboHandles[NUM_VBOS];
             GLsizei numberOfTriangles;
+            std::vector<Vertex> vertices;
+            std::vector<unsigned int> indices;
             static float _stringToFloat(const std::string &source);
             static unsigned int _stringToUint(const std::string &source);
             static int _stringToInt(const std::string &source);

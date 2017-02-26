@@ -32,6 +32,7 @@ void Game::construct(){
     discreteChunk = 18.0f/6.0f;
     wasSpaceReleased = true;
     input = new Input();
+    terrainShader = new SimpleShader("res/shaders/terrain.vs", "res/shaders/terrain.fs");
     simpleShader = new SimpleShader("res/shaders/vertex", "res/shaders/fragment");
     sunSimpleShader = new SimpleShader("res/shaders/sun_simple.vs", "res/shaders/sun_simple.fs");
     simpleShaderForLights = new SimpleShader("res/shaders/vertex_light", "res/shaders/fragment_light");
@@ -75,6 +76,11 @@ void Game::construct(){
     tex2 = new Texture("res/textures/196.bmp", 5);
     bark = new Texture("res/models/tree/Bark_Tile.bmp", 6, false);
     leaf = new Texture("res/models/tree2/leaf.bmp", 7, true);
+    blendmap = new Texture("res/textures/blendmap.bmp", 0);
+    dirt = new Texture("res/textures/dirt.bmp", 1);
+    grass = new Texture("res/textures/grass2.bmp", 2);
+    soil = new Texture("res/textures/soil.bmp", 3);
+    rock = new Texture("res/textures/rock.bmp", 4);
     gBuffer = new GBuffer(this->screenWidth, this->screenHeight);
     Box::setMesh(boxMesh);
     Sphere::setMesh(sphereMesh);
@@ -103,7 +109,7 @@ void Game::construct(){
                      "screenRectangle",
                      Mesh::getCircle(0, 0, 300.0, 50),
                      glm::vec4(0.9, 0.7, 0.5, 1),
-                     glm::vec3(this->screenWidth/2.0f+50,this->screenHeight/2.0f+100,-4000),
+                     glm::vec3(this->screenWidth/2.0f+50,this->screenHeight/2.0f+300,-4000),
                      glm::vec3(0),
                      glm::vec3(1),
                     NULL);
@@ -126,7 +132,7 @@ void Game::construct(){
                                     tex1)
                        );
 
-    entities.push_back(new Entity(world,
+    /*entities.push_back(new Entity(world,
                                "surface",
                                Mesh::getSurface(500, 500),
                                glm::vec4(0.5, 0.5, 0.5, 1),
@@ -134,6 +140,16 @@ void Game::construct(){
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(50000.0f, 1, 50000.0f),
                                NULL)
+                        );*/
+
+    terrain = new Entity(world,
+                           "surface",
+                           terrainMesh,
+                           glm::vec4(0.5, 0.5, 0.5, 1),
+                           glm::vec3(0, 0, 0),
+                           glm::vec3(0.0f, 0.0f, 0.0f),
+                           glm::vec3(4800.0f, 1600.0f, 4800.0f),
+                           NULL
                         );
 
     entities.push_back(new Entity(world,
@@ -282,7 +298,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
 
     DirectionalLight::setMesh(Mesh::getRectangle());
-    sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,1.5,-4.5));
+    sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,5,-4.5));
 
     near = 1.0f;
     far = 5000.0f;
@@ -313,6 +329,14 @@ void Game::construct(){
     sunSimpleShader->bind();
     sunSimpleShader->loadProjectionMatrix(projectionMatrix);
 
+    terrainShader->bind();
+    terrainShader->loadProjectionMatrix(projectionMatrix);
+    glUniform1i(glGetUniformLocation(terrainShader->getProgram(), "blendmap"), 0);
+    glUniform1i(glGetUniformLocation(terrainShader->getProgram(), "dirt"), 1);
+    glUniform1i(glGetUniformLocation(terrainShader->getProgram(), "grass"), 2);
+    glUniform1i(glGetUniformLocation(terrainShader->getProgram(), "soil"), 3);
+    glUniform1i(glGetUniformLocation(terrainShader->getProgram(), "rock"), 4);
+
     isClosed = false;
     cullLightsThread = getCullLightsThread();
 
@@ -322,7 +346,7 @@ void Game::construct(){
                                "fanBase",
                                fanBaseMesh,
                                glm::vec4(0.8, 0.8, 0.5, 1),
-                               glm::vec3(0, 0.0, 0),
+                               glm::vec3(0, 100.0, 0),
                                glm::vec3(glm::radians(90.0f), 0.0f, glm::radians(90.0f)),
                                glm::vec3(30.0f),
                                NULL)
@@ -356,7 +380,7 @@ void Game::construct(){
                                "base",
                                baseMesh,
                                glm::vec4(0.8, 0.8, 0.5, 1),
-                               glm::vec3(0, 0.0, -100),
+                               glm::vec3(0, 100.0, -100),
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(60.0f),
                                NULL)
@@ -366,7 +390,7 @@ void Game::construct(){
                                "turret",
                                turretMesh,
                                glm::vec4(0.5, 0.9, 0.5, 1),
-                               glm::vec3(0, 58.0f, -100),
+                               glm::vec3(0, 68.0f, -100),
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(30.0f),
                                NULL)
@@ -584,6 +608,15 @@ void Game::render(){
         sun->draw(sunShader);
         glDepthMask(GL_TRUE);
 
+        blendmap->use();
+        soil->use();
+        rock->use();
+        grass->use();
+        dirt->use();
+        terrainShader->bind();
+        terrainShader->loadViewMatrix(camera->getViewMatrix());
+        terrain->draw(terrainShader);
+
         deferredLightShader->bind();
         deferredLightShader->loadViewMatrix(camera->getViewMatrix());
 
@@ -750,7 +783,7 @@ void Game::initBullet(){
     world->setGravity(btVector3(0, GRAVITY, 0));
     world->setInternalTickCallback(Game::bulletTickCallback, (void*)this, true);
 
-    btTransform t;
+    /*btTransform t;
 
     t.setIdentity();
     t.setOrigin(btVector3(0, 0, 0));
@@ -761,7 +794,34 @@ void Game::initBullet(){
     info.m_restitution = 0.3;
     info.m_friction = 1.0;
     btRigidBody *body = new btRigidBody(info);
-    world->addRigidBody(body);
+    world->addRigidBody(body);*/
+
+    terrainMesh = Mesh::loadObject("res/models/terrain.obj");
+    int *indices = (int *)malloc(sizeof(int) * terrainMesh->getIndices().size());
+    btScalar *vertices = (btScalar *)malloc(sizeof(btScalar) * terrainMesh->getVertices().size()*3);
+
+    for(int i = 0; i < terrainMesh->getIndices().size(); i++){
+        indices[i] = terrainMesh->getIndices()[i];
+    }
+
+    for(int i = 0; i < terrainMesh->getVertices().size()*3; i+=3){
+        vertices[i] = btScalar(terrainMesh->getVertices()[i/3].positionCoords.x * 4800.0f);
+        vertices[i+1] = btScalar(terrainMesh->getVertices()[i/3].positionCoords.y * 1600.0f);
+        vertices[i+2] = btScalar(terrainMesh->getVertices()[i/3].positionCoords.z * 4800.0f);
+    }
+
+    btTriangleIndexVertexArray *_terrain = new btTriangleIndexVertexArray(terrainMesh->getNumberOfTriangles()/3,
+                                                                         indices,
+                                                                         3 * sizeof(int),
+                                                                         terrainMesh->getVertices().size(),
+                                                                         vertices,
+                                                                         3*sizeof(float));
+    btBvhTriangleMeshShape *shape = new btBvhTriangleMeshShape(_terrain, true, true);
+    btRigidBody::btRigidBodyConstructionInfo info2(0.0, motion, shape, btVector3(0,0,0));
+    info2.m_restitution = 0.3;
+    info2.m_friction = 1.0;
+    btRigidBody *m_body = new btRigidBody(info2);
+    world->addRigidBody(m_body);
 }
 
 glm::vec2 Game::calculateSunPosition(const glm::mat4& projectionMatrix,

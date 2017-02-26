@@ -20,7 +20,7 @@
 	"texture.h"
 	"deferred_light_shader.h"
 
-1487879803 c:\users\paul\desktop\world2\clientside\mesh.h
+1488050066 c:\users\paul\desktop\world2\clientside\mesh.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<vector>
@@ -1086,15 +1086,53 @@
 	<glm/glm.hpp>
 	<glm/gtc/type_ptr.hpp>
 
-<<<<<<< Updated upstream
-1487879798 c:\users\paul\desktop\world2\clientside\texture.h
-=======
-1487704580 c:\users\paul\desktop\world2\clientside\texture.h
->>>>>>> Stashed changes
+1487188947 ated upstream
+
+1487886576 c:\users\paul\desktop\world2\clientside\texture.h
 	<string>
 	<SDL2/SDL.h>
 	<GL/glew.h>
 	<iostream>
+
+1487704537 shed changes
+	<string>
+	<SDL2/SDL.h>
+	<GL/glew.h>
+	<iostream>
+	"general_shader.h"
+	"deferred_light_shader.h"
+	"entity.h"
+	<vector>
+	<GL/glew.h>
+	<iostream>
+	"camera.h"
+	"display.h"
+	"input.h"
+	"simple_shader.h"
+	"entity.h"
+	<string>
+	<vector>
+	"box.h"
+	"sphere.h"
+	"player.h"
+	"text_shader.h"
+	"text.h"
+	<bullet/btBulletDynamicsCommon.h>
+	"texture.h"
+	"g_buffer.h"
+	"deferred_light_shader.h"
+	"light.h"
+	<thread>
+	<mutex>
+	<condition_variable>
+	"math_utils.h"
+	"particle_renderer.h"
+	"puzzle_object.h"
+	"directional_light.h"
+	"post_process.h"
+	"mesh.h"
+	<iostream>
+	"texture.h"
 
 1487188804 c:\users\paul\desktop\world2\clientside\res\libraries\sdl2\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -1415,11 +1453,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-<<<<<<< Updated upstream
-1487879797 c:\users\paul\desktop\world2\clientside\deferred_light_shader.h
-=======
-1487510480 c:\users\paul\desktop\world2\clientside\deferred_light_shader.h
->>>>>>> Stashed changes
+1487886576 c:\users\paul\desktop\world2\clientside\deferred_light_shader.h
 	"general_shader.h"
 
 1487188946 source:c:\users\paul\desktop\world2\clientside\camera.cpp
@@ -1444,17 +1478,21 @@
 	<GL/glew.h>
 	<glm/glm.hpp>
 
-<<<<<<< Updated upstream
-1487879797 source:c:\users\paul\desktop\world2\clientside\deferred_light_shader.cpp
-=======
-1487510677 source:c:\users\paul\desktop\world2\clientside\deferred_light_shader.cpp
->>>>>>> Stashed changes
+1487886576 source:c:\users\paul\desktop\world2\clientside\deferred_light_shader.cpp
 	"deferred_light_shader.h"
 
 1487354503 source:c:\users\paul\desktop\world2\clientside\directional_light.cpp
 	"directional_light.h"
+	"directional_light.h"
 
-1487354503 c:\users\paul\desktop\world2\clientside\directional_light.h
+1487880886 c:\users\paul\desktop\world2\clientside\directional_light.h
+	"mesh.h"
+	<glm/glm.hpp>
+	"general_shader.h"
+	"simple_shader.h"
+	<typeinfo>
+	<glm/gtc/matrix_transform.hpp>
+	"g_buffer.h"
 	"mesh.h"
 	<glm/glm.hpp>
 	"general_shader.h"
@@ -1467,15 +1505,14 @@
 	<GL/glew.h>
 	<vector>
 	<iostream>
+	<GL/glew.h>
+	<vector>
+	<iostream>
 
-1487188947 source:c:\users\paul\desktop\world2\clientside\display.cpp
+1488053529 source:c:\users\paul\desktop\world2\clientside\display.cpp
 	"display.h"
 
-<<<<<<< Updated upstream
-1487879797 source:c:\users\paul\desktop\world2\clientside\entity.cpp
-=======
-1487511412 source:c:\users\paul\desktop\world2\clientside\entity.cpp
->>>>>>> Stashed changes
+1487886576 source:c:\users\paul\desktop\world2\clientside\entity.cpp
 	"entity.h"
 
 1487188804 source:c:\users\paul\desktop\world2\clientside\font.cpp
@@ -1495,11 +1532,7 @@
 1487419687 source:c:\users\paul\desktop\world2\clientside\framebuffer.cpp
 	"framebuffer.h"
 
-<<<<<<< Updated upstream
 1487880886 c:\users\paul\desktop\world2\clientside\framebuffer.h
-=======
-1487364102 c:\users\paul\desktop\world2\clientside\framebuffer.h
->>>>>>> Stashed changes
 	<vector>
 	<GL/glew.h>
 	<iostream>
@@ -1507,18 +1540,12 @@
 1487419725 source:c:\users\paul\desktop\world2\clientside\g_buffer.cpp
 	"g_buffer.h"
 
-<<<<<<< Updated upstream
-1487365151 c:\users\paul\desktop\world2\clientside\g_buffer.h
-	<GL/glew.h>
-	<vector>
-	<iostream>
-
 1487188947 D
 
-1487879803 source:c:\users\paul\desktop\world2\clientside\game.cpp
+1488097301 source:c:\users\paul\desktop\world2\clientside\game.cpp
 	"game.h"
 
-1487879803 c:\users\paul\desktop\world2\clientside\game.h
+1488097386 c:\users\paul\desktop\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -1546,42 +1573,11 @@
 	"post_process.h"
 
 1487354039 LightAndSky
-=======
-1487714518 source:c:\users\paul\desktop\world2\clientside\game.cpp
-	"game.h"
-
-1487511787 c:\users\paul\desktop\world2\clientside\game.h
->>>>>>> Stashed changes
-	"camera.h"
-	"display.h"
-	"input.h"
-	"simple_shader.h"
-	"entity.h"
-	<string>
-	<vector>
-	"box.h"
-	"sphere.h"
-	"player.h"
-	"text_shader.h"
-	"text.h"
-	<bullet/btBulletDynamicsCommon.h>
-	"texture.h"
-	"g_buffer.h"
-	"deferred_light_shader.h"
-	"light.h"
-	<thread>
-	<mutex>
-	<condition_variable>
-	"math_utils.h"
-	"particle_renderer.h"
-	"puzzle_object.h"
-	"directional_light.h"
-	"post_process.h"
 
 1487880894 c:\users\paul\desktop\world2\clientside\sphere.h
 	"entity.h"
 
-1487880891 c:\users\paul\desktop\world2\clientside\player.h
+1488002506 c:\users\paul\desktop\world2\clientside\player.h
 	<bullet/btBulletDynamicsCommon.h>
 	<glm/glm.hpp>
 	<iostream>
@@ -1641,7 +1637,12 @@
 	<vector>
 	<functional>
 
-1487405431 c:\users\paul\desktop\world2\clientside\post_process.h
+1487880891 c:\users\paul\desktop\world2\clientside\post_process.h
+	"framebuffer.h"
+	"simple_shader.h"
+	"mesh.h"
+	<string>
+	"texture.h"
 	"framebuffer.h"
 	"simple_shader.h"
 	"mesh.h"
@@ -1651,24 +1652,20 @@
 1487188947 source:c:\users\paul\desktop\world2\clientside\general_shader.cpp
 	"general_shader.h"
 
-1487188804 source:c:\users\paul\desktop\world2\clientside\input.cpp
+1488053368 source:c:\users\paul\desktop\world2\clientside\input.cpp
 	"input.h"
 
 1487188947 source:c:\users\paul\desktop\world2\clientside\light.cpp
 	"light.h"
 
-1487188947 source:c:\users\paul\desktop\world2\clientside\main.cpp
+1488053531 source:c:\users\paul\desktop\world2\clientside\main.cpp
 	"game.h"
 	<iostream>
 
 1487188947 source:c:\users\paul\desktop\world2\clientside\math_utils.cpp
 	"math_utils.h"
 
-<<<<<<< Updated upstream
-1487879803 source:c:\users\paul\desktop\world2\clientside\mesh.cpp
-=======
-1487366552 source:c:\users\paul\desktop\world2\clientside\mesh.cpp
->>>>>>> Stashed changes
+1488050025 source:c:\users\paul\desktop\world2\clientside\mesh.cpp
 	"mesh.h"
 	<iostream>
 
@@ -1681,10 +1678,11 @@
 1487188947 source:c:\users\paul\desktop\world2\clientside\particles\particle_shader.cpp
 	"particle_shader.h"
 
-1486894906 source:c:\users\paul\desktop\world2\clientside\player.cpp
+1488096420 source:c:\users\paul\desktop\world2\clientside\player.cpp
 	"player.h"
 
 1487410884 source:c:\users\paul\desktop\world2\clientside\post_process.cpp
+	"post_process.h"
 	"post_process.h"
 
 1487188947 source:c:\users\paul\desktop\world2\clientside\puzzle_object.cpp
@@ -1706,21 +1704,8 @@
 1487188947 source:c:\users\paul\desktop\world2\clientside\text_shader.cpp
 	"text_shader.h"
 
-<<<<<<< Updated upstream
-1487879798 source:c:\users\paul\desktop\world2\clientside\texture.cpp
+1487886576 source:c:\users\paul\desktop\world2\clientside\texture.cpp
 	"texture.h"
-
-1487880886 c:\users\paul\desktop\world2\clientside\directional_light.h
-	"mesh.h"
-	<glm/glm.hpp>
-	"general_shader.h"
-	"simple_shader.h"
-	<typeinfo>
-	<glm/gtc/matrix_transform.hpp>
-	"g_buffer.h"
-
-1487354503 source:c:\users\paul\desktop\world2\clientside\directional_light.cpp
-	"directional_light.h"
 
 1485071764 source:c:\users\paul\desktop\projects\world2\clientside\box.cpp
 	"box.h"
@@ -1740,18 +1725,6 @@
 	<bullet/btBulletDynamicsCommon.h>
 	<typeinfo>
 	"simple_shader.h"
-=======
-1487704537 source:c:\users\paul\desktop\world2\clientside\texture.cpp
->>>>>>> Stashed changes
-	"texture.h"
 
-1487880891 c:\users\paul\desktop\world2\clientside\post_process.h
-	"framebuffer.h"
-	"simple_shader.h"
-	"mesh.h"
-	<string>
-	"texture.h"
-
-1487410884 source:c:\users\paul\desktop\world2\clientside\post_process.cpp
-	"post_process.h"
+1484246957 ader.h"
 

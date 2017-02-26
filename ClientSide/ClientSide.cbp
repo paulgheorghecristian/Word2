@@ -115,6 +115,8 @@
 		<Unit filename="res/shaders/fragment_sky.txt" />
 		<Unit filename="res/shaders/hBlur.fs" />
 		<Unit filename="res/shaders/hBlur.vs" />
+		<Unit filename="res/shaders/terrain.fs" />
+		<Unit filename="res/shaders/terrain.vs" />
 		<Unit filename="res/shaders/text_fs" />
 		<Unit filename="res/shaders/text_vs" />
 		<Unit filename="res/shaders/vertex" />
