@@ -783,18 +783,13 @@ void Game::initBullet(){
     world->setGravity(btVector3(0, GRAVITY, 0));
     world->setInternalTickCallback(Game::bulletTickCallback, (void*)this, true);
 
-    /*btTransform t;
-
-    t.setIdentity();
-    t.setOrigin(btVector3(0, 0, 0));
-
+    /*
     btStaticPlaneShape* plane = new btStaticPlaneShape(btVector3(0, 1, 0), btScalar(0));
-    btMotionState* motion = new btDefaultMotionState(t);
     btRigidBody::btRigidBodyConstructionInfo info(0.0, motion, plane);
     info.m_restitution = 0.3;
     info.m_friction = 1.0;
     btRigidBody *body = new btRigidBody(info);
-    world->addRigidBody(body);*/
+    //world->addRigidBody(body);*/
 
     terrainMesh = Mesh::loadObject("res/models/terrain.obj");
     int *indices = (int *)malloc(sizeof(int) * terrainMesh->getIndices().size());
@@ -809,6 +804,11 @@ void Game::initBullet(){
         vertices[i+1] = btScalar(terrainMesh->getVertices()[i/3].positionCoords.y * 1600.0f);
         vertices[i+2] = btScalar(terrainMesh->getVertices()[i/3].positionCoords.z * 4800.0f);
     }
+
+    btTransform t;
+    t.setIdentity();
+    t.setOrigin(btVector3(0, 0, 0));
+    btMotionState* motion = new btDefaultMotionState(t);
 
     btTriangleIndexVertexArray *_terrain = new btTriangleIndexVertexArray(terrainMesh->getNumberOfTriangles()/3,
                                                                          indices,
