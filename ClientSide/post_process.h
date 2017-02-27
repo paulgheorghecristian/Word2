@@ -12,6 +12,17 @@ class PostProcess
     public:
         PostProcess(float, float, const std::string&, const std::string&);
         PostProcess(float, float, GLuint, const std::string&, const std::string&);
+        PostProcess(float,
+                     float,
+                     const std::string&,
+                     const std::string&,
+                     std::vector<std::string>&);
+        PostProcess (float,
+                     float,
+                     GLuint,
+                     const std::string&,
+                     const std::string&,
+                     std::vector<std::string>&);
         void bind();
         void process();
         GLuint getResultingTextureId();
@@ -20,11 +31,14 @@ class PostProcess
         virtual ~PostProcess();
     protected:
     private:
+        void constructTextures(std::vector<std::string>&);
+
         Framebuffer fb;
         float width, height;
         SimpleShader processShader;
         Mesh* renderingQuad;
         Texture* inputTexture;
+        std::vector<Texture*> additionalTextures;
 };
 
 #endif // POSTPROCESS_H

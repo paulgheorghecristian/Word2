@@ -44,10 +44,10 @@ void Game::construct(){
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
     lightMesh = Mesh::loadObject("res/models/lightsphere.obj");
-    turretMesh = Mesh::loadObject("res/models/turret3.obj");
-    baseMesh = Mesh::loadObject("res/models/base3.obj");
-    fanMesh = Mesh::loadObject("res/models/fan2.obj");
-    fanBaseMesh = Mesh::loadObject("res/models/fanBase2.obj");
+    turretMesh = Mesh::loadObject("res/models/turret.obj");
+    baseMesh = Mesh::loadObject("res/models/base.obj");
+    fanMesh = Mesh::loadObject("res/models/fan.obj");
+    fanBaseMesh = Mesh::loadObject("res/models/fanBase.obj");
     treeTrunk = Mesh::loadObject("res/models/tree2/tree.obj");
     treeBranch = Mesh::loadObject("res/models/tree2/branch1.obj");
     treeBranch2 = Mesh::loadObject("res/models/tree2/branch2.obj");
@@ -107,7 +107,7 @@ void Game::construct(){
 
     sun = new Entity(world,
                      "screenRectangle",
-                     Mesh::getCircle(0, 0, 300.0, 50),
+                     Mesh::getCircle(0, 0, 100.0, 10),
                      glm::vec4(0.9, 0.7, 0.5, 1),
                      glm::vec3(this->screenWidth/2.0f+50,this->screenHeight/2.0f+300,-4000),
                      glm::vec3(0),
@@ -262,8 +262,6 @@ void Game::construct(){
                                   leaf)
                        );
 
-
-
     float lightsize = 600.0f;
     /*for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
@@ -349,7 +347,7 @@ void Game::construct(){
                                glm::vec3(0, 100.0, 0),
                                glm::vec3(glm::radians(90.0f), 0.0f, glm::radians(90.0f)),
                                glm::vec3(30.0f),
-                               NULL)
+                               new Texture("res/textures/FanBaseTexture.bmp", 0))
                         );
 
     fanEntities.push_back(new Entity(world,
@@ -359,7 +357,7 @@ void Game::construct(){
                                glm::vec3(10200, 1.5, 0),
                                glm::vec3(glm::radians(90.0f), 0.0f, glm::radians(90.0f)),
                                glm::vec3(30.0f),
-                               NULL)
+                               new Texture("res/textures/FanTexture.bmp", 0))
                         );
 
     fanPuzzleObject = new PuzzleObject(world, "fan", fanEntities, [](PuzzleObject* obj){
@@ -383,7 +381,7 @@ void Game::construct(){
                                glm::vec3(0, 100.0, -100),
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(60.0f),
-                               NULL)
+                               new Texture("res/textures/BaseTexture.bmp", 0))
                         );
 
     turretEntities.push_back(new Entity(world,
@@ -393,7 +391,7 @@ void Game::construct(){
                                glm::vec3(0, 68.0f, -100),
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(30.0f),
-                               NULL)
+                               new Texture("res/textures/TurretTexture.bmp", 0))
                         );
 
     turretPuzzleObject = new PuzzleObject(world, "turret", turretEntities,
@@ -419,9 +417,10 @@ void Game::construct(){
     particlePostProcess = new PostProcess(this->screenWidth, this->screenHeight, "particles/post_process.vs", "particles/post_process.fs");
     hBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, particlePostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
-    sunPostProcess = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs");
-    hBlur2 = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, sunPostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
-    wBlur2 = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur2->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
+    std::vector<std::string> paths = {"res/textures/lensflare/lenscolor.bmp", "lensFlareColorSampler"};
+    sunPostProcess = new PostProcess(this->screenWidth/2.0, this->screenHeight/2.0, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs", paths);
+    hBlur2 = new PostProcess(this->screenWidth/8.0f, this->screenHeight/8.0f, sunPostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
+    wBlur2 = new PostProcess(this->screenWidth/8.0f, this->screenHeight/8.0f, hBlur2->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
 }
 
 void Game::handleInput(Game* game){
@@ -661,7 +660,7 @@ void Game::render(){
     {
         glBindFramebuffer(GL_READ_FRAMEBUFFER, gBuffer->getFrameBufferObject());
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, sunPostProcess->getFrameBufferObject());
-        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/4.0f, this->screenHeight/4.0f, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/2.0, this->screenHeight/2.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, particlePostProcess->getFrameBufferObject());
         glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth, this->screenHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);

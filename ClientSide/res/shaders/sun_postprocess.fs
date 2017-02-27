@@ -2,6 +2,7 @@
 
 in vec2 textureCoords;
 uniform sampler2D textureSampler;
+uniform sampler2D lensFlareColorSampler;
 uniform float pixelWidth;
 uniform float pixelHeight;
 out vec4 outColor;
@@ -17,7 +18,7 @@ void main(){
     vec2 coords = textureCoords;
     vec2 center = vec2(sunPosition.x, sunPosition.y);
     vec2 deltaTexCoord = textureCoords - center;
-    int numSamples = 100;
+    int numSamples = 50;
     deltaTexCoord *= (1.0f / float(numSamples)) * density;
 
     vec3 color = texture(textureSampler, textureCoords).xyz;
@@ -30,6 +31,27 @@ void main(){
         color += sample;
         illuminationDecay *= decay;
     }
-   outColor = vec4(color * exposure, 1);
+    vec4 outColor1 = vec4(color * exposure, 1);
 
+    vec2 texcoord = -textureCoords + vec2(1.0);
+    vec2 texelSize = 1.0 / vec2(pixelWidth, pixelHeight);
+    float uGhostDispersal = 0.4f;
+    int uGhosts = 6;
+    float uHaloWidth = 0.5;
+
+    vec2 ghostVec = (vec2(0.5) - texcoord) * uGhostDispersal;
+
+    vec4 result = vec4(0.0);
+    for (int i = 0; i < uGhosts; i++) {
+        vec2 offset = fract(texcoord + ghostVec * float(i));
+        result += texture(textureSampler, offset);
+    }
+
+    vec2 haloVec = normalize(ghostVec) * uHaloWidth;
+    float weight2 = length(vec2(0.5) - fract(texcoord + haloVec)) / length(vec2(0.5));
+    weight2 = pow(1.0 - weight2, 5.0);
+    vec4 outColor2 = texture(textureSampler, texcoord + haloVec) * weight2;
+
+    vec2 texcoord2 = vec2(length(vec2(0.5) - texcoord) / length(vec2(0.5)), 0.0);
+    outColor = outColor1 + (result+outColor2) * texture(lensFlareColorSampler, texcoord2);
 }

@@ -7,7 +7,7 @@ Texture::Texture(std::string textureFilename, int textureUnit, bool hasAlpha, GL
     SDL_Surface* texture = SDL_LoadBMP(textureFilename.c_str());
 
     if(!texture){
-        std::cerr << "Loading texture error!" << std::endl;
+        std::cerr << "Loading texture error! " << textureFilename << std::endl;
         exit(1);
     }
 

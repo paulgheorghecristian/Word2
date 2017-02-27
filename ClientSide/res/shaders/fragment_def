@@ -13,7 +13,7 @@ in vec2 textureCoords;
 
 void main(){
     if(hasTexture == 1){
-        vec3 color = texture(textureSampler, textureCoords).rgb;
+        vec3 color = texture(textureSampler, vec2(textureCoords.x,1.0-textureCoords.y)).rgb;
         if(hasAlpha == 1){
             if(length(color) < 0.4){
                 discard;
