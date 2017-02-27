@@ -1088,7 +1088,7 @@
 
 1487188947 ated upstream
 
-1487886576 c:\users\paul\desktop\world2\clientside\texture.h
+1488122056 c:\users\paul\desktop\world2\clientside\texture.h
 	<string>
 	<SDL2/SDL.h>
 	<GL/glew.h>
@@ -1542,10 +1542,10 @@
 
 1487188947 D
 
-1488097301 source:c:\users\paul\desktop\world2\clientside\game.cpp
+1488222325 source:c:\users\paul\desktop\world2\clientside\game.cpp
 	"game.h"
 
-1488097386 c:\users\paul\desktop\world2\clientside\game.h
+1488122020 c:\users\paul\desktop\world2\clientside\game.h
 	"camera.h"
 	"display.h"
 	"input.h"
@@ -1637,12 +1637,7 @@
 	<vector>
 	<functional>
 
-1487880891 c:\users\paul\desktop\world2\clientside\post_process.h
-	"framebuffer.h"
-	"simple_shader.h"
-	"mesh.h"
-	<string>
-	"texture.h"
+1488120550 c:\users\paul\desktop\world2\clientside\post_process.h
 	"framebuffer.h"
 	"simple_shader.h"
 	"mesh.h"
@@ -1658,7 +1653,7 @@
 1487188947 source:c:\users\paul\desktop\world2\clientside\light.cpp
 	"light.h"
 
-1488053531 source:c:\users\paul\desktop\world2\clientside\main.cpp
+1488117668 source:c:\users\paul\desktop\world2\clientside\main.cpp
 	"game.h"
 	<iostream>
 
@@ -1681,8 +1676,7 @@
 1488096420 source:c:\users\paul\desktop\world2\clientside\player.cpp
 	"player.h"
 
-1487410884 source:c:\users\paul\desktop\world2\clientside\post_process.cpp
-	"post_process.h"
+1488120733 source:c:\users\paul\desktop\world2\clientside\post_process.cpp
 	"post_process.h"
 
 1487188947 source:c:\users\paul\desktop\world2\clientside\puzzle_object.cpp
@@ -1704,7 +1698,7 @@
 1487188947 source:c:\users\paul\desktop\world2\clientside\text_shader.cpp
 	"text_shader.h"
 
-1487886576 source:c:\users\paul\desktop\world2\clientside\texture.cpp
+1488120757 source:c:\users\paul\desktop\world2\clientside\texture.cpp
 	"texture.h"
 
 1485071764 source:c:\users\paul\desktop\projects\world2\clientside\box.cpp
