@@ -28,6 +28,7 @@ class PostProcess
         GLuint getResultingTextureId();
         SimpleShader& getShader();
         GLuint getFrameBufferObject();
+        GLuint getInputTextureId();
         virtual ~PostProcess();
     protected:
     private:

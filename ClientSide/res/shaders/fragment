@@ -27,7 +27,7 @@ vec3 sunPostProcess(){
     return texture(sunPostProcessSampler, textureCoords).xyz;
 }
 vec3 color(){
-    return texture(colorSampler, textureCoords).xyz + particles() + particlesPostProcess() * 2 + sunPostProcess();
+    return texture(colorSampler, textureCoords).xyz + particles() + particlesPostProcess() * 4 + sunPostProcess();
 }
 vec3 world_normal(){
     return texture(normalSampler, textureCoords).xyz;
@@ -38,7 +38,7 @@ vec3 light_accumulation(){
 
 void main(){
     if(outputType == 1) outColor = vec4(color(), 1);
-	if(outputType == 2) outColor = vec4(particlesPostProcess() * 2, 1);
+	if(outputType == 2) outColor = vec4(particlesPostProcess() * 4, 1);
 	if(outputType == 3) outColor = vec4(sunPostProcess(), 1);
 	if(outputType == 4) outColor = vec4(world_normal(), 1);
 	if(outputType == 5) outColor = vec4(light_accumulation(), 1);

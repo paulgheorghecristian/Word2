@@ -78,6 +78,10 @@ GLuint PostProcess::getResultingTextureId(){
     return fb.getRenderTargets()[fb.getRenderTargets().size()-1];
 }
 
+GLuint PostProcess::getInputTextureId(){
+    return inputTexture->getTextureId();
+}
+
 GLuint PostProcess::getFrameBufferObject(){
     return fb.getFrameBufferObject();
 }
