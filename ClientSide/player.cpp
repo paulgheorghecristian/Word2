@@ -31,10 +31,10 @@ void Player::performRayTest(){
     btVector3 playerVel = m_body->getLinearVelocity();
     glm::vec3 playerPosition = getPosition();
     float closestHitFraction = 1000.0f;
-    int values[5][2]={{0, 1},
-                      {0, -1},
-                      {1, 0},
-                      {-1, 0},
+    float values[5][2]={{0, 0.6},
+                      {0, -0.6},
+                      {0.6, 0},
+                      {-0.6, 0},
                       {0,0}
                      };
 
@@ -52,7 +52,6 @@ void Player::performRayTest(){
             }
         }
     }
-
     if(closestHitFraction != -1){
         if(closestHitFraction < EPS && playerVel.y() <= 0){
             isJumping = false;

@@ -49,17 +49,7 @@ void Game::construct(){
     fanMesh = Mesh::loadObject("res/models/fan.obj");
     fanBaseMesh = Mesh::loadObject("res/models/fanBase.obj");
     treeTrunk = Mesh::loadObject("res/models/tree2/tree.obj");
-    treeBranch = Mesh::loadObject("res/models/tree2/branch1.obj");
-    treeBranch2 = Mesh::loadObject("res/models/tree2/branch2.obj");
-    treeBranch3 = Mesh::loadObject("res/models/tree2/branch3.obj");
-    treeBranch4 = Mesh::loadObject("res/models/tree2/branch4.obj");
-    treeBranch5 = Mesh::loadObject("res/models/tree2/branch5.obj");
-    treeBranch6 = Mesh::loadObject("res/models/tree2/branch6.obj");
-    treeBranch7 = Mesh::loadObject("res/models/tree2/branch7.obj");
-    treeBranch8 = Mesh::loadObject("res/models/tree2/branch8.obj");
-    treeBranch9 = Mesh::loadObject("res/models/tree2/branch9.obj");
-    treeBranch10 = Mesh::loadObject("res/models/tree2/branch10.obj");
-    treeBranch11 = Mesh::loadObject("res/models/tree2/branch11.obj");
+    treeBranch = Mesh::loadObject("res/models/tree2/branches2.obj");
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     player = new Player(world, 30.0f, glm::vec3(0.0f, 30.0f, -300.0f), glm::vec3(10));
     fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
@@ -132,6 +122,7 @@ void Game::construct(){
                                     tex1)
                        );
 
+
     /*entities.push_back(new Entity(world,
                                "surface",
                                Mesh::getSurface(500, 500),
@@ -162,99 +153,9 @@ void Game::construct(){
                                   bark)
                        );
 
-    branches.push_back(new Entity(world,
+    entities.push_back(new Entity(world,
                                   "branch",
                                   treeBranch,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-     branches.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch2,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-     branches.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch3,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-     branches.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch4,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-     branches.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch5,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-     branches.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch6,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-     branches.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch7,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-     branches.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch8,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-     branches.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch9,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-     branches.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch10,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-     branches.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch11,
                                   glm::vec4(1,1,1,1),
                                   glm::vec3(300, 10, 0),
                                   glm::vec3(0),
@@ -414,7 +315,6 @@ void Game::construct(){
                                            }
                                         );
     particleRenderer = new ParticleRenderer(projectionMatrix, turretPuzzleObject->getEntities()[1]->getPosition(), 1000);
-    particlePostProcess = new PostProcess(this->screenWidth, this->screenHeight, "particles/post_process.vs", "particles/post_process.fs");
     hBlur = new PostProcess(this->screenWidth/2.0f, this->screenHeight/2.0f, "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
     std::vector<std::string> paths = {"res/textures/lensflare/lenscolor.bmp", "lensFlareColorSampler"};
@@ -606,7 +506,7 @@ void Game::render(){
         sunShader->loadViewMatrix(camera->getViewMatrix());
         sun->draw(sunShader);
         glDepthMask(GL_TRUE);
-
+        glEnable(GL_CULL_FACE);
         blendmap->use();
         soil->use();
         rock->use();
@@ -621,10 +521,6 @@ void Game::render(){
 
         for(Entity* e : entities){
             e->draw(deferredLightShader);
-        }
-        glDisable(GL_CULL_FACE);
-        for(Entity *b : branches){
-            b->draw(deferredLightShader);
         }
 
         fanPuzzleObject->draw(deferredLightShader);
@@ -859,7 +755,6 @@ Game::~Game()
     delete input;
     delete camera;
     delete particleRenderer;
-    delete particlePostProcess;
     delete hBlur;
     delete wBlur;
 

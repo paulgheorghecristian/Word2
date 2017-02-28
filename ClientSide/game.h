@@ -99,7 +99,7 @@ class Game
         SimpleShader *directionalLightShader;
         SimpleShader *emptyShader, *sunSimpleShader;
         SimpleShader *terrainShader;
-        PostProcess *particlePostProcess, *sunPostProcess;
+        PostProcess *sunPostProcess;
         PostProcess *hBlur, *wBlur, *hBlur2, *wBlur2;
         DeferredLightShader *deferredLightShader;
         DeferredLightShader *skyShader, *sunShader;
@@ -110,7 +110,6 @@ class Game
         DirectionalLight *sunLight;
         TextShader* textShader;
         std::vector<Entity*> entities;
-        std::vector<Entity*> branches;
         std::vector<Light*> lights;
         Mesh *boxMesh;
         Mesh *sphereMesh;
