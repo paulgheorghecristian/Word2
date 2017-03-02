@@ -19,7 +19,7 @@ class ParticleRenderer
         ParticleRenderer(const glm::mat4& projectionMatrix,
                          const glm::vec3&,
                            unsigned int numOfParticles);
-        void update(long, Camera *, Entity *, PuzzleObject *);
+        void update(long, Camera *, Entity *, const std::vector<PuzzleObject*>&);
         void draw();
         std::vector<Particle*>& getParticles();
         virtual ~ParticleRenderer();

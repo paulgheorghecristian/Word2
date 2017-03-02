@@ -18,7 +18,7 @@ ParticleRenderer::ParticleRenderer(const glm::mat4& projectionMatrix,
         pos.x += d1 * 6.0f;
         pos.y += d2 * 6.0f;
         pos.z += d3 * 6.0f;
-        particles.push_back(new Particle(pos, glm::vec3(0, 0, -300*d3), rand()%7+3.0f, rand()%5+5));
+        particles.push_back(new Particle(pos, glm::vec3(0, 0, -100*d3), rand()%7+3.0f, rand()%5+5));
     }
 
     matricesBuffer = new float[numOfParticles*16];
@@ -86,7 +86,7 @@ void ParticleRenderer::updateVbo(){
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenerator, PuzzleObject *particleInteractor){
+void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenerator, const std::vector<PuzzleObject*>& particleInteractors){
     /*particles.erase(
         std::remove_if(
         particles.begin(),
@@ -97,30 +97,38 @@ void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenera
         ),
         particles.end()
     );*/
-    glm::vec3 rot = particleInteractor->getEntities()[0]->getRotation();
-    glm::vec3 velocity;
-    float sinX = glm::sin(rot.x);
-    float cosX = glm::cos(rot.x);
-    float sinY = glm::sin(rot.y);
-    float cosY = glm::cos(rot.y);
+    for(PuzzleObject *particleInteractor : particleInteractors){
+        glm::vec3 rot = particleInteractor->getEntities()[0]->getRotation();
+        glm::vec3 velocity;
+        float sinX = glm::sin(rot.x);
+        float cosX = glm::cos(rot.x);
+        float sinY = glm::sin(rot.y);
+        float cosY = glm::cos(rot.y);
 
-    velocity.x = -cosX * sinY;
-    velocity.y = sinX;
-    velocity.z = -cosX * cosY;
+        velocity.x = -cosX * sinY;
+        velocity.y = sinX;
+        velocity.z = -cosX * cosY;
 
-    int offset = 0;
-    for(Particle *p : particles){
-        if(!p->isAlive()){
-            p->reset(particleGenerator->getPosition(), particleGenerator->getRotation());
-        }else{
-            glm::vec3 p1 = glm::vec3(particleInteractor->getEntities()[0]->getModelMatrix()*glm::vec4(particleInteractor->boundingRectangle[0], 1.0));
-            glm::vec3 p2 = glm::vec3(particleInteractor->getEntities()[0]->getModelMatrix()*glm::vec4(particleInteractor->boundingRectangle[1], 1.0));
-            glm::vec3 p3 = glm::vec3(particleInteractor->getEntities()[0]->getModelMatrix()*glm::vec4(particleInteractor->boundingRectangle[3], 1.0));
-            if(MathUtils::isPointInsideRectangle(p1, p2, p3, p->getPosition())){
-                p->addVelocity(velocity * 15.0f * (float)Display::getDelta());
+        glm::vec3 p1 = glm::vec3(particleInteractor->getEntities()[0]->getModelMatrix()*glm::vec4(particleInteractor->boundingRectangle[0], 1.0));
+        glm::vec3 p2 = glm::vec3(particleInteractor->getEntities()[0]->getModelMatrix()*glm::vec4(particleInteractor->boundingRectangle[1], 1.0));
+        glm::vec3 p3 = glm::vec3(particleInteractor->getEntities()[0]->getModelMatrix()*glm::vec4(particleInteractor->boundingRectangle[3], 1.0));
+
+        for(Particle *p : particles){
+            if(p->isAlive()){
+                if(MathUtils::isPointInsideRectangle(p1, p2, p3, p->getPosition())){
+                    p->addVelocity(velocity * 0.5f * particleInteractor->getEntities()[0]->getScale().x * (float)Display::getDelta());
+                }
             }
         }
-        p->update(delta, camera);
+    }
+    int offset = 0;
+    for(Particle *p : particles){
+        if (!p->isAlive()) {
+            p->reset(particleGenerator->getPosition(), particleGenerator->getRotation());
+        } else {
+            p->update(delta, camera);
+        }
+
         insertMatrixInBuffer(p->getViewModelMatrix(), offset);
     }
     updateVbo();

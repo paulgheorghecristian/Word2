@@ -119,8 +119,7 @@ class Game
         Mesh *fanMesh;
         Mesh *fanBaseMesh;
         Mesh *treeTrunk;
-        Mesh *treeBranch, *treeBranch2, *treeBranch3, *treeBranch4, *treeBranch5, *treeBranch6
-        ,*treeBranch7,*treeBranch8,*treeBranch9,*treeBranch10,*treeBranch11;
+        Mesh *treeBranch;
         Mesh *terrainMesh;
         btDynamicsWorld* world;
         btDispatcher* dispatcher;
@@ -147,7 +146,8 @@ class Game
         volatile long numOfLightsVisible;
         bool wasSpaceReleased;
 
-        PuzzleObject* fanPuzzleObject, *turretPuzzleObject;
+        PuzzleObject* fanPuzzleObject, *turretPuzzleObject, *fanPuzzleObject2;
+        std::vector<PuzzleObject*> particleInteractors;
 
         float near, far, aspect, fov;
 };

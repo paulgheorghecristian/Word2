@@ -23,6 +23,6 @@ void main(){
     }else{
         outColor = colorVector.rgb;
 	}
-
-	outEyeSpaceNormal = (normalize(eyeSpaceNormal) + vec3(1)) * 0.5;
+    int frontCond = -(1 - int(gl_FrontFacing)*2);
+	outEyeSpaceNormal = (normalize(eyeSpaceNormal * frontCond) + vec3(1)) * 0.5;
 }

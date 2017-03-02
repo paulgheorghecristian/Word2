@@ -4,7 +4,7 @@ PuzzleObject::PuzzleObject(btDynamicsWorld* world,
                            const std::string& name,
                            const std::vector<Entity*>& entities,
                            const std::function<void(PuzzleObject*)>& entitiesRelationshipFunction,
-                           const std::function<void(PuzzleObject*, unsigned int)>& actionFunction) : name(name),
+                           const std::function<void(PuzzleObject*, unsigned int)>& actionFunction, bool dynamic) : name(name),
                                                                                         entities(entities),
                                                                                         entitiesRelationshipFunction(entitiesRelationshipFunction),
                                                                                         actionFunction(actionFunction)
@@ -14,7 +14,12 @@ PuzzleObject::PuzzleObject(btDynamicsWorld* world,
 
     glm::vec3 position = entities[0]->getPosition();
     scale = entities[0]->getScale();
-    float mass = 20.0f;
+    float mass;
+    if (dynamic) {
+        mass = 20.0f;
+    } else {
+        mass = 0.0f;
+    }
 
     t.setIdentity();
     t.setOrigin(btVector3(position.x, position.y, position.z));
@@ -39,14 +44,16 @@ PuzzleObject::PuzzleObject(btDynamicsWorld* world,
 PuzzleObject::PuzzleObject(btDynamicsWorld* world,
                            const std::string& name,
                            const std::vector<Entity*>& entities,
-                           const std::function<void(PuzzleObject*)>& entitiesRelationshipFunction) : PuzzleObject(world,
-                                                                                                                  name,
-                                                                                                                  entities,
-                                                                                                                  entitiesRelationshipFunction,
-                                                                                                                  [](PuzzleObject* obj, int type){
-                                                                                                                        return;
-                                                                                                                  }
-                                                                                                                  )
+                           const std::function<void(PuzzleObject*)>& entitiesRelationshipFunction,
+                           bool dynamic) : PuzzleObject(world,
+                                              name,
+                                              entities,
+                                              entitiesRelationshipFunction,
+                                              [](PuzzleObject* obj, int type){
+                                                    return;
+                                              },
+                                              dynamic
+                                              )
 {
 }
 

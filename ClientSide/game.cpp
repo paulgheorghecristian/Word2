@@ -97,7 +97,7 @@ void Game::construct(){
 
     sun = new Entity(world,
                      "screenRectangle",
-                     Mesh::getCircle(0, 0, 100.0, 10),
+                     Mesh::getCircle(0, 0, 150.0, 10),
                      glm::vec4(0.9, 0.7, 0.5, 1),
                      glm::vec3(this->screenWidth/2.0f+50,this->screenHeight/2.0f+300,-4000),
                      glm::vec3(0),
@@ -105,9 +105,9 @@ void Game::construct(){
                     NULL);
 
     entities.push_back(new Box(world,
-                                1000.0f,
+                                0.0f,
                                 glm::vec4(1,0,1,1),
-                                glm::vec3(0, 200, 200),
+                                glm::vec3(0, 100, 200),
                                 glm::vec3(0, 0, 0),
                                 glm::vec3(300),
                                 tex1)
@@ -116,7 +116,7 @@ void Game::construct(){
     entities.push_back(new Sphere(world,
                                     100.0f,
                                     glm::vec4(1,1,0,1),
-                                    glm::vec3(100, 100, 0),
+                                    glm::vec3(400, 100, 0),
                                     glm::vec3(0, 0, 0),
                                     30.0f,
                                     tex1)
@@ -197,7 +197,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
 
     DirectionalLight::setMesh(Mesh::getRectangle());
-    sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,5,-4.5));
+    sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,3,-4.5));
 
     near = 1.0f;
     far = 5000.0f;
@@ -245,7 +245,7 @@ void Game::construct(){
                                "fanBase",
                                fanBaseMesh,
                                glm::vec4(0.8, 0.8, 0.5, 1),
-                               glm::vec3(0, 100.0, 0),
+                               glm::vec3(0, 100.0, -250),
                                glm::vec3(glm::radians(90.0f), 0.0f, glm::radians(90.0f)),
                                glm::vec3(30.0f),
                                new Texture("res/textures/FanBaseTexture.bmp", 0))
@@ -265,13 +265,49 @@ void Game::construct(){
                                                                     glm::vec3 pos = obj->getEntities()[0]->getPosition();
                                                                     obj->getEntities()[1]->setPosition(pos.x, pos.y+0.9f, pos.z);
                                                                     obj->getEntities()[1]->addRotation(0, 0, 0.5);
-                                                                }
+                                                                },
+                                                                true
+                                    );
+    fanEntities.clear();
+    fanEntities.push_back(new Entity(world,
+                               "fanBase",
+                               fanBaseMesh,
+                               glm::vec4(0.8, 0.8, 0.5, 1),
+                               glm::vec3(0, 180.0, -500),
+                               glm::vec3(glm::radians(185.0f), 0.0f, glm::radians(.0f)),
+                               glm::vec3(80.0f),
+                               new Texture("res/textures/FanBaseTexture.bmp", 0))
+                        );
+
+    fanEntities.push_back(new Entity(world,
+                               "fan",
+                               fanMesh,
+                               glm::vec4(1.0, 0.5, 0.5, 1),
+                               glm::vec3(10200, 1.5, 0),
+                               glm::vec3(glm::radians(185.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(80.0f),
+                               new Texture("res/textures/FanTexture.bmp", 0))
+                        );
+    fanPuzzleObject2 = new PuzzleObject(world, "fan", fanEntities, [](PuzzleObject* obj){
+                                                                    glm::vec3 pos = obj->getEntities()[0]->getPosition();
+                                                                    obj->getEntities()[1]->setPosition(pos.x, pos.y+0.9f, pos.z);
+                                                                    obj->getEntities()[1]->addRotation(0, 0, 0.5);
+                                                                },
+                                                                false
                                     );
 
     fanPuzzleObject->boundingRectangle[0] = glm::vec3(-0.656439, -0.656439, 0.096338);
     fanPuzzleObject->boundingRectangle[1] = glm::vec3(0.656439, -0.656439, 0.096338);
     fanPuzzleObject->boundingRectangle[2] = glm::vec3(0.656439, 0.656439, 0.096337);
     fanPuzzleObject->boundingRectangle[3] = glm::vec3(-0.656439, 0.656439, 0.096337);
+
+    fanPuzzleObject2->boundingRectangle[0] = glm::vec3(-0.656439, -0.656439, 0.096338);
+    fanPuzzleObject2->boundingRectangle[1] = glm::vec3(0.656439, -0.656439, 0.096338);
+    fanPuzzleObject2->boundingRectangle[2] = glm::vec3(0.656439, 0.656439, 0.096337);
+    fanPuzzleObject2->boundingRectangle[3] = glm::vec3(-0.656439, 0.656439, 0.096337);
+
+    particleInteractors.push_back(fanPuzzleObject);
+    particleInteractors.push_back(fanPuzzleObject2);
 
     std::vector<Entity*> turretEntities;
 
@@ -312,13 +348,14 @@ void Game::construct(){
                                                         break;
                                                     }
                                                 }
-                                           }
+                                           },
+                                           true
                                         );
     particleRenderer = new ParticleRenderer(projectionMatrix, turretPuzzleObject->getEntities()[1]->getPosition(), 1000);
     hBlur = new PostProcess(this->screenWidth/2.0f, this->screenHeight/2.0f, "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
     std::vector<std::string> paths = {"res/textures/lensflare/lenscolor.bmp", "lensFlareColorSampler"};
-    sunPostProcess = new PostProcess(this->screenWidth/2.0, this->screenHeight/2.0, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs", paths);
+    sunPostProcess = new PostProcess(this->screenWidth/4.0, this->screenHeight/4.0, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs", paths);
     hBlur2 = new PostProcess(this->screenWidth/8.0f, this->screenHeight/8.0f, sunPostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur2 = new PostProcess(this->screenWidth/8.0f, this->screenHeight/8.0f, hBlur2->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
 }
@@ -422,12 +459,12 @@ void Game::handleInput(Game* game){
         }
     }
 
-    /*if(input->getKeyDown(SDLK_1)){
+    if(input->getKeyDown(SDLK_t)){
         //how to move a rigid body without breaking the engine
         btTransform transform = player->getRigidBody()->getCenterOfMassTransform();
         transform.setOrigin(btVector3(0, 300, 200));
         player->getRigidBody()->setCenterOfMassTransform(transform);
-    }*/
+    }
 }
 
 void Game::stencil(){
@@ -520,10 +557,16 @@ void Game::render(){
         deferredLightShader->loadViewMatrix(camera->getViewMatrix());
 
         for(Entity* e : entities){
+            if (e->getName().compare("branch") == 0) {
+                glDisable(GL_CULL_FACE);
+            } else {
+                glEnable(GL_CULL_FACE);
+            }
             e->draw(deferredLightShader);
         }
-
-        fanPuzzleObject->draw(deferredLightShader);
+        for(PuzzleObject *pi : particleInteractors){
+            pi->draw(deferredLightShader);
+        }
         turretPuzzleObject->draw(deferredLightShader);
     }
     #endif
@@ -556,7 +599,7 @@ void Game::render(){
     {
         glBindFramebuffer(GL_READ_FRAMEBUFFER, gBuffer->getFrameBufferObject());
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, sunPostProcess->getFrameBufferObject());
-        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/2.0, this->screenHeight/2.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/4.0, this->screenHeight/4.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, hBlur->getFrameBufferObject());
         glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/2.0, this->screenHeight/2.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
@@ -639,9 +682,11 @@ void Game::update(){
     camera->setPosition(player->getPosition() + glm::vec3(0, 20, 0));
 
     player->performRayTest();
-    fanPuzzleObject->update();
+    for(PuzzleObject *particleInteractor : particleInteractors){
+        particleInteractor->update();
+    }
     turretPuzzleObject->update();
-    particleRenderer->update(Display::getDelta(), camera, turretPuzzleObject->getEntities()[1], fanPuzzleObject);
+    particleRenderer->update(Display::getDelta(), camera, turretPuzzleObject->getEntities()[1], particleInteractors);
 }
 
 void Game::run(){
@@ -766,7 +811,7 @@ Game::~Game()
     for(Light* l : lights){
         delete l;
     }
-    delete fanPuzzleObject;
+    delete fanPuzzleObject, fanPuzzleObject2;
     delete turretPuzzleObject;
 
     delete boxMesh;

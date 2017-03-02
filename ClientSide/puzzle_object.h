@@ -11,8 +11,8 @@
 class PuzzleObject
 {
     public:
-        PuzzleObject(btDynamicsWorld*, const std::string&, const std::vector<Entity*>&, const std::function<void(PuzzleObject*)>&);
-        PuzzleObject(btDynamicsWorld*, const std::string&, const std::vector<Entity*>&, const std::function<void(PuzzleObject*)>&, const std::function<void(PuzzleObject*, unsigned int)>&);
+        PuzzleObject(btDynamicsWorld*, const std::string&, const std::vector<Entity*>&, const std::function<void(PuzzleObject*)>&, bool);
+        PuzzleObject(btDynamicsWorld*, const std::string&, const std::vector<Entity*>&, const std::function<void(PuzzleObject*)>&, const std::function<void(PuzzleObject*, unsigned int)>&, bool);
         void update();
         void draw(GeneralShader*);
         void executeAction(unsigned int);
