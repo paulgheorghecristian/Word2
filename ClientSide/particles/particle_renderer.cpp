@@ -18,7 +18,7 @@ ParticleRenderer::ParticleRenderer(const glm::mat4& projectionMatrix,
         pos.x += d1 * 6.0f;
         pos.y += d2 * 6.0f;
         pos.z += d3 * 6.0f;
-        particles.push_back(new Particle(pos, glm::vec3(0, 0, -100*d3), rand()%7+3.0f, rand()%5+5));
+        particles.push_back(new Particle(pos, glm::vec3(0, 0, -300*d3), rand()%7+3.0f, rand()%5+5));
     }
 
     matricesBuffer = new float[numOfParticles*16];
@@ -81,8 +81,7 @@ void ParticleRenderer::insertMatrixInBuffer(glm::mat4& matrix, int& offset){
 
 void ParticleRenderer::updateVbo(){
     glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-    glBufferData(GL_ARRAY_BUFFER, NUM_OF_BYTES_PER_INSTANCE*numOfParticles, (void*)matricesBuffer, GL_STREAM_DRAW);
-    //glBufferSubData(GL_ARRAY_BUFFER, 0, NUM_OF_BYTES_PER_INSTANCE*numOfParticles, (void*)matricesBuffer);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, NUM_OF_BYTES_PER_INSTANCE*numOfParticles, (void*)matricesBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
