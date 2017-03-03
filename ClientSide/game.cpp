@@ -358,6 +358,15 @@ void Game::construct(){
     sunPostProcess = new PostProcess(this->screenWidth/4.0, this->screenHeight/4.0, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs", paths);
     hBlur2 = new PostProcess(this->screenWidth/8.0f, this->screenHeight/8.0f, sunPostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur2 = new PostProcess(this->screenWidth/8.0f, this->screenHeight/8.0f, hBlur2->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
+
+    simpleShader->bind();
+    glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "colorSampler"), 11);
+    glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "depthSampler"), 12);
+    glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "normalSampler"), 14);
+    glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "lightSampler"), 15);
+    glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesPostProcessSampler"), 10);
+    glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesSampler"), 9);
+    glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "sunPostProcessSampler"), 8);
 }
 
 void Game::handleInput(Game* game){
@@ -643,25 +652,18 @@ void Game::render(){
         simpleShader->bind();
         glActiveTexture(GL_TEXTURE0+11);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getColorTexture());
-        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "colorSampler"), 11);
         glActiveTexture(GL_TEXTURE0+12);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getDepthTexture());
-        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "depthSampler"), 12);
         glActiveTexture(GL_TEXTURE0+14);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getNormalTexture());
-        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "normalSampler"), 14);
         glActiveTexture(GL_TEXTURE0+15);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getLightAccumulationTexture());
-        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "lightSampler"), 15);
         glActiveTexture(GL_TEXTURE0+10);
         glBindTexture(GL_TEXTURE_2D, wBlur->getResultingTextureId());
-        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesPostProcessSampler"), 10);
         glActiveTexture(GL_TEXTURE0+9);
         glBindTexture(GL_TEXTURE_2D, hBlur->getInputTextureId());
-        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesSampler"), 9);
         glActiveTexture(GL_TEXTURE0+8);
         glBindTexture(GL_TEXTURE_2D, wBlur2->getResultingTextureId());
-        glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "sunPostProcessSampler"), 8);
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "outputType"), outputType);
         screenRectangle->draw(simpleShader);
 
