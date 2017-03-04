@@ -43,7 +43,7 @@ void Particle::reset(glm::vec3 pos, glm::vec3 rot){
     vel.z = -cosX * cosY;
 
     float d = (float)(rand()) / (RAND_MAX-1);
-    velocity = glm::normalize(vel) * d * 300.0f;
+    velocity = glm::normalize(vel) * d * 200.0f;
     aliveForInMs = 0;
 }
 
