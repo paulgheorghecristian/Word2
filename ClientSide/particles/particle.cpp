@@ -82,7 +82,7 @@ void Particle::draw(ParticleShader *shader){
 }
 
 bool Particle::isAlive(){
-    return aliveForInMs < liveForInS*1000 && position.y > 0;
+    return aliveForInMs < liveForInS*1000 && position.y > 0 && position.y < 2000;
 }
 
 glm::vec3 Particle::addVelocity(glm::vec3 vel){

@@ -106,7 +106,7 @@ void Game::construct(){
 
     entities.push_back(new Box(world,
                                 0.0f,
-                                glm::vec4(1,0,1,1),
+                                glm::vec4(1,1,1,1),
                                 glm::vec3(0, 100, 200),
                                 glm::vec3(0, 0, 0),
                                 glm::vec3(300),
@@ -115,7 +115,7 @@ void Game::construct(){
 
     entities.push_back(new Sphere(world,
                                     100.0f,
-                                    glm::vec4(1,1,0,1),
+                                    glm::vec4(1,1,1,1),
                                     glm::vec3(400, 100, 0),
                                     glm::vec3(0, 0, 0),
                                     30.0f,
@@ -136,7 +136,7 @@ void Game::construct(){
     terrain = new Entity(world,
                            "surface",
                            terrainMesh,
-                           glm::vec4(0.5, 0.5, 0.5, 1),
+                           glm::vec4(1, 1, 1, 1),
                            glm::vec3(0, 0, 0),
                            glm::vec3(0.0f, 0.0f, 0.0f),
                            glm::vec3(4800.0f, 1600.0f, 4800.0f),
@@ -244,7 +244,7 @@ void Game::construct(){
     fanEntities.push_back(new Entity(world,
                                "fanBase",
                                fanBaseMesh,
-                               glm::vec4(0.8, 0.8, 0.5, 1),
+                               glm::vec4(1, 1, 1, 1),
                                glm::vec3(0, 100.0, -250),
                                glm::vec3(glm::radians(90.0f), 0.0f, glm::radians(90.0f)),
                                glm::vec3(30.0f),
@@ -254,7 +254,7 @@ void Game::construct(){
     fanEntities.push_back(new Entity(world,
                                "fan",
                                fanMesh,
-                               glm::vec4(1.0, 0.5, 0.5, 1),
+                               glm::vec4(1, 1, 1, 1),
                                glm::vec3(10200, 1.5, 0),
                                glm::vec3(glm::radians(90.0f), 0.0f, glm::radians(90.0f)),
                                glm::vec3(30.0f),
@@ -272,7 +272,7 @@ void Game::construct(){
     fanEntities.push_back(new Entity(world,
                                "fanBase",
                                fanBaseMesh,
-                               glm::vec4(0.8, 0.8, 0.5, 1),
+                               glm::vec4(1, 1, 1, 1),
                                glm::vec3(0, 180.0, -500),
                                glm::vec3(glm::radians(185.0f), 0.0f, glm::radians(.0f)),
                                glm::vec3(80.0f),
@@ -282,7 +282,7 @@ void Game::construct(){
     fanEntities.push_back(new Entity(world,
                                "fan",
                                fanMesh,
-                               glm::vec4(1.0, 0.5, 0.5, 1),
+                               glm::vec4(1, 1, 1, 1),
                                glm::vec3(10200, 1.5, 0),
                                glm::vec3(glm::radians(185.0f), 0.0f, glm::radians(0.0f)),
                                glm::vec3(80.0f),
@@ -314,7 +314,7 @@ void Game::construct(){
     turretEntities.push_back(new Entity(world,
                                "base",
                                baseMesh,
-                               glm::vec4(0.8, 0.8, 0.5, 1),
+                               glm::vec4(1, 1, 1, 1),
                                glm::vec3(0, 100.0, -100),
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(60.0f),
@@ -324,7 +324,7 @@ void Game::construct(){
     turretEntities.push_back(new Entity(world,
                                "turret",
                                turretMesh,
-                               glm::vec4(0.5, 0.9, 0.5, 1),
+                               glm::vec4(1, 1, 1, 1),
                                glm::vec3(0, 68.0f, -100),
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(30.0f),
@@ -367,6 +367,45 @@ void Game::construct(){
     glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesPostProcessSampler"), 10);
     glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "particlesSampler"), 9);
     glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "sunPostProcessSampler"), 8);
+
+    fanEntities.clear();
+    fanEntities.push_back(new Entity(world,
+                               "fanBase",
+                               fanBaseMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(300, 180.0, -500),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               new Texture("res/textures/FanBaseTexture.bmp", 0))
+                        );
+
+    fanEntities.push_back(new Entity(world,
+                               "fan",
+                               fanMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(10200, 1.5, 0),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               new Texture("res/textures/FanTexture.bmp", 0))
+                        );
+    ob1 = new PickableObject(world, "pickableFan", fanEntities,
+                                          [](PuzzleObject* obj){
+                                                glm::vec3 pos = obj->getEntities()[0]->getPosition();
+                                                obj->getEntities()[1]->setPosition(pos.x, pos.y+0.9f, pos.z);
+                                                obj->getEntities()[1]->addRotation(0, 0, 0.5);
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            );
+    ob1->boundingRectangle[0] = glm::vec3(-0.656439, -0.656439, 0.096338);
+    ob1->boundingRectangle[1] = glm::vec3(0.656439, -0.656439, 0.096338);
+    ob1->boundingRectangle[2] = glm::vec3(0.656439, 0.656439, 0.096337);
+    ob1->boundingRectangle[3] = glm::vec3(-0.656439, 0.656439, 0.096337);
+    ob1->getInteractionSphereBody()->setUserPointer((void *)ob1);
+    PickableObject::setCamera(camera);
+    PickableObject::setPlayer(player);
+    particleInteractors.push_back(ob1);
 }
 
 void Game::handleInput(Game* game){
@@ -420,17 +459,17 @@ void Game::handleInput(Game* game){
         camera->rotateY(input->getMouseDelta().x * 0.002f);
     }
 
-    if(input->getMouseDown(1)){
+    /*if(input->getMouseDown(1)){
         Box* box = new Box(game->getWorld(),
                                     100.0f,
-                                    glm::vec4(1,0,0,1),
+                                    glm::vec4(1,1,1,1),
                                     camera->getPosition() + camera->getForward() * 100.0f,
                                     glm::vec3(0, 0, 0),
                                     glm::vec3(30.0f),
                                     game->tex2);
         box->setLinearVelocity(camera->getForward() * 100.0f);
         game->getEntities().push_back(box);
-    }
+    }*/
 
     if(input->getKeyDown(SDLK_1)){
         game->outputType = 1;
@@ -691,15 +730,31 @@ void Game::update(){
     particleRenderer->update(Display::getDelta(), camera, turretPuzzleObject->getEntities()[1], particleInteractors);
 }
 
+void Game::nonTimeCriticalInput(){
+    if(input->getKey(SDLK_e) && ob1->getIsTouched()){
+        ob1->pickUp();
+    }
+
+    if(input->getMouse(1) && ob1->getIsPickedUp()){
+        ob1->release();
+    }
+}
+
+void Game::resetAll(){
+    ob1->setIsTouched(false);
+}
+
 void Game::run(){
     while(!display->isClosed()){
         display->setLastFrameTime(SDL_GetTicks());
+        resetAll();
 
         timeAccumulator += Display::getDelta();
         while(timeAccumulator >= discreteChunk){
             world->stepSimulation(btScalar(0.5f));
             timeAccumulator -= discreteChunk;
         }
+        nonTimeCriticalInput();
         update();
         render();
     }
@@ -708,6 +763,47 @@ void Game::run(){
 void Game::bulletTickCallback(btDynamicsWorld *world, btScalar timeStep) {
     Game* thisGame = (Game*)world->getWorldUserInfo();
     handleInput(thisGame);
+}
+
+bool Game::bulletCollisionCallback(btManifoldPoint& cp, const btCollisionObjectWrapper *obj1, int id1, int index1,
+                                    const btCollisionObjectWrapper *obj2, int id2, int index2)
+{
+    Player *p = NULL;
+    PickableObject *po = NULL;
+
+    if(obj1->getCollisionObject()->getUserPointer() == 0 ||
+       obj2->getCollisionObject()->getUserPointer() == 0){
+        return false;
+    }
+
+    /*if((po = dynamic_cast<PickableObject*>((PickableObject*)obj1->getCollisionObject()->getUserPointer())) == 0){
+        if((po = dynamic_cast<PickableObject*>((PickableObject*)obj2->getCollisionObject()->getUserPointer())) == 0){
+            return false;
+        } else {
+            if((p = dynamic_cast<Player*>((Player*)obj1->getCollisionObject()->getUserPointer())) == 0){
+                return false;
+            }
+        }
+    } else {
+        if((p = dynamic_cast<Player*>((Player*)obj2->getCollisionObject()->getUserPointer())) == 0){
+            return false;
+        }
+    }
+    //po->getEntities()[0]->setColor(glm::vec4(1,0,0,1));
+    //po->getEntities()[1]->setColor(glm::vec4(1,0,0,1));
+    if(!p || !po){
+        std::cout << "blalba" << std::endl;
+    }
+    std::cout << po->getName() << " " << std::endl;*/
+
+    p = (Player*)obj1->getCollisionObject()->getUserPointer();
+    po = (PickableObject*)obj2->getCollisionObject()->getUserPointer();
+
+    po->setIsTouched(true);
+
+    //std::cout << p->getIsJumping() << " " << po->getName() << std::endl;
+
+    return false;
 }
 
 void Game::initBullet(){
@@ -722,6 +818,7 @@ void Game::initBullet(){
                                         collisionConfig);
     world->setGravity(btVector3(0, GRAVITY, 0));
     world->setInternalTickCallback(Game::bulletTickCallback, (void*)this, true);
+    gContactAddedCallback = Game::bulletCollisionCallback;
 
     /*
     btStaticPlaneShape* plane = new btStaticPlaneShape(btVector3(0, 1, 0), btScalar(0));

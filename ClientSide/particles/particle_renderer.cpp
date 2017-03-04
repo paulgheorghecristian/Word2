@@ -98,6 +98,10 @@ void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenera
         particles.end()
     );*/
     for(PuzzleObject *particleInteractor : particleInteractors){
+        float x = 1.0f;
+        if(particleInteractor->getName().compare("pickableFan") == 0){
+            x = 20.0f;
+        }
         glm::vec3 rot = particleInteractor->getEntities()[0]->getRotation();
         glm::vec3 velocity;
         float sinX = glm::sin(rot.x);
@@ -116,7 +120,7 @@ void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenera
         for(Particle *p : particles){
             if(p->isAlive()){
                 if(MathUtils::isPointInsideRectangle(p1, p2, p3, p->getPosition())){
-                    p->addVelocity(velocity * 0.5f * particleInteractor->getEntities()[0]->getScale().x * (float)Display::getDelta());
+                    p->addVelocity(velocity * 0.05f * x * particleInteractor->getEntities()[0]->getScale().x * (float)Display::getDelta());
                 }
             }
         }

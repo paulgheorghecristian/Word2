@@ -26,6 +26,7 @@
 #include "puzzle_object.h"
 #include "directional_light.h"
 #include "post_process.h"
+#include "pickable_object.h"
 
 #define GRAVITY -30
 #define FORCE 1000
@@ -46,6 +47,8 @@ class Game
         void update();
         void initBullet();
         static void bulletTickCallback(btDynamicsWorld*, btScalar);
+        static bool bulletCollisionCallback(btManifoldPoint& cp, const btCollisionObjectWrapper *obj1, int id1, int index1,
+                                            const btCollisionObjectWrapper *obj2, int id2, int index2);
         static void handleInput(Game*);
         Input* getInput();
         Camera* getCamera();
@@ -88,6 +91,9 @@ class Game
         std::thread getCullLightsThread(){
             return std::thread([=] {cullLights();});
         }
+
+        void nonTimeCriticalInput();
+        void resetAll();
 
         float screenWidth, screenHeight;
         std::string title;
@@ -148,6 +154,8 @@ class Game
 
         PuzzleObject* fanPuzzleObject, *turretPuzzleObject, *fanPuzzleObject2;
         std::vector<PuzzleObject*> particleInteractors;
+
+        PickableObject *ob1;
 
         float near, far, aspect, fov;
 };

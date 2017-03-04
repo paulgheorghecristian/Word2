@@ -29,7 +29,7 @@ Box::Box(btDynamicsWorld* world,
     }
     btMotionState* motion = new btDefaultMotionState(t);
     btRigidBody::btRigidBodyConstructionInfo info(mass, motion, boxShape, inertia);
-    info.m_restitution = 1;
+    info.m_restitution = 0.3;
     info.m_friction = 1.0f;
 
     m_body = new btRigidBody(info);

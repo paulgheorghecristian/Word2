@@ -30,7 +30,7 @@ PuzzleObject::PuzzleObject(btDynamicsWorld* world,
     }
     btMotionState* motion = new btDefaultMotionState(t);
     btRigidBody::btRigidBodyConstructionInfo info(mass, motion, boxShape, inertia);
-    info.m_restitution = 1;
+    info.m_restitution = 0.3;
     info.m_friction = 1.0f;
 
     m_body = new btRigidBody(info);
@@ -85,6 +85,10 @@ std::vector<Entity*>& PuzzleObject::getEntities(){
 
 glm::mat4& PuzzleObject::getModelMatrix(){
     return modelMatrix;
+}
+
+btRigidBody* PuzzleObject::getRigidBody(){
+    return m_body;
 }
 
 PuzzleObject::~PuzzleObject()
