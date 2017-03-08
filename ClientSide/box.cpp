@@ -34,6 +34,10 @@ Box::Box(btDynamicsWorld* world,
 
     m_body = new btRigidBody(info);
     m_body->setDamping(btScalar(0.2), btScalar(0.6));
+    UserPointer *userPointer = new UserPointer();
+    userPointer->type = BOX;
+    userPointer->ptrType.box = this;
+    m_body->setUserPointer((void*)userPointer);
 
     world->addRigidBody(m_body);
 }

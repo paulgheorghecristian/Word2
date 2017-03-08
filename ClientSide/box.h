@@ -2,6 +2,7 @@
 #define BOX_H
 
 #include "entity.h"
+#include "commons.h"
 
 class Box : public Entity
 {

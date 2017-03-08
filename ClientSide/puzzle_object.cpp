@@ -1,4 +1,5 @@
 #include "puzzle_object.h"
+#include "commons.h"
 
 PuzzleObject::PuzzleObject(btDynamicsWorld* world,
                            const std::string& name,
@@ -13,18 +14,28 @@ PuzzleObject::PuzzleObject(btDynamicsWorld* world,
     btVector3 inertia(0, 0, 0);
 
     glm::vec3 position = entities[0]->getPosition();
+    glm::vec3 rotation = entities[0]->getRotation();
     scale = entities[0]->getScale();
     float mass;
     if (dynamic) {
-        mass = 20.0f;
+        mass = 100.0f;
     } else {
         mass = 0.0f;
     }
 
     t.setIdentity();
     t.setOrigin(btVector3(position.x, position.y, position.z));
+    t.setRotation(btQuaternion(rotation.y, rotation.x, rotation.z));
+    //t.setFromOpenGLMatrix(glm::value_ptr(entities[0]->getModelMatrix()));
 
-    btBoxShape* boxShape = new btBoxShape(btVector3(scale.x/1.5f, scale.y/1.5f, scale.z/1.5f));
+    //std::cout << glm::value_ptr(entities[0]->getModelMatrix())[12] << " " << glm::value_ptr(entities[0]->getModelMatrix())[13] << " " << glm::value_ptr(entities[0]->getModelMatrix())[14] << std::endl;
+
+    glm::vec3 maxCoordinates = entities[0]->getMesh()->getMaxCoordinates();
+    glm::vec3 minCoordinates = entities[0]->getMesh()->getMinCoordinates();
+
+    btBoxShape* boxShape = new btBoxShape(btVector3(scale.x * (maxCoordinates.x-minCoordinates.x)/2.0f,
+                                                    scale.y * (maxCoordinates.y-minCoordinates.y)/2.0f,
+                                                    scale.z * (maxCoordinates.z-minCoordinates.z)/2.0f));
     if(mass != 0.0){
         boxShape->calculateLocalInertia(btScalar(mass), inertia);
     }
@@ -37,6 +48,10 @@ PuzzleObject::PuzzleObject(btDynamicsWorld* world,
     m_body->setDamping(btScalar(0.2), btScalar(0.6));
     m_body->setSleepingThresholds(0.0, 0.0);
     m_body->setAngularFactor(0.0);
+    UserPointer *userPointer = new UserPointer();
+    userPointer->type = PUZZLE_OBJECT;
+    userPointer->ptrType.puzzleObject = this;
+    m_body->setUserPointer((void*)userPointer);
 
     world->addRigidBody(m_body);
 }

@@ -85,7 +85,7 @@ void ParticleRenderer::updateVbo(){
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenerator, const std::vector<PuzzleObject*>& particleInteractors){
+void ParticleRenderer::update(Camera *camera, Entity *particleGenerator, const std::vector<PuzzleObject*>& particleInteractors){
     /*particles.erase(
         std::remove_if(
         particles.begin(),
@@ -102,15 +102,9 @@ void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenera
             x = 20.0f;
         }
         glm::vec3 rot = particleInteractor->getEntities()[0]->getRotation();
-        glm::vec3 velocity;
-        float sinX = glm::sin(rot.x);
-        float cosX = glm::cos(rot.x);
-        float sinY = glm::sin(rot.y);
-        float cosY = glm::cos(rot.y);
-
-        velocity.x = -cosX * sinY;
-        velocity.y = sinX;
-        velocity.z = -cosX * cosY;
+        glm::vec3 velocity(0, 1, 0);
+        velocity = glm::vec3(glm::mat3(particleInteractor->getEntities()[0]->getModelMatrix()) * velocity);
+        velocity = glm::normalize(velocity);
 
         glm::vec3 p1 = glm::vec3(particleInteractor->getEntities()[0]->getModelMatrix()*glm::vec4(particleInteractor->boundingRectangle[0], 1.0));
         glm::vec3 p2 = glm::vec3(particleInteractor->getEntities()[0]->getModelMatrix()*glm::vec4(particleInteractor->boundingRectangle[1], 1.0));
@@ -129,7 +123,7 @@ void ParticleRenderer::update(long delta, Camera *camera, Entity *particleGenera
         if (!p->isAlive()) {
             p->reset(particleGenerator->getPosition(), particleGenerator->getRotation());
         } else {
-            p->update(delta, camera);
+            p->update(Display::getDelta(), camera);
         }
 
         insertMatrixInBuffer(p->getViewModelMatrix(), offset);

@@ -4,8 +4,12 @@
 #include "puzzle_object.h"
 #include "player.h"
 #include "camera.h"
+#include "commons.h"
 
 #define PICK_RADIUS 50
+
+class Player;
+struct UserPointer;
 
 class PickableObject : public PuzzleObject
 {
@@ -28,6 +32,12 @@ class PickableObject : public PuzzleObject
         void setIsPickedUp(bool isPickedUp){
             this->isPickedUp = isPickedUp;
         }
+        void setIsColliding(bool isColliding){
+            this->isColliding = isColliding;
+        }
+        bool getIsColliding(){
+            return isColliding;
+        }
         btRigidBody *getInteractionSphereBody(){
             return interactionSphereBody;
         }
@@ -43,9 +53,10 @@ class PickableObject : public PuzzleObject
     protected:
     private:
         btRigidBody *interactionSphereBody;
-        bool isTouched, isPickedUp;
+        bool isTouched, isPickedUp, isColliding;
         static Player *player;
         static Camera *camera;
+        UserPointer *userPointer;
 };
 
 #endif // PICKABLEOBJECT_H

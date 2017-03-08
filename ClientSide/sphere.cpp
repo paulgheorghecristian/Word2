@@ -27,6 +27,10 @@ Sphere::Sphere(btDynamicsWorld* world,
     info.m_friction = 0.3f;
 
     m_body = new btRigidBody(info);
+    UserPointer *userPointer = new UserPointer();
+    userPointer->type = SPHERE;
+    userPointer->ptrType.sphere = this;
+    m_body->setUserPointer((void*)userPointer);
 
     m_body->setDamping(btScalar(0), btScalar(0.3));
     world->addRigidBody(m_body);

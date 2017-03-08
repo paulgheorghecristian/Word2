@@ -4,6 +4,7 @@
 #include <bullet/btBulletDynamicsCommon.h>
 #include <glm/glm.hpp>
 #include <iostream>
+#include "commons.h"
 
 #define DOWN_LENGTH 1000
 #define JUMP_SPEED 100000
@@ -18,6 +19,12 @@ class Player
         void performRayTest();
         bool getIsTouchingGround();
         bool getIsJumping();
+        bool getHasPickedUp(){
+            return hasPickedUp;
+        }
+        void setHasPickedUp(bool hasPickedUp){
+            this->hasPickedUp = hasPickedUp;
+        }
         void jump();
         virtual ~Player();
     protected:
@@ -26,6 +33,7 @@ class Player
         btRigidBody* m_body;
         bool isTouchingGround;
         bool isJumping;
+        bool hasPickedUp;
         const btVector3 down;
         float radius;
 };

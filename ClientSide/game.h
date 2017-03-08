@@ -27,6 +27,7 @@
 #include "directional_light.h"
 #include "post_process.h"
 #include "pickable_object.h"
+#include "commons.h"
 
 #define GRAVITY -30
 #define FORCE 1000
@@ -94,6 +95,7 @@ class Game
 
         void nonTimeCriticalInput();
         void resetAll();
+        void performPickRayTest();
 
         float screenWidth, screenHeight;
         std::string title;
@@ -105,6 +107,7 @@ class Game
         SimpleShader *directionalLightShader;
         SimpleShader *emptyShader, *sunSimpleShader;
         SimpleShader *terrainShader;
+        SimpleShader *guiShader, *goalShader;
         PostProcess *sunPostProcess;
         PostProcess *hBlur, *wBlur, *hBlur2, *wBlur2;
         DeferredLightShader *deferredLightShader;
@@ -112,7 +115,7 @@ class Game
         Player *player;
         Entity *screenRectangle;
         Entity *sky;
-        Entity *sun, *terrain;
+        Entity *sun, *terrain, *crosshair, *goal;
         DirectionalLight *sunLight;
         TextShader* textShader;
         std::vector<Entity*> entities;
@@ -152,10 +155,12 @@ class Game
         volatile long numOfLightsVisible;
         bool wasSpaceReleased;
 
-        PuzzleObject* fanPuzzleObject, *turretPuzzleObject, *fanPuzzleObject2;
+        PuzzleObject *turretPuzzleObject, *fanPuzzleObject2;
         std::vector<PuzzleObject*> particleInteractors;
+        std::vector<PuzzleObject*> puzzleObjects;
+        std::vector<PickableObject*> pickableObjects;
 
-        PickableObject *ob1;
+        PickableObject *ob1, *fanPickableObject;
 
         float near, far, aspect, fov;
 };

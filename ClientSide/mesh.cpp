@@ -1,6 +1,9 @@
 #include "mesh.h"
 #include <iostream>
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) : vertices(vertices), indices(indices)
+Mesh::Mesh(std::vector<Vertex>& vertices,
+           std::vector<unsigned int>& indices,
+           const glm::vec3& maxCoordinates,
+           const glm::vec3& minCoordinates) : vertices(vertices), indices(indices), minCoordinates(minCoordinates), maxCoordinates(maxCoordinates)
 {
     //vao care retine starea meshei
     glGenVertexArrays(1, &vaoHandle);
@@ -27,6 +30,10 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) : 
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(2*sizeof(glm::vec3)));
 }
+
+Mesh::Mesh(std::vector<Vertex>& vertices,
+           std::vector<unsigned int>& indices) : Mesh(vertices, indices, glm::vec3(0), glm::vec3(0))
+{}
 
 Mesh::~Mesh()
 {
@@ -233,9 +240,13 @@ void Mesh::_faceTokenize(const std::string &source, std::vector<std::string> &to
 }
 
 Mesh* Mesh::loadObject(std::string filename){
-
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
+
+    float maxValue = std::numeric_limits<float>::max();
+    float minValue = -maxValue;
+    glm::vec3 _minCoordinates = glm::vec3(maxValue);
+    glm::vec3 _maxCoordinates = glm::vec3(minValue);
 
     std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
 		if(!file.good()){
@@ -259,8 +270,30 @@ Mesh* Mesh::loadObject(std::string filename){
 			if(tokens.size()>0 && tokens[0].at(0)=='#') continue;
 
 			//daca am un vertex
-			if(tokens.size()>3 && tokens[0]=="v") positions.push_back(glm::vec3(_stringToFloat(tokens[1]), _stringToFloat(tokens[2]), _stringToFloat(tokens[3]) ));
-
+			if(tokens.size()>3 && tokens[0]=="v") {
+			    float _x = _stringToFloat(tokens[1]);
+                float _y = _stringToFloat(tokens[2]);
+                float _z = _stringToFloat(tokens[3]);
+                positions.push_back(glm::vec3(_x, _y, _z ));
+                if (_x < _minCoordinates.x) {
+                    _minCoordinates.x = _x;
+                }
+                if (_y < _minCoordinates.y) {
+                    _minCoordinates.y = _y;
+                }
+                if (_z < _minCoordinates.z) {
+                    _minCoordinates.z =_z;
+                }
+                if (_x > _maxCoordinates.x) {
+                    _maxCoordinates.x = _x;
+                }
+                if (_y > _maxCoordinates.y) {
+                    _maxCoordinates.y = _y;
+                }
+                if (_z > _maxCoordinates.z) {
+                    _maxCoordinates.z =_z;
+                }
+			}
 			//daca am o normala
 			if(tokens.size()>3 && tokens[0]=="vn") normals.push_back(glm::vec3(_stringToFloat(tokens[1]), _stringToFloat(tokens[2]), _stringToFloat(tokens[3]) ));
 
@@ -351,5 +384,5 @@ Mesh* Mesh::loadObject(std::string filename){
 			}//end face
 
 		}//end while
-		return new Mesh(vertices, indices);
+		return new Mesh(vertices, indices, _maxCoordinates, _minCoordinates);
 }

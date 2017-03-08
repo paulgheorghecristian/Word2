@@ -2,6 +2,7 @@
 #define SPHERE_H
 
 #include "entity.h"
+#include "commons.h"
 
 class Sphere : public Entity
 {

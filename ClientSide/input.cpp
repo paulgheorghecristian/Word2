@@ -10,7 +10,7 @@ Input::Input() : mousePosition(0.0)
     for(unsigned int i = 0; i < NUM_MOUSE; i++){
         downMouse[i] = false;
         upMouse[i] = false;
-        inputs[i] = false;
+        inputMouse[i] = false;
     }
 }
 

@@ -41,13 +41,15 @@ void Game::construct(){
     skyShader = new DeferredLightShader("res/shaders/vertex_sky.txt", "res/shaders/fragment_sky.txt");
     sunShader = new DeferredLightShader("res/shaders/vertex_sun.txt", "res/shaders/fragment_sun.txt");
     emptyShader = new SimpleShader("res/shaders/vertex_empty", "res/shaders/fragment_empty");
+    guiShader = new SimpleShader("res/shaders/GuiShader.vs", "res/shaders/GuiShader.fs");
+    goalShader = new SimpleShader("res/shaders/goal.vs", "res/shaders/goal.fs");
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
     lightMesh = Mesh::loadObject("res/models/lightsphere.obj");
     turretMesh = Mesh::loadObject("res/models/turret.obj");
     baseMesh = Mesh::loadObject("res/models/base.obj");
-    fanMesh = Mesh::loadObject("res/models/fan.obj");
-    fanBaseMesh = Mesh::loadObject("res/models/fanBase.obj");
+    fanMesh = Mesh::loadObject("res/models/fan2.obj");
+    fanBaseMesh = Mesh::loadObject("res/models/fanBase2.obj");
     treeTrunk = Mesh::loadObject("res/models/tree2/tree.obj");
     treeBranch = Mesh::loadObject("res/models/tree2/branches2.obj");
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
@@ -104,6 +106,24 @@ void Game::construct(){
                      glm::vec3(1),
                     NULL);
 
+    goal = new Entity(world,
+                      "goal",
+                      Mesh::getSurface(10, 10),
+                      glm::vec4(0.5, 0.1, 0.5, 1),
+                      glm::vec3(-30.537, 350.779, -950.82),
+                      glm::vec3(glm::radians(90.0f), 0, 0),
+                      glm::vec3(100.0f),
+                      NULL);
+
+    crosshair = new Entity(world,
+                           "crosshair",
+                           Mesh::getCircle(0, 0, 4.0f, 10),
+                           glm::vec4(1,1,1,1),
+                           glm::vec3(this->screenWidth/2.0, this->screenHeight/2.0, 0),
+                           glm::vec3(0),
+                           glm::vec3(1),
+                           NULL);
+
     entities.push_back(new Box(world,
                                 0.0f,
                                 glm::vec4(1,1,1,1),
@@ -147,7 +167,7 @@ void Game::construct(){
                                   "tree",
                                   treeTrunk,
                                   glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
+                                  glm::vec3(0, 30.0, -580),
                                   glm::vec3(0),
                                   glm::vec3(50),
                                   bark)
@@ -157,13 +177,16 @@ void Game::construct(){
                                   "branch",
                                   treeBranch,
                                   glm::vec4(1,1,1,1),
-                                  glm::vec3(300, 10, 0),
+                                  glm::vec3(0, 30.0, -580),
                                   glm::vec3(0),
                                   glm::vec3(50),
                                   leaf)
                        );
 
     float lightsize = 600.0f;
+    //lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.5, 0.5), glm::vec3(-30.537, 100.779, -800.82), lightsize));
+    //lights.push_back(new Light(gBuffer, glm::vec3(0.2, 0.9, 0.0), glm::vec3(-30.537, 400.779, -800.82), lightsize));
+
     /*for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
             lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
@@ -228,6 +251,12 @@ void Game::construct(){
     sunSimpleShader->bind();
     sunSimpleShader->loadProjectionMatrix(projectionMatrix);
 
+    guiShader->bind();
+    guiShader->loadProjectionMatrix(orthographicProjectionMatrix);
+
+    goalShader->bind();
+    goalShader->loadProjectionMatrix(projectionMatrix);
+
     terrainShader->bind();
     terrainShader->loadProjectionMatrix(projectionMatrix);
     glUniform1i(glGetUniformLocation(terrainShader->getProgram(), "blendmap"), 0);
@@ -245,8 +274,8 @@ void Game::construct(){
                                "fanBase",
                                fanBaseMesh,
                                glm::vec4(1, 1, 1, 1),
-                               glm::vec3(0, 100.0, -250),
-                               glm::vec3(glm::radians(90.0f), 0.0f, glm::radians(90.0f)),
+                               glm::vec3(183.019, 65.7267, 286.942),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
                                glm::vec3(30.0f),
                                new Texture("res/textures/FanBaseTexture.bmp", 0))
                         );
@@ -256,25 +285,27 @@ void Game::construct(){
                                fanMesh,
                                glm::vec4(1, 1, 1, 1),
                                glm::vec3(10200, 1.5, 0),
-                               glm::vec3(glm::radians(90.0f), 0.0f, glm::radians(90.0f)),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(.0f)),
                                glm::vec3(30.0f),
                                new Texture("res/textures/FanTexture.bmp", 0))
                         );
 
-    fanPuzzleObject = new PuzzleObject(world, "fan", fanEntities, [](PuzzleObject* obj){
+    fanPickableObject = new PickableObject(world, "fan", fanEntities, [](PuzzleObject* obj){
                                                                     glm::vec3 pos = obj->getEntities()[0]->getPosition();
-                                                                    obj->getEntities()[1]->setPosition(pos.x, pos.y+0.9f, pos.z);
-                                                                    obj->getEntities()[1]->addRotation(0, 0, 0.5);
+                                                                    obj->getEntities()[1]->setPosition(pos.x, pos.y, pos.z);
+                                                                    obj->getEntities()[1]->addRotation(0, 0.03, 0);
                                                                 },
-                                                                true
+                                                                [](PuzzleObject* obj, unsigned int type){
+                                                                    return;
+                                                               }
                                     );
     fanEntities.clear();
     fanEntities.push_back(new Entity(world,
                                "fanBase",
                                fanBaseMesh,
                                glm::vec4(1, 1, 1, 1),
-                               glm::vec3(0, 180.0, -500),
-                               glm::vec3(glm::radians(185.0f), 0.0f, glm::radians(.0f)),
+                               glm::vec3(0, 200.0, -500),
+                               glm::vec3(glm::radians(90.0f), 0.0f, glm::radians(.0f)),
                                glm::vec3(80.0f),
                                new Texture("res/textures/FanBaseTexture.bmp", 0))
                         );
@@ -284,30 +315,33 @@ void Game::construct(){
                                fanMesh,
                                glm::vec4(1, 1, 1, 1),
                                glm::vec3(10200, 1.5, 0),
-                               glm::vec3(glm::radians(185.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(glm::radians(90.0f), 0.0f, glm::radians(0.0f)),
                                glm::vec3(80.0f),
                                new Texture("res/textures/FanTexture.bmp", 0))
                         );
     fanPuzzleObject2 = new PuzzleObject(world, "fan", fanEntities, [](PuzzleObject* obj){
                                                                     glm::vec3 pos = obj->getEntities()[0]->getPosition();
-                                                                    obj->getEntities()[1]->setPosition(pos.x, pos.y+0.9f, pos.z);
-                                                                    obj->getEntities()[1]->addRotation(0, 0, 0.5);
+                                                                    obj->getEntities()[1]->setPosition(pos.x, pos.y, pos.z);
+                                                                    obj->getEntities()[1]->addRotation(0, 0.5, 0);
                                                                 },
                                                                 false
                                     );
 
-    fanPuzzleObject->boundingRectangle[0] = glm::vec3(-0.656439, -0.656439, 0.096338);
-    fanPuzzleObject->boundingRectangle[1] = glm::vec3(0.656439, -0.656439, 0.096338);
-    fanPuzzleObject->boundingRectangle[2] = glm::vec3(0.656439, 0.656439, 0.096337);
-    fanPuzzleObject->boundingRectangle[3] = glm::vec3(-0.656439, 0.656439, 0.096337);
+    fanPickableObject->boundingRectangle[0] = glm::vec3(-0.656439, 0.096338, -0.656439);
+    fanPickableObject->boundingRectangle[1] = glm::vec3(0.656439, 0.096338, -0.656439);
+    fanPickableObject->boundingRectangle[2] = glm::vec3(0.656439, 0.096337, 0.656439);
+    fanPickableObject->boundingRectangle[3] = glm::vec3(-0.656439, 0.656439, 0.096337);
 
-    fanPuzzleObject2->boundingRectangle[0] = glm::vec3(-0.656439, -0.656439, 0.096338);
-    fanPuzzleObject2->boundingRectangle[1] = glm::vec3(0.656439, -0.656439, 0.096338);
-    fanPuzzleObject2->boundingRectangle[2] = glm::vec3(0.656439, 0.656439, 0.096337);
-    fanPuzzleObject2->boundingRectangle[3] = glm::vec3(-0.656439, 0.656439, 0.096337);
+    fanPuzzleObject2->boundingRectangle[0] = glm::vec3(-0.656439, 0.096338, -0.656439);
+    fanPuzzleObject2->boundingRectangle[1] = glm::vec3(0.656439, 0.096338, -0.656439);
+    fanPuzzleObject2->boundingRectangle[2] = glm::vec3(0.656439, 0.096337, 0.656439);
+    fanPuzzleObject2->boundingRectangle[3] = glm::vec3(-0.656439, 0.096337, 0.656439);
 
-    particleInteractors.push_back(fanPuzzleObject);
+    particleInteractors.push_back(fanPickableObject);
     particleInteractors.push_back(fanPuzzleObject2);
+    puzzleObjects.push_back(fanPuzzleObject2);
+    puzzleObjects.push_back(fanPickableObject);
+    pickableObjects.push_back(fanPickableObject);
 
     std::vector<Entity*> turretEntities;
 
@@ -315,7 +349,7 @@ void Game::construct(){
                                "base",
                                baseMesh,
                                glm::vec4(1, 1, 1, 1),
-                               glm::vec3(0, 100.0, -100),
+                               glm::vec3(0, 45.0, -100),
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(60.0f),
                                new Texture("res/textures/BaseTexture.bmp", 0))
@@ -325,7 +359,7 @@ void Game::construct(){
                                "turret",
                                turretMesh,
                                glm::vec4(1, 1, 1, 1),
-                               glm::vec3(0, 68.0f, -100),
+                               glm::vec3(0, 63.0f, -100),
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(30.0f),
                                new Texture("res/textures/TurretTexture.bmp", 0))
@@ -349,8 +383,9 @@ void Game::construct(){
                                                     }
                                                 }
                                            },
-                                           true
+                                           false
                                         );
+    puzzleObjects.push_back(turretPuzzleObject);
     particleRenderer = new ParticleRenderer(projectionMatrix, turretPuzzleObject->getEntities()[1]->getPosition(), 1000);
     hBlur = new PostProcess(this->screenWidth/2.0f, this->screenHeight/2.0f, "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
@@ -373,8 +408,8 @@ void Game::construct(){
                                "fanBase",
                                fanBaseMesh,
                                glm::vec4(1, 1, 1, 1),
-                               glm::vec3(300, 180.0, -500),
-                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(100.6487, 100.4589, 29.2592),
+                               glm::vec3(glm::radians(270.0f), 0.0f, glm::radians(0.0f)),
                                glm::vec3(30.0f),
                                new Texture("res/textures/FanBaseTexture.bmp", 0))
                         );
@@ -384,28 +419,336 @@ void Game::construct(){
                                fanMesh,
                                glm::vec4(1, 1, 1, 1),
                                glm::vec3(10200, 1.5, 0),
-                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(glm::radians(270.0f), 0.0f, glm::radians(0.0f)),
                                glm::vec3(30.0f),
                                new Texture("res/textures/FanTexture.bmp", 0))
                         );
     ob1 = new PickableObject(world, "pickableFan", fanEntities,
                                           [](PuzzleObject* obj){
                                                 glm::vec3 pos = obj->getEntities()[0]->getPosition();
-                                                obj->getEntities()[1]->setPosition(pos.x, pos.y+0.9f, pos.z);
-                                                obj->getEntities()[1]->addRotation(0, 0, 0.5);
+                                                obj->getEntities()[1]->setPosition(pos.x, pos.y, pos.z);
+                                                obj->getEntities()[1]->addRotation(0, 0.5, 0);
                                             },
                                           [](PuzzleObject* obj, unsigned int type){
                                                 return;
                                            }
                             );
-    ob1->boundingRectangle[0] = glm::vec3(-0.656439, -0.656439, 0.096338);
-    ob1->boundingRectangle[1] = glm::vec3(0.656439, -0.656439, 0.096338);
-    ob1->boundingRectangle[2] = glm::vec3(0.656439, 0.656439, 0.096337);
-    ob1->boundingRectangle[3] = glm::vec3(-0.656439, 0.656439, 0.096337);
-    ob1->getInteractionSphereBody()->setUserPointer((void *)ob1);
+    ob1->boundingRectangle[0] = glm::vec3(-0.656439, 0.096338, -0.656439);
+    ob1->boundingRectangle[1] = glm::vec3(0.656439, 0.096338, -0.656439);
+    ob1->boundingRectangle[2] = glm::vec3(0.656439, 0.096337, 0.656439);
+    ob1->boundingRectangle[3] = glm::vec3(-0.656439, 0.096337, 0.656439);
+
+    particleInteractors.push_back(ob1);
+    pickableObjects.push_back(ob1);
+    puzzleObjects.push_back(ob1);
+
+    std::vector<Entity*> cubeEntities;
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(38.8719, 21.7659, 30.9866),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(25.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(175.001, 46.8874, 118.769),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(183.534, 19.3874, 104.213),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(25.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(103.93, 78.5056, 33.6321 ),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(101.981, 21.0061, 33.0398),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(25.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(176.793, 46.3665, 163.636 ),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(102.564, 51.0056, 34.9733),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(25.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(135.242, 18.0786, 31.411),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(172.28, 18.8665, 157.944),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(187.348, 18.5961, 212.942),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(25.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(143.388, 16.7918, 366.668),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(176.8, 18.6574, 340.072 ),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(195.845, 18.4358, 274.71),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(36.2425, 51.7658, 34.5357 ),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 1, 1),
+                               glm::vec3(174.599, 48.4354, 285.982),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
+    cubeEntities.push_back(new Entity(world,
+                               "fanBase",
+                               boxMesh,
+                               glm::vec4(1, 1, 0, 1),
+                               glm::vec3(183.206, 48.6574, 333.172),
+                               glm::vec3(glm::radians(0.0f), 0.0f, glm::radians(0.0f)),
+                               glm::vec3(30.0f),
+                               tex2)
+                            );
+    pickableObjects.push_back(new PickableObject(world, "pickableCube", cubeEntities,
+                                          [](PuzzleObject* obj){
+                                                return;
+                                            },
+                                          [](PuzzleObject* obj, unsigned int type){
+                                                return;
+                                           }
+                            ));
+    puzzleObjects.push_back(pickableObjects[pickableObjects.size()-1]);
+    cubeEntities.clear();
     PickableObject::setCamera(camera);
     PickableObject::setPlayer(player);
-    particleInteractors.push_back(ob1);
 }
 
 void Game::handleInput(Game* game){
@@ -491,20 +834,6 @@ void Game::handleInput(Game* game){
         float g = (float)rand()/RAND_MAX;
         float b = (float)rand()/RAND_MAX;
         game->lights.push_back(new Light(game->gBuffer, glm::vec3(r,g,b), glm::vec3(pos.x, 100, pos.z), 600.0f));
-    }
-
-    if(input->getKey(SDLK_e)){
-        float distance = glm::distance(player->getPosition(), game->turretPuzzleObject->getEntities()[0]->getPosition());
-        if(distance < 80.0f){
-            game->turretPuzzleObject->executeAction(0);
-        }
-    }
-
-    if(input->getKey(SDLK_r)){
-        float distance = glm::distance(player->getPosition(), game->turretPuzzleObject->getEntities()[0]->getPosition());
-        if(distance < 80.0f){
-            game->turretPuzzleObject->executeAction(1);
-        }
     }
 
     if(input->getKeyDown(SDLK_t)){
@@ -612,10 +941,11 @@ void Game::render(){
             }
             e->draw(deferredLightShader);
         }
-        for(PuzzleObject *pi : particleInteractors){
-            pi->draw(deferredLightShader);
+        for(PuzzleObject *puzzleObject : puzzleObjects){
+            puzzleObject->draw(deferredLightShader);
         }
-        turretPuzzleObject->draw(deferredLightShader);
+        glDisable(GL_CULL_FACE);
+
     }
     #endif
     #if RENDER_LIGHTS == 1
@@ -657,8 +987,12 @@ void Game::render(){
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
         particleRenderer->draw();
-        glDisable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
+        goalShader->bind();
+        glUniform1f(glGetUniformLocation(goalShader->getProgram(), "dt"), SDL_GetTicks()/1000.0f);
+        goalShader->loadViewMatrix(camera->getViewMatrix());
+        goal->draw(goalShader);
+        glDisable(GL_DEPTH_TEST);
         hBlur->process();
         wBlur->bind();
         wBlur->process();
@@ -715,33 +1049,75 @@ void Game::render(){
         fpsText->draw(textShader);
         lightsText->displayNumber(numOfLightsVisible);
         lightsText->draw(textShader);
+        guiShader->bind();
+        crosshair->draw(guiShader);
     }
     display->update();
+}
+
+void Game::performPickRayTest(){
+    if (!player->getHasPickedUp()){
+        glm::vec3 startPosition = player->getPosition() + glm::vec3(0, 20, 0);
+        glm::vec3 endPosition = camera->getForward()*100.0f + startPosition;
+
+        btVector3 from = btVector3(startPosition.x, startPosition.y, startPosition.z);
+        btVector3 to = btVector3(endPosition.x, endPosition.y, endPosition.z);
+
+        btCollisionWorld::ClosestRayResultCallback rayCallback(from, to);
+        world->rayTest(from, to, rayCallback);
+        if(rayCallback.hasHit()){
+            UserPointer *p = (UserPointer*)rayCallback.m_collisionObject->getUserPointer();
+            if (p->type == PICKABLE_OBJECT){
+                p->ptrType.pickableObject->setIsTouched(true);
+            }
+        }
+    }
 }
 
 void Game::update(){
     camera->setPosition(player->getPosition() + glm::vec3(0, 20, 0));
 
     player->performRayTest();
-    for(PuzzleObject *particleInteractor : particleInteractors){
-        particleInteractor->update();
+
+    for(PuzzleObject *puzzleObject : puzzleObjects){
+        puzzleObject->update();
     }
-    turretPuzzleObject->update();
-    particleRenderer->update(Display::getDelta(), camera, turretPuzzleObject->getEntities()[1], particleInteractors);
+    particleRenderer->update(camera, turretPuzzleObject->getEntities()[1], particleInteractors);
 }
 
 void Game::nonTimeCriticalInput(){
-    if(input->getKey(SDLK_e) && ob1->getIsTouched()){
-        ob1->pickUp();
+    performPickRayTest();
+
+    if (input->getKey(SDLK_e)) {
+        for (PickableObject *pickableObject : pickableObjects){
+            if (pickableObject->getIsTouched()){
+                pickableObject->pickUp();
+                player->setHasPickedUp(true);
+                break;
+            }
+        }
     }
 
-    if(input->getMouse(1) && ob1->getIsPickedUp()){
-        ob1->release();
+    if (input->getMouse(1)){
+        for (PickableObject *pickableObject : pickableObjects){
+            if (pickableObject->getIsPickedUp() && !pickableObject->getIsColliding()) {
+                pickableObject->release();
+                player->setHasPickedUp(false);
+                break;
+            }
+        }
     }
 }
 
 void Game::resetAll(){
-    ob1->setIsTouched(false);
+    for(PickableObject *pickableObject : pickableObjects){
+        pickableObject->setIsTouched(false);
+        pickableObject->setIsColliding(false);
+
+        for (Entity *e : pickableObject->getEntities()){
+            e->setColor(glm::vec4(1,1,1,1));
+        }
+    }
 }
 
 void Game::run(){
@@ -768,40 +1144,22 @@ void Game::bulletTickCallback(btDynamicsWorld *world, btScalar timeStep) {
 bool Game::bulletCollisionCallback(btManifoldPoint& cp, const btCollisionObjectWrapper *obj1, int id1, int index1,
                                     const btCollisionObjectWrapper *obj2, int id2, int index2)
 {
-    Player *p = NULL;
-    PickableObject *po = NULL;
-
     if(obj1->getCollisionObject()->getUserPointer() == 0 ||
        obj2->getCollisionObject()->getUserPointer() == 0){
         return false;
     }
 
-    /*if((po = dynamic_cast<PickableObject*>((PickableObject*)obj1->getCollisionObject()->getUserPointer())) == 0){
-        if((po = dynamic_cast<PickableObject*>((PickableObject*)obj2->getCollisionObject()->getUserPointer())) == 0){
-            return false;
-        } else {
-            if((p = dynamic_cast<Player*>((Player*)obj1->getCollisionObject()->getUserPointer())) == 0){
-                return false;
-            }
-        }
-    } else {
-        if((p = dynamic_cast<Player*>((Player*)obj2->getCollisionObject()->getUserPointer())) == 0){
-            return false;
-        }
+    UserPointer *up1, *up2;
+    up1 = (UserPointer*)obj1->getCollisionObject()->getUserPointer();
+    up2 = (UserPointer*)obj2->getCollisionObject()->getUserPointer();
+
+    if (up1->type == PICKABLE_OBJECT && up1->ptrType.pickableObject->getIsPickedUp()) {
+        up1->ptrType.pickableObject->setIsColliding(true);
+        return false;
+    } else if (up2->type == PICKABLE_OBJECT && up2->ptrType.pickableObject->getIsPickedUp()){
+        up2->ptrType.pickableObject->setIsColliding(true);
+        return false;
     }
-    //po->getEntities()[0]->setColor(glm::vec4(1,0,0,1));
-    //po->getEntities()[1]->setColor(glm::vec4(1,0,0,1));
-    if(!p || !po){
-        std::cout << "blalba" << std::endl;
-    }
-    std::cout << po->getName() << " " << std::endl;*/
-
-    p = (Player*)obj1->getCollisionObject()->getUserPointer();
-    po = (PickableObject*)obj2->getCollisionObject()->getUserPointer();
-
-    po->setIsTouched(true);
-
-    //std::cout << p->getIsJumping() << " " << po->getName() << std::endl;
 
     return false;
 }
@@ -819,14 +1177,6 @@ void Game::initBullet(){
     world->setGravity(btVector3(0, GRAVITY, 0));
     world->setInternalTickCallback(Game::bulletTickCallback, (void*)this, true);
     gContactAddedCallback = Game::bulletCollisionCallback;
-
-    /*
-    btStaticPlaneShape* plane = new btStaticPlaneShape(btVector3(0, 1, 0), btScalar(0));
-    btRigidBody::btRigidBodyConstructionInfo info(0.0, motion, plane);
-    info.m_restitution = 0.3;
-    info.m_friction = 1.0;
-    btRigidBody *body = new btRigidBody(info);
-    //world->addRigidBody(body);*/
 
     terrainMesh = Mesh::loadObject("res/models/terrain.obj");
     int *indices = (int *)malloc(sizeof(int) * terrainMesh->getIndices().size());
@@ -858,6 +1208,9 @@ void Game::initBullet(){
     info2.m_restitution = 0.3;
     info2.m_friction = 1.0;
     btRigidBody *m_body = new btRigidBody(info2);
+    UserPointer *userPointer = new UserPointer();
+    userPointer->type = GROUND;
+    m_body->setUserPointer((void*)userPointer);
     world->addRigidBody(m_body);
 }
 
@@ -888,6 +1241,11 @@ glm::vec2 Game::calculateSunPosition(const glm::mat4& projectionMatrix,
 
 Game::~Game()
 {
+    /*for (PickableObject *ob : pickableObjects){
+        std::cout << ob->getName() << " " << ob->getEntities()[0]->getPosition().x << " " << ob->getEntities()[0]->getPosition().y << " " << ob->getEntities()[0]->getPosition().z << std::endl;
+    }*/
+    //std::cout << player->getPosition().x << " " << player->getPosition().y << " " << player->getPosition().z << std::endl;
+
     isClosed = true;
     cullLightsThread.detach();
     std::cout << "Destroying game..." << std::endl;
@@ -895,6 +1253,7 @@ Game::~Game()
     delete simpleShader;
     delete simpleShaderForLights;
     delete emptyShader;
+    delete guiShader;
     delete deferredLightShader;
     delete input;
     delete camera;
@@ -910,7 +1269,9 @@ Game::~Game()
     for(Light* l : lights){
         delete l;
     }
-    delete fanPuzzleObject, fanPuzzleObject2;
+    delete fanPickableObject;
+    delete ob1;
+    delete fanPuzzleObject2;
     delete turretPuzzleObject;
 
     delete boxMesh;

@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <limits>
 
 struct Vertex{
     glm::vec3 positionCoords;
@@ -28,6 +29,7 @@ struct Vertex{
 class Mesh
 {
     public:
+        Mesh(std::vector<Vertex>&, std::vector<unsigned int>&, const glm::vec3& maxCoordinates, const glm::vec3& minCoordinates);
         Mesh(std::vector<Vertex>&, std::vector<unsigned int>&);
         GLuint getVao();
         void draw();
@@ -39,6 +41,12 @@ class Mesh
         static Mesh* getCircle(float, float, float, int);
         std::vector<Vertex>& getVertices(){return vertices;}
         std::vector<unsigned int>& getIndices(){return indices;}
+        glm::vec3& getMinCoordinates(){
+            return minCoordinates;
+        }
+        glm::vec3& getMaxCoordinates(){
+            return maxCoordinates;
+        }
         virtual ~Mesh();
     protected:
     private:
@@ -50,6 +58,7 @@ class Mesh
             GLsizei numberOfTriangles;
             std::vector<Vertex> vertices;
             std::vector<unsigned int> indices;
+            glm::vec3 minCoordinates, maxCoordinates;
             static float _stringToFloat(const std::string &source);
             static unsigned int _stringToUint(const std::string &source);
             static int _stringToInt(const std::string &source);

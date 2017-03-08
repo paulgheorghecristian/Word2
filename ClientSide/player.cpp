@@ -25,9 +25,15 @@ Player::Player(btDynamicsWorld* world, float mass, glm::vec3 position, glm::vec3
     m_body->setAngularFactor(0.0);
     m_body->setCollisionFlags(m_body->getCollisionFlags() |
                               btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
-    m_body->setUserPointer((void*)this);
+
+    UserPointer *userPointer = new UserPointer();
+    userPointer->type = PLAYER;
+    userPointer->ptrType.player = this;
+    m_body->setUserPointer((void*)userPointer);
 
     world->addRigidBody(m_body);
+
+    hasPickedUp = false;
 }
 
 void Player::performRayTest(){

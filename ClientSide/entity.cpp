@@ -36,9 +36,9 @@ glm::mat4& Entity::getModelMatrix(){
 void Entity::computeModelMatrix(){
     glm::mat4 matrix(1.0f);
     modelMatrix = glm::translate(matrix, position);
-    modelMatrix = glm::rotate(modelMatrix, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
     modelMatrix = glm::rotate(modelMatrix, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
     modelMatrix = glm::rotate(modelMatrix, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+    modelMatrix = glm::rotate(modelMatrix, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
     modelMatrix = glm::scale(modelMatrix, scale);
     isModelMatrixModified = false;
 }
@@ -105,16 +105,16 @@ void Entity::addRotation(float rx, float ry, float rz){
     rotation.y += ry;
     rotation.z += rz;
 
-    if(rotation.z > 360.0f){
+    if(rotation.z > glm::radians(360.0f)){
         rotation.z = 0.0f;
     }else if(rotation.z < 0.0f){
-        rotation.z = 360.0f;
+        rotation.z = glm::radians(360.0f);
     }
 
-    if(rotation.y > 360.0f){
+    if(rotation.y > glm::radians(360.0f)){
         rotation.y = 0.0f;
     }else if(rotation.y < 0.0f){
-        rotation.y = 360.0f;
+        rotation.y = glm::radians(360.0f);
     }
 
     isModelMatrixModified = true;
@@ -154,6 +154,10 @@ glm::vec3 Entity::getScale(){
 
 glm::vec4 Entity::getColor(){
     return color;
+}
+
+Mesh* Entity::getMesh(){
+    return mesh;
 }
 
 Entity::~Entity()
