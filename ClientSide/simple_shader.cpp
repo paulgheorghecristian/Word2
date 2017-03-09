@@ -10,6 +10,7 @@ void SimpleShader::getAllUniformLocations(){
     GeneralShader::getAllUniformLocations();
     textureSamplerLocation = glGetUniformLocation(program, "textureSampler");
     hasTextureLocation = glGetUniformLocation(program, "hasTexture");
+    hasAlphaLocation = glGetUniformLocation(program, "hasAlpha");
 }
 
 void SimpleShader::loadTextureSampler(int x){
@@ -18,6 +19,10 @@ void SimpleShader::loadTextureSampler(int x){
 
 void SimpleShader::loadHasTexture(bool hasTexture){
     GeneralShader::loadInt(hasTextureLocation, (int)hasTexture);
+}
+
+void SimpleShader::loadHasAlpha(bool hasAlpha){
+    GeneralShader::loadInt(hasAlphaLocation, (int)hasAlpha);
 }
 
 SimpleShader::~SimpleShader()

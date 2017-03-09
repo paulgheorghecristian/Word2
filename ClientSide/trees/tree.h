@@ -11,7 +11,6 @@ class Tree
         Tree(std::string name, Mesh *trunkMesh, Mesh *crownMesh, glm::vec3 scale);
         Mesh* getTrunkMesh();
         Mesh* getCrownMesh();
-        glm::vec3 getScale();
         virtual ~Tree();
     protected:
 
@@ -19,7 +18,6 @@ class Tree
         std::string name;
         Mesh *trunkMesh;
         Mesh *crownMesh;
-        glm::vec3 scale;
 };
 
 #endif // TREE_H

@@ -2,8 +2,7 @@
 
 Tree::Tree(std::string name,
            Mesh *trunkMesh,
-           Mesh *crownMesh,
-           glm::vec3 scale) : name(name), trunkMesh(trunkMesh), crownMesh(crownMesh), scale(scale)
+           Mesh *crownMesh) : name(name), trunkMesh(trunkMesh), crownMesh(crownMesh)
 {
 
 }
@@ -14,10 +13,6 @@ Mesh* Tree::getTrunkMesh(){
 
 Mesh* Tree::getCrownMesh(){
     return crownMesh;
-}
-
-glm::vec3 Tree::getScale(){
-    return scale;
 }
 
 Tree::~Tree()
