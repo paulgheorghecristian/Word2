@@ -82,7 +82,6 @@ void PuzzleObject::update(){
     m_body->getMotionState()->getWorldTransform(t);
     float mat[16];
     t.getOpenGLMatrix(mat);
-    modelMatrix = glm::mat4(glm::scale(glm::make_mat4(mat), entities[0]->getScale()));
 
     entities[0]->setPosition(mat[12], mat[13], mat[14]);
     entitiesRelationshipFunction(this);

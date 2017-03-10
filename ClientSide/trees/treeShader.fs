@@ -19,7 +19,7 @@ void main(){
                 discard;
             }
         }
-        outColor = color * colorVector.rgb;
+        outColor = color;
     }else{
         outColor = colorVector.rgb;
 	}
