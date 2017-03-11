@@ -50,8 +50,8 @@ void Game::construct(){
     baseMesh = Mesh::loadObject("res/models/base.obj");
     fanMesh = Mesh::loadObject("res/models/fan2.obj");
     fanBaseMesh = Mesh::loadObject("res/models/fanBase2.obj");
-    treeTrunk = Mesh::loadObject("res/models/tree2/tree.obj");
-    treeBranch = Mesh::loadObject("res/models/tree2/branches2.obj");
+    treeTrunk = Mesh::loadObject("res/models/tree2/tree2.obj");
+    treeBranch = Mesh::loadObject("res/models/tree2/branches3.obj");
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     player = new Player(world, 30.0f, glm::vec3(0.0f, 30.0f, -300.0f), glm::vec3(10));
     fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
