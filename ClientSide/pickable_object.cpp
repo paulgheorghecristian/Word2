@@ -33,7 +33,7 @@ void PickableObject::release(){
     m_body->setCollisionFlags(m_body->getCollisionFlags() &
                               ~btCollisionObject::CF_NO_CONTACT_RESPONSE &
                               ~btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
-    player->getRigidBody()->setCollisionFlags(m_body->getCollisionFlags() |
+    player->getRigidBody()->setCollisionFlags(player->getRigidBody()->getCollisionFlags() |
                                               btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 }
 
@@ -47,12 +47,16 @@ void PickableObject::update(){
     if (!isPickedUp) {
         PuzzleObject::update();
     } else {
-        glm::vec3 position = player->getPosition() + glm::vec3(0,20,0) + camera->getForward() * 50.0f;
-        btTransform transform = m_body->getCenterOfMassTransform();
-        transform.setOrigin(btVector3(position.x, position.y, position.z));
+        glm::vec3 dPosition = player->getPosition() + glm::vec3(0,20,0) + camera->getForward() * 50.0f;
+        btTransform transform;
+        m_body->getMotionState()->getWorldTransform(transform);
+        transform.setOrigin(btVector3(dPosition.x, dPosition.y, dPosition.z));
         m_body->setCenterOfMassTransform(transform);
+        m_body->clearForces();
+        m_body->setLinearVelocity( btVector3(0,0,0) );
+        m_body->setAngularVelocity( btVector3(0,0,0) );
 
-        entities[0]->setPosition(position);
+        entities[0]->setPosition(dPosition);
         entitiesRelationshipFunction(this);
     }
 }

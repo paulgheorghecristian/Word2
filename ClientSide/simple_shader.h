@@ -10,10 +10,11 @@ class SimpleShader : public GeneralShader
         void getAllUniformLocations();
         void loadTextureSampler(int);
         void loadHasTexture(bool);
-        virtual ~SimpleShader();
+    	void loadHasAlpha(bool hasAlpha);
+	virtual ~SimpleShader();
     protected:
     private:
-        GLuint textureSamplerLocation, hasTextureLocation;
+        GLuint textureSamplerLocation, hasTextureLocation, hasAlphaLocation;
 };
 
 #endif // SIMPLESHADER_H

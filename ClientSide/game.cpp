@@ -162,7 +162,7 @@ void Game::construct(){
                            glm::vec3(4800.0f, 1600.0f, 4800.0f),
                            NULL
                         );
-
+    #if 0
     entities.push_back(new Entity(world,
                                   "tree",
                                   treeTrunk,
@@ -182,6 +182,7 @@ void Game::construct(){
                                   glm::vec3(50),
                                   leaf)
                        );
+    #endif
 
     float lightsize = 600.0f;
     //lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.5, 0.5), glm::vec3(-30.537, 100.779, -800.82), lightsize));
@@ -210,7 +211,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(300, 100, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 100, -10), lightsize));
-    /*lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, 10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, 10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-300, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
@@ -749,6 +750,19 @@ void Game::construct(){
     cubeEntities.clear();
     PickableObject::setCamera(camera);
     PickableObject::setPlayer(player);
+
+    std::vector<glm::vec3> posRotScale;
+    for(unsigned int i = 0; i < 1; i++){
+        for(unsigned int j = 0; j < 1; j++){
+            posRotScale.push_back(glm::vec3(300.0f+i*100.0f, 0.0, 165.0f+j*100.0f));
+            posRotScale.push_back(glm::vec3(0));
+            posRotScale.push_back(glm::vec3(50.0f));
+        }
+    }
+    posRotScale.push_back(glm::vec3(0, 30.0, -580));
+    posRotScale.push_back(glm::vec3(0));
+    posRotScale.push_back(glm::vec3(50));
+    treeRenderer = new TreeRenderer(posRotScale, new Tree("tree", treeTrunk, treeBranch), projectionMatrix);
 }
 
 void Game::handleInput(Game* game){
@@ -930,6 +944,8 @@ void Game::render(){
         terrainShader->loadViewMatrix(camera->getViewMatrix());
         terrain->draw(terrainShader);
 
+        treeRenderer->draw(camera->getViewMatrix());
+
         deferredLightShader->bind();
         deferredLightShader->loadViewMatrix(camera->getViewMatrix());
 
@@ -945,7 +961,6 @@ void Game::render(){
             puzzleObject->draw(deferredLightShader);
         }
         glDisable(GL_CULL_FACE);
-
     }
     #endif
     #if RENDER_LIGHTS == 1
@@ -1149,14 +1164,20 @@ bool Game::bulletCollisionCallback(btManifoldPoint& cp, const btCollisionObjectW
         return false;
     }
 
+    //std::cout << ((UserPointer*)obj1->getCollisionObject()->getUserPointer())->type << " " << ((UserPointer*)obj2->getCollisionObject()->getUserPointer())->type << std::endl;
+
     UserPointer *up1, *up2;
     up1 = (UserPointer*)obj1->getCollisionObject()->getUserPointer();
     up2 = (UserPointer*)obj2->getCollisionObject()->getUserPointer();
 
-    if (up1->type == PICKABLE_OBJECT && up1->ptrType.pickableObject->getIsPickedUp()) {
+    if (up1->type == PICKABLE_OBJECT &&
+        up1->ptrType.pickableObject->getIsPickedUp() &&
+        up2->type != PLAYER) {
         up1->ptrType.pickableObject->setIsColliding(true);
         return false;
-    } else if (up2->type == PICKABLE_OBJECT && up2->ptrType.pickableObject->getIsPickedUp()){
+    } else if (up2->type == PICKABLE_OBJECT &&
+               up2->ptrType.pickableObject->getIsPickedUp() &&
+               up1->type != PLAYER){
         up2->ptrType.pickableObject->setIsColliding(true);
         return false;
     }
@@ -1244,7 +1265,7 @@ Game::~Game()
     /*for (PickableObject *ob : pickableObjects){
         std::cout << ob->getName() << " " << ob->getEntities()[0]->getPosition().x << " " << ob->getEntities()[0]->getPosition().y << " " << ob->getEntities()[0]->getPosition().z << std::endl;
     }*/
-    //std::cout << player->getPosition().x << " " << player->getPosition().y << " " << player->getPosition().z << std::endl;
+    std::cout << player->getPosition().x << " " << player->getPosition().y << " " << player->getPosition().z << std::endl;
 
     isClosed = true;
     cullLightsThread.detach();
@@ -1287,6 +1308,8 @@ Game::~Game()
     delete broadsphase;
     delete collisionConfig;
     delete solver;
+
+    delete treeRenderer;
 }
 
 Input* Game::getInput(){

@@ -28,6 +28,7 @@
 #include "post_process.h"
 #include "pickable_object.h"
 #include "commons.h"
+#include "trees/tree_renderer.h"
 
 #define GRAVITY -30
 #define FORCE 1000
@@ -161,6 +162,7 @@ class Game
         std::vector<PickableObject*> pickableObjects;
 
         PickableObject *ob1, *fanPickableObject;
+        TreeRenderer *treeRenderer;
 
         float near, far, aspect, fov;
 };
