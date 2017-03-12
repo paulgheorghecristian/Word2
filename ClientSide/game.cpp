@@ -2,6 +2,12 @@
 
 #define RENDER_LIGHTS 1
 #define RENDER_GEOMETRY 1
+#define RENDER_PARTICLES 1
+#define RENDER_EFFECTS 1
+#define RENDER_GUI 1
+#define RENDER_SCREENRECTANGLE 1
+#define UPDATE_PARTICLES 1
+#define ADD_LIGHTS 0
 
 Game::Game(float width, float height, std::string title, Camera* camera) : screenWidth(width), screenHeight(height), title(title)
 {
@@ -45,7 +51,7 @@ void Game::construct(){
     goalShader = new SimpleShader("res/shaders/goal.vs", "res/shaders/goal.fs");
     boxMesh = Mesh::loadObject("res/models/cube4.obj");
     sphereMesh = Mesh::loadObject("res/models/sphere4.obj");
-    lightMesh = Mesh::loadObject("res/models/lightsphere.obj");
+    lightMesh = Mesh::loadObject("res/models/lightlightsphere.obj");
     turretMesh = Mesh::loadObject("res/models/turret.obj");
     baseMesh = Mesh::loadObject("res/models/base.obj");
     fanMesh = Mesh::loadObject("res/models/fan2.obj");
@@ -117,7 +123,7 @@ void Game::construct(){
 
     crosshair = new Entity(world,
                            "crosshair",
-                           Mesh::getCircle(0, 0, 4.0f, 10),
+                           Mesh::getCircle(0, 0, 2.0f, 10),
                            glm::vec4(1,1,1,1),
                            glm::vec3(this->screenWidth/2.0, this->screenHeight/2.0, 0),
                            glm::vec3(0),
@@ -162,64 +168,44 @@ void Game::construct(){
                            glm::vec3(4800.0f, 1600.0f, 4800.0f),
                            NULL
                         );
-    #if 0
-    entities.push_back(new Entity(world,
-                                  "tree",
-                                  treeTrunk,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(0, 30.0, -580),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  bark)
-                       );
-
-    entities.push_back(new Entity(world,
-                                  "branch",
-                                  treeBranch,
-                                  glm::vec4(1,1,1,1),
-                                  glm::vec3(0, 30.0, -580),
-                                  glm::vec3(0),
-                                  glm::vec3(50),
-                                  leaf)
-                       );
-    #endif
 
     float lightsize = 600.0f;
     //lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.5, 0.5), glm::vec3(-30.537, 100.779, -800.82), lightsize));
     //lights.push_back(new Light(gBuffer, glm::vec3(0.2, 0.9, 0.0), glm::vec3(-30.537, 400.779, -800.82), lightsize));
 
-    /*for(int i = 0; i < 10; i++){
-        for(int j = 0; j < 10; j++){
+    #if ADD_LIGHTS == 1
+    /*for(int i = 0; i < 20; i++){
+        for(int j = 0; j < 20; j++){
             lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
         }
-    }*/
-    /*lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(0, 100, 400), lightsize));
+    }
+    lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(0, 100, 400), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(0, 100, 0), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(100, 100, 200), lightsize));*/
 
-    /*lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.9), glm::vec3(-400, 100, -200), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.9), glm::vec3(-400, 100, -200), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.9, 0.9), glm::vec3(400, 100, -200), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 0.9, 0.4), glm::vec3(0, 100, -200), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.9, 0.2), glm::vec3(-400, 100, -400), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.3), glm::vec3(400, 100, -400), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.4, 0.9), glm::vec3(0, 100, -400), lightsize));
 
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(500, 100, 400), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 0), glm::vec3(500, 100, -1000), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 0), glm::vec3(500, 100, -100), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, 400), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.2, 1), glm::vec3(500, 100, -1000), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(30, 100, 500), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(300, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 100, -10), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, 10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 0.2), glm::vec3(10, 100, -10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.7, 0, 1), glm::vec3(-30, 100, 10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-300, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, -10), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(-20, 30, -100), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.3, 1, 0.4), glm::vec3(-20, 30, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-30, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
-
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
+    #endif
     DirectionalLight::setMesh(Mesh::getRectangle());
     sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,3,-4.5));
 
@@ -752,8 +738,8 @@ void Game::construct(){
     PickableObject::setPlayer(player);
 
     std::vector<glm::vec3> posRotScale;
-    for(unsigned int i = 0; i < 1; i++){
-        for(unsigned int j = 0; j < 1; j++){
+    for(unsigned int i = 0; i < 5; i++){
+        for(unsigned int j = 0; j < 5; j++){
             posRotScale.push_back(glm::vec3(300.0f+i*100.0f, 0.0, 165.0f+j*100.0f));
             posRotScale.push_back(glm::vec3(0));
             posRotScale.push_back(glm::vec3(50.0f));
@@ -950,11 +936,6 @@ void Game::render(){
         deferredLightShader->loadViewMatrix(camera->getViewMatrix());
 
         for(Entity* e : entities){
-            if (e->getName().compare("branch") == 0) {
-                glDisable(GL_CULL_FACE);
-            } else {
-                glEnable(GL_CULL_FACE);
-            }
             e->draw(deferredLightShader);
         }
         for(PuzzleObject *puzzleObject : puzzleObjects){
@@ -990,6 +971,7 @@ void Game::render(){
 
     gBuffer->unbind();
     {
+        #if RENDER_EFFECTS
         glBindFramebuffer(GL_READ_FRAMEBUFFER, gBuffer->getFrameBufferObject());
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, sunPostProcess->getFrameBufferObject());
         glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/4.0, this->screenHeight/4.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
@@ -1001,12 +983,18 @@ void Game::render(){
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
+        #endif
+        #if RENDER_PARTICLES
         particleRenderer->draw();
+        #endif
+        #if RENDER_GEOMETRY
         glDisable(GL_CULL_FACE);
         goalShader->bind();
         glUniform1f(glGetUniformLocation(goalShader->getProgram(), "dt"), SDL_GetTicks()/1000.0f);
         goalShader->loadViewMatrix(camera->getViewMatrix());
         goal->draw(goalShader);
+        #endif
+        #if RENDER_EFFECTS
         glDisable(GL_DEPTH_TEST);
         hBlur->process();
         wBlur->bind();
@@ -1029,9 +1017,11 @@ void Game::render(){
         hBlur2->process();
         wBlur2->bind();
         wBlur2->process();
+        #endif
     }
 
     {
+        #if RENDER_SCREENRECTANGLE
         glDisable(GL_CULL_FACE);
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_STENCIL_TEST);
@@ -1054,7 +1044,9 @@ void Game::render(){
         glBindTexture(GL_TEXTURE_2D, wBlur2->getResultingTextureId());
         glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "outputType"), outputType);
         screenRectangle->draw(simpleShader);
+        #endif
 
+        #if RENDER_GUI
         glDisable(GL_DEPTH_TEST);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -1066,6 +1058,7 @@ void Game::render(){
         lightsText->draw(textShader);
         guiShader->bind();
         crosshair->draw(guiShader);
+        #endif
     }
     display->update();
 }
@@ -1097,7 +1090,9 @@ void Game::update(){
     for(PuzzleObject *puzzleObject : puzzleObjects){
         puzzleObject->update();
     }
+    #if UPDATE_PARTICLES == 1
     particleRenderer->update(camera, turretPuzzleObject->getEntities()[1], particleInteractors);
+    #endif
 }
 
 void Game::nonTimeCriticalInput(){
@@ -1139,12 +1134,14 @@ void Game::run(){
     while(!display->isClosed()){
         display->setLastFrameTime(SDL_GetTicks());
         resetAll();
-
+        //printf("%d\n", Display::getDelta());
         timeAccumulator += Display::getDelta();
         while(timeAccumulator >= discreteChunk){
-            world->stepSimulation(btScalar(0.5f));
+            world->stepSimulation(btScalar(0.1f));
             timeAccumulator -= discreteChunk;
         }
+        world->stepSimulation(btScalar(0.1f * (float)timeAccumulator/discreteChunk));
+        timeAccumulator = 0;
         nonTimeCriticalInput();
         update();
         render();

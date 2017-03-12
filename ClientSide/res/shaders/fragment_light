@@ -23,7 +23,7 @@ void main(){
     vec3 worldPosition = view * eyeZ;
     vec3 dir = lightPositionEyeSpace - worldPosition;
     float l = length(dir);
-    if(l-550.0f > 0.001){
+    if(l-500.0f > 0.001){
         discard;
     }
     vec3 eyeSpaceNormal = texture(eyeSpaceNormalSampler, texCoord).rgb * 2.0 - vec3(1);
