@@ -174,14 +174,14 @@ void Game::construct(){
     //lights.push_back(new Light(gBuffer, glm::vec3(0.2, 0.9, 0.0), glm::vec3(-30.537, 400.779, -800.82), lightsize));
 
     #if ADD_LIGHTS == 1
-    /*for(int i = 0; i < 20; i++){
+    for(int i = 0; i < 20; i++){
         for(int j = 0; j < 20; j++){
             lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
         }
     }
     lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(0, 100, 400), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(0, 100, 0), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(100, 100, 200), lightsize));*/
+    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(100, 100, 200), lightsize));
 
     lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.9), glm::vec3(-400, 100, -200), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.9, 0.9), glm::vec3(400, 100, -200), lightsize));
@@ -1134,14 +1134,13 @@ void Game::run(){
     while(!display->isClosed()){
         display->setLastFrameTime(SDL_GetTicks());
         resetAll();
-        //printf("%d\n", Display::getDelta());
+
         timeAccumulator += Display::getDelta();
         while(timeAccumulator >= discreteChunk){
-            world->stepSimulation(btScalar(0.1f));
+            world->stepSimulation(btScalar(0.5f));
             timeAccumulator -= discreteChunk;
         }
-        world->stepSimulation(btScalar(0.1f * (float)timeAccumulator/discreteChunk));
-        timeAccumulator = 0;
+
         nonTimeCriticalInput();
         update();
         render();

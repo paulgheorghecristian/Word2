@@ -47,14 +47,14 @@ void PickableObject::update(){
     if (!isPickedUp) {
         PuzzleObject::update();
     } else {
+        m_body->clearForces();
+        m_body->setLinearVelocity(btVector3(0,0,0));
+        m_body->setAngularVelocity(btVector3(0,0,0));
         glm::vec3 dPosition = player->getPosition() + glm::vec3(0,20,0) + camera->getForward() * 50.0f;
         btTransform transform;
         m_body->getMotionState()->getWorldTransform(transform);
         transform.setOrigin(btVector3(dPosition.x, dPosition.y, dPosition.z));
         m_body->setCenterOfMassTransform(transform);
-        m_body->clearForces();
-        m_body->setLinearVelocity( btVector3(0,0,0) );
-        m_body->setAngularVelocity( btVector3(0,0,0) );
 
         entities[0]->setPosition(dPosition);
         entitiesRelationshipFunction(this);
