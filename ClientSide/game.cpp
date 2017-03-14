@@ -7,7 +7,7 @@
 #define RENDER_GUI 1
 #define RENDER_SCREENRECTANGLE 1
 #define UPDATE_PARTICLES 1
-#define ADD_LIGHTS 0
+#define ADD_LIGHTS 1
 
 Game::Game(float width, float height, std::string title, Camera* camera) : screenWidth(width), screenHeight(height), title(title)
 {
@@ -174,26 +174,25 @@ void Game::construct(){
     //lights.push_back(new Light(gBuffer, glm::vec3(0.2, 0.9, 0.0), glm::vec3(-30.537, 400.779, -800.82), lightsize));
 
     #if ADD_LIGHTS == 1
-    for(int i = 0; i < 20; i++){
+    lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(786, 100, -211), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.2, 0.9), glm::vec3(782, 100, -516), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.5, 0.3, 0.9), glm::vec3(595, 100, -402), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.4), glm::vec3(117, 100, 493), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.3, 0.9), glm::vec3(-105, 100, 619), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.1, 0.5, 0.7), glm::vec3(-636, 100, 366), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.3, 0.8), glm::vec3(-659, 100, 650), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.7), glm::vec3(-386, 100, 481), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.8), glm::vec3(4, 100, -104), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 0), glm::vec3(11, 100, -447), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0.1, 0.4), glm::vec3(-365, 100, 696), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.2, 1), glm::vec3(995, 100, 717), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(0.8, 0, 1), glm::vec3(174, 100, 216), lightsize));
+    /*for(int i = 0; i < 20; i++){
         for(int j = 0; j < 20; j++){
             lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
         }
     }
-    lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(0, 100, 400), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(0, 100, 0), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.9), glm::vec3(100, 100, 200), lightsize));
 
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.9), glm::vec3(-400, 100, -200), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.9, 0.9), glm::vec3(400, 100, -200), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.1, 0.9, 0.4), glm::vec3(0, 100, -200), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.9, 0.2), glm::vec3(-400, 100, -400), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.9, 0.3), glm::vec3(400, 100, -400), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.4, 0.9), glm::vec3(0, 100, -400), lightsize));
-
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 0), glm::vec3(500, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(500, 100, 400), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.2, 1), glm::vec3(500, 100, -1000), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(30, 100, 500), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.1, 1, 0.4), glm::vec3(20, 30, 100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(300, 100, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 0.2), glm::vec3(10, 100, -10), lightsize));
@@ -204,7 +203,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(-30, 100, -10), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(0.3, 1, 0.4), glm::vec3(-20, 30, -100), lightsize));
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0.6, 0), glm::vec3(-30, 100, -100), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));
+    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
     #endif
     DirectionalLight::setMesh(Mesh::getRectangle());
     sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,3,-4.5));
@@ -738,13 +737,97 @@ void Game::construct(){
     PickableObject::setPlayer(player);
 
     std::vector<glm::vec3> posRotScale;
-    for(unsigned int i = 0; i < 5; i++){
-        for(unsigned int j = 0; j < 5; j++){
-            posRotScale.push_back(glm::vec3(300.0f+i*100.0f, 0.0, 165.0f+j*100.0f));
-            posRotScale.push_back(glm::vec3(0));
-            posRotScale.push_back(glm::vec3(50.0f));
-        }
-    }
+
+    posRotScale.push_back(glm::vec3(787, 60, -516));
+    posRotScale.push_back(glm::vec3(0, glm::radians(36.0f), 0));
+    posRotScale.push_back(glm::vec3(50.0f));
+    posRotScale.push_back(glm::vec3(602, 30, -406));
+    posRotScale.push_back(glm::vec3(0, glm::radians(110.0f), 0));
+    posRotScale.push_back(glm::vec3(40.0f));
+    posRotScale.push_back(glm::vec3(787, 40, -216));
+    posRotScale.push_back(glm::vec3(0, glm::radians(160.0f), 0));
+    posRotScale.push_back(glm::vec3(60.0f));
+
+    posRotScale.push_back(glm::vec3(-690.0f, 10.0, 302.0f));
+    posRotScale.push_back(glm::vec3(0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-700.0f, 20.0, 402.0f));
+    posRotScale.push_back(glm::vec3(0));
+    posRotScale.push_back(glm::vec3(30.0f));
+
+    posRotScale.push_back(glm::vec3(-790.0f, 26.0, 502.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(123.0f), 0));
+    posRotScale.push_back(glm::vec3(40.0f));
+
+    posRotScale.push_back(glm::vec3(-690.0f, 30.0, 602.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(53.0f), 0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-340.0f, 10.0, 302.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(102.0f), 0));
+    posRotScale.push_back(glm::vec3(40.0f));
+
+    posRotScale.push_back(glm::vec3(-690.0f, 30.0, 702.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(156.0f), 0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-590.0f, 10.0, 402.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(243.0f), 0));
+    posRotScale.push_back(glm::vec3(40.0f));
+
+    posRotScale.push_back(glm::vec3(-390.0f, 10.0, 602.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(40.0f), 0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-290.0f, 30.0, 702.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(303.0f), 0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-490.0f, 10.0, 402.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(143.0f), 0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-90.0f, 10.0, 602.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(203.0f), 0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-390.0f, 10.0, 402.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(156.0f), 0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(110.0f, 5.0, 502.0f));
+    posRotScale.push_back(glm::vec3(0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(590.0f, 0.0, 602.0f));
+    posRotScale.push_back(glm::vec3(0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(990.0f, 0.0, 720.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(250.0f), 0));
+    posRotScale.push_back(glm::vec3(60.0f));
+
+    posRotScale.push_back(glm::vec3(110.0f, 10.0, 702.0f));
+    posRotScale.push_back(glm::vec3(0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-690.0f, 20.0, -102.0f));
+    posRotScale.push_back(glm::vec3(0, glm::radians(321.0f), 0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-390.0f, 30.0, 602.0f));
+    posRotScale.push_back(glm::vec3(0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-390.0f, 45.0, 802.0f));
+    posRotScale.push_back(glm::vec3(0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
+    posRotScale.push_back(glm::vec3(-290.0f, 30.0, 780.0f));
+    posRotScale.push_back(glm::vec3(0));
+    posRotScale.push_back(glm::vec3(50.0f));
+
     posRotScale.push_back(glm::vec3(0, 30.0, -580));
     posRotScale.push_back(glm::vec3(0));
     posRotScale.push_back(glm::vec3(50));
@@ -1262,6 +1345,10 @@ Game::~Game()
         std::cout << ob->getName() << " " << ob->getEntities()[0]->getPosition().x << " " << ob->getEntities()[0]->getPosition().y << " " << ob->getEntities()[0]->getPosition().z << std::endl;
     }*/
     std::cout << player->getPosition().x << " " << player->getPosition().y << " " << player->getPosition().z << std::endl;
+
+    /*for(Light *l : lights){
+        std::cout << l->getPosition().x << " " << l->getPosition().z << std::endl;
+    }*/
 
     isClosed = true;
     cullLightsThread.detach();
