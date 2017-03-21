@@ -3,14 +3,16 @@
 Mesh* Box::mesh;
 
 Box::Box(btDynamicsWorld* world,
+         Mesh *mesh,
          float mass,
          glm::vec4 color,
          glm::vec3 position,
          glm::vec3 rotation,
          glm::vec3 scale,
+         glm::vec3 boundingBoxScale,
          Texture* texture) :  Entity(world,
                                     "box",
-                                    Box::mesh,
+                                    mesh,
                                     color,
                                     position,
                                     rotation,
@@ -22,8 +24,9 @@ Box::Box(btDynamicsWorld* world,
 
     t.setIdentity();
     t.setOrigin(btVector3(position.x, position.y, position.z));
+    t.setRotation(btQuaternion(rotation.y, rotation.x, rotation.z));
 
-    btBoxShape* boxShape = new btBoxShape(btVector3(scale.x/2.0, scale.y/2.0, scale.z/2.0));
+    btBoxShape* boxShape = new btBoxShape(btVector3(boundingBoxScale.x/2.0, boundingBoxScale.y/2.0, boundingBoxScale.z/2.0));
     if(mass != 0.0){
         boxShape->calculateLocalInertia(btScalar(mass), inertia);
     }
@@ -40,6 +43,17 @@ Box::Box(btDynamicsWorld* world,
     m_body->setUserPointer((void*)userPointer);
 
     world->addRigidBody(m_body);
+}
+
+Box::Box(btDynamicsWorld* world,
+         float mass,
+         glm::vec4 color,
+         glm::vec3 position,
+         glm::vec3 rotation,
+         glm::vec3 scale,
+         Texture* texture) :  Box(world, Box::mesh, mass, color, position, rotation, scale, scale, texture)
+{
+
 }
 
 void Box::draw(GeneralShader *shader){

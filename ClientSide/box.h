@@ -8,6 +8,7 @@ class Box : public Entity
 {
     public:
         Box(btDynamicsWorld*, float, glm::vec4, glm::vec3, glm::vec3, glm::vec3, Texture* texture);
+        Box(btDynamicsWorld*, Mesh *, float, glm::vec4, glm::vec3, glm::vec3, glm::vec3, glm::vec3, Texture* texture);
         static void setMesh(Mesh*);
         void draw(GeneralShader*);
         void setLinearVelocity(glm::vec3);

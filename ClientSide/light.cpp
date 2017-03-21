@@ -1,12 +1,12 @@
 #include "light.h"
 
 Mesh* Light::mesh;
+GBuffer* Light::gBuffer;
 
-Light::Light(GBuffer* gBuffer, glm::vec3 color, glm::vec3 position, float radius) : gBuffer(gBuffer),
-                                                                                    color(color),
-                                                                                    position(position),
-                                                                                    radius(radius),
-                                                                                    renderIt(true)
+Light::Light(glm::vec3 color, glm::vec3 position, float radius) :   color(color),
+                                                                    position(position),
+                                                                    radius(radius),
+                                                                    renderIt(true)
 {
 
 }
@@ -24,6 +24,7 @@ void Light::draw(GeneralShader* shader){
         glUniform3f(glGetUniformLocation(ss->getProgram(), "lightPosition"), position.x, position.y, position.z);
         glUniform1i(glGetUniformLocation(ss->getProgram(), "screenWidth"), gBuffer->getWidth());
         glUniform1i(glGetUniformLocation(ss->getProgram(), "screenHeight"), gBuffer->getHeight());
+        glUniform1f(glGetUniformLocation(ss->getProgram(), "cutOff"), radius-100.0f);
         glEnable(GL_TEXTURE_2D);
         glActiveTexture(GL_TEXTURE0+14);
         glBindTexture(GL_TEXTURE_2D, gBuffer->getNormalTexture());
@@ -44,6 +45,10 @@ bool Light::getRenderIt(){
     return renderIt;
 }
 
+void Light::setPosition(glm::vec3 position) {
+    this->position = position;
+}
+
 glm::vec3 Light::getPosition(){
     return position;
 }
@@ -54,6 +59,10 @@ float Light::getRadius(){
 
 void Light::setMesh(Mesh* _mesh){
     mesh = _mesh;
+}
+
+void Light::setGBuffer(GBuffer* buffer) {
+    gBuffer = buffer;
 }
 
 Light::~Light()

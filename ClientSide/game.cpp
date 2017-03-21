@@ -83,6 +83,7 @@ void Game::construct(){
     Box::setMesh(boxMesh);
     Sphere::setMesh(sphereMesh);
     Light::setMesh(lightMesh);
+    Light::setGBuffer(gBuffer);
     outputType = 6;
 
     screenRectangle = new Entity(world,
@@ -105,8 +106,8 @@ void Game::construct(){
 
     sun = new Entity(world,
                      "screenRectangle",
-                     Mesh::getCircle(0, 0, 150.0, 10),
-                     glm::vec4(0.9, 0.7, 0.5, 1),
+                     Mesh::getCircle(0, 0, 300.0, 36),
+                     glm::vec4(0.9, 0.8, 0.6, 1),
                      glm::vec3(this->screenWidth/2.0f+50,this->screenHeight/2.0f+300,-4000),
                      glm::vec3(0),
                      glm::vec3(1),
@@ -148,12 +149,43 @@ void Game::construct(){
                                     tex1)
                        );
 
+    entities.push_back(new Box(world,
+                               Mesh::loadObject("res/models/rock.obj"),
+                               0.0f,
+                               glm::vec4(1,1,1,1),
+                               glm::vec3(400, 15, 400),
+                               glm::vec3(0),
+                               glm::vec3(30),
+                               glm::vec3(65, 77, 65),
+                               new Texture("res/textures/rockWithGrass.bmp",0)));
+
+    entities.push_back(new Box(world,
+                               Mesh::loadObject("res/models/rock.obj"),
+                               0.0f,
+                               glm::vec4(1,1,1,1),
+                               glm::vec3(400, 5, 320),
+                               glm::vec3(glm::radians(43.0f), glm::radians(90.0f), 0),
+                               glm::vec3(15),
+                               glm::vec3(35, 20, 35),
+                               new Texture("res/textures/rockWithGrass.bmp",0)));
+
+    entities.push_back(new Box(world,
+                               Mesh::loadObject("res/models/rock.obj"),
+                               0.0f,
+                               glm::vec4(1,1,1,1),
+                               glm::vec3(350, 5, 350),
+                               glm::vec3(glm::radians(13.0f), glm::radians(90.0f), glm::radians(0.0f)),
+                               glm::vec3(15),
+                               glm::vec3(35, 30, 35),
+                               new Texture("res/textures/rockWithGrass.bmp",0)));
 
     /*entities.push_back(new Entity(world,
                                "surface",
                                Mesh::getSurface(500, 500),
                                glm::vec4(0.5, 0.5, 0.5, 1),
                                glm::vec3(0, 0, 0),
+
+
                                glm::vec3(0.0f, 0.0f, 0.0f),
                                glm::vec3(50000.0f, 1, 50000.0f),
                                NULL)
@@ -174,19 +206,19 @@ void Game::construct(){
     //lights.push_back(new Light(gBuffer, glm::vec3(0.2, 0.9, 0.0), glm::vec3(-30.537, 400.779, -800.82), lightsize));
 
     #if ADD_LIGHTS == 1
-    lights.push_back(new Light(gBuffer, glm::vec3(0.3, 0.9, 0.0), glm::vec3(786, 100, -211), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.2, 0.9), glm::vec3(782, 100, -516), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.5, 0.3, 0.9), glm::vec3(595, 100, -402), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.4), glm::vec3(117, 100, 493), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.3, 0.9), glm::vec3(-105, 100, 619), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.1, 0.5, 0.7), glm::vec3(-636, 100, 366), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.3, 0.8), glm::vec3(-659, 100, 650), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.7), glm::vec3(-386, 100, 481), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.3, 0.8), glm::vec3(4, 100, -104), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 0), glm::vec3(11, 100, -447), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(1, 0.1, 0.4), glm::vec3(-365, 100, 696), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.4, 0.2, 1), glm::vec3(995, 100, 717), lightsize));
-    lights.push_back(new Light(gBuffer, glm::vec3(0.8, 0, 1), glm::vec3(174, 100, 216), lightsize));
+    lights.push_back(new Light(glm::vec3(0.3, 0.9, 0.0), glm::vec3(786, 100, -211), lightsize));
+    lights.push_back(new Light(glm::vec3(0.9, 0.2, 0.9), glm::vec3(782, 100, -516), lightsize));
+    lights.push_back(new Light(glm::vec3(0.5, 0.3, 0.9), glm::vec3(595, 100, -402), lightsize));
+    lights.push_back(new Light(glm::vec3(0.9, 0.3, 0.4), glm::vec3(117, 100, 493), lightsize));
+    lights.push_back(new Light(glm::vec3(0.4, 0.3, 0.9), glm::vec3(-105, 100, 619), lightsize));
+    lights.push_back(new Light(glm::vec3(0.1, 0.5, 0.7), glm::vec3(-636, 100, 366), lightsize));
+    lights.push_back(new Light(glm::vec3(0.4, 0.3, 0.8), glm::vec3(-659, 100, 650), lightsize));
+    lights.push_back(new Light(glm::vec3(0.9, 0.3, 0.7), glm::vec3(-386, 100, 481), lightsize));
+    lights.push_back(new Light(glm::vec3(0.9, 0.3, 0.8), glm::vec3(4, 100, -104), lightsize));
+    lights.push_back(new Light(glm::vec3(1, 0, 0), glm::vec3(11, 100, -447), lightsize));
+    lights.push_back(new Light(glm::vec3(1, 0.1, 0.4), glm::vec3(-365, 100, 696), lightsize));
+    lights.push_back(new Light(glm::vec3(0.4, 0.2, 1), glm::vec3(995, 100, 717), lightsize));
+    lights.push_back(new Light(glm::vec3(0.8, 0, 1), glm::vec3(174, 100, 216), lightsize));
     /*for(int i = 0; i < 20; i++){
         for(int j = 0; j < 20; j++){
             lights.push_back(new Light(gBuffer, glm::vec3(1, 1, 1), glm::vec3(i*500, 100, j*500), lightsize));
@@ -376,9 +408,9 @@ void Game::construct(){
     hBlur = new PostProcess(this->screenWidth/2.0f, this->screenHeight/2.0f, "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
     std::vector<std::string> paths = {"res/textures/lensflare/lenscolor.bmp", "lensFlareColorSampler"};
-    sunPostProcess = new PostProcess(this->screenWidth/4.0, this->screenHeight/4.0, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs", paths);
-    hBlur2 = new PostProcess(this->screenWidth/8.0f, this->screenHeight/8.0f, sunPostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
-    wBlur2 = new PostProcess(this->screenWidth/8.0f, this->screenHeight/8.0f, hBlur2->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
+    sunPostProcess = new PostProcess(this->screenWidth, this->screenHeight, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs", paths);
+    hBlur2 = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, sunPostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
+    wBlur2 = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur2->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
 
     simpleShader->bind();
     glUniform1i(glGetUniformLocation(simpleShader->getProgram(), "colorSampler"), 11);
@@ -916,7 +948,7 @@ void Game::handleInput(Game* game){
         float r = (float)rand()/RAND_MAX;
         float g = (float)rand()/RAND_MAX;
         float b = (float)rand()/RAND_MAX;
-        game->lights.push_back(new Light(game->gBuffer, glm::vec3(r,g,b), glm::vec3(pos.x, 100, pos.z), 600.0f));
+        game->lights.push_back(new Light(glm::vec3(r,g,b), glm::vec3(pos.x, 100, pos.z), 600.0f));
     }
 
     if(input->getKeyDown(SDLK_t)){
@@ -1057,7 +1089,7 @@ void Game::render(){
         #if RENDER_EFFECTS
         glBindFramebuffer(GL_READ_FRAMEBUFFER, gBuffer->getFrameBufferObject());
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, sunPostProcess->getFrameBufferObject());
-        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/4.0, this->screenHeight/4.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth, this->screenHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, hBlur->getFrameBufferObject());
         glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/2.0, this->screenHeight/2.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);

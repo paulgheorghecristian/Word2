@@ -12,19 +12,22 @@
 class Light
 {
     public:
-        Light(GBuffer*, glm::vec3, glm::vec3, float);
+        Light(glm::vec3, glm::vec3, float);
         void draw(GeneralShader*);
         void setRenderIt(bool);
         bool getRenderIt();
+        void setPosition(glm::vec3 position);
         glm::vec3 getPosition();
         float getRadius();
         static void setMesh(Mesh*);
+        static void setGBuffer(GBuffer* buffer);
         virtual ~Light();
     protected:
     private:
         static Mesh* mesh;
+        static GBuffer* gBuffer;
+
         glm::vec3 position, color;
-        GBuffer* gBuffer;
         float radius;
         bool renderIt;
 };
