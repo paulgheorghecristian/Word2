@@ -82,6 +82,11 @@ void Text::displayNumber(long number){
     updateMesh(1);
 }
 
+void Text::display(const std::string& str) {
+    currentString = str;
+    updateMesh(0);
+}
+
 void Text::deleteLetter(){
     currentString = currentString.substr(0, currentString.size()-1);
     updateMesh(0);

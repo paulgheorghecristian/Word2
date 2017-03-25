@@ -85,17 +85,8 @@ void ParticleRenderer::updateVbo(){
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ParticleRenderer::update(Camera *camera, Entity *particleGenerator, const std::vector<PuzzleObject*>& particleInteractors){
-    /*particles.erase(
-        std::remove_if(
-        particles.begin(),
-        particles.end(),
-        [](Particle* p) -> bool {
-            return !p->isAlive();
-        }
-        ),
-        particles.end()
-    );*/
+void ParticleRenderer::update(Camera *camera, Entity *particleGenerator, const std::vector<PuzzleObject*>& particleInteractors,
+                              Entity* goal){
     for(PuzzleObject *particleInteractor : particleInteractors){
         float x = 1.0f;
         if(particleInteractor->getName().compare("pickableFan") == 0){
@@ -118,6 +109,19 @@ void ParticleRenderer::update(Camera *camera, Entity *particleGenerator, const s
             }
         }
     }
+
+    glm::vec3 p1 = glm::vec3(goal->getModelMatrix() * glm::vec4(-1, 0, -1, 1));
+    glm::vec3 p2 = glm::vec3(goal->getModelMatrix() * glm::vec4(1, 0, -1, 1));
+    glm::vec3 p3 = glm::vec3(goal->getModelMatrix() * glm::vec4(-1, 0, 1, 1));
+    glm::vec4 plane = MathUtils::getPlaneFromPoints(p1, p2, p3);
+
+    for (Particle *p : particles) {
+        if (MathUtils::isPointInsideRectangle(p1, p2, p3, p->getPosition())&&
+            abs(MathUtils::getDistanceFromPointToPlane(p->getPosition(), plane)) < 5.0) {
+            Game::score += 0.5;
+        }
+    }
+
     int offset = 0;
     for(Particle *p : particles){
         if (!p->isAlive()) {

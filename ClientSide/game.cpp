@@ -9,6 +9,8 @@
 #define UPDATE_PARTICLES 1
 #define ADD_LIGHTS 1
 
+float Game::score;
+
 Game::Game(float width, float height, std::string title, Camera* camera) : screenWidth(width), screenHeight(height), title(title)
 {
     this->display = new Display(screenWidth, screenHeight, title, false);
@@ -62,12 +64,18 @@ void Game::construct(){
     player = new Player(world, 30.0f, glm::vec3(0.0f, 30.0f, -300.0f), glm::vec3(10));
     fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
                             "",
-                            glm::vec3(101, 100, 0),
+                            glm::vec3(10, 500, 0),
                             glm::vec3(0, 0, 0),
-                            glm::vec3(1, 0.5, 0), 10);
+                            glm::vec3(1, 0.5, 0), 3);
     lightsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
                             "",
-                            glm::vec3(400, 100, 0),
+                            glm::vec3(10, 480, 0),
+                            glm::vec3(0, 0, 0),
+                            glm::vec3(1, 0.5, 0), 3);
+
+    scoreText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
+                            "",
+                            glm::vec3(this->screenWidth/2-150, 100, 0),
                             glm::vec3(0, 0, 0),
                             glm::vec3(1, 0.5, 0), 10);
     tex1 = new Texture("res/textures/154.bmp", 4);
@@ -106,7 +114,7 @@ void Game::construct(){
 
     sun = new Entity(world,
                      "screenRectangle",
-                     Mesh::getCircle(0, 0, 300.0, 36),
+                     Mesh::getCircle(0, 0, 150.0, 36),
                      glm::vec4(0.9, 0.8, 0.6, 1),
                      glm::vec3(this->screenWidth/2.0f+50,this->screenHeight/2.0f+300,-4000),
                      glm::vec3(0),
@@ -864,6 +872,8 @@ void Game::construct(){
     posRotScale.push_back(glm::vec3(0));
     posRotScale.push_back(glm::vec3(50));
     treeRenderer = new TreeRenderer(posRotScale, new Tree("tree", treeTrunk, treeBranch), projectionMatrix);
+
+    Game::score = 0;
 }
 
 void Game::handleInput(Game* game){
@@ -1116,12 +1126,12 @@ void Game::render(){
         wBlur->process();
         sunPostProcess->bind();
         sunPostProcess->getShader().bind();
-        glm::vec2 sunPosition = calculateSunPosition(projectionMatrix,
+        glm::vec3 sunPosition = calculateSunPosition(projectionMatrix,
                                                      camera->getViewMatrix(),
                                                      sun->getModelMatrix(),
                                                      this->screenWidth,
                                                      this->screenHeight);
-        glUniform2f(glGetUniformLocation(sunPostProcess->getShader().getProgram(), "sunPosition"), sunPosition.x, sunPosition.y);
+        glUniform3f(glGetUniformLocation(sunPostProcess->getShader().getProgram(), "sunPosition"), sunPosition.x, sunPosition.y, sunPosition.z);
         glEnable(GL_DEPTH_TEST);
         sunSimpleShader->bind();
         sunSimpleShader->loadViewMatrix(camera->getViewMatrix());
@@ -1167,10 +1177,16 @@ void Game::render(){
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         textShader->bind();
-        fpsText->displayNumber(Display::getDelta());
+        char s[32];
+        snprintf(s, 32, "ms since last frame %ld", Display::getDelta());
+        fpsText->display(std::string(s));
         fpsText->draw(textShader);
-        lightsText->displayNumber(numOfLightsVisible);
+        snprintf(s, 32, "lights unculled %d", numOfLightsVisible);
+        lightsText->display(std::string(s));
         lightsText->draw(textShader);
+        snprintf(s, 32, "Score %d", (int)floor(Game::score));
+        scoreText->display(std::string(s));
+        scoreText->draw(textShader);
         guiShader->bind();
         crosshair->draw(guiShader);
         #endif
@@ -1206,7 +1222,7 @@ void Game::update(){
         puzzleObject->update();
     }
     #if UPDATE_PARTICLES == 1
-    particleRenderer->update(camera, turretPuzzleObject->getEntities()[1], particleInteractors);
+    particleRenderer->update(camera, turretPuzzleObject->getEntities()[1], particleInteractors, goal);
     #endif
 }
 
@@ -1346,7 +1362,7 @@ void Game::initBullet(){
     world->addRigidBody(m_body);
 }
 
-glm::vec2 Game::calculateSunPosition(const glm::mat4& projectionMatrix,
+glm::vec3 Game::calculateSunPosition(const glm::mat4& projectionMatrix,
                                const glm::mat4& viewMatrix,
                                const glm::mat4& modelMatrix,
                                float WIDTH,
@@ -1365,9 +1381,9 @@ glm::vec2 Game::calculateSunPosition(const glm::mat4& projectionMatrix,
                      (glm::mat4(glm::mat3(viewMatrix)) *
                       newModelMatrix) *
                      glm::vec4(glm::vec3(0), 1.0));
-    pos = glm::vec4(pos.x/pos.w, pos.y/pos.w, 0, 0);
-    glm::vec2 posXY = glm::vec2((pos.x + 1)/2.0, (pos.y+1)/2.0);
-    return posXY;
+    pos = glm::vec4(pos.x/pos.w, pos.y/pos.w, pos.z/pos.w, 0);
+    glm::vec3 posXYZ = glm::vec3((pos.x + 1)/2.0, (pos.y+1)/2.0, (pos.z+1)/2.0);
+    return posXYZ;
 }
 
 

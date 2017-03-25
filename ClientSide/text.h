@@ -33,6 +33,7 @@ class Text
         void addLetter(char);
         void deleteLetter();
         void displayNumber(long);
+        void display(const std::string& str);
         void draw(TextShader*);
         virtual ~Text();
     protected:

@@ -12,14 +12,15 @@
 #include "../puzzle_object.h"
 #include "../texture.h"
 #include "../math_utils.h"
+#include "../game.h"
 
 class ParticleRenderer
 {
     public:
         ParticleRenderer(const glm::mat4& projectionMatrix,
                          const glm::vec3&,
-                           unsigned int numOfParticles);
-        void update(Camera *, Entity *, const std::vector<PuzzleObject*>&);
+                         unsigned int numOfParticles);
+        void update(Camera *, Entity *, const std::vector<PuzzleObject*>&, Entity *goal);
         void draw();
         std::vector<Particle*>& getParticles();
         virtual ~ParticleRenderer();

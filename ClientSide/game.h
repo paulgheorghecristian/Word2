@@ -33,6 +33,8 @@
 #define GRAVITY -30
 #define FORCE 1000
 
+class ParticleRenderer;
+
 class Game
 {
     public:
@@ -42,6 +44,7 @@ class Game
         Game(float, float, std::string);
         void run();
         virtual ~Game();
+        static float score;
     protected:
     private:
         void construct();
@@ -60,7 +63,7 @@ class Game
         std::vector<Entity*>& getEntities();
         void stencil();
         void normal();
-        glm::vec2 calculateSunPosition(const glm::mat4&,
+        glm::vec3 calculateSunPosition(const glm::mat4&,
                                        const glm::mat4&,
                                        const glm::mat4&,
                                        float,
@@ -143,6 +146,7 @@ class Game
         Texture *blendmap, *dirt, *grass, *soil, *rock;
         Text *fpsText;
         Text *lightsText;
+        Text *scoreText;
         GBuffer *gBuffer;
         int outputType;
         glm::mat4 projectionMatrix;

@@ -7,12 +7,12 @@ uniform float pixelWidth;
 uniform float pixelHeight;
 out vec4 outColor;
 
-uniform vec2 sunPosition;
+uniform vec3 sunPosition;
 
 void main(){
     const float density = 1.0;
     const float exposure = 1.00;
-    const float weight = 0.02;
+    const float weight = 0.05;
     const float decay = 1.00;
 
     vec2 coords = textureCoords;
@@ -37,7 +37,7 @@ void main(){
     vec2 texelSize = 1.0 / vec2(pixelWidth, pixelHeight);
     float uGhostDispersal = 0.2f;
     int uGhosts = 4;
-    float uHaloWidth = 0.4;
+    float uHaloWidth = 0.45;
 
     vec2 ghostVec = (vec2(0.5) - texcoord) * uGhostDispersal;
 
