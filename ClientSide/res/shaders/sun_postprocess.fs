@@ -11,8 +11,8 @@ uniform vec3 sunPosition;
 
 void main(){
     const float density = 1.0;
-    const float exposure = 1.00;
-    const float weight = 0.05;
+    const float exposure = 1.0;
+    const float weight = 0.025;
     const float decay = 1.00;
 
     vec2 coords = textureCoords;

@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(btDynamicsWorld* world, float mass, glm::vec3 position, glm::vec3 scale) : world(world), down(0, -1 * DOWN_LENGTH, 0), isTouchingGround(false), radius(scale.x*2.0f)
+Player::Player(btDynamicsWorld* world, float mass, glm::vec3 position, glm::vec3 scale) : world(world), down(0, -1 * DOWN_LENGTH, 0), isTouchingGround(false), radius(scale.x*2.0f), force(800.0f)
 {
     btTransform t;
     btVector3 inertia(0, 0, 0);
@@ -56,18 +56,28 @@ void Player::performRayTest(){
         btCollisionWorld::ClosestRayResultCallback rayCallback(from, to);
         world->rayTest(from, to, rayCallback);
         if(rayCallback.hasHit()){
+            UserPointer *p = (UserPointer*)rayCallback.m_collisionObject->getUserPointer();
+            if (p->type == PICKABLE_OBJECT && p->ptrType.pickableObject->getIsPickedUp()){
+                continue;
+            }
             if(rayCallback.m_closestHitFraction < closestHitFraction){
                 closestHitFraction = rayCallback.m_closestHitFraction;
             }
         }
     }
-    if(closestHitFraction != -1){
-        if(closestHitFraction < EPS && playerVel.y() <= 0){
-            isJumping = false;
-            isTouchingGround = true;
-        }else{
-            isTouchingGround = false;
-        }
+
+    if (playerVel.y() < -0.1) {
+        m_body->setDamping(btScalar(0.1), btScalar(0));
+        force = 200;
+    }
+
+    if(closestHitFraction < EPS && playerVel.y() <= 0){
+        isJumping = false;
+        isTouchingGround = true;
+        m_body->setDamping(btScalar(0.5), btScalar(0));
+        force = 800;
+    }else{
+        isTouchingGround = false;
     }
 }
 

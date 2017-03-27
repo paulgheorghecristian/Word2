@@ -75,7 +75,7 @@ void Game::construct(){
 
     scoreText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
                             "",
-                            glm::vec3(this->screenWidth/2-150, 100, 0),
+                            glm::vec3(this->screenWidth/2-180, 100, 0),
                             glm::vec3(0, 0, 0),
                             glm::vec3(1, 0.5, 0), 10);
     tex1 = new Texture("res/textures/154.bmp", 4);
@@ -87,6 +87,7 @@ void Game::construct(){
     grass = new Texture("res/textures/grass2.bmp", 2);
     soil = new Texture("res/textures/soil.bmp", 3);
     rock = new Texture("res/textures/rock.bmp", 4);
+    grassBillboard = new Texture("res/textures/billboardgrass1.bmp", 0, true, GL_BGRA);
     gBuffer = new GBuffer(this->screenWidth, this->screenHeight);
     Box::setMesh(boxMesh);
     Sphere::setMesh(sphereMesh);
@@ -139,6 +140,22 @@ void Game::construct(){
                            glm::vec3(1),
                            NULL);
 
+    std::vector<glm::vec3> posScales;
+    for(int i = 0; i < 10; i++){
+        for(int j = 0; j < 10; j++){
+            if (((i+j)%3*13)% 5 == 0)
+                continue;
+            posScales.push_back(glm::vec3(-500.0f+i*45.0f, 20, 350.0f+j*45.0f));
+            posScales.push_back(glm::vec3(40));
+        }
+    }
+    posScales.push_back(glm::vec3(350, 0, 310));
+    posScales.push_back(glm::vec3(20));
+    posScales.push_back(glm::vec3(379, 0, 330));
+    posScales.push_back(glm::vec3(20));
+    posScales.push_back(glm::vec3(320, 0, 360));
+    posScales.push_back(glm::vec3(20));
+
     entities.push_back(new Box(world,
                                 0.0f,
                                 glm::vec4(1,1,1,1),
@@ -148,14 +165,14 @@ void Game::construct(){
                                 tex1)
                        );
 
-    entities.push_back(new Sphere(world,
+    /*entities.push_back(new Sphere(world,
                                     100.0f,
                                     glm::vec4(1,1,1,1),
                                     glm::vec3(400, 100, 0),
                                     glm::vec3(0, 0, 0),
                                     30.0f,
                                     tex1)
-                       );
+                       );*/
 
     entities.push_back(new Box(world,
                                Mesh::loadObject("res/models/rock.obj"),
@@ -434,7 +451,7 @@ void Game::construct(){
                                "fanBase",
                                fanBaseMesh,
                                glm::vec4(1, 1, 1, 1),
-                               glm::vec3(100.6487, 100.4589, 29.2592),
+                               glm::vec3(-227.019, 60.7267, 536.942),
                                glm::vec3(glm::radians(270.0f), 0.0f, glm::radians(0.0f)),
                                glm::vec3(30.0f),
                                new Texture("res/textures/FanBaseTexture.bmp", 0))
@@ -871,8 +888,17 @@ void Game::construct(){
     posRotScale.push_back(glm::vec3(0, 30.0, -580));
     posRotScale.push_back(glm::vec3(0));
     posRotScale.push_back(glm::vec3(50));
-    treeRenderer = new TreeRenderer(posRotScale, new Tree("tree", treeTrunk, treeBranch), projectionMatrix);
 
+    for (int i = 0; i < posRotScale.size(); i+=3) {
+        glm::vec3 position = posRotScale[i];
+        glm::vec3 rotation = posRotScale[i+1];
+        glm::vec3 scale(posRotScale[i+2].x/6.0f, posRotScale[i+2].y*3, posRotScale[i+2].z/6.0f);
+
+        addBoundingBox(0, position, rotation, scale);
+    }
+
+    treeRenderer = new TreeRenderer(posRotScale, new Tree("tree", treeTrunk, treeBranch), projectionMatrix);
+    grassRenderer = new GrassRenderer(posScales, Mesh::loadObject("res/models/grassTry.obj"), grassBillboard, projectionMatrix);
     Game::score = 0;
 }
 
@@ -900,21 +926,21 @@ void Game::handleInput(Game* game){
 
     if(input->getKey(SDLK_w)){
         btVector3 fwd = btVector3(forward.x, 0, forward.z);
-        fwd = fwd.normalized() * FORCE;
+        fwd = fwd.normalized() * player->getForce();
         player->getRigidBody()->applyCentralForce(fwd);
     }else if(input->getKey(SDLK_s)){
         btVector3 fwd = btVector3(forward.x, 0, forward.z);
-        fwd = fwd.normalized() * -FORCE;
+        fwd = fwd.normalized() * -player->getForce();
         player->getRigidBody()->applyCentralForce(fwd);
     }
 
     if(input->getKey(SDLK_a)){
         btVector3 rgh = btVector3(right.x, 0, right.z);
-        rgh = rgh.normalized() * -FORCE;
+        rgh = rgh.normalized() * -player->getForce();
         player->getRigidBody()->applyCentralForce(rgh);
     }else if(input->getKey(SDLK_d)){
         btVector3 rgh = btVector3(right.x, 0, right.z);
-        rgh = rgh.normalized() * FORCE;
+        rgh = rgh.normalized() * player->getForce();
         player->getRigidBody()->applyCentralForce(rgh);
     }
 
@@ -1056,6 +1082,7 @@ void Game::render(){
         terrain->draw(terrainShader);
 
         treeRenderer->draw(camera->getViewMatrix());
+        grassRenderer->draw(camera->getViewMatrix());
 
         deferredLightShader->bind();
         deferredLightShader->loadViewMatrix(camera->getViewMatrix());
@@ -1066,7 +1093,6 @@ void Game::render(){
         for(PuzzleObject *puzzleObject : puzzleObjects){
             puzzleObject->draw(deferredLightShader);
         }
-        glDisable(GL_CULL_FACE);
     }
     #endif
     #if RENDER_LIGHTS == 1
@@ -1386,6 +1412,33 @@ glm::vec3 Game::calculateSunPosition(const glm::mat4& projectionMatrix,
     return posXYZ;
 }
 
+void Game::addBoundingBox(float mass, glm::vec3& position, glm::vec3& rotation, glm::vec3& scale) {
+    btTransform t;
+    btVector3 inertia(0, 0, 0);
+    btRigidBody *m_body;
+
+    t.setIdentity();
+    t.setOrigin(btVector3(position.x, position.y, position.z));
+    t.setRotation(btQuaternion(rotation.y, rotation.x, rotation.z));
+
+    btBoxShape* boxShape = new btBoxShape(btVector3(scale.x, scale.y, scale.z));
+    if(mass != 0.0){
+        boxShape->calculateLocalInertia(btScalar(mass), inertia);
+    }
+    btMotionState* motion = new btDefaultMotionState(t);
+    btRigidBody::btRigidBodyConstructionInfo info(mass, motion, boxShape, inertia);
+    info.m_restitution = 0.3;
+    info.m_friction = 1.0f;
+    UserPointer *userPointer = new UserPointer();
+    userPointer->type = BOX;
+    userPointer->ptrType.box = NULL;
+    m_body->setUserPointer((void*)userPointer);
+
+    m_body = new btRigidBody(info);
+    m_body->setDamping(btScalar(0.2), btScalar(0.6));
+
+    world->addRigidBody(m_body);
+}
 
 Game::~Game()
 {
@@ -1441,6 +1494,7 @@ Game::~Game()
     delete solver;
 
     delete treeRenderer;
+    delete grassRenderer;
 }
 
 Input* Game::getInput(){

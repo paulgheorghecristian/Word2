@@ -29,9 +29,10 @@
 #include "pickable_object.h"
 #include "commons.h"
 #include "trees/tree_renderer.h"
+#include "grass_renderer.h"
 
 #define GRAVITY -30
-#define FORCE 1000
+#define FORCE 800
 
 class ParticleRenderer;
 
@@ -51,6 +52,7 @@ class Game
         void render();
         void update();
         void initBullet();
+        void addBoundingBox(float mass, glm::vec3& position, glm::vec3& rotation, glm::vec3& scale);
         static void bulletTickCallback(btDynamicsWorld*, btScalar);
         static bool bulletCollisionCallback(btManifoldPoint& cp, const btCollisionObjectWrapper *obj1, int id1, int index1,
                                             const btCollisionObjectWrapper *obj2, int id2, int index2);
@@ -112,6 +114,7 @@ class Game
         SimpleShader *emptyShader, *sunSimpleShader;
         SimpleShader *terrainShader;
         SimpleShader *guiShader, *goalShader;
+        SimpleShader *grassShader;
         PostProcess *sunPostProcess;
         PostProcess *hBlur, *wBlur, *hBlur2, *wBlur2;
         DeferredLightShader *deferredLightShader;
@@ -144,6 +147,7 @@ class Game
         Texture *tex1, *tex2;
         Texture *bark, *leaf;
         Texture *blendmap, *dirt, *grass, *soil, *rock;
+        Texture *grassBillboard;
         Text *fpsText;
         Text *lightsText;
         Text *scoreText;
@@ -167,6 +171,7 @@ class Game
 
         PickableObject *ob1, *fanPickableObject;
         TreeRenderer *treeRenderer;
+        GrassRenderer *grassRenderer;
 
         float near, far, aspect, fov;
 };

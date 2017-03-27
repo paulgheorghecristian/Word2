@@ -25,6 +25,9 @@ class Player
         void setHasPickedUp(bool hasPickedUp){
             this->hasPickedUp = hasPickedUp;
         }
+        float getForce() {
+            return force;
+        }
         void jump();
         virtual ~Player();
     protected:
@@ -36,6 +39,7 @@ class Player
         bool hasPickedUp;
         const btVector3 down;
         float radius;
+        float force;
 };
 
 #endif // PLAYER_H

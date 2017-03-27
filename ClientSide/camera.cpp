@@ -50,6 +50,12 @@ void Camera::rotateY(float dx){
     yRotation += dx;
 }
 void Camera::rotateX(float dx){
+    if (glm::degrees(xRotation) < -60 && dx < 0) {
+        return;
+    }
+    if (glm::degrees(xRotation) > 85 && dx > 0) {
+        return;
+    }
     xRotation += dx;
 }
 void Camera::invertForward(){
