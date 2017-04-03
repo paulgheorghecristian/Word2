@@ -115,10 +115,16 @@ void ParticleRenderer::update(Camera *camera, Entity *particleGenerator, const s
     glm::vec3 p3 = glm::vec3(goal->getModelMatrix() * glm::vec4(-1, 0, 1, 1));
     glm::vec4 plane = MathUtils::getPlaneFromPoints(p1, p2, p3);
 
-    for (Particle *p : particles) {
-        if (MathUtils::isPointInsideRectangle(p1, p2, p3, p->getPosition())&&
-            abs(MathUtils::getDistanceFromPointToPlane(p->getPosition(), plane)) < 5.0) {
-            Game::score += 0.5;
+    if (Game::score < 100) {
+        for (Particle *p : particles) {
+            if (MathUtils::isPointInsideRectangle(p1, p2, p3, p->getPosition())&&
+                abs(MathUtils::getDistanceFromPointToPlane(p->getPosition(), plane)) < 5.0) {
+                if (Game::score < 100) {
+                    Game::score += 0.2;
+                } else {
+                    break;
+                }
+            }
         }
     }
 

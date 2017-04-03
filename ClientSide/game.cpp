@@ -75,7 +75,7 @@ void Game::construct(){
 
     scoreText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
                             "",
-                            glm::vec3(this->screenWidth/2-180, 100, 0),
+                            glm::vec3(this->screenWidth/2-200, 100, 0),
                             glm::vec3(0, 0, 0),
                             glm::vec3(1, 0.5, 0), 10);
     tex1 = new Texture("res/textures/154.bmp", 4);
@@ -145,7 +145,7 @@ void Game::construct(){
         for(int j = 0; j < 10; j++){
             if (((i+j)%3*13)% 5 == 0)
                 continue;
-            posScales.push_back(glm::vec3(-500.0f+i*45.0f, 20, 350.0f+j*45.0f));
+            posScales.push_back(glm::vec3(-500.0f+i*45.0f, 10, 350.0f+j*45.0f));
             posScales.push_back(glm::vec3(40));
         }
     }
@@ -235,7 +235,7 @@ void Game::construct(){
     lights.push_back(new Light(glm::vec3(0.9, 0.2, 0.9), glm::vec3(782, 100, -516), lightsize));
     lights.push_back(new Light(glm::vec3(0.5, 0.3, 0.9), glm::vec3(595, 100, -402), lightsize));
     lights.push_back(new Light(glm::vec3(0.9, 0.3, 0.4), glm::vec3(117, 100, 493), lightsize));
-    lights.push_back(new Light(glm::vec3(0.4, 0.3, 0.9), glm::vec3(-105, 100, 619), lightsize));
+    //lights.push_back(new Light(glm::vec3(0.4, 0.3, 0.9), glm::vec3(-105, 100, 619), lightsize));
     lights.push_back(new Light(glm::vec3(0.1, 0.5, 0.7), glm::vec3(-636, 100, 366), lightsize));
     lights.push_back(new Light(glm::vec3(0.4, 0.3, 0.8), glm::vec3(-659, 100, 650), lightsize));
     lights.push_back(new Light(glm::vec3(0.9, 0.3, 0.7), glm::vec3(-386, 100, 481), lightsize));
@@ -1210,7 +1210,11 @@ void Game::render(){
         snprintf(s, 32, "lights unculled %d", numOfLightsVisible);
         lightsText->display(std::string(s));
         lightsText->draw(textShader);
-        snprintf(s, 32, "Score %d", (int)floor(Game::score));
+        if (Game::score < 100) {
+            snprintf(s, 32, "Score %d", (int)floor(Game::score));
+        } else {
+            strcpy(s, "Level complete!");
+        }
         scoreText->display(std::string(s));
         scoreText->draw(textShader);
         guiShader->bind();
