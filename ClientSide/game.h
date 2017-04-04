@@ -29,7 +29,7 @@
 #include "pickable_object.h"
 #include "commons.h"
 #include "trees/tree_renderer.h"
-#include "grass_renderer.h"
+#include "grass/grass_renderer.h"
 
 #define GRAVITY -30
 #define FORCE 800

@@ -87,7 +87,7 @@ void Game::construct(){
     grass = new Texture("res/textures/grass2.bmp", 2);
     soil = new Texture("res/textures/soil.bmp", 3);
     rock = new Texture("res/textures/rock.bmp", 4);
-    grassBillboard = new Texture("res/textures/billboardgrass1.bmp", 0, true, GL_BGRA);
+    grassBillboard = new Texture("res/textures/billboardgrass1medium.bmp", 0, true, GL_BGR);
     gBuffer = new GBuffer(this->screenWidth, this->screenHeight);
     Box::setMesh(boxMesh);
     Sphere::setMesh(sphereMesh);
@@ -146,7 +146,7 @@ void Game::construct(){
             if (((i+j)%3*13)% 5 == 0)
                 continue;
             posScales.push_back(glm::vec3(-500.0f+i*45.0f, 10, 350.0f+j*45.0f));
-            posScales.push_back(glm::vec3(40));
+            posScales.push_back(glm::vec3(45));
         }
     }
     posScales.push_back(glm::vec3(350, 0, 310));
@@ -430,10 +430,10 @@ void Game::construct(){
                                         );
     puzzleObjects.push_back(turretPuzzleObject);
     particleRenderer = new ParticleRenderer(projectionMatrix, turretPuzzleObject->getEntities()[1]->getPosition(), 1000);
-    hBlur = new PostProcess(this->screenWidth/2.0f, this->screenHeight/2.0f, "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
+    hBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
     std::vector<std::string> paths = {"res/textures/lensflare/lenscolor.bmp", "lensFlareColorSampler"};
-    sunPostProcess = new PostProcess(this->screenWidth, this->screenHeight, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs", paths);
+    sunPostProcess = new PostProcess(this->screenWidth/4.0, this->screenHeight/4.0, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs", paths);
     hBlur2 = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, sunPostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur2 = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur2->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
 
@@ -798,9 +798,11 @@ void Game::construct(){
     posRotScale.push_back(glm::vec3(787, 60, -516));
     posRotScale.push_back(glm::vec3(0, glm::radians(36.0f), 0));
     posRotScale.push_back(glm::vec3(50.0f));
+
     posRotScale.push_back(glm::vec3(602, 30, -406));
     posRotScale.push_back(glm::vec3(0, glm::radians(110.0f), 0));
     posRotScale.push_back(glm::vec3(40.0f));
+
     posRotScale.push_back(glm::vec3(787, 40, -216));
     posRotScale.push_back(glm::vec3(0, glm::radians(160.0f), 0));
     posRotScale.push_back(glm::vec3(60.0f));
@@ -887,7 +889,7 @@ void Game::construct(){
 
     posRotScale.push_back(glm::vec3(0, 30.0, -580));
     posRotScale.push_back(glm::vec3(0));
-    posRotScale.push_back(glm::vec3(50));
+    posRotScale.push_back(glm::vec3(50.0f));
 
     for (int i = 0; i < posRotScale.size(); i+=3) {
         glm::vec3 position = posRotScale[i];
@@ -1125,9 +1127,9 @@ void Game::render(){
         #if RENDER_EFFECTS
         glBindFramebuffer(GL_READ_FRAMEBUFFER, gBuffer->getFrameBufferObject());
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, sunPostProcess->getFrameBufferObject());
-        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth, this->screenHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/4.0, this->screenHeight/4.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, hBlur->getFrameBufferObject());
-        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/2.0, this->screenHeight/2.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/4.0, this->screenHeight/4.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
         hBlur->bind();
@@ -1436,9 +1438,8 @@ void Game::addBoundingBox(float mass, glm::vec3& position, glm::vec3& rotation, 
     UserPointer *userPointer = new UserPointer();
     userPointer->type = BOX;
     userPointer->ptrType.box = NULL;
-    m_body->setUserPointer((void*)userPointer);
-
     m_body = new btRigidBody(info);
+    m_body->setUserPointer((void*)userPointer);
     m_body->setDamping(btScalar(0.2), btScalar(0.6));
 
     world->addRigidBody(m_body);
