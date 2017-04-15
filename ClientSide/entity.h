@@ -23,7 +23,7 @@ class Entity
         void draw(Shader*, float*);
         void setRotation(float, float, float);
         void setScale(float, float, float);
-        void setPosition(float, float, float);
+        virtual void setPosition(float, float, float);
         void setPosition(glm::vec3);
         void addRotation(float, float, float);
         void addScale(float, float, float);

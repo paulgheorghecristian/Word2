@@ -30,6 +30,9 @@
 #include "commons.h"
 #include "trees/tree_renderer.h"
 #include "grass/grass_renderer.h"
+#include <unordered_map>
+#include "networking/client.h"
+#include "networking/networked_player.h"
 
 #define GRAVITY -30
 #define FORCE 800
@@ -39,10 +42,10 @@ class ParticleRenderer;
 class Game
 {
     public:
-        Game(float, float, std::string, Camera*);
-        Game(std::string, Camera*);
-        Game(std::string);
-        Game(float, float, std::string);
+        Game(float, float, std::string, Camera*, Client*);
+        Game(std::string, Camera*, Client*);
+        Game(std::string, Client*);
+        Game(float, float, std::string, Client*);
         void run();
         virtual ~Game();
         static float score;
@@ -76,7 +79,7 @@ class Game
                 cv.wait(lk, [=]{return ready;});
 
                 Frustum *frustum;
-                frustum = MathUtils::calculateFrustum(camera, near, far-1500.0f, fov, aspect);
+                frustum = MathUtils::calculateFrustum(camera, _near, _far-1500.0f, _fov, _aspect);
 
                 for(Light *l : lights){
                     if(MathUtils::isSphereInsideFrustum(frustum, l->getPosition(), l->getRadius())){
@@ -102,6 +105,7 @@ class Game
         void nonTimeCriticalInput();
         void resetAll();
         void performPickRayTest();
+        void manageUpdateFromServer();
 
         float screenWidth, screenHeight;
         std::string title;
@@ -169,11 +173,16 @@ class Game
         std::vector<PuzzleObject*> puzzleObjects;
         std::vector<PickableObject*> pickableObjects;
 
+        float _near;
+        float _far;
+        float _aspect;
+        float _fov;
+
         PickableObject *ob1, *fanPickableObject;
         TreeRenderer *treeRenderer;
         GrassRenderer *grassRenderer;
-
-        float near, far, aspect, fov;
+        std::unordered_map<int, NetworkedPlayer*> otherPlayers;
+        Client *client;
 };
 
 #endif // GAME_H

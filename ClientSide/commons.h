@@ -6,8 +6,10 @@
 #include "pickable_object.h"
 #include "puzzle_object.h"
 #include "player.h"
+#include "networking/networked_player.h"
 
 class Player;
+class NetworkedPlayer;
 class PickableObject;
 class Box;
 class Sphere;
@@ -18,6 +20,7 @@ enum Type{
     PICKABLE_OBJECT,
     PUZZLE_OBJECT,
     PLAYER,
+    NETWORKED_PLAYER,
     GROUND
 };
 
@@ -27,6 +30,7 @@ union PtrType{
     PickableObject *pickableObject;
     PuzzleObject *puzzleObject;
     Player *player;
+    NetworkedPlayer *networkedPlayer;
 };
 
 struct UserPointer{

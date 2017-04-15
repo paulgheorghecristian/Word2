@@ -11,25 +11,27 @@
 
 float Game::score;
 
-Game::Game(float width, float height, std::string title, Camera* camera) : screenWidth(width), screenHeight(height), title(title)
+Game::Game(float width, float height, std::string title, Camera* camera, Client *client) : screenWidth(width), screenHeight(height), title(title)
 {
     this->display = new Display(screenWidth, screenHeight, title, false);
     this->camera = camera;
+    this->client = client;
     this->construct();
 }
 
-Game::Game(std::string title, Camera* camera) : title(title)
+Game::Game(std::string title, Camera* camera, Client *client) : title(title)
 {
     this->display = new Display(screenWidth, screenHeight, title, true);
     this->camera = camera;
+    this->client = client;
     this->construct();
 }
 
-Game::Game(std::string title) : Game(title, new Camera(glm::vec3(0, 0, 0), 0, 0, 0))
+Game::Game(std::string title, Client *client) : Game(title, new Camera(glm::vec3(0, 0, 0), 0, 0, 0), client)
 {
 }
 
-Game::Game(float width, float height, std::string title) : Game(width, height, title, new Camera(glm::vec3(0, 0, 0), 0, 0, 0))
+Game::Game(float width, float height, std::string title, Client *client) : Game(width, height, title, new Camera(glm::vec3(0, 0, 0), 0, 0, 0), client)
 {
 }
 
@@ -265,12 +267,12 @@ void Game::construct(){
     DirectionalLight::setMesh(Mesh::getRectangle());
     sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,3,-4.5));
 
-    near = 1.0f;
-    far = 5000.0f;
-    fov = 75.0f;
-    aspect = this->screenWidth / this->screenHeight;
+    _near = 1.0f;
+    _far = 5000.0f;
+    _fov = 75.0f;
+    _aspect = this->screenWidth / this->screenHeight;
 
-    projectionMatrix = glm::perspective(glm::radians(fov), aspect, near, far);
+    projectionMatrix = glm::perspective(glm::radians(_fov), _aspect, _near, _far);
     glm::mat4 orthographicProjectionMatrix = glm::ortho(0.0f, screenWidth, 0.0f, screenHeight);
 
     deferredLightShader->bind();
@@ -902,6 +904,16 @@ void Game::construct(){
     treeRenderer = new TreeRenderer(posRotScale, new Tree("tree", treeTrunk, treeBranch), projectionMatrix);
     grassRenderer = new GrassRenderer(posScales, Mesh::loadObject("res/models/grassTry.obj"), grassBillboard, projectionMatrix);
     Game::score = 0;
+
+    NetworkedPlayer::setMesh(Mesh::loadObject("res/models/capsule2.obj"));
+    std::vector<PlayerInfo> players = client->getOtherPlayersInfo();
+    for (int i = 0; i < players.size(); i++) {
+        glm::vec3 pos(players[i].posX, players[i].posY, players[i].posZ);
+        glm::vec3 fwd(players[i].fwdX, players[i].fwdY, players[i].fwdZ);
+        otherPlayers[players[i].id] = new NetworkedPlayer(world, 30.0f, pos, fwd);
+    }
+
+    std::cout << "pickable=" << pickableObjects.size() << std::endl;
 }
 
 void Game::handleInput(Game* game){
@@ -994,6 +1006,11 @@ void Game::handleInput(Game* game){
         btTransform transform = player->getRigidBody()->getCenterOfMassTransform();
         transform.setOrigin(btVector3(0, 300, 200));
         player->getRigidBody()->setCenterOfMassTransform(transform);
+    }
+
+    if (input->getKeyDown(SDLK_p)) {
+        std::cout << "set warp" << std::endl;
+        input->setWarpMouse(!input->getWarpMouse());
     }
 }
 
@@ -1094,6 +1111,9 @@ void Game::render(){
         }
         for(PuzzleObject *puzzleObject : puzzleObjects){
             puzzleObject->draw(deferredLightShader);
+        }
+        for(auto it : otherPlayers) {
+            it.second->draw(deferredLightShader);
         }
     }
     #endif
@@ -1296,6 +1316,8 @@ void Game::resetAll(){
 void Game::run(){
     while(!display->isClosed()){
         display->setLastFrameTime(SDL_GetTicks());
+
+        manageUpdateFromServer();
         resetAll();
 
         timeAccumulator += Display::getDelta();
@@ -1307,6 +1329,43 @@ void Game::run(){
         nonTimeCriticalInput();
         update();
         render();
+
+        client->sendPosAndFwd(player->getPosition(), camera->getForward());
+    }
+}
+
+void Game::manageUpdateFromServer() {
+    char *buffer = NULL;
+    size_t len;
+    while(client->receivePacketNonBlocking(buffer, len) > 0) {
+        if (buffer){
+            if (buffer[0] == GAMESTATE) {
+                int numOfPlayers;
+                PlayerInfo *playersInfo;
+                memcpy(&numOfPlayers, buffer+1, sizeof(int));
+                playersInfo = (PlayerInfo*)malloc(sizeof(PlayerInfo) * numOfPlayers);
+                memcpy(playersInfo, buffer + 1 + sizeof(int), sizeof(PlayerInfo) * numOfPlayers);
+                for (int i = 0; i < numOfPlayers; i++) {
+                    if (playersInfo[i].id != client->getMyId()) {
+                        NetworkedPlayer *otherPlayer = otherPlayers[playersInfo[i].id];
+                        if (otherPlayer) {
+                            //std::cout << playersInfo[i].posX << " " << playersInfo[i].posY << " " << playersInfo[i].posZ << std::endl;
+                            otherPlayer->setPosition(playersInfo[i].posX, playersInfo[i].posY, playersInfo[i].posZ);
+                            otherPlayer->setForward(glm::vec3(playersInfo[i].fwdX, playersInfo[i].fwdY, playersInfo[i].fwdZ));
+                        } else {
+                            otherPlayers[playersInfo[i].id] = new NetworkedPlayer(world,
+                                                                                  30.0f,
+                                                                                  glm::vec3(playersInfo[i].posX, playersInfo[i].posY, playersInfo[i].posZ),
+                                                                                  glm::vec3(playersInfo[i].fwdX, playersInfo[i].fwdY, playersInfo[i].fwdZ));
+                        }
+                    }
+                }
+                free(playersInfo);
+            }
+            free(buffer);
+        } else {
+            std::cout << "buffer is null!" << std::endl;
+        }
     }
 }
 
