@@ -20,7 +20,7 @@ Display::Display(float &WIDTH, float &HEIGHT, std::string title, bool fullscreen
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
     SDL_GL_SetSwapInterval(0);
-    SDL_ShowCursor(0);
+    //SDL_ShowCursor(0);
 
     if(fullscreen){
         SDL_DisplayMode dm;

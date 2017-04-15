@@ -12,6 +12,8 @@ Input::Input() : mousePosition(0.0)
         upMouse[i] = false;
         inputMouse[i] = false;
     }
+
+    warpMouse = true;
 }
 
 Input::~Input()
@@ -73,11 +75,16 @@ void Input::update(Display* display){
             case SDL_MOUSEMOTION:{
                 mousePosition = glm::vec2(event.motion.x, event.motion.y);
                 delta = glm::vec2(display->getWidth()/2.0f, display->getHeight()/2.0f) - mousePosition;
+                if (!warpMouse) {
+                    delta = glm::vec2(0,0);
+                }
                 break;
             }
         }
     }
-    SDL_WarpMouseInWindow(display->getWindow(), display->getWidth()/2, display->getHeight()/2);
+    if (warpMouse) {
+        SDL_WarpMouseInWindow(display->getWindow(), display->getWidth()/2, display->getHeight()/2);
+    }
 }
 
 bool Input::getKeyDown(int key){
