@@ -118,8 +118,10 @@ class Game
         SimpleShader *directionalLightShader;
         SimpleShader *emptyShader, *sunSimpleShader;
         SimpleShader *terrainShader, *terrainShaderForWater;
+        SimpleShader *forwardLightShaderForWater;
         SimpleShader *guiShader, *goalShader;
         SimpleShader *grassShader;
+        SimpleShader *treeShaderForWater;
         PostProcess *sunPostProcess;
         PostProcess *hBlur, *wBlur, *hBlur2, *wBlur2;
         DeferredLightShader *deferredLightShader;
@@ -127,7 +129,7 @@ class Game
         Player *player;
         Entity *screenRectangle;
         Entity *sky;
-        Entity *sun, *terrain, *crosshair, *goal;
+        Entity *sun, *terrain, *terrainSimplified, *crosshair, *goal;
         DirectionalLight *sunLight;
         TextShader* textShader;
         std::vector<Entity*> entities;
@@ -139,9 +141,9 @@ class Game
         Mesh *baseMesh;
         Mesh *fanMesh;
         Mesh *fanBaseMesh;
-        Mesh *treeTrunk;
-        Mesh *treeBranch;
-        Mesh *terrainMesh;
+        Mesh *treeTrunk, *treeTrunkSimplified;
+        Mesh *treeBranch, *treeBranchSimplified;
+        Mesh *terrainMesh, *terrainMeshSimplified;
         btDynamicsWorld* world;
         btDispatcher* dispatcher;
         btBroadphaseInterface* broadsphase;
@@ -180,13 +182,13 @@ class Game
         float _fov;
 
         PickableObject *ob1, *fanPickableObject;
-        TreeRenderer *treeRenderer;
+        TreeRenderer *treeRenderer, *treeRendererSimplified;
         GrassRenderer *grassRenderer;
         WaterRenderer *waterRenderer;
         std::unordered_map<int, NetworkedPlayer*> otherPlayers;
         Client *client;
 
-        GLuint clipPlaneUniformLocation; //TODO this doesn't belong here, should be moved ASAP
+        GLuint clipPlaneUniformLocation, clipPlaneUniformLocation2, clipPlaneUniformLocation3; //TODO these don't belong here, should be moved ASAP
 };
 
 #endif // GAME_H

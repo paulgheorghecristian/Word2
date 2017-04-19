@@ -52,6 +52,7 @@ void Entity::draw(GeneralShader* shader){
         SimpleShader *ss = (SimpleShader*)shader;
         if(texture){
             ss->loadHasTexture(1);
+            ss->loadHasAlpha(texture->getHasAlpha());
             ss->loadTextureSampler(texture->getTextureUnit());
             texture->use();
         }else{

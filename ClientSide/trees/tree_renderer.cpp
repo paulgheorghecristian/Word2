@@ -2,11 +2,12 @@
 
 TreeRenderer::TreeRenderer(const std::vector<glm::vec3>& positionsRotationsScales,
                            Tree *wantedTreeModel,
-                           const glm::mat4& projectionMatrix) : positionsRotationsScales(positionsRotationsScales),
-                                                                tree(wantedTreeModel),
-                                                                numOfInstances(positionsRotationsScales.size()/3)
+                           const glm::mat4& projectionMatrix,
+                           SimpleShader *shader) : positionsRotationsScales(positionsRotationsScales),
+                                                                    tree(wantedTreeModel),
+                                                                    numOfInstances(positionsRotationsScales.size()/3)
 {
-    shader = new SimpleShader("trees/treeShader.vs", "trees/treeShader.fs");
+    this->shader = shader;
     shader->bind();
     shader->loadProjectionMatrix(projectionMatrix);
     shader->loadTextureSampler(0);
@@ -55,6 +56,14 @@ TreeRenderer::TreeRenderer(const std::vector<glm::vec3>& positionsRotationsScale
     branchTexture = new Texture("res/models/tree/Bark_Tile.bmp", 0);
     crownTexture = new Texture("res/models/tree2/leaf.bmp", 0);
 }
+
+TreeRenderer::TreeRenderer(const std::vector<glm::vec3>& positionsRotationsScales,
+                           Tree *wantedTreeModel,
+                           const glm::mat4& projectionMatrix) : TreeRenderer(positionsRotationsScales,
+                                                                             wantedTreeModel,
+                                                                             projectionMatrix,
+                                                                             new SimpleShader("trees/treeShader.vs", "trees/treeShader.fs"))
+{}
 
 GLuint TreeRenderer::createModelMatricesVbo(){
     GLuint vboHandle;

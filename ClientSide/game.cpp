@@ -49,6 +49,7 @@ void Game::construct(){
     simpleShaderForLights = new SimpleShader("res/shaders/vertex_light", "res/shaders/fragment_light");
     directionalLightShader = new SimpleShader("res/shaders/vertex_directional_light.txt", "res/shaders/fragment_directional_light.txt");
     deferredLightShader = new DeferredLightShader("res/shaders/vertex_def", "res/shaders/fragment_def");
+    forwardLightShaderForWater = new SimpleShader("res/shaders/forwardLightForWater.vs", "res/shaders/forwardLightForWater.fs");
     skyShader = new DeferredLightShader("res/shaders/vertex_sky.txt", "res/shaders/fragment_sky.txt");
     sunShader = new DeferredLightShader("res/shaders/vertex_sun.txt", "res/shaders/fragment_sun.txt");
     emptyShader = new SimpleShader("res/shaders/vertex_empty", "res/shaders/fragment_empty");
@@ -63,6 +64,9 @@ void Game::construct(){
     fanBaseMesh = Mesh::loadObject("res/models/fanBase2.obj");
     treeTrunk = Mesh::loadObject("res/models/tree2/tree2.obj");
     treeBranch = Mesh::loadObject("res/models/tree2/branches3.obj");
+    treeTrunkSimplified = Mesh::loadObject("res/models/tree2/tree2Simplified.obj");
+    treeBranchSimplified = Mesh::loadObject("res/models/tree2/branches3Simplified.obj");
+    terrainMeshSimplified = Mesh::loadObject("res/models/terrainSimplified.obj");
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     player = new Player(world, 30.0f, glm::vec3(0.0f, 30.0f, -300.0f), glm::vec3(10));
     fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
@@ -226,8 +230,16 @@ void Game::construct(){
                            glm::vec3(0, 0, 0),
                            glm::vec3(0.0f, 0.0f, 0.0f),
                            glm::vec3(4800.0f, 1600.0f, 4800.0f),
-                           NULL
-                        );
+                           NULL);
+
+    terrainSimplified = new Entity(world,
+                           "surface",
+                           terrainMeshSimplified,
+                           glm::vec4(1, 1, 1, 1),
+                           glm::vec3(0, 0, 0),
+                           glm::vec3(0.0f, 0.0f, 0.0f),
+                           glm::vec3(4800.0f, 1600.0f, 4800.0f),
+                           NULL);
 
     float lightsize = 600.0f;
     //lights.push_back(new Light(gBuffer, glm::vec3(0.9, 0.5, 0.5), glm::vec3(-30.537, 100.779, -800.82), lightsize));
@@ -279,6 +291,12 @@ void Game::construct(){
     deferredLightShader->bind();
     deferredLightShader->loadProjectionMatrix(projectionMatrix);
 
+    forwardLightShaderForWater->bind();
+    forwardLightShaderForWater->loadProjectionMatrix(projectionMatrix);
+    forwardLightShaderForWater->loadVector3(glGetUniformLocation(forwardLightShaderForWater->getProgram(), "sunLightDir"), glm::normalize(sunLight->getDirection()));
+    forwardLightShaderForWater->loadVector3(glGetUniformLocation(forwardLightShaderForWater->getProgram(), "sunLightColor"), sunLight->getColor());
+    clipPlaneUniformLocation2 = glGetUniformLocation(forwardLightShaderForWater->getProgram(), "clipPlane");
+
     simpleShaderForLights->bind();
     simpleShaderForLights->loadProjectionMatrix(projectionMatrix);
 
@@ -318,9 +336,18 @@ void Game::construct(){
     glUniform1i(glGetUniformLocation(terrainShaderForWater->getProgram(), "grass"), 2);
     glUniform1i(glGetUniformLocation(terrainShaderForWater->getProgram(), "soil"), 3);
     glUniform1i(glGetUniformLocation(terrainShaderForWater->getProgram(), "rock"), 4);
+
     terrainShaderForWater->loadVector3(glGetUniformLocation(terrainShaderForWater->getProgram(), "sunLightDir"), glm::normalize(sunLight->getDirection()));
     terrainShaderForWater->loadVector3(glGetUniformLocation(terrainShaderForWater->getProgram(), "sunLightColor"), sunLight->getColor());
     clipPlaneUniformLocation = glGetUniformLocation(terrainShaderForWater->getProgram(), "clipPlane");
+
+    treeShaderForWater = new SimpleShader("res/shaders/treeShaderForWater.vs",
+                                            "res/shaders/treeShaderForWater.fs");
+    treeShaderForWater->bind();
+    clipPlaneUniformLocation3 = glGetUniformLocation(treeShaderForWater->getProgram(), "clipPlane");
+    treeShaderForWater->loadVector3(glGetUniformLocation(treeShaderForWater->getProgram(), "sunLightDir"), glm::normalize(sunLight->getDirection()));
+    treeShaderForWater->loadVector3(glGetUniformLocation(treeShaderForWater->getProgram(), "sunLightColor"), sunLight->getColor());
+
 
     isClosed = false;
     cullLightsThread = getCullLightsThread();
@@ -914,6 +941,10 @@ void Game::construct(){
     }
 
     treeRenderer = new TreeRenderer(posRotScale, new Tree("tree", treeTrunk, treeBranch), projectionMatrix);
+    treeRendererSimplified = new TreeRenderer(posRotScale,
+                                              new Tree("tree", treeTrunkSimplified, treeBranchSimplified),
+                                              projectionMatrix,
+                                              treeShaderForWater);
     grassRenderer = new GrassRenderer(posScales, Mesh::loadObject("res/models/grassTry.obj"), grassBillboard, projectionMatrix);
     waterRenderer = new WaterRenderer(this->screenWidth/8.0, this->screenHeight/8.0, glm::vec3(447, 25, -200), glm::vec3(100, 1, 100), projectionMatrix);
     Game::score = 0;
@@ -1116,18 +1147,20 @@ void Game::render(){
         terrainShaderForWater->bind();
         terrainShaderForWater->loadViewMatrix(camera->getViewMatrix());
         terrainShaderForWater->loadVector4(clipPlaneUniformLocation, glm::vec4(0, 1, 0, -waterRenderer->getWaterHeight()));
-        terrain->draw(terrainShaderForWater);
+        terrainSimplified->draw(terrainShaderForWater);
 
-        treeRenderer->draw(camera->getViewMatrix());
+        treeShaderForWater->loadVector4(clipPlaneUniformLocation3, glm::vec4(0, 1, 0, -waterRenderer->getWaterHeight()));
+        treeRendererSimplified->draw(camera->getViewMatrix());
 
-        deferredLightShader->bind();
-        deferredLightShader->loadViewMatrix(camera->getViewMatrix());
+        forwardLightShaderForWater->bind();
+        forwardLightShaderForWater->loadVector4(clipPlaneUniformLocation2, glm::vec4(0, 1, 0, -waterRenderer->getWaterHeight()));
+        forwardLightShaderForWater->loadViewMatrix(camera->getViewMatrix());
 
         for(Entity* e : entities){
-            e->draw(deferredLightShader);
+            e->draw(forwardLightShaderForWater);
         }
         for(PuzzleObject *puzzleObject : puzzleObjects){
-            puzzleObject->draw(deferredLightShader);
+            puzzleObject->draw(forwardLightShaderForWater);
         }
 
         camera->invertForward();
@@ -1629,6 +1662,11 @@ Game::~Game()
     delete treeRenderer;
     delete grassRenderer;
     delete waterRenderer;
+
+    delete terrainMeshSimplified;
+    delete forwardLightShaderForWater;
+    delete terrainSimplified;
+    delete treeRendererSimplified;
 }
 
 Input* Game::getInput(){

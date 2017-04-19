@@ -14,6 +14,10 @@ class TreeRenderer
         TreeRenderer(const std::vector<glm::vec3>& positionsRotationsScales,
                      Tree *wantedTreeModel,
                      const glm::mat4& projectionMatrix);
+        TreeRenderer(const std::vector<glm::vec3>& positionsRotationsScales,
+                     Tree *wantedTreeModel,
+                     const glm::mat4& projectionMatrix,
+                     SimpleShader *shader);
     	void draw(const glm::mat4& viewMatrix);
 	virtual ~TreeRenderer();
     protected:
