@@ -1,7 +1,9 @@
 #include "client.h"
 
 Client::Client(const std::string& serverIP, unsigned int port) : serverIP(serverIP),
-                                                                serverPort(port)
+                                                                serverPort(port),
+                                                                initialized(false),
+                                                                server(NULL)
 {
 
 }
@@ -11,6 +13,8 @@ int Client::initialize() {
         std::cout << "Error initializing enet!" << std::endl;
         return -1;
     }
+
+    initialized = true;
 
     client = enet_host_create(NULL, 1, 2, 0, 0);
     if (client == NULL) {
@@ -117,5 +121,7 @@ Client::~Client()
     if (server) {
         enet_peer_reset(server);
     }
-    enet_deinitialize();
+    if (initialized) {
+        enet_deinitialize();
+    }
 }

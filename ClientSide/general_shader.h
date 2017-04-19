@@ -21,14 +21,15 @@ class GeneralShader
         virtual void getAllUniformLocations();
         void bind();
         void loadViewMatrix(const glm::mat4& matrix);
-        void loadColor(glm::vec4 color);
+        void loadColor(const glm::vec4& color);
         void loadProjectionMatrix(const glm::mat4& matrix);
         void loadModelMatrix(const glm::mat4& matrix);
         void loadMatrix(GLuint location, const glm::mat4& matrix);
-        void loadVector4(GLuint location, glm::vec4 vect);
-        void loadVector2(GLuint, glm::vec2);
-        void loadInt(GLuint, int);
-        void loadFloat(GLuint, float);
+        void loadVector4(GLuint location, const glm::vec4& vect);
+        void loadVector3(GLuint location, const glm::vec3& vect);
+        void loadVector2(GLuint location, const glm::vec2& vect);
+        void loadInt(GLuint location, int value);
+        void loadFloat(GLuint location, float value);
         GLuint getProgram();
         virtual ~GeneralShader();
     protected:

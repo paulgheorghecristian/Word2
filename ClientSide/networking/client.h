@@ -57,6 +57,7 @@ class Client
 
         std::vector<PlayerInfo> otherPlayersInfo;
         int myId;
+        bool initialized;
 };
 
 #endif // CLIENT_H

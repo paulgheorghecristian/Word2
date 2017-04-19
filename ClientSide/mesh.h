@@ -39,6 +39,7 @@ class Mesh
         static Mesh* getSurface(int, int);
         static Mesh* getDome(int, int);
         static Mesh* getCircle(float, float, float, int);
+        static Mesh* getRectangleYUp();
         std::vector<Vertex>& getVertices(){return vertices;}
         std::vector<unsigned int>& getIndices(){return indices;}
         glm::vec3& getMinCoordinates(){

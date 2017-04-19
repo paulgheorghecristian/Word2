@@ -14,6 +14,8 @@ class DirectionalLight
     public:
         DirectionalLight(GBuffer*, glm::vec3, glm::vec3);
         void draw(GeneralShader*);
+        glm::vec3 getDirection();
+        glm::vec3 getColor();
         static void setMesh(Mesh*);
         virtual ~DirectionalLight();
     protected:

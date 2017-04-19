@@ -209,7 +209,7 @@ void GeneralShader::loadViewMatrix(const glm::mat4& matrix){
     loadMatrix(viewMatLocation, matrix);
 }
 
-void GeneralShader::loadColor(glm::vec4 color){
+void GeneralShader::loadColor(const glm::vec4& color){
     loadVector4(colorVectorLocation, color);
 }
 
@@ -225,11 +225,15 @@ void GeneralShader::loadMatrix(GLuint location, const glm::mat4& matrix){
     glUniformMatrix4fv(location, 1, false, glm::value_ptr(matrix));
 }
 
-void GeneralShader::loadVector4(GLuint location, glm::vec4 vect){
+void GeneralShader::loadVector4(GLuint location, const glm::vec4& vect){
     glUniform4f(location, vect.x, vect.y, vect.z, vect.w);
 }
 
-void GeneralShader::loadVector2(GLuint location, glm::vec2 vect){
+void GeneralShader::loadVector3(GLuint location, const glm::vec3& vect){
+    glUniform3f(location, vect.x, vect.y, vect.z);
+}
+
+void GeneralShader::loadVector2(GLuint location, const glm::vec2& vect){
     glUniform2f(location, vect.x, vect.y);
 }
 

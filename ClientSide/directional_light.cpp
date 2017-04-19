@@ -31,6 +31,14 @@ void DirectionalLight::setMesh(Mesh* _mesh){
     mesh = _mesh;
 }
 
+glm::vec3 DirectionalLight::getDirection() {
+    return direction;
+}
+
+glm::vec3 DirectionalLight::getColor() {
+    return color;
+}
+
 DirectionalLight::~DirectionalLight()
 {
 

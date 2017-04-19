@@ -33,6 +33,7 @@
 #include <unordered_map>
 #include "networking/client.h"
 #include "networking/networked_player.h"
+#include "water/water_renderer.h"
 
 #define GRAVITY -30
 #define FORCE 800
@@ -116,7 +117,7 @@ class Game
         SimpleShader *simpleShaderForLights;
         SimpleShader *directionalLightShader;
         SimpleShader *emptyShader, *sunSimpleShader;
-        SimpleShader *terrainShader;
+        SimpleShader *terrainShader, *terrainShaderForWater;
         SimpleShader *guiShader, *goalShader;
         SimpleShader *grassShader;
         PostProcess *sunPostProcess;
@@ -181,8 +182,11 @@ class Game
         PickableObject *ob1, *fanPickableObject;
         TreeRenderer *treeRenderer;
         GrassRenderer *grassRenderer;
+        WaterRenderer *waterRenderer;
         std::unordered_map<int, NetworkedPlayer*> otherPlayers;
         Client *client;
+
+        GLuint clipPlaneUniformLocation; //TODO this doesn't belong here, should be moved ASAP
 };
 
 #endif // GAME_H

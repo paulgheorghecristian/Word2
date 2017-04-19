@@ -68,6 +68,25 @@ Mesh* Mesh::getRectangle(){
     return new Mesh(vertices, indices);
 }
 
+Mesh* Mesh::getRectangleYUp() {
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    vertices.push_back(Vertex(glm::vec3(-1, 0, 1), glm::vec3(0, 1, 0), glm::vec2(0, 0)));
+    vertices.push_back(Vertex(glm::vec3(-1, 0, -1), glm::vec3(0, 1, 0), glm::vec2(0, 1)));
+    vertices.push_back(Vertex(glm::vec3(1, 0, -1), glm::vec3(0, 1, 0), glm::vec2(1, 1)));
+    vertices.push_back(Vertex(glm::vec3(1, 0, 1), glm::vec3(0, 1, 0), glm::vec2(1, 0)));
+
+    indices.push_back(0);
+    indices.push_back(3);
+    indices.push_back(1);
+    indices.push_back(1);
+    indices.push_back(3);
+    indices.push_back(2);
+
+    return new Mesh(vertices, indices);
+}
+
 void Mesh::draw(){
     glBindVertexArray(getVao());
     glDrawElements(GL_TRIANGLES, numberOfTriangles, GL_UNSIGNED_INT, (void*)0);
