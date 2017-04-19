@@ -1,7 +1,7 @@
-#version 330 core
+#version 430
 
-layout(location = 0) out vec3 outEyeSpaceNormal;
-layout(location = 1) out vec3 outColor;
+layout(location = 0) out vec3 outColor;
+layout(location = 1) out vec3 outEyeSpaceNormal;
 
 in vec2 textureCoords;;
 in vec3 eyeSpaceNormal;

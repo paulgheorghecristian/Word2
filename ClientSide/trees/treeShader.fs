@@ -1,7 +1,7 @@
 #version 430
 
-layout(location = 0) out vec3 outEyeSpaceNormal;
-layout(location = 1) out vec3 outColor;
+layout(location = 0) out vec3 outColor;
+layout(location = 1) out vec3 outEyeSpaceNormal;
 
 uniform sampler2D textureSampler;
 uniform vec4 colorVector;
