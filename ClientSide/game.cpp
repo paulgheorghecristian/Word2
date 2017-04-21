@@ -946,7 +946,7 @@ void Game::construct(){
                                               projectionMatrix,
                                               treeShaderForWater);
     grassRenderer = new GrassRenderer(posScales, Mesh::loadObject("res/models/grassTry.obj"), grassBillboard, projectionMatrix);
-    waterRenderer = new WaterRenderer(this->screenWidth/8.0, this->screenHeight/8.0, glm::vec3(447, 25, -200), glm::vec3(100, 1, 100), projectionMatrix);
+    waterRenderer = new WaterRenderer(this->screenWidth, this->screenHeight, glm::vec3(447, 25, -200), glm::vec3(100, 1, 100), projectionMatrix);
     Game::score = 0;
 
     #ifdef ONLINE

@@ -5,6 +5,7 @@
 #include "../mesh.h"
 #include "../framebuffer.h"
 #include "../general_shader.h"
+#include "../display.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -22,10 +23,14 @@ class WaterRenderer
     protected:
     private:
         Mesh *waterMesh;
-        Texture *refractionTexture, *reflectionTexture;
+        Texture *refractionTexture, *reflectionTexture, *DuDvTexture, *normalMapTexture;
+        float dudvOffset;
         Framebuffer *waterFramebuffer;
         GeneralShader *waterShader;
         float waterHeight;
+
+        GLuint dudvOffsetUniformLocation;
+        const float WAVE_SPEED = 0.03f;
 };
 
 #endif // WATERRENDERER_H

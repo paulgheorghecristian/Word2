@@ -6,11 +6,9 @@ layout(location = 2) in vec2 inTexcoord;
 
 uniform mat4 viewMatrix, projectionMatrix, modelMatrix;
 out vec2 textureCoords;
-out vec3 eyeSpaceNormal;
 
 
 void main(){
 	textureCoords = inTexcoord;
-	eyeSpaceNormal = (mat3(viewMatrix) * mat3(modelMatrix) * inNormal).xyz;
 	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(inPosition,1);
 }
