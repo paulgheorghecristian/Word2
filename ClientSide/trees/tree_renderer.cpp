@@ -142,6 +142,8 @@ void TreeRenderer::draw(const glm::mat4& viewMatrix){
     crownTexture->use();
     glDrawElementsInstanced(GL_TRIANGLES, tree->getCrownMesh()->getNumberOfTriangles(), GL_UNSIGNED_INT, 0, numOfInstances);
     glBindVertexArray(0);
+
+    glEnable(GL_CULL_FACE);
 }
 
 void TreeRenderer::createTrunkVbo(const std::vector<Vertex>& vertices,

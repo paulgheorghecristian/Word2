@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
             return 0;
         } else {
     #endif
-            game = new Game("World2-ver 0.01", new Camera(glm::vec3(500, 20, 500), 0, 0, 0), client);
+            game = new Game(1920, 1080, "World2-ver 0.01", new Camera(glm::vec3(500, 20, 500), 0, 0, 0), client);
             game->run();
     #ifdef ONLINE
         }

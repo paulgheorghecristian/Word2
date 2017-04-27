@@ -4,7 +4,7 @@
 #define RENDER_GEOMETRY 1
 #define RENDER_PARTICLES 1
 #define RENDER_EFFECTS 1
-#define RENDER_GUI 1
+#define RENDER_GUI 0
 #define RENDER_SCREENRECTANGLE 1
 #define UPDATE_PARTICLES 1
 #define ADD_LIGHTS 1
@@ -62,11 +62,12 @@ void Game::construct(){
     baseMesh = Mesh::loadObject("res/models/base.obj");
     fanMesh = Mesh::loadObject("res/models/fan2.obj");
     fanBaseMesh = Mesh::loadObject("res/models/fanBase2.obj");
+    rockMesh = Mesh::loadObject("res/models/rock.obj");
     treeTrunk = Mesh::loadObject("res/models/tree2/tree2.obj");
     treeBranch = Mesh::loadObject("res/models/tree2/branches3.obj");
     treeTrunkSimplified = Mesh::loadObject("res/models/tree2/tree2Simplified.obj");
     treeBranchSimplified = Mesh::loadObject("res/models/tree2/branches3Simplified.obj");
-    terrainMeshSimplified = Mesh::loadObject("res/models/terrainSimplified.obj");
+    terrainMeshSimplified = Mesh::loadObject("res/models/terrain4.obj");
     textShader = new TextShader("res/shaders/text_vs", "res/shaders/text_fs");
     player = new Player(world, 30.0f, glm::vec3(0.0f, 30.0f, -300.0f), glm::vec3(10));
     fpsText = new Text(new Font("res/fonts/myfont.fnt", "res/fonts/font7.bmp"),
@@ -94,6 +95,7 @@ void Game::construct(){
     grass = new Texture("res/textures/grass2.bmp", 2);
     soil = new Texture("res/textures/soil.bmp", 3);
     rock = new Texture("res/textures/rock.bmp", 4);
+    rockWithGrass = new Texture("res/textures/rockWithGrass.bmp",0);
     grassBillboard = new Texture("res/textures/billboardgrass1medium.bmp", 0, true, GL_BGR);
     gBuffer = new GBuffer(this->screenWidth, this->screenHeight);
     Box::setMesh(boxMesh);
@@ -180,36 +182,45 @@ void Game::construct(){
                                     30.0f,
                                     tex1)
                        );*/
+    entities.push_back(new Box(world,
+                               rockMesh,
+                               0.0f,
+                               glm::vec4(1,1,1,1),
+                               glm::vec3(501, -60, -669),
+                               glm::vec3(0),
+                               glm::vec3(80),
+                               glm::vec3(65, 77, 65),
+                               rockWithGrass));
 
     entities.push_back(new Box(world,
-                               Mesh::loadObject("res/models/rock.obj"),
+                               rockMesh,
                                0.0f,
                                glm::vec4(1,1,1,1),
                                glm::vec3(400, 15, 400),
                                glm::vec3(0),
                                glm::vec3(30),
                                glm::vec3(65, 77, 65),
-                               new Texture("res/textures/rockWithGrass.bmp",0)));
+                               rockWithGrass));
 
     entities.push_back(new Box(world,
-                               Mesh::loadObject("res/models/rock.obj"),
+                               rockMesh,
                                0.0f,
                                glm::vec4(1,1,1,1),
                                glm::vec3(400, 5, 320),
                                glm::vec3(glm::radians(43.0f), glm::radians(90.0f), 0),
                                glm::vec3(15),
                                glm::vec3(35, 20, 35),
-                               new Texture("res/textures/rockWithGrass.bmp",0)));
+                               rockWithGrass));
 
     entities.push_back(new Box(world,
-                               Mesh::loadObject("res/models/rock.obj"),
+                               rockMesh,
                                0.0f,
                                glm::vec4(1,1,1,1),
                                glm::vec3(350, 5, 350),
                                glm::vec3(glm::radians(13.0f), glm::radians(90.0f), glm::radians(0.0f)),
                                glm::vec3(15),
                                glm::vec3(35, 30, 35),
-                               new Texture("res/textures/rockWithGrass.bmp",0)));
+                               rockWithGrass));
 
     /*entities.push_back(new Entity(world,
                                "surface",
@@ -278,7 +289,7 @@ void Game::construct(){
     lights.push_back(new Light(gBuffer, glm::vec3(1, 0, 1), glm::vec3(10, 10, 10), lightsize));*/
     #endif
     DirectionalLight::setMesh(Mesh::getRectangle());
-    sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,3,-4.5));
+    sunLight = new DirectionalLight(gBuffer, glm::vec3(1.0, 0.50, 0.2), glm::vec3(1,5,-4.5));
 
     _near = 1.0f;
     _far = 5000.0f;
@@ -474,7 +485,7 @@ void Game::construct(){
     hBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
     std::vector<std::string> paths = {"res/textures/lensflare/lenscolor.bmp", "lensFlareColorSampler"};
-    sunPostProcess = new PostProcess(this->screenWidth/4.0, this->screenHeight/4.0, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs", paths);
+    sunPostProcess = new PostProcess(this->screenWidth, this->screenHeight, "res/shaders/sun_postprocess.vs", "res/shaders/sun_postprocess.fs", paths);
     hBlur2 = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, sunPostProcess->getResultingTextureId(), "res/shaders/hBlur.vs", "res/shaders/hBlur.fs");
     wBlur2 = new PostProcess(this->screenWidth/4.0f, this->screenHeight/4.0f, hBlur2->getResultingTextureId(), "res/shaders/wBlur.vs", "res/shaders/wBlur.fs");
 
@@ -836,11 +847,11 @@ void Game::construct(){
 
     std::vector<glm::vec3> posRotScale;
 
-    posRotScale.push_back(glm::vec3(787, 60, -516));
+    posRotScale.push_back(glm::vec3(787, 30, -1400));
     posRotScale.push_back(glm::vec3(0, glm::radians(36.0f), 0));
     posRotScale.push_back(glm::vec3(50.0f));
 
-    posRotScale.push_back(glm::vec3(602, 30, -406));
+    posRotScale.push_back(glm::vec3(602, 30, -1206));
     posRotScale.push_back(glm::vec3(0, glm::radians(110.0f), 0));
     posRotScale.push_back(glm::vec3(40.0f));
 
@@ -946,7 +957,7 @@ void Game::construct(){
                                               projectionMatrix,
                                               treeShaderForWater);
     grassRenderer = new GrassRenderer(posScales, Mesh::loadObject("res/models/grassTry.obj"), grassBillboard, projectionMatrix);
-    waterRenderer = new WaterRenderer(this->screenWidth, this->screenHeight, glm::vec3(447, 25, -200), glm::vec3(100, 1, 100), projectionMatrix);
+    waterRenderer = new WaterRenderer(this->screenWidth, this->screenHeight, glm::vec3(512, -20, -700), glm::vec3(400, 1, 400), projectionMatrix);
     Game::score = 0;
 
     #ifdef ONLINE
@@ -1139,6 +1150,7 @@ void Game::render(){
         glCullFace(GL_BACK);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LEQUAL);
+
         blendmap->use();
         soil->use();
         rock->use();
@@ -1146,14 +1158,15 @@ void Game::render(){
         dirt->use();
         terrainShaderForWater->bind();
         terrainShaderForWater->loadViewMatrix(camera->getViewMatrix());
-        terrainShaderForWater->loadVector4(clipPlaneUniformLocation, glm::vec4(0, 1, 0, -waterRenderer->getWaterHeight()));
+        terrainShaderForWater->loadVector4(clipPlaneUniformLocation, glm::vec4(0, 1, 0, -waterRenderer->getWaterHeight()+3));
         terrainSimplified->draw(terrainShaderForWater);
 
-        treeShaderForWater->loadVector4(clipPlaneUniformLocation3, glm::vec4(0, 1, 0, -waterRenderer->getWaterHeight()));
+        treeShaderForWater->bind();
+        treeShaderForWater->loadVector4(clipPlaneUniformLocation3, glm::vec4(0, 1, 0, -waterRenderer->getWaterHeight()+3));
         treeRendererSimplified->draw(camera->getViewMatrix());
 
         forwardLightShaderForWater->bind();
-        forwardLightShaderForWater->loadVector4(clipPlaneUniformLocation2, glm::vec4(0, 1, 0, -waterRenderer->getWaterHeight()));
+        forwardLightShaderForWater->loadVector4(clipPlaneUniformLocation2, glm::vec4(0, 1, 0, -waterRenderer->getWaterHeight()+3));
         forwardLightShaderForWater->loadViewMatrix(camera->getViewMatrix());
 
         for(Entity* e : entities){
@@ -1165,6 +1178,31 @@ void Game::render(){
 
         camera->invertForward();
         camera->moveUp(2*length);
+    }
+    waterRenderer->unbind();
+
+    waterRenderer->bindForRefractionTexture();
+    {
+        blendmap->use();
+        soil->use();
+        rock->use();
+        grass->use();
+        dirt->use();
+        terrainShaderForWater->bind();
+        terrainShaderForWater->loadViewMatrix(camera->getViewMatrix());
+        terrainShaderForWater->loadVector4(clipPlaneUniformLocation, glm::vec4(0, -1, 0, waterRenderer->getWaterHeight()+1));
+        terrainSimplified->draw(terrainShaderForWater);
+
+        forwardLightShaderForWater->bind();
+        forwardLightShaderForWater->loadVector4(clipPlaneUniformLocation2, glm::vec4(0, -1, 0, waterRenderer->getWaterHeight()+1));
+        forwardLightShaderForWater->loadViewMatrix(camera->getViewMatrix());
+
+        for(Entity* e : entities){
+            e->draw(forwardLightShaderForWater);
+        }
+        for(PuzzleObject *puzzleObject : puzzleObjects){
+            puzzleObject->draw(forwardLightShaderForWater);
+        }
     }
     waterRenderer->unbind();
 
@@ -1246,9 +1284,9 @@ void Game::render(){
         #if RENDER_EFFECTS
         glBindFramebuffer(GL_READ_FRAMEBUFFER, gBuffer->getFrameBufferObject());
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, sunPostProcess->getFrameBufferObject());
-        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/4.0, this->screenHeight/4.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth, this->screenHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, hBlur->getFrameBufferObject());
-        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/4.0, this->screenHeight/4.0, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+        glBlitFramebuffer(0, 0, this->screenWidth, this->screenHeight, 0, 0, this->screenWidth/4.0f, this->screenHeight/4.0f, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
         hBlur->bind();
@@ -1519,7 +1557,7 @@ void Game::initBullet(){
     world->setInternalTickCallback(Game::bulletTickCallback, (void*)this, true);
     gContactAddedCallback = Game::bulletCollisionCallback;
 
-    terrainMesh = Mesh::loadObject("res/models/terrain.obj");
+    terrainMesh = Mesh::loadObject("res/models/terrain4.obj");
     int *indices = (int *)malloc(sizeof(int) * terrainMesh->getIndices().size());
     btScalar *vertices = (btScalar *)malloc(sizeof(btScalar) * terrainMesh->getVertices().size()*3);
 
@@ -1571,9 +1609,9 @@ glm::vec3 Game::calculateSunPosition(const glm::mat4& projectionMatrix,
     newModelMatrix[2][1] = viewMatrix[1][2];
     newModelMatrix[2][2] = viewMatrix[2][2];
     glm::vec4 pos = (projectionMatrix *
-                     (glm::mat4(glm::mat3(viewMatrix)) *
+                     viewMatrix *
                       newModelMatrix) *
-                     glm::vec4(glm::vec3(0), 1.0));
+                     glm::vec4(glm::vec3(0), 1.0);
     pos = glm::vec4(pos.x/pos.w, pos.y/pos.w, pos.z/pos.w, 0);
     glm::vec3 posXYZ = glm::vec3((pos.x + 1)/2.0, (pos.y+1)/2.0, (pos.z+1)/2.0);
     return posXYZ;
@@ -1652,6 +1690,7 @@ Game::~Game()
     delete baseMesh;
     delete fanMesh;
     delete fanBaseMesh;
+    delete rockMesh;
 
     delete world;
     delete dispatcher;
@@ -1667,6 +1706,8 @@ Game::~Game()
     delete forwardLightShaderForWater;
     delete terrainSimplified;
     delete treeRendererSimplified;
+
+    delete rockWithGrass;
 }
 
 Input* Game::getInput(){

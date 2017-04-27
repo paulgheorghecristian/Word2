@@ -93,7 +93,7 @@ glm::vec3 Camera::getUp(){
     return glm::normalize(glm::cross(forward, getRight()));
 }
 
-void Camera::setPosition(glm::vec3 pos){
+void Camera::setPosition(const glm::vec3& pos){
     position = pos;
 }
 

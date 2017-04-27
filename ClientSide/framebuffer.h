@@ -13,6 +13,7 @@ class Framebuffer
         void bindSingleRenderTarget(unsigned int);
         void unbind();
         std::vector<GLuint>& getRenderTargets();
+        GLuint getDepthTextureId();
         GLuint getFrameBufferObject();
         virtual ~Framebuffer();
     protected:

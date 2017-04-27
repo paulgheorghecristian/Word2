@@ -16,15 +16,20 @@ Framebuffer::Framebuffer(float width, float height, unsigned int numOfRenderTarg
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
     }
 
+    glGenTextures(1, &depthBufferId);
+    glBindTexture(GL_TEXTURE_2D, depthBufferId);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, 0);
+
     //selecteaza attachment-ul pentru desenare color buffer
     for(unsigned int i = 0; i < numOfRenderTargets; i++){
         glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, renderTargets[i], 0);
     }
 
-    glGenRenderbuffers(1, &depthBufferId);
-    glBindRenderbuffer(GL_RENDERBUFFER, depthBufferId);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_STENCIL, width, height);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBufferId);
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthBufferId, 0);
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
         std::cerr << "Framebuffer isn't complete!" << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
@@ -69,6 +74,10 @@ void Framebuffer::unbind(){
 
 std::vector<GLuint>& Framebuffer::getRenderTargets(){
     return renderTargets;
+}
+
+GLuint Framebuffer::getDepthTextureId() {
+    return depthBufferId;
 }
 
 GLuint Framebuffer::getFrameBufferObject(){

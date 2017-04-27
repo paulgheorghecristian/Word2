@@ -23,7 +23,7 @@ class WaterRenderer
     protected:
     private:
         Mesh *waterMesh;
-        Texture *refractionTexture, *reflectionTexture, *DuDvTexture, *normalMapTexture;
+        Texture *refractionTexture, *reflectionTexture, *DuDvTexture, *normalMapTexture, *depthMapTexture;
         float dudvOffset;
         Framebuffer *waterFramebuffer;
         GeneralShader *waterShader;

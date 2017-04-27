@@ -6,6 +6,7 @@ WaterRenderer::WaterRenderer(int width, int height, const glm::vec3& position,
     waterFramebuffer = new Framebuffer(width, height, 2);
     reflectionTexture = new Texture(waterFramebuffer->getRenderTargets()[0], 0);
     refractionTexture = new Texture(waterFramebuffer->getRenderTargets()[1], 1);
+    depthMapTexture = new Texture(waterFramebuffer->getDepthTextureId(), 4);
     DuDvTexture = new Texture("water/waterDUDV.bmp", 2);
     normalMapTexture = new Texture("water/waterNormalMap.bmp", 3);
     waterMesh = Mesh::getRectangleYUp();
@@ -22,6 +23,7 @@ WaterRenderer::WaterRenderer(int width, int height, const glm::vec3& position,
     glUniform1i(glGetUniformLocation(waterShader->getProgram(), "refractionSampler"), 1);
     glUniform1i(glGetUniformLocation(waterShader->getProgram(), "DuDvTextureSampler"), 2);
     glUniform1i(glGetUniformLocation(waterShader->getProgram(), "normalMapTextureSampler"), 3);
+    glUniform1i(glGetUniformLocation(waterShader->getProgram(), "depthMapTextureSampler"), 4);
     glUniform1i(glGetUniformLocation(waterShader->getProgram(), "width"), width);
     glUniform1i(glGetUniformLocation(waterShader->getProgram(), "height"), height);
     dudvOffsetUniformLocation = glGetUniformLocation(waterShader->getProgram(), "dudvOffset");
@@ -54,6 +56,7 @@ void WaterRenderer::draw(const glm::mat4& viewMatrix) {
     refractionTexture->use();
     DuDvTexture->use();
     normalMapTexture->use();
+    depthMapTexture->use();
     waterShader->bind();
     waterShader->loadFloat(dudvOffsetUniformLocation, dudvOffset);
     waterShader->loadViewMatrix(viewMatrix);
@@ -67,6 +70,7 @@ WaterRenderer::~WaterRenderer()
     delete refractionTexture;
     delete DuDvTexture;
     delete normalMapTexture;
+    delete depthMapTexture;
     delete waterMesh;
     delete waterShader;
 }

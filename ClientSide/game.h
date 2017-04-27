@@ -144,6 +144,7 @@ class Game
         Mesh *treeTrunk, *treeTrunkSimplified;
         Mesh *treeBranch, *treeBranchSimplified;
         Mesh *terrainMesh, *terrainMeshSimplified;
+        Mesh *rockMesh;
         btDynamicsWorld* world;
         btDispatcher* dispatcher;
         btBroadphaseInterface* broadsphase;
@@ -155,6 +156,7 @@ class Game
         Texture *bark, *leaf;
         Texture *blendmap, *dirt, *grass, *soil, *rock;
         Texture *grassBillboard;
+        Texture *rockWithGrass;
         Text *fpsText;
         Text *lightsText;
         Text *scoreText;

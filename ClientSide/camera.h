@@ -20,7 +20,7 @@ class Camera
         void rotateX(float);
         void invertForward();
         virtual ~Camera();
-        void setPosition(glm::vec3);
+        void setPosition(const glm::vec3& position);
         glm::vec3 getPosition();
         glm::vec3 getRight();
         glm::vec3 getForward();

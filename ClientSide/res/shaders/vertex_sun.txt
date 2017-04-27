@@ -19,5 +19,5 @@ void main(){
     newModelMatrix[2][0] = viewMatrix[0][2];
     newModelMatrix[2][1] = viewMatrix[1][2];
     newModelMatrix[2][2] = viewMatrix[2][2];
-    gl_Position = projectionMatrix * (mat4(mat3(viewMatrix)) * newModelMatrix) * vec4(inPosition, 1.0);
+    gl_Position = projectionMatrix * viewMatrix * newModelMatrix * vec4(inPosition, 1.0);
 }

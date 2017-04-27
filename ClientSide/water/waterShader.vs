@@ -7,8 +7,7 @@ layout(location = 2) in vec2 inTexcoord;
 uniform mat4 viewMatrix, projectionMatrix, modelMatrix;
 out vec2 textureCoords;
 
-
 void main(){
 	textureCoords = inTexcoord;
-	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(inPosition,1);
+	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(inPosition,1);;
 }
